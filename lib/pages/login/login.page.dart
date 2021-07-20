@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_sa_transportes/pages/login/login_controller.dart';
+import 'package:web_sa_transportes/utils/colors_util.dart';
+import 'package:web_sa_transportes/widgets/custom_card.dart';
 import 'package:web_sa_transportes/widgets/custom_input_field.dart';
+import 'package:web_sa_transportes/widgets/custom_raisedbutton.dart';
 
 class LoginPage extends GetView<LoginController> {
   @override
@@ -13,9 +16,9 @@ class LoginPage extends GetView<LoginController> {
           ),
           child: Align(
             child: Container(
-              width: 300.0,
-              height: 500.0,
-              child: Card(
+              width: 350.0,
+              height: 450.0,
+              child: CustomCard(
                 child: Container(
                   margin: EdgeInsets.all(20.0),
                   child: Column(
@@ -34,18 +37,19 @@ class LoginPage extends GetView<LoginController> {
                               obscure: false,
                               type: TextInputType.emailAddress,
                               //validator: ValidatorsUtil.validateEmail,
-                              hint: "Seu endereço de e-mail aqui",
+                              hint: "Digite seu e-mail",
                             ),
                             SizedBox(
                               height: 16.0,
                             ),
                             CustomInputFieldGrey(
-                                //controller: _senhaController,
-                                label: "Senha",
-                                //obscure: this._hidePassword,
-                                type: TextInputType.text,
-                                //validator: ValidatorsUtil.validatePassword,
-                                /*suffixIcon: IconButton(
+                              //controller: _senhaController,
+                              label: "Senha",
+                              hint: "Digite sua senha",
+                              //obscure: this._hidePassword,
+                              type: TextInputType.text,
+                              //validator: ValidatorsUtil.validatePassword,
+                              /*suffixIcon: IconButton(
                                   icon: Icon(
                                     Icons.remove_red_eye,
                                     color: !this._hidePassword
@@ -59,39 +63,46 @@ class LoginPage extends GetView<LoginController> {
                                 ),*/
                             ),
                             SizedBox(
-                              height: 26.0,
+                              height: 10.0,
                             ),
-                            /*CustomRaisedButtonBlue(
-                                label: "Login",
-                                func: () {
-                                  if (_formKey.currentState.validate()) {
-                                    mainStore.login(
-                                        email: _emailController.text,
-                                        senha: _senhaController.text,
-                                        context: context,
-                                        scaffoldKey: _scaffoldKey);
-                                  }
-                                }),*/
-                            SizedBox(
-                              height: 16.0,
-                            ),
-                            GestureDetector(
-                              child: Container(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  "Esqueceu a sua senha?",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              onTap: () {
-                                /*Navigator.of(context).push(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    GestureDetector(
+                                      child: Container(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "Esqueci minha senha",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(color: ColorsUtil.grey, fontSize: 12, fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        /*Navigator.of(context).push(
                                     MaterialPageRoute(builder: (context) => RecuperacaoDeSenhaScreen()));*/
-                              },
-                            ),
+                                      },
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 5.0),
+                                      child: Icon(Icons.lock, color: ColorsUtil.grey, size: 12.0,),
+                                    )
+                                  ],
+                                ),
+                                CustomRaisedButtonBlue(
+                                    label: "ENTRAR",
+                                    /*func: () {
+                                      if (_formKey.currentState.validate()) {
+                                        mainStore.login(
+                                            email: _emailController.text,
+                                            senha: _senhaController.text,
+                                            context: context,
+                                            scaffoldKey: _scaffoldKey);
+                                      }
+                                    }*/)
+                              ],
+                            )
                           ],
                         ),
                       )

@@ -36,19 +36,26 @@ class CustomInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      decoration: this.decoration??InputDecoration(
-        icon: icon,
-        hintText: hint,
-        labelText: label,
-        labelStyle: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
-        errorText: null,
-      ),
-      //onEditingComplete: onEditingComplete,
-      obscureText: obscure ?? false,
-      keyboardType: type,
-      maxLength: maxLength,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: EdgeInsets.all(5.0),
+          child: Text(label??"", style: TextStyle(color: ColorsUtil.charcoal, fontWeight: FontWeight.bold, fontSize: 12.0),),
+        ),
+        TextField(
+          controller: controller,
+          decoration: this.decoration??InputDecoration(
+            icon: icon,
+            hintText: hint,
+            errorText: null,
+          ),
+          //onEditingComplete: onEditingComplete,
+          obscureText: obscure ?? false,
+          keyboardType: type,
+          maxLength: maxLength,
+        )
+      ],
     );
   }
 }
@@ -106,8 +113,9 @@ class CustomInputFieldGrey extends CustomInputField {
         filled: true,
         fillColor: (this.enabled ?? false) ? ColorsUtil.lightGrey2 : Colors.grey[200],
         hintText: hint,
-        labelText: label,
-        labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+        labelText: hint,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        labelStyle: TextStyle(fontSize: 12.0),
         errorText: null,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),

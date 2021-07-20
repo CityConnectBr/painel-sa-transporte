@@ -40,16 +40,28 @@ class CustomRaisedButtonBlue extends StatelessWidget {
   IconData? icon;
   String? label;
   final VoidCallback? func;
-  Widget? child;
 
   CustomRaisedButtonBlue(
       {@required this.icon, @required this.label, this.func});
 
-  CustomRaisedButtonBlue.withChild({@required this.child, this.func});
+  final ButtonStyle flatButtonStyle = TextButton.styleFrom(
+    primary: Colors.white,
+    minimumSize: Size(98, 46),
+    backgroundColor: ColorsUtil.lightBlue,
+    padding: EdgeInsets.symmetric(horizontal: 16.0),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
-    return ButtonTheme(
+    return ElevatedButton(
+      style: flatButtonStyle,
+      onPressed: () { },
+      child: Text(label??"", style: const TextStyle(fontSize: 13.0),),
+    );
+    /*return ButtonTheme(
       minWidth: 1000.0,
       height: 50.0,
       child: RaisedButton(
@@ -68,6 +80,7 @@ class CustomRaisedButtonBlue extends StatelessWidget {
         color: ColorsUtil.lightBlue,
         onPressed: this.func,
       ),
-    );
+    );*/
+
   }
 }
