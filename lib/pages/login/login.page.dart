@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_sa_transportes/pages/login/login_controller.dart';
 import 'package:web_sa_transportes/utils/colors_util.dart';
+import 'package:web_sa_transportes/utils/validators.dart';
 import 'package:web_sa_transportes/widgets/custom_card.dart';
 import 'package:web_sa_transportes/widgets/custom_input_field.dart';
-import 'package:web_sa_transportes/widgets/custom_raisedbutton.dart';
+import 'package:web_sa_transportes/widgets/custom_button.dart';
 
 class LoginPage extends GetView<LoginController> {
   @override
@@ -29,38 +30,38 @@ class LoginPage extends GetView<LoginController> {
                         child: Image(image: AssetImage("assets/images/sa_logo.png")),
                       ),
                       Form(
+                        key: this.controller.formKey,
                         child: Column(
                           children: [
                             CustomInputFieldGrey(
-                              //controller: _emailController,
+                              controller: this.controller.emailController,
                               label: "E-mail",
                               obscure: false,
                               type: TextInputType.emailAddress,
-                              //validator: ValidatorsUtil.validateEmail,
+                              validator: ValidatorsUtil.validateEmail,
                               hint: "Digite seu e-mail",
                             ),
                             SizedBox(
                               height: 16.0,
                             ),
-                            CustomInputFieldGrey(
-                              //controller: _senhaController,
-                              label: "Senha",
-                              hint: "Digite sua senha",
-                              //obscure: this._hidePassword,
-                              type: TextInputType.text,
-                              //validator: ValidatorsUtil.validatePassword,
-                              /*suffixIcon: IconButton(
+                            Obx(
+                              () => CustomInputFieldGrey(
+                                controller: this.controller.senhaController,
+                                label: "Senha",
+                                hint: "Digite sua senha",
+                                obscure: this.controller.hiddenPassword.value,
+                                validator: ValidatorsUtil.isNullOrIsEmpty,
+                                type: TextInputType.text,
+                                suffixIcon: IconButton(
                                   icon: Icon(
                                     Icons.remove_red_eye,
-                                    color: !this._hidePassword
+                                    color: !this.controller.hiddenPassword.value
                                         ? Theme.of(context).primaryColor
                                         : Colors.grey,
                                   ),
-                                  onPressed: () {
-                                    setState(
-                                            () => this._hidePassword = !this._hidePassword);
-                                  },
-                                ),*/
+                                  onPressed: () => this.controller.changeHiddenPassword(),
+                                ),
+                              ),
                             ),
                             SizedBox(
                               height: 10.0,
@@ -86,21 +87,18 @@ class LoginPage extends GetView<LoginController> {
                                     ),
                                     Container(
                                       margin: EdgeInsets.only(left: 5.0),
-                                      child: Icon(Icons.lock, color: ColorsUtil.grey, size: 12.0,),
+                                      child: Icon(
+                                        Icons.lock,
+                                        color: ColorsUtil.grey,
+                                        size: 12.0,
+                                      ),
                                     )
                                   ],
                                 ),
-                                CustomRaisedButtonBlue(
-                                    label: "ENTRAR",
-                                    /*func: () {
-                                      if (_formKey.currentState.validate()) {
-                                        mainStore.login(
-                                            email: _emailController.text,
-                                            senha: _senhaController.text,
-                                            context: context,
-                                            scaffoldKey: _scaffoldKey);
-                                      }
-                                    }*/)
+                                CustomButtonBlue(
+                                  label: "ENTRAR",
+                                  func: () => this.controller.login(),
+                                )
                               ],
                             )
                           ],

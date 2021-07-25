@@ -11,9 +11,9 @@ class CustomInputField extends StatelessWidget {
   final bool? obscure;
   final bool? enabled;
   final TextInputType? type;
-  final Function(String)? validator;
-  final Function? onEditingComplete;
-  final Function? onChanged;
+  final String? Function(dynamic)? validator;
+  final Function()? onEditingComplete;
+  final String? Function(dynamic)? onChanged;
   final TextEditingController? controller;
   final int? maxLength;
   final InputDecoration? decoration;
@@ -43,17 +43,23 @@ class CustomInputField extends StatelessWidget {
           margin: EdgeInsets.all(5.0),
           child: Text(label??"", style: TextStyle(color: ColorsUtil.charcoal, fontWeight: FontWeight.bold, fontSize: 12.0),),
         ),
-        TextField(
+        TextFormField(
           controller: controller,
           decoration: this.decoration??InputDecoration(
             icon: icon,
             hintText: hint,
-            errorText: null,
+            labelText: hint,
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            filled: true,
+            fillColor: (this.enabled ?? false) ? ColorsUtil.lightGrey2 : Colors.grey[200],
           ),
-          //onEditingComplete: onEditingComplete,
           obscureText: obscure ?? false,
           keyboardType: type,
           maxLength: maxLength,
+          validator: validator,
+          onChanged: onChanged,
+          onEditingComplete: onEditingComplete,
         )
       ],
     );
@@ -66,12 +72,13 @@ class CustomInputFieldGrey extends CustomInputField {
   final Widget? suffixIcon;
   final String? hint;
   final String? label;
+  final String? error;
   final bool? obscure;
   final bool? enabled;
   final TextInputType? type;
-  final Function(String)? validator;
-  final Function? onEditingComplete;
-  final Function? onChanged;
+  final String? Function(dynamic)? validator;
+  final Function()? onEditingComplete;
+  final String? Function(dynamic)? onChanged;
   final TextEditingController? controller;
   final int? maxLength;
 
@@ -82,6 +89,7 @@ class CustomInputFieldGrey extends CustomInputField {
       this.suffixIcon,
       this.hint,
       this.label,
+      this.error,
       this.obscure,
       this.type,
       this.validator,
@@ -110,13 +118,14 @@ class CustomInputFieldGrey extends CustomInputField {
         icon: icon,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
+        errorText: error,
         filled: true,
         fillColor: (this.enabled ?? false) ? ColorsUtil.lightGrey2 : Colors.grey[200],
         hintText: hint,
         labelText: hint,
         floatingLabelBehavior: FloatingLabelBehavior.never,
         labelStyle: TextStyle(fontSize: 12.0),
-        errorText: null,
+        //errorText: null,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: BorderSide(color: Colors.white, width: 0.0),
@@ -144,12 +153,13 @@ class CustomInputFieldWhite extends CustomInputField {
   final Widget? suffixIcon;
   final String? hint;
   final String? label;
+  final String? error;
   final bool? obscure;
   final bool? enabled;
   final TextInputType? type;
-  final Function(String)? validator;
-  final Function? onEditingComplete;
-  final Function? onChanged;
+  final String? Function(dynamic)? validator;
+  final Function()? onEditingComplete;
+  final String? Function(dynamic)? onChanged;
   final TextEditingController? controller;
   final int? maxLength;
 
@@ -160,6 +170,7 @@ class CustomInputFieldWhite extends CustomInputField {
         this.suffixIcon,
         this.hint,
         this.label,
+        this.error,
         this.obscure,
         this.type,
         this.validator,
@@ -193,7 +204,7 @@ class CustomInputFieldWhite extends CustomInputField {
         hintText: hint,
         labelText: label,
         labelStyle: TextStyle(fontWeight: FontWeight.bold),
-        errorText: null,
+        errorText: error,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: BorderSide(color: ColorsUtil.grey, width: 1.0),

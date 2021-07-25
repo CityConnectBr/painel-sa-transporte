@@ -29,7 +29,7 @@ class ValidatorsUtil {
       return null;
   }
 
-  static String? validateEmail(String value) {
+  static String? validateEmail(value) {
     String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);
@@ -39,7 +39,7 @@ class ValidatorsUtil {
       return null;
   }
 
-  static String? validateNumber(String value) {
+  static String? validateNumber(value) {
     RegExp regex = new RegExp(numericPattern);
     if (!regex.hasMatch(value))
       return 'Número inválido';
@@ -48,7 +48,7 @@ class ValidatorsUtil {
   }
 
 
-  static String? placaVeiculo(String value) {
+  static String? placaVeiculo(value) {
     RegExp regex = new RegExp(placaVeiculoPattern);
     if (!regex.hasMatch(value))
       return 'Placa inválida';
@@ -56,14 +56,14 @@ class ValidatorsUtil {
       return null;
   }
 
-  static String? validateNumberAndNotIsEmpty(String value) {
+  static String? validateNumberAndNotIsEmpty( value) {
     if (value == null || value.isEmpty || !RegExp(numericPattern).hasMatch(value))
       return 'Número inválido';
     else
       return null;
   }
 
-  static String? validatePhone(String value) {
+  static String? validatePhone(value) {
     RegExp regex = new RegExp(phonePattern);
     if (!regex.hasMatch(value))
       return 'Número inválido';
@@ -71,7 +71,7 @@ class ValidatorsUtil {
       return null;
   }
 
-  static String? caracteres11(String value) {
+  static String? caracteres11(value) {
     RegExp regex = new RegExp(caracteres11Pattern);
     if (!regex.hasMatch(value))
       return 'Valor inválido';
@@ -86,7 +86,7 @@ class ValidatorsUtil {
       return null;
   }*/
 
-  static String? validateDate(String value) {
+  static String? validateDate(value) {
     String pattern = r'^\d{1,2}\/\d{1,2}\/\d{4}$';
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
@@ -95,14 +95,14 @@ class ValidatorsUtil {
       return null;
   }
 
-  static String? validateIsEmpty(String value) {
+  static String? validateIsEmpty(value) {
     if (value == null || value.isEmpty)
       return 'Campo vazio';
     else
       return null;
   }
 
-  static String? validateOneCaracter(String value) {
+  static String? validateOneCaracter(value) {
     RegExp regex = new RegExp(min1CharacterPattern);
     if (!regex.hasMatch(value))
       return 'Campo inválido';
@@ -110,7 +110,7 @@ class ValidatorsUtil {
       return null;
   }
 
-  static String? validateCEP(String value) {
+  static String? validateCEP(value) {
     RegExp regex = new RegExp(cepPattern);
     if (!regex.hasMatch(value))
       return 'Campo inválido';
@@ -118,7 +118,7 @@ class ValidatorsUtil {
       return null;
   }
 
-  static String? validateUF(String value) {
+  static String? validateUF(value) {
     RegExp regex = new RegExp(ufPattern);
     if (!regex.hasMatch(value.toUpperCase()))
       return 'UF não encontrado';
