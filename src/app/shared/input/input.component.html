@@ -1,0 +1,7 @@
+<div class="input-component" [class.has-error]="hasError()">
+  <label *ngIf="label">{{label}}<span class="text-danger" *ngIf="require">*</span></label>
+  <ng-content></ng-content>
+  <br *ngIf="inline">   
+  <small class="text-danger" *ngIf="hasError()">{{getErrorMessage}}</small>
+  <small class="form-text text-muted" *ngIf="description">{{description}}</small>
+</div>

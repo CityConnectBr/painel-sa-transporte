@@ -1,0 +1,19 @@
+
+.header{
+  padding: 10px 30px 10px 30px;
+}
+
+#logoHeaderId{
+  width: 150px;
+}
+
+#linkSairId{
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+  float: right;
+  color: white;
+}
+
+#linkSairId i{
+  /* font-size: 2.5rem; */
+}

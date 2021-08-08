@@ -1,1 +1,246 @@
-/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --lightBlue: #2d9cdb;
+  --grey: #828282;
+  --charcoal: #444444;
+  --lightGrey: #D5DDE0;
+  --lightGrey2: #E2E2E2;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: var(--lightBlue);
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.clearfix {
+  overflow: auto;
+}
+
+a {
+  color: #828282;
+}
+
+a:hover {
+  color: var(--charcoal);
+  text-decoration: none;
+}
+
+.a:hover {
+  cursor: pointer;
+}
+
+.alert {
+  font-size: 0.9rem;
+}
+
+/* ------------------------------- GENERAL -------------------------------------*/
+
+
+.rcorners1 {
+  border-radius: 20px;
+  background: white;
+}
+
+.rcorners2 {
+  border-radius: 15px;
+  background: white;
+}
+
+/* ------------------------------- LOADING -------------------------------------*/
+
+.loading{
+  width: 100px;
+  height: 100px;
+  margin: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* ------------------------------- HEADER -------------------------------------*/
+
+
+/* ------------------------------- FORM -------------------------------------*/
+
+form{}
+
+form label{
+  font-size: 1.0rem;
+  font-weight: bold;
+  color: #828282;
+}
+
+form input{
+  background-color: #e2e2e2 !important;
+  border: none !important;
+}
+
+form input:focus {
+  border: none !important;
+}
+
+.has-error input{
+  border: 1px solid #dc3545 !important;
+}
+
+form .btn{
+  color: #fff;
+  background-color: var(--lightBlue);
+  border-radius: 20px;
+}
+
+form .btn:hover{
+  /* border-color: var(--grey); */
+}
+
+/* ------------------------------- ASIDE/CONTENT -------------------------------------*/
+
+aside{
+  margin: 10px;
+}
+
+aside a{
+  color: var(--lightBlue) !important;
+}
+
+aside a i{
+  float: right;
+}
+
+/* ------------------------------- CRUD -------------------------------------*/
+
+.crud {
+  padding: 10px;
+  background: #fff;
+  border-radius: 15px;
+  margin: 10px 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.titulo {
+  width: auto;
+  line-height: 30px;
+  margin: 15px;
+  text-align: left;
+  color: var(--lightBlue);
+}
+
+.titulo-white {
+  width: auto;
+  line-height: 30px;
+  margin: 15px 15px 0px 0px;
+  text-align: left;
+  color: white;
+}
+
+.titulo-simple {
+  width: auto;
+  line-height: 20px;
+  font-size: .9rem;
+  margin: 0px;
+  text-align: left;
+  color: var(--lightBlue);
+  text-align: center;
+}
+
+.titulo a {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.crud th{
+  color: var(--charcoal);
+  font-weight: bold;
+}
+
+.crud td{
+  color: var(--lightBlue);
+  font-weight: bold;
+  border: none !important;
+}
+
+.crud td a{
+  color: var(--lightBlue);
+}
+
+.crud .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  background-color: #d1eeff;
+}
+
+.crud .search-content{
+  margin-top: 10px;
+}
+.crud .search-content input{
+  border-color: var(--lightBlue);
+  color: var(--charcoal);
+}
+
+.crud .search-content button{
+  border-color: var(--lightBlue);
+  color: white;
+  background-color: var(--lightBlue);
+}
+
+.crud .pagination .page-link{
+  border-color: white;
+  color: white;
+  background-color: var(--lightBlue);
+}
+
+.crud .pagination .disabled{
+  border-color: white;
+  color: white;
+  background-color: var(--grey);
+}
+
+/* ------------------------------- CRUD FORM -------------------------------------*/
+
+.crud form label {
+  margin-bottom: 0px;
+}
+
+.crud form {
+  margin: 20px;
+}
+
+.crud .form-inline {
+  align-items: flex-start;
+}
+
+.crud .form-inline label {
+  justify-content: left;
+}
+
+.crud .form-inline .input-component {
+  margin-right: 10px;
+}
+
+.crud .form-sm input {
+  padding: 12px 10px !important;
+  line-height: 15px !important;
+  height: 1rem !important;
+  font-size: .8rem !important;
+}
+
+.crud .form-sm label{
+  display: inline-block;
+  margin-bottom: .1rem;
+  font-size: .8rem !important;
+}
+
+.crud .form-sm button{
+  font-size: .8rem !important;
+  padding: .150rem .5rem;
+}

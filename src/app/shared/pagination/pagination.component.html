@@ -1,0 +1,5 @@
+<ul *ngIf="backEnabled || nextEnabled" class="pagination">
+  <li class="page-item"><a (click)='back()' [class.disabled] = "!backEnabled" class="page-link" href="javascript: void(0);"><i class="fa fa-arrow-left"></i> Anterior</a></li>
+  <li class="page-item"><a class="page-link" href="javascript: void(0);">{{actualPage}}</a></li>
+  <li class="page-item"><a (click)='next()' [class.disabled] = "!nextEnabled" class="page-link" href="javascript: void(0);">Próximo <i class="fa fa-arrow-right"></i></a></li>
+</ul>

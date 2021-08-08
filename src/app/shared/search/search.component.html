@@ -1,0 +1,8 @@
+<div class="search-content input-group col-md-5 float-right">
+    <input [(ngModel)]="textInput" (keydown.enter)="search()" class="form-control py-2" type="search" placeholder="Pesquise aqui" value="" id="example-search-input">
+    <span class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" (click)="search()">
+        <i class="fa fa-search"></i>
+      </button>
+    </span>
+</div>

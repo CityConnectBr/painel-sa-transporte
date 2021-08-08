@@ -1,0 +1,93 @@
+
+<app-loading *ngIf="loading"></app-loading>
+<div id="login-user">
+    <div class="container">
+        <div id="login-row">
+            <div id="login-column">
+                <div id="login-box">
+
+                    <form *ngIf="!codigoEnviado" class="form" [formGroup]="formEmailRecoveryCode" autocomplete="off">
+                        <h3 class="text-center"><i class="fa fa-akey"></i> Recuperação de Senha</h3>
+
+                        <app-input label="E-mail">
+                            <input type="text" class="form-control" formControlName="email"
+                                placeholder="Digite o e-mail cadastrado" autocomplete="off">
+                        </app-input>
+
+                        <div class="alert alert-danger" *ngIf="errorMessage">
+                            <strong>{{errorMessage}}</strong>
+                        </div>
+
+                        <div class="clearfix">
+                            <button type="submit" class="btn btn-success pull-right"
+                                (click)="enviarCodigo(formEmailRecoveryCode.value)"
+                                [disabled]="!formEmailRecoveryCode.valid">Enviar Código</button>
+                        </div>
+                    </form>
+
+                    <form *ngIf="codigoEnviado && !codigoVerificado" class="form" [formGroup]="formRecoveryCode" autocomplete="off">
+                        <h3 class="text-center"><i class="fa fa-akey"></i> Recuperação de Senha</h3>
+
+                        <app-input label="E-mail">
+                            <input type="text" class="form-control" formControlName="email"
+                                placeholder="Digite o e-mail cadastrado" autocomplete="off">
+                        </app-input>
+
+                        <app-input label="Código">
+                            <input type="text" class="form-control" formControlName="code"
+                                placeholder="Digite o código recebido" autocomplete="off">
+                        </app-input>
+
+                        <div class="alert alert-info" role="alert">
+                            Foi enviado um código de recuperação para seu e-mail.
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="errorMessage">
+                            <strong>{{errorMessage}}</strong>
+                        </div>
+
+                        <div class="clearfix">
+                            <button type="submit" class="btn btn-success pull-right"
+                                (click)="verificarCodigo(formRecoveryCode.value)"
+                                [disabled]="!formRecoveryCode.valid">Verificar Código</button>
+                        </div>
+                    </form>
+
+                    <form *ngIf="codigoVerificado" class="form" [formGroup]="formNewPassword" autocomplete="off">
+                        <h3 class="text-center"><i class="fa fa-akey"></i> Recuperação de Senha</h3>
+
+                        <app-input label="E-mail">
+                            <input type="text" class="form-control" formControlName="email"
+                                placeholder="Digite o e-mail cadastrado" autocomplete="off">
+                        </app-input>
+
+                        <app-input label="Código">
+                            <input type="text" class="form-control" formControlName="code"
+                                placeholder="Digite o código recebido" autocomplete="off">
+                        </app-input>
+
+                        <app-input label="Senha" description="A senha precisa ter ao menos 8 digitos entre numeros e letras(maiúscula e minúscula)">
+                            <input type="password" class="form-control" formControlName="password"
+                                placeholder="Digite sua senha" autocomplete="off">
+                        </app-input>
+
+                        <div class="alert alert-success" role="alert">
+                            Código verificado. Agora Digite sua nova senha.
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="errorMessage">
+                            <strong>{{errorMessage}}</strong>
+                        </div>
+
+                        <div class="clearfix">
+                            <button type="submit" class="btn btn-success pull-right"
+                                (click)="salvarSenha(formNewPassword.value)"
+                                [disabled]="!formNewPassword.valid">Alterar Senha</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

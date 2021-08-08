@@ -1,0 +1,31 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<div id="background">
+  <div class="rcorners1 clearfix" id="login-box">
+    <form class="form clearfix" [formGroup]="form" autocomplete="off">
+
+      <img id="logo" src="/assets/images/sa_logo.png" />
+
+      <app-input label="Login">
+        <input type="text" class="form-control" formControlName="login" placeholder="Digite seu login"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="Senha">
+        <input type="password" class="form-control" formControlName="password" placeholder="Digite sua senha"
+          autocomplete="off">
+      </app-input>
+
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        <strong>{{errorMessage}}</strong>
+      </div>
+
+      <a routerLink="/recuperarsenha" class="small float-left">Esqueci minha senha <i class="fa fa-lock"></i></a>
+
+      <div class="clearfix">
+        <button type="submit" class="btn pull-right" (click)="login(form.value)"
+          [disabled]="!form.valid">ENTRAR</button>
+      </div>
+    </form>
+  </div>
+</div>
