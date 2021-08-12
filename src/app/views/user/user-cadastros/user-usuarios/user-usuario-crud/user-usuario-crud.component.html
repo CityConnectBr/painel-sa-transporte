@@ -17,11 +17,11 @@
     <form [formGroup]="form" autocomplete="off">
       <div class="form-inline">
         <app-input label="Nome" [inline]="true">
-          <input type="text" class="form-control" formControlName="nome" placeholder="Digite seu nome">
+          <input type="text" class="form-control" formControlName="nome" autocomplete="off">
         </app-input>
 
         <app-input label="E-mail" [inline]="true">
-          <input type="text" class="form-control" formControlName="email" placeholder="Digite seu e-mail">
+          <input type="text" class="form-control" formControlName="email" autocomplete="off">
         </app-input>
 
         <app-input label="Perfil" [inline]="true">
@@ -32,8 +32,7 @@
 
         <app-input label="Senha" [inline]="true"
           description="A senha precisa ter ao menos 8 digitos entre numeros e letras(maiúscula e minúscula)">
-          <input type="password" class="form-control" formControlName="password" placeholder="Digite sua senha"
-            autocomplete="off">
+          <input type="password" class="form-control" formControlName="password" autocomplete="off">
         </app-input>
 
       </div>
