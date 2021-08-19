@@ -16,7 +16,7 @@ export class BasicCrudService extends MainService {
   ) {
     super(httpClient);
     this.url = environment.apiUrl + urlParth
-   }
+  }
 
   url: string;
   //url = environment.apiUrl + '/api/admin/v1/perfis'
@@ -30,7 +30,7 @@ export class BasicCrudService extends MainService {
   }
 
   search(search: string, page: number = 1): Observable<SearchData> {
-    return this.httpClient.get<SearchData>(`${this.url}?search=${search??""}&page=${page??'1'}`, super.getHttpOptions)
+    return this.httpClient.get<SearchData>(`${this.url}?search=${search ?? ""}&page=${page ?? '1'}`, super.getHttpOptions)
   }
 
   get(id: number): Observable<any> {
@@ -41,6 +41,7 @@ export class BasicCrudService extends MainService {
   }
 
   create(obj: any): Observable<any> {
+    console.log(JSON.stringify(obj));
     return this.httpClient.post(this.url,
       JSON.stringify(obj), super.getHttpOptions)
       .pipe(
@@ -48,7 +49,7 @@ export class BasicCrudService extends MainService {
       )
   }
 
-  update(id:number, obj: any): Observable<any> {
+  update(id: number, obj: any): Observable<any> {
     return this.httpClient.put(this.url + `/${id}`,
       JSON.stringify(obj), super.getHttpOptions)
       .pipe(

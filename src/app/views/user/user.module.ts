@@ -10,6 +10,8 @@ import { UserPerfisComponent } from './user-cadastros/user-perfis/user-perfis.co
 import { UserPermissionariosComponent } from './user-cadastros/user-permissionarios/user-permissionarios.component';
 import { UserUsuarioCrudComponent } from './user-cadastros/user-usuarios/user-usuario-crud/user-usuario-crud.component';
 import { UserPerfilCrudComponent } from './user-cadastros/user-perfis/user-perfil-crud/user-perfil-crud.component';
+import { UserPermissionarioNovoComponent } from './user-cadastros/user-permissionarios/user-permissionario-novo/user-permissionario-novo.component';
+import { UserPermissionarioAlterarComponent } from './user-cadastros/user-permissionarios/user-permissionario-alterar/user-permissionario-alterar.component';
 
 const ROUTER: Routes = [
   {
@@ -26,6 +28,8 @@ const ROUTER: Routes = [
           { path: 'usuarios/novo', component: UserUsuarioCrudComponent },
           { path: 'usuarios/alterar/:id', component: UserUsuarioCrudComponent },
           { path: 'permissionarios', component: UserPermissionariosComponent },
+          { path: 'permissionarios/novo', component: UserPermissionarioNovoComponent },
+          { path: 'permissionarios/alterar/:id', component: UserPermissionarioAlterarComponent },
         ]
       },
     ]
@@ -43,6 +47,8 @@ const ROUTER: Routes = [
     UserPermissionariosComponent,
     UserUsuarioCrudComponent,
     UserPerfilCrudComponent,
+    UserPermissionarioNovoComponent,
+    UserPermissionarioAlterarComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),

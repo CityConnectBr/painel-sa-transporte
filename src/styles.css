@@ -81,8 +81,8 @@ form label{
   color: #828282;
 }
 
-form input{
-  background-color: #e2e2e2 !important;
+form input, form select{
+  background-color: #eeeeee !important;
   border: none !important;
 }
 
@@ -215,6 +215,29 @@ aside a i{
   margin: 20px;
 }
 
+.crud form .simple-subitem{
+  width: 100%;
+  position: relative;
+  display: block;
+}
+
+.crud form .subitem{
+  width: 100%;
+  position: relative;
+  display: block;
+  margin-top: 20px;
+}
+
+.crud form .subitem .input-component{
+  float: left;
+  height: 4.5rem;
+}
+
+.crud form .subitem h3{
+  color: var(--lightBlue);
+  font-size: 1.2rem;
+}
+
 .crud .form-inline {
   align-items: flex-start;
 }
@@ -227,7 +250,7 @@ aside a i{
   margin-right: 10px;
 }
 
-.crud .form-sm input {
+.crud .form-sm input, .crud .form-sm select {
   padding: 12px 10px !important;
   line-height: 15px !important;
   height: 1rem !important;
