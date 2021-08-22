@@ -17,7 +17,9 @@ import { LoggedInGuard } from './security/loggedin.guard';
 import { UserRecuperarSenhaComponent } from './views/user/user-recuperar-senha/user-recuperar-senha.component';
 import { ClipboardModule } from 'ngx-clipboard';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
@@ -29,6 +31,7 @@ registerLocaleData(localePt, 'pt');
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgxMaskModule.forRoot(),
     SharedModule.forRoot(),
     HttpClientModule,
     ModalModule,

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Perfil } from 'src/app/models/perfil';
 import { SearchData } from 'src/app/services/basic-crud.service';
 import { PerfilService } from 'src/app/services/perfil.service';
 

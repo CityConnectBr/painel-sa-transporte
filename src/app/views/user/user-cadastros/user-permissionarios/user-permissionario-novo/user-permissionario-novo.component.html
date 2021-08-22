@@ -31,11 +31,14 @@
           </app-input>
 
           <app-input label="Data de Nascimento" require="true">
-            <input type="text" class="form-control" formControlName="data_nascimento" autocomplete="off">
+            <input type="text" class="form-control" formControlName="data_nascimento" mask="00/00/0000" autocomplete="off">
           </app-input>
 
-          <app-input label="CNPJ/CPF" require="true">
-            <input type="text" class="form-control" formControlName="cpf_cnpj" autocomplete="off">
+          <app-input label="CPF" *ngIf="form.value['tipo']=='F'" require="true">
+            <input type="text" class="form-control" formControlName="cpf_cnpj" mask="000.000.000-00" autocomplete="off">
+          </app-input>
+          <app-input label="CNPJ" *ngIf="form.value['tipo']=='J'" require="true">
+            <input type="text" class="form-control" formControlName="cpf_cnpj" mask="00.000.000/0000-00" autocomplete="off">
           </app-input>
 
           <app-input label="RG">

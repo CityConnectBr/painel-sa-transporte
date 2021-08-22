@@ -12,6 +12,7 @@ import { UserUsuarioCrudComponent } from './user-cadastros/user-usuarios/user-us
 import { UserPerfilCrudComponent } from './user-cadastros/user-perfis/user-perfil-crud/user-perfil-crud.component';
 import { UserPermissionarioNovoComponent } from './user-cadastros/user-permissionarios/user-permissionario-novo/user-permissionario-novo.component';
 import { UserPermissionarioAlterarComponent } from './user-cadastros/user-permissionarios/user-permissionario-alterar/user-permissionario-alterar.component';
+import { NgxMaskModule } from "ngx-mask";
 
 const ROUTER: Routes = [
   {
@@ -53,6 +54,7 @@ const ROUTER: Routes = [
   imports: [
     RouterModule.forChild(ROUTER),
     SharedModule,
+    NgxMaskModule.forChild()
   ],
   exports: [
   ]
