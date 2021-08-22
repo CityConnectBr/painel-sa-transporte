@@ -23,6 +23,7 @@
     "@angular/router": "~11.2.3",
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
     "angular-font-awesome": "^3.1.2",
+    "angular2-text-mask": "^9.0.0",
     "bootstrap": "^4.6.0",
     "crypto-js": "^4.0.0",
     "font-awesome": "^4.7.0",

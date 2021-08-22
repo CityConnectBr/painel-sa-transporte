@@ -87,15 +87,15 @@
           <h3>Dados de Contato</h3>
 
           <app-input label="Telefone" [inline]="true">
-            <input type="text" class="form-control" formControlName="telefone" autocomplete="off">
+            <input type="text" class="form-control" formControlName="telefone" [textMask]="{mask: telefonemask}" autocomplete="off">
           </app-input>
 
           <app-input label="Celular" [inline]="true">
-            <input type="text" class="form-control" formControlName="celular" autocomplete="off">
+            <input type="text" class="form-control" formControlName="celular" [textMask]="{mask: telefonemask}" autocomplete="off">
           </app-input>
 
           <app-input label="Telefone para Recados" [inline]="true">
-            <input type="text" class="form-control" formControlName="telefone2" autocomplete="off">
+            <input type="text" class="form-control" formControlName="telefone2" [textMask]="{mask: telefonemask}" autocomplete="off">
           </app-input>
 
           <app-input label="E-mail" [inline]="true">

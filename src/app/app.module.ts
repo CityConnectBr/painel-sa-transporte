@@ -18,6 +18,7 @@ import { UserRecuperarSenhaComponent } from './views/user/user-recuperar-senha/u
 import { ClipboardModule } from 'ngx-clipboard';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { TextMaskModule } from 'angular2-text-mask';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 registerLocaleData(localePt, 'pt');
@@ -32,6 +33,7 @@ registerLocaleData(localePt, 'pt');
     BrowserModule,
     AppRoutingModule,
     NgxMaskModule.forRoot(),
+    TextMaskModule,
     SharedModule.forRoot(),
     HttpClientModule,
     ModalModule,

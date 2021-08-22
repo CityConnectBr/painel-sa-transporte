@@ -149,4 +149,18 @@ export class UserPermissionarioNovoComponent implements OnInit {
     this.modal.open(content)
   }
 
+  //função da mascara do telefone
+  public telefonemask = function telefonemask(rawValue) {
+    var numbers = rawValue.match(/\d/g);
+    var numberLength = 0;
+    if (numbers) {
+      numberLength = numbers.join('').length;
+    }
+    if (numberLength <= 10) {
+      return SharedModule.mascTEL8Dattern
+    } else {
+      return SharedModule.mascTEL9Dattern
+    }
+  }
+
 }
