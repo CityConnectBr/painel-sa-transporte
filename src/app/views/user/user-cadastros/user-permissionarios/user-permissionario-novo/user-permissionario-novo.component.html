@@ -131,7 +131,7 @@
 
           <app-input label="UF" [inline]="true" require="true">
             <select formControlName="uf" class="form-control">
-              <option value="RJ">RJ</option>
+              <option *ngFor="let uf of ufs;" value="{{uf}}">{{uf}}</option>
             </select>
           </app-input>
         </div>

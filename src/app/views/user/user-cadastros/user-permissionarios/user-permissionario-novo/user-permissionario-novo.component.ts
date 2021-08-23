@@ -22,6 +22,8 @@ export class UserPermissionarioNovoComponent implements OnInit {
 
   crudObj: Perfil;
 
+  ufs = SharedModule.UFs;
+
   constructor(
     private formBuilder: FormBuilder,
     private permissionarioService: PermissionarioService,

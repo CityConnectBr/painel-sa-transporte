@@ -56,7 +56,7 @@ const ROUTER: Routes = [
     RouterModule.forChild(ROUTER),
     SharedModule,
     NgxMaskModule.forChild(),
-    TextMaskModule
+    TextMaskModule,
   ],
   exports: [
   ]
