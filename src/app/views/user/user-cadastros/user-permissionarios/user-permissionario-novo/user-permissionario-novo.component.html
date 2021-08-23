@@ -55,7 +55,7 @@
 
           <app-input label="Estado Civil" [inline]="true" require="true">
             <select formControlName="estado_civil" class="form-control">
-              <option value="C">TESTE</option>
+              <option *ngFor='let estadoCivil of estadosCivil; index as i;' value="{{i+1}}">{{(i+1)+' - '+estadoCivil}}</option>
             </select>
           </app-input>
 
@@ -125,14 +125,14 @@
             <input type="text" class="form-control" formControlName="bairro" autocomplete="off">
           </app-input>
 
-          <app-input label="Município" [inline]="true" require="true">
-            <input type="text" class="form-control" formControlName="municipio" autocomplete="off">
-          </app-input>
-
           <app-input label="UF" [inline]="true" require="true">
             <select formControlName="uf" class="form-control">
               <option *ngFor="let uf of ufs;" value="{{uf}}">{{uf}}</option>
             </select>
+          </app-input>
+
+          <app-input label="Município" [inline]="true" require="true">
+            <input type="text" class="form-control" formControlName="municipio" autocomplete="off">
           </app-input>
         </div>
 

@@ -24,6 +24,8 @@ export class UserPermissionarioNovoComponent implements OnInit {
 
   ufs = SharedModule.UFs;
 
+  estadosCivil = SharedModule.estadosCivil;
+
   constructor(
     private formBuilder: FormBuilder,
     private permissionarioService: PermissionarioService,

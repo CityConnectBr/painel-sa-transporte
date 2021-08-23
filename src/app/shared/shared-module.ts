@@ -89,7 +89,9 @@ export class SharedModule {
     return source;
   }
 
-  static readonly UFs = [
+  static readonly estadosCivil = ['Solteiro(a)', 'Casado(a)', 'Divorciado(a)', 'Viúvo(a)', 'Desquitado(a)', 'Maritalmente', 'Outro'];
+
+    static readonly UFs = [
     'AC',
     'AL',
     'AP',
