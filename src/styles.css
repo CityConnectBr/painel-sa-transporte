@@ -48,6 +48,10 @@ a:hover {
   background-color: red;
   color: white;
 }
+.mat-snack-bar-success{
+  background-color: green;
+  color: white;
+}
 
 /* ------------------------------- GENERAL -------------------------------------*/
 
