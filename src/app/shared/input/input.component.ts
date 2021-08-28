@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, ContentChild, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Input, ContentChild, AfterContentInit, Output, EventEmitter } from '@angular/core';
 import { NgModel, FormControlName } from '@angular/forms';
-import { SharedModule } from '../shared-module';
+
 
 
 @Component({
@@ -17,6 +17,8 @@ export class InputComponent implements OnInit, AfterContentInit {
   @Input() require: boolean
   @Input() hidden: boolean = false
   @Input() inline: boolean = false
+  @Input() options: any[]
+  @Output() setMunicipioSelected = new EventEmitter();
 
   @ContentChild(NgModel) model: NgModel
   @ContentChild(FormControlName) control: FormControlName
@@ -62,6 +64,13 @@ export class InputComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit() {
+  }
+
+  setOptionSelected(itemSelected: any) {
+    if (itemSelected && this.setMunicipioSelected) {
+      this.setMunicipioSelected.emit(itemSelected);
+      this.options = [];
+    }
   }
 
 }

@@ -1,0 +1,12 @@
+.autocomplete-options{
+  position: absolute;
+  background-color: #f4f4f4;
+  padding: 10px;
+  border-radius: 0px 0px 7px 7px;
+  min-width: 100px;
+  z-index: 999;
+}
+
+.autocomplete-options p{
+  line-height: 10px;
+}
