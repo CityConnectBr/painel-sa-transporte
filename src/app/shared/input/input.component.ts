@@ -52,8 +52,6 @@ export class InputComponent implements OnInit, AfterContentInit {
         return `Campo com máximo de ${errors.maxlength.requiredLength} dígitos!`
       if (errors.minlength)
         return `Campo com mínimo de ${errors.minlength.requiredLength} dígitos!`
-      /*if (errors.pattern['requiredPattern'] == SharedModule.passADMPatern)
-        return "A senha precisa ter: Ao menos 8 digitos, conter letra, numero e caracter especial(#,$,...)"*/
       if (errors.pattern)
         return "Formato inválido!"
       else
