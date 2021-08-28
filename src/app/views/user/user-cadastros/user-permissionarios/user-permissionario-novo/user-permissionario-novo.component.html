@@ -31,14 +31,16 @@
           </app-input>
 
           <app-input label="Data de Nascimento" require="true">
-            <input type="text" class="form-control" formControlName="data_nascimento" mask="00/00/0000" autocomplete="off">
+            <input type="text" class="form-control" formControlName="data_nascimento" mask="00/00/0000"
+              autocomplete="off">
           </app-input>
 
           <app-input label="CPF" *ngIf="form.value['tipo']=='F'" require="true">
             <input type="text" class="form-control" formControlName="cpf_cnpj" mask="000.000.000-00" autocomplete="off">
           </app-input>
           <app-input label="CNPJ" *ngIf="form.value['tipo']=='J'" require="true">
-            <input type="text" class="form-control" formControlName="cpf_cnpj" mask="00.000.000/0000-00" autocomplete="off">
+            <input type="text" class="form-control" formControlName="cpf_cnpj" mask="00.000.000/0000-00"
+              autocomplete="off">
           </app-input>
 
           <app-input label="RG">
@@ -55,7 +57,8 @@
 
           <app-input label="Estado Civil" [inline]="true" require="true">
             <select formControlName="estado_civil" class="form-control">
-              <option *ngFor='let estadoCivil of estadosCivil; index as i;' value="{{i+1}}">{{(i+1)+' - '+estadoCivil}}</option>
+              <option *ngFor='let estadoCivil of estadosCivil; index as i;' value="{{i+1}}">{{(i+1)+' - '+estadoCivil}}
+              </option>
             </select>
           </app-input>
 
@@ -87,15 +90,18 @@
           <h3>Dados de Contato</h3>
 
           <app-input label="Telefone" [inline]="true">
-            <input type="text" class="form-control" formControlName="telefone" [textMask]="{mask: telefonemask}" autocomplete="off">
+            <input type="text" class="form-control" formControlName="telefone" [textMask]="{mask: telefonemask}"
+              autocomplete="off">
           </app-input>
 
           <app-input label="Celular" [inline]="true">
-            <input type="text" class="form-control" formControlName="celular" [textMask]="{mask: telefonemask}" autocomplete="off">
+            <input type="text" class="form-control" formControlName="celular" [textMask]="{mask: telefonemask}"
+              autocomplete="off">
           </app-input>
 
           <app-input label="Telefone para Recados" [inline]="true">
-            <input type="text" class="form-control" formControlName="telefone2" [textMask]="{mask: telefonemask}" autocomplete="off">
+            <input type="text" class="form-control" formControlName="telefone2" [textMask]="{mask: telefonemask}"
+              autocomplete="off">
           </app-input>
 
           <app-input label="E-mail" [inline]="true">
@@ -106,7 +112,7 @@
         <div class="subitem">
           <h3>Endereço</h3>
           <app-input label="CEP" [inline]="true" require="true">
-            <input type="text" class="form-control" formControlName="cep" autocomplete="off">
+            <input type="text" class="form-control" formControlName="cep" mask="00000-000" autocomplete="off">
           </app-input>
 
           <app-input label="Endereço" [inline]="true" require="true">
@@ -131,8 +137,8 @@
             </select>
           </app-input>
 
-          <app-input label="Município" [inline]="true" require="true">
-            <input type="text" class="form-control" formControlName="municipio" autocomplete="off">
+          <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" require="true" (setMunicipioSelected)="setMunicipio($event)">
+            <input type="text" class="form-control" formControlName="municipio" autocomplete="off" (keyup)="keyUpMunicipio()" (focus)="setFocusMunicipioInput(true)">
           </app-input>
         </div>
 

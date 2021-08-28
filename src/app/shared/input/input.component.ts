@@ -65,6 +65,7 @@ export class InputComponent implements OnInit, AfterContentInit {
   }
 
   setOptionSelected(itemSelected: any) {
+    console.log("AKII", itemSelected);
     if (itemSelected && this.setMunicipioSelected) {
       this.setMunicipioSelected.emit(itemSelected);
       this.options = [];

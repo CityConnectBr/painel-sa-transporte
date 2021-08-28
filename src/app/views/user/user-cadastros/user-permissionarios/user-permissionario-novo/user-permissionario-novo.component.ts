@@ -3,8 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subject } from 'rxjs';
+import { debounceTime, first } from 'rxjs/operators';
+import { Municipio } from 'src/app/models/municipio';
 import { Perfil } from 'src/app/models/perfil';
-import { PerfilService } from 'src/app/services/perfil.service';
+import { EnderecoService } from 'src/app/services/endereco.service';
+import { MunicipioService } from 'src/app/services/municipio.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
@@ -22,12 +26,19 @@ export class UserPermissionarioNovoComponent implements OnInit {
 
   crudObj: Perfil;
 
+  subjectMunicipio: Subject<any> = new Subject();
+
   ufs = SharedModule.UFs;
 
   estadosCivil = SharedModule.estadosCivil;
 
+  municipiosPesquisados: string[] = [];
+  municipioSelecionado: Municipio;
+
   constructor(
     private formBuilder: FormBuilder,
+    private enderecoService: EnderecoService,
+    private municipioService: MunicipioService,
     private permissionarioService: PermissionarioService,
     private location: Location,
     private route: ActivatedRoute,
@@ -41,6 +52,15 @@ export class UserPermissionarioNovoComponent implements OnInit {
     this.errorMessage = "";
 
     try {
+
+      //pesquisa municipio
+      this.subjectMunicipio
+        .pipe(debounceTime(500))
+        .subscribe(() => {
+          this.searchMunicipios();
+        }
+        );
+
       ///////FORM
       this.form = this.formBuilder.group({
         numero_de_cadastro_antigo: new FormControl('',),
@@ -71,8 +91,8 @@ export class UserPermissionarioNovoComponent implements OnInit {
         procurador_responsavel: new FormControl('', {
           validators: [Validators.maxLength(40)],
         }),
-        cep: new FormControl('321321', {
-          validators: [Validators.required],
+        cep: new FormControl('27113-090', {
+          validators: [Validators.required, Validators.pattern(SharedModule.cepPattern)],
         }),
         endereco: new FormControl('Endereco', {
           validators: [Validators.required],
@@ -136,6 +156,27 @@ export class UserPermissionarioNovoComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     try {
+      if (!this.municipioSelecionado) {
+        this.snackbarService.openSnackBarError("Nenhum Município selecionado!");
+        this.loading = false;
+        return;
+      }
+
+      let endereco = {
+        id: null,
+        cep: formInput.cep,
+        endereco: formInput.endereco,
+        numero: formInput.numero,
+        complemento: formInput.cep,
+        uf: formInput.uf,
+        bairro: formInput.bairro,
+        municipio_id: this.municipioSelecionado.id,
+      };
+
+      endereco = await this.enderecoService.create(endereco).toPromise();
+
+      formInput.endereco_id = endereco.id;
+
       await this.permissionarioService.create(formInput).toPromise();
       this.snackbarService.openSnackBarSucess('Permissionário salvo!');
       this.location.back()
@@ -164,6 +205,37 @@ export class UserPermissionarioNovoComponent implements OnInit {
       return SharedModule.mascTEL8Dattern
     } else {
       return SharedModule.mascTEL9Dattern
+    }
+  }
+
+  public async searchMunicipios() {
+    try {
+      this.municipioSelecionado = null;
+      const result = await this.municipioService
+        .searchByUF(this.form.controls['uf'].value, this.form.controls['municipio'].value)
+        .pipe(first())
+        .toPromise();
+
+      this.municipiosPesquisados = result.data;
+    } catch (e: any) {
+      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+    }
+  }
+
+  public keyUpMunicipio() {
+    this.subjectMunicipio.next();
+  }
+
+  public setMunicipio(event) {
+    if (event) {
+      this.municipioSelecionado = event;
+      this.form.controls['municipio'].setValue(this.municipioSelecionado.nome);
+    }
+  }
+
+  public setFocusMunicipioInput(focus: boolean) {
+    if (focus) {
+      this.searchMunicipios();
     }
   }
 
