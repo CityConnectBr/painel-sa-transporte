@@ -76,6 +76,23 @@ a:hover {
   margin-right: auto;
 }
 
+/* ------------------------------- TABS -------------------------------------*/
+
+.nav-tabs{
+
+}
+
+.nav-tabs .nav-item{
+}
+
+.nav-tabs .nav-item .nav-link{
+  color: var(--lightBlue);
+}
+.nav-tabs .nav-item .nav-link.active{
+  color: white;
+  background-color: var(--lightBlue);
+  border-color: transparent !important;
+}
 
 /* ------------------------------- HEADER -------------------------------------*/
 

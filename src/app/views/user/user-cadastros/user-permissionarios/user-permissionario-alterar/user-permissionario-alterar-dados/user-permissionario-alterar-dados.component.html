@@ -1,0 +1,160 @@
+<form [formGroup]="form" autocomplete="off">
+  <div class="form-inline">
+
+    <div class="simple-subitem">
+      <app-input label="Nº Antigo de Cadastro">
+        <input type="text" class="form-control" formControlName="numero_de_cadastro_antigo"
+          placeholder="Digite seu nome">
+      </app-input>
+    </div>
+
+    <div class="subitem">
+      <h3>Dados Pessoais</h3>
+
+      <app-input label="Pessoa">
+        <select formControlName="tipo" class="form-control" require="true">
+          <option value="F">Física</option>
+          <option value="J">Jurídica</option>
+        </select>
+      </app-input>
+
+      <app-input label="Nome/Razão Social" require="true">
+        <input type="text" class="form-control" formControlName="nome_razao_social" autocomplete="off">
+      </app-input>
+
+      <app-input label="Data de Nascimento" require="true">
+        <input type="text" class="form-control" formControlName="data_nascimento" mask="00/00/0000"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="CPF" *ngIf="form.value['tipo']=='F'" require="true">
+        <input type="text" class="form-control" formControlName="cpf_cnpj" mask="000.000.000-00" autocomplete="off">
+      </app-input>
+      <app-input label="CNPJ" *ngIf="form.value['tipo']=='J'" require="true">
+        <input type="text" class="form-control" formControlName="cpf_cnpj" mask="00.000.000/0000-00"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="RG">
+        <input type="text" class="form-control" formControlName="rg" autocomplete="off">
+      </app-input>
+
+      <app-input label="Naturalidade" [inline]="true">
+        <input type="text" class="form-control" formControlName="naturalidade" autocomplete="off">
+      </app-input>
+
+      <app-input label="Nacionalidade" [inline]="true">
+        <input type="text" class="form-control" formControlName="nacionalidade" autocomplete="off">
+      </app-input>
+
+      <app-input label="Estado Civil" [inline]="true" require="true">
+        <select formControlName="estado_civil" class="form-control">
+          <option *ngFor='let estadoCivil of estadosCivil; index as i;' value="{{i+1}}">{{(i+1)+' - '+estadoCivil}}
+          </option>
+        </select>
+      </app-input>
+
+    </div>
+
+    <div class="subitem">
+      <h3>Dados do Alvará</h3>
+
+      <app-input label="Inscrição Municipal" [inline]="true" require="true">
+        <input type="text" class="form-control" formControlName="inscricao_municipal" autocomplete="off">
+      </app-input>
+
+      <app-input label="Alvará de Funcionamento" [inline]="true" require="true">
+        <input type="text" class="form-control" formControlName="alvara_de_funcionamento" autocomplete="off"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="Responsável" [inline]="true">
+        <input type="text" class="form-control" formControlName="reponsavel" autocomplete="off">
+      </app-input>
+
+      <app-input label="Procurador Responsável" [inline]="true">
+        <input type="text" class="form-control" formControlName="procurador_responsavel" autocomplete="off"
+          autocomplete="off">
+      </app-input>
+    </div>
+
+    <div class="subitem">
+      <h3>Dados de Contato</h3>
+
+      <app-input label="Telefone" [inline]="true">
+        <input type="text" class="form-control" formControlName="telefone" [textMask]="{mask: telefonemask}"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="Celular" [inline]="true">
+        <input type="text" class="form-control" formControlName="celular" [textMask]="{mask: telefonemask}"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="Telefone para Recados" [inline]="true">
+        <input type="text" class="form-control" formControlName="telefone2" [textMask]="{mask: telefonemask}"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="E-mail" [inline]="true">
+        <input type="text" class="form-control" formControlName="email" autocomplete="off">
+      </app-input>
+    </div>
+
+    <div class="subitem">
+      <h3>Endereço</h3>
+      <app-input label="CEP" [inline]="true" require="true">
+        <input type="text" class="form-control" formControlName="cep" mask="00000-000" autocomplete="off">
+      </app-input>
+
+      <app-input label="Endereço" [inline]="true" require="true">
+        <input type="text" class="form-control" formControlName="endereco" autocomplete="off">
+      </app-input>
+
+      <app-input label="Número" [inline]="true" require="true">
+        <input type="text" class="form-control" formControlName="numero" autocomplete="off">
+      </app-input>
+
+      <app-input label="Complemento" [inline]="true">
+        <input type="text" class="form-control" formControlName="complemento" autocomplete="off">
+      </app-input>
+
+      <app-input label="Bairro" [inline]="true" require="true">
+        <input type="text" class="form-control" formControlName="bairro" autocomplete="off">
+      </app-input>
+
+      <app-input label="UF" [inline]="true" require="true">
+        <select formControlName="uf" class="form-control">
+          <option *ngFor="let uf of ufs;" value="{{uf}}">{{uf}}</option>
+        </select>
+      </app-input>
+
+      <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" require="true" (setMunicipioSelected)="setMunicipio($event)">
+        <input type="text" class="form-control" formControlName="municipio" autocomplete="off" (keyup)="keyUpMunicipio()" (focus)="setFocusMunicipioInput(true)">
+      </app-input>
+    </div>
+
+    <div class="subitem">
+      <h3>Dados da CNH</h3>
+      <app-input label="CNH" [inline]="true">
+        <input type="text" class="form-control" formControlName="cnh" autocomplete="off">
+      </app-input>
+
+      <app-input label="Categoria" [inline]="true">
+        <input type="text" class="form-control" formControlName="categoria" autocomplete="off">
+      </app-input>
+
+      <app-input label="Validade" [inline]="true">
+        <input type="text" class="form-control" formControlName="cnh_validade" autocomplete="off">
+      </app-input>
+    </div>
+
+  </div>
+  <div class="clearfix">
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <strong [innerHTML]="errorMessage"></strong>
+    </div>
+    <button type="submit" class="btn btn-success pull-right" (click)="salvar(form.value)"
+      [disabled]="!form.valid">Salvar</button>
+  </div>
+</form>

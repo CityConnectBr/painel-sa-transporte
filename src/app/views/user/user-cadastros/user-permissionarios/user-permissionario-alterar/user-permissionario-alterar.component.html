@@ -1,1 +1,45 @@
-<p>user-permissionario-alterar works!</p>
+<div class="crud">
+  <h3 class="titulo">
+    <a [routerLink]="['../..']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i> Voltar</a>
+    | Alteração de Permissionário
+  </h3>
+
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['dados']" routerLinkActive #rlaDados="routerLinkActive" [ngClass]="rlaDados.isActive ? 'active' : 'no-active'">Dados Pessoais</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['pontos']" routerLinkActive #rlaPontos="routerLinkActive" [ngClass]="rlaPontos.isActive ? 'active' : 'no-active'">Pontos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['documentos']" routerLinkActive #rlaDocumentos="routerLinkActive" [ngClass]="rlaDocumentos.isActive ? 'active' : 'no-active'">Documentos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['cursos']" routerLinkActive #rlaCursos="routerLinkActive" [ngClass]="rlaCursos.isActive ? 'active' : 'no-active'">Cursos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['condutores']" routerLinkActive #rlaCondutor="routerLinkActive" [ngClass]="rlaCondutor.isActive ? 'active' : 'no-active'">Condutores</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['aplicativos']" routerLinkActive #rlaAplicativos="routerLinkActive" [ngClass]="rlaAplicativos.isActive ? 'active' : 'no-active'">Aplicativos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['veiculos']" routerLinkActive #rlaVeiculos="routerLinkActive" [ngClass]="rlaVeiculos.isActive ? 'active' : 'no-active'">Veículos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['anexos']" routerLinkActive #rlaAnexos="routerLinkActive" [ngClass]="rlaAnexos.isActive ? 'active' : 'no-active'">Anexos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['observacoes']" routerLinkActive #rlaObs="routerLinkActive" [ngClass]="rlaObs.isActive ? 'active' : 'no-active'">Observações</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['falecimento']" routerLinkActive #rlaFalecimento="routerLinkActive" [ngClass]="rlaFalecimento.isActive ? 'active' : 'no-active'">Falecimento</a>
+      </li>
+    </ul>
+
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

@@ -47,7 +47,7 @@ export class UserPermissionariosComponent implements OnInit {
   }
 
   alterar(id: number) {
-    this.router.navigate(['alterar/' + id], {relativeTo:this.route});
+    this.router.navigate(['alterar/' + id + '/dados'], {relativeTo:this.route});
   }
 
 }
