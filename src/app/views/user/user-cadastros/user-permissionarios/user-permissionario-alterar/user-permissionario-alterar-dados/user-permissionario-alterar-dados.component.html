@@ -1,4 +1,4 @@
-<form [formGroup]="form" autocomplete="off">
+<form *ngIf="!loading" [formGroup]="form" autocomplete="off">
   <div class="form-inline">
 
     <div class="simple-subitem">
