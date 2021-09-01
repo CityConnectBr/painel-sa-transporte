@@ -27,7 +27,7 @@ export class UserPermissionarioNovoComponent implements OnInit {
 
   ufs = SharedModule.UFs;
 
-  estadosCivil = SharedModule.estadosCivil;
+  estadosCivil: Map<string, string> = SharedModule.estadosCivil;
 
   municipiosPesquisados: string[] = [];
   municipioSelecionado: Municipio;

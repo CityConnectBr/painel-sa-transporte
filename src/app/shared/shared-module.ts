@@ -90,9 +90,17 @@ export class SharedModule {
     return source;
   }
 
-  static readonly estadosCivil = ['Solteiro(a)', 'Casado(a)', 'Divorciado(a)', 'Viúvo(a)', 'Desquitado(a)', 'Maritalmente', 'Outro'];
+  static readonly estadosCivil = new Map([
+    ['S', 'Solteiro(a)'],
+    ['C', 'Casado(a)'],
+    ['Di', 'Divorciado(a)'],
+    ['V', 'Viúvo(a)'],
+    ['De', 'Desquitado(a)'],
+    ['M', 'Maritalmente'],
+    ['O', 'Outro'],
+  ]);
 
-    static readonly UFs = [
+  static readonly UFs = [
     'AC',
     'AL',
     'AP',
