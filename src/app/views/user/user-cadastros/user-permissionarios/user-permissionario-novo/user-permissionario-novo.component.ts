@@ -73,8 +73,8 @@ export class UserPermissionarioNovoComponent implements OnInit {
         rg: new FormControl('', {
           validators: [Validators.maxLength(9)],
         }),
-        data_nascimento: new FormControl('', {
-          validators: [Validators.pattern(SharedModule.datePattern)],
+        data_nascimento: new FormControl('01/01/2000', {
+          validators: [Validators.required, Validators.pattern(SharedModule.datePattern)],
         }),
         inscricao_municipal: new FormControl('1234', {
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
@@ -173,6 +173,9 @@ export class UserPermissionarioNovoComponent implements OnInit {
       endereco = await this.enderecoService.create(endereco).toPromise();
 
       formInput.endereco_id = endereco.id;
+
+      //convertendoDataNasc
+      formInput.data_nascimento = SharedModule.convertStringddMMyyyyToyyyyMMdd(formInput.data_nascimento);
 
       await this.permissionarioService.create(formInput).toPromise();
       this.snackbarService.openSnackBarSucess('Permissionário salvo!');
