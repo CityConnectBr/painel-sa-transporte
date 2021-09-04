@@ -33,7 +33,7 @@ export class BasicCrudService extends MainService {
     return this.httpClient.get<SearchData>(`${this.url}?search=${search ?? ""}&page=${page ?? '1'}`, super.getHttpOptions)
   }
 
-  get(id: number): Observable<any> {
+  get(id: number | String): Observable<any> {
     return this.httpClient.get<any>(this.url + `/${id}`, super.getHttpOptions)
       .pipe(
         first(),
@@ -49,7 +49,7 @@ export class BasicCrudService extends MainService {
       )
   }
 
-  update(id: number, obj: any): Observable<any> {
+  update(id: number | String, obj: any): Observable<any> {
     return this.httpClient.put(this.url + `/${id}`,
       JSON.stringify(obj), super.getHttpOptions)
       .pipe(
