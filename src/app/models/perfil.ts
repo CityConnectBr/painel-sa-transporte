@@ -1,5 +1,5 @@
 export interface Perfil {
-  id: number
+  id: String
   nome: String
   incluir: boolean
   alterar: boolean

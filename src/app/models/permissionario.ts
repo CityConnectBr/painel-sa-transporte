@@ -1,5 +1,5 @@
 export interface Permissionario {
-  id: number
+  id: String
   id_integracao: number
   numero_de_cadastro_antigo: String
   nome_razao_social: String

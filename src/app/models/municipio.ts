@@ -1,5 +1,5 @@
 export interface Municipio {
-  id: number
+  id: String
   id_integracao: String
   nome: String
   uf: String

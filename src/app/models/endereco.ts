@@ -1,5 +1,5 @@
 export interface Endereco {
-  id: number
+  id: String
   cep: String
   endereco: String
   numero: number
