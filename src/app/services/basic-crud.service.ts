@@ -34,7 +34,7 @@ export class BasicCrudService extends MainService {
   }
 
   get(id: number | String): Observable<any> {
-    return this.httpClient.get<any>(this.url + `/${id}`, super.getHttpOptions)
+    return this.httpClient.get<any>(`${this.url }/${id}`, super.getHttpOptions)
       .pipe(
         first(),
       )
@@ -50,7 +50,7 @@ export class BasicCrudService extends MainService {
   }
 
   update(id: number | String, obj: any): Observable<any> {
-    return this.httpClient.put(this.url + `/${id}`,
+    return this.httpClient.put(`${this.url }/${id}`,
       JSON.stringify(obj), super.getHttpOptions)
       .pipe(
         retry(2),
@@ -58,7 +58,7 @@ export class BasicCrudService extends MainService {
   }
 
   delete(id: number): Observable<any> {
-    return this.httpClient.delete(this.url + `/${id}`,
+    return this.httpClient.delete(`${this.url }/${id}`,
       super.getHttpOptions)
       .pipe(
         retry(2),
