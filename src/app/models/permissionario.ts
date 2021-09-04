@@ -15,15 +15,15 @@ export interface Permissionario {
   telefone2: String
   celular: String
   email: String
-  //data_nascimento: String
+  data_nascimento: Date
   naturalidade: String
   nacionalidade: String
   cnh: String
   categoria_cnh: String
-  //vencimento_cnh: String
+  vencimento_cnh: Date
   atestado_de_saude: boolean
   certidao_negativa: boolean
-  //validade_certidao_negativa: boolean
+  validade_certidao_negativa: Date
   comprovante_de_endereco: boolean
   inscricao_do_cadastro_mobiliario: boolean
   numero_do_cadastro_mobiliario: String
@@ -32,7 +32,7 @@ export interface Permissionario {
   certificado_pontuacao_cnh: boolean
   classificacao_do_processo: String
   numero_do_processo: String
-  //data_processo_seletivo: boolean
+  data_processo_seletivo: Date
   entidade_associativa_id: String
   modalidade_id: String
   endereco_id: String
