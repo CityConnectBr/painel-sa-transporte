@@ -198,6 +198,9 @@ export class SharedModule {
 
   static formatDateddMMyyyy(value: string | number | Date): String | undefined {
     try {
+      if (!value)
+        return;
+
       return formatDate(value, "dd/MM/yyyy", "pt-br");
     } catch (e) {
       console.log(e);
@@ -206,6 +209,9 @@ export class SharedModule {
 
   static formatDateddDEMMMMDEyyyy(value: Date | any): String | undefined {
     try {
+      if (!value)
+        return;
+
       return formatDate(value, "dd 'de' MMMM 'de' yyyy", "pt-br");
     } catch (e) {
       console.log(e);
@@ -214,6 +220,9 @@ export class SharedModule {
 
   static convertDateToyyyyMMdd(value: Date): String | undefined {
     try {
+      if (!value)
+        return;
+
       return formatDate(value, "yyyy-MM-dd", "pt-br");
     } catch (e) {
       console.log(e);
@@ -225,6 +234,7 @@ export class SharedModule {
     let errorMessage: string = "";
 
     if (error.error['message'] || error.error['messages']) {
+
       console.error(error);
       if (error.error['internal_code'] && this.msgError[error.error['internal_code']]) {
         return this.msgError[error.error['internal_code']];
