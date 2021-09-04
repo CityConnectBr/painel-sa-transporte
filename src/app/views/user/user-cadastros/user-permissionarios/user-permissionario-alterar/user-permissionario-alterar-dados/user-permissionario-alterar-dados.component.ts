@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime, first } from 'rxjs/operators';
+import { Endereco } from 'src/app/models/endereco';
 import { Municipio } from 'src/app/models/municipio';
 import { Permissionario } from 'src/app/models/permissionario';
 import { EnderecoService } from 'src/app/services/endereco.service';
@@ -23,12 +24,13 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit {
   errorMessage: string
 
   permissionario: Permissionario;
+  enderecoDoPermissionario: Endereco;
 
   subjectMunicipio: Subject<any> = new Subject();
 
   ufs = SharedModule.UFs;
 
-  estadosCivil = SharedModule.estadosCivil;
+  estadosCivil: Map<string, string> = SharedModule.estadosCivil;
 
   municipiosPesquisados: string[] = [];
   municipioSelecionado: Municipio;
@@ -56,7 +58,9 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit {
         );
 
       const idSelected: string = this.route.parent.snapshot.paramMap.get('id');
-      this.permissionario = await this.permissionarioService.get(parseInt(idSelected)).pipe(first()).toPromise();
+      this.permissionario = await this.permissionarioService.get(idSelected).pipe(first()).toPromise();
+      this.enderecoDoPermissionario = await this.enderecoService.get(this.permissionario.endereco_id).pipe(first()).toPromise();
+      this.municipioSelecionado = await this.municipioService.get(this.enderecoDoPermissionario.municipio_id).pipe(first()).toPromise();
 
       ///////FORM
       this.form = this.formBuilder.group({
@@ -70,73 +74,73 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit {
         cpf_cnpj: new FormControl(this.permissionario.cpf_cnpj, {
           validators: [Validators.required, Validators.pattern(SharedModule.CPFCNPJPatern)],
         }),
-        rg: new FormControl(this.permissionario.rg??"", {
+        rg: new FormControl(this.permissionario.rg ?? "", {
           validators: [Validators.maxLength(9)],
         }),
-        data_nascimento: new FormControl('', {
-          validators: [Validators.pattern(SharedModule.datePattern)],
+        data_nascimento: new FormControl(SharedModule.formatDateddMMyyyy(this.permissionario.data_nascimento), {
+          validators: [Validators.required, Validators.pattern(SharedModule.datePattern)],
         }),
-        inscricao_municipal: new FormControl(this.permissionario.inscricao_municipal??"", {
+        inscricao_municipal: new FormControl(this.permissionario.inscricao_municipal ?? "", {
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
         }),
-        alvara_de_funcionamento: new FormControl(this.permissionario.alvara_de_funcionamento??"", {
+        alvara_de_funcionamento: new FormControl(this.permissionario.alvara_de_funcionamento ?? "", {
           validators: [Validators.required, Validators.maxLength(15)],
         }),
-        reponsavel: new FormControl(this.permissionario.responsavel??"", {
+        reponsavel: new FormControl(this.permissionario.responsavel ?? "", {
           validators: [Validators.maxLength(40)],
         }),
-        procurador_responsavel: new FormControl(this.permissionario.procurador_responsavel??"", {
+        procurador_responsavel: new FormControl(this.permissionario.procurador_responsavel ?? "", {
           validators: [Validators.maxLength(40)],
         }),
-        cep: new FormControl('', {
+        cep: new FormControl(this.enderecoDoPermissionario.cep ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.cepPattern)],
         }),
-        endereco: new FormControl('', {
+        endereco: new FormControl(this.enderecoDoPermissionario.endereco ?? "", {
           validators: [Validators.required],
         }),
-        numero: new FormControl('', {
+        numero: new FormControl(this.enderecoDoPermissionario.numero ?? "", {
           validators: [Validators.required],
         }),
-        complemento: new FormControl('', {
+        complemento: new FormControl(this.enderecoDoPermissionario.complemento ?? "", {
           validators: [],
         }),
-        bairro: new FormControl('', {
+        bairro: new FormControl(this.enderecoDoPermissionario.bairro ?? "", {
           validators: [Validators.required],
         }),
-        municipio: new FormControl('', {
+        municipio: new FormControl(this.municipioSelecionado.nome ?? "", {
           validators: [Validators.required],
         }),
-        uf: new FormControl('RJ', {
+        uf: new FormControl(this.enderecoDoPermissionario.uf ?? "", {
           validators: [Validators.required],
         }),
-        telefone: new FormControl(this.permissionario.telefone??"", {
+        telefone: new FormControl(this.permissionario.telefone ?? "", {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
-        celular: new FormControl(this.permissionario.celular??"", {
+        celular: new FormControl(this.permissionario.celular ?? "", {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
-        telefone2: new FormControl(this.permissionario.telefone2??"", {
+        telefone2: new FormControl(this.permissionario.telefone2 ?? "", {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
-        email: new FormControl(this.permissionario.email??"", {
+        email: new FormControl(this.permissionario.email ?? "", {
           validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(15)],
         }),
-        naturalidade: new FormControl(this.permissionario.nacionalidade??"", {
+        naturalidade: new FormControl(this.permissionario.nacionalidade ?? "", {
           validators: [Validators.maxLength(15)],
         }),
-        nacionalidade: new FormControl(this.permissionario.nacionalidade??"", {
+        nacionalidade: new FormControl(this.permissionario.nacionalidade ?? "", {
           validators: [Validators.maxLength(15)],
         }),
-        cnh: new FormControl(this.permissionario.cnh??"", {
+        cnh: new FormControl(this.permissionario.cnh ?? "", {
           validators: [Validators.maxLength(15)],
         }),
-        categoria: new FormControl(this.permissionario.categoria_cnh??"", {
+        categoria: new FormControl(this.permissionario.categoria_cnh ?? "", {
           validators: [Validators.maxLength(2)],
         }),
-        cnh_validade: new FormControl('', {
+        cnh_validade: new FormControl(SharedModule.formatDateddMMyyyy(this.permissionario.vencimento_cnh), {
           validators: [Validators.pattern(SharedModule.datePattern)],
         }),
-        estado_civil: new FormControl(this.permissionario.estado_civil??"", {
+        estado_civil: new FormControl(this.permissionario.estado_civil ?? "", {
           validators: [Validators.required],
         }),
       })
@@ -159,7 +163,6 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit {
       }
 
       let endereco = {
-        id: null,
         cep: formInput.cep,
         endereco: formInput.endereco,
         numero: formInput.numero,
@@ -169,11 +172,11 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit {
         municipio_id: this.municipioSelecionado.id,
       };
 
-      endereco = await this.enderecoService.create(endereco).toPromise();
+      //convertendoDataNasc
+      formInput.data_nascimento = SharedModule.convertStringddMMyyyyToyyyyMMdd(formInput.data_nascimento);
 
-      formInput.endereco_id = endereco.id;
-
-      await this.permissionarioService.create(formInput).toPromise();
+      await this.enderecoService.update(this.enderecoDoPermissionario.id, endereco).toPromise();
+      await this.permissionarioService.update(this.permissionario.id, formInput).toPromise();
       this.snackbarService.openSnackBarSucess('Permissionário salvo!');
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
