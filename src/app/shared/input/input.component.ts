@@ -18,7 +18,7 @@ export class InputComponent implements OnInit, AfterContentInit {
   @Input() hidden: boolean = false
   @Input() inline: boolean = false
   @Input() options: any[]
-  @Output() setMunicipioSelected = new EventEmitter();
+  @Output() setObjectSelected = new EventEmitter();
 
   @ContentChild(NgModel) model: NgModel
   @ContentChild(FormControlName) control: FormControlName
@@ -65,9 +65,8 @@ export class InputComponent implements OnInit, AfterContentInit {
   }
 
   setOptionSelected(itemSelected: any) {
-    console.log("AKII", itemSelected);
-    if (itemSelected && this.setMunicipioSelected) {
-      this.setMunicipioSelected.emit(itemSelected);
+    if (itemSelected && this.setObjectSelected) {
+      this.setObjectSelected.emit(itemSelected);
       this.options = [];
     }
   }

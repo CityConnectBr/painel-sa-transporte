@@ -129,7 +129,7 @@
         </select>
       </app-input>
 
-      <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" require="true" (setMunicipioSelected)="setMunicipio($event)">
+      <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" require="true" (setObjectSelected)="setMunicipio($event)">
         <input type="text" class="form-control" formControlName="municipio" autocomplete="off" (keyup)="keyUpMunicipio()" (focus)="setFocusMunicipioInput(true)">
       </app-input>
     </div>
