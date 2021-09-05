@@ -32,7 +32,7 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit {
 
   estadosCivil: Map<string, string> = SharedModule.estadosCivil;
 
-  municipiosPesquisados: string[] = [];
+  municipiosPesquisados: String[] = [];
   municipioSelecionado: Municipio;
 
   constructor(
@@ -206,7 +206,7 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit {
         .pipe(first())
         .toPromise();
 
-      this.municipiosPesquisados = result.data;
+      this.municipiosPesquisados = result.data.map((municipio: Municipio) => municipio.nome);
     } catch (e: any) {
       this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
     }

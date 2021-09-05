@@ -4,8 +4,9 @@
   <br>
   <small class="text-danger" *ngIf="hasError()">{{getErrorMessage}}</small>
   <small class="form-text text-muted" *ngIf="description">{{description}}</small>
+
   <div *ngIf="options && options.length>0" class="autocomplete-options">
-    <p *ngFor="let option of options;"><a href="javascript: void(0)" (click)="setOptionSelected(option)">{{option.nome}}</a></p>
+    <p *ngFor="let option of options;"><a href="javascript: void(0)" (click)="setOptionSelected(option)">{{option}}</a></p>
   </div>
 </div>
 
