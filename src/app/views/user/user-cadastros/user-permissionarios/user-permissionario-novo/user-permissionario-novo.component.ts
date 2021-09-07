@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -29,8 +29,10 @@ export class UserPermissionarioNovoComponent implements OnInit {
 
   estadosCivil: Map<string, string> = SharedModule.estadosCivil;
 
-  municipiosPesquisados: string[] = [];
+  municipiosPesquisados: Map<String, String> = new Map();
   municipioSelecionado: Municipio;
+
+  @ViewChild('municipioInput') municipioInputElement: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -216,7 +218,11 @@ export class UserPermissionarioNovoComponent implements OnInit {
         .pipe(first())
         .toPromise();
 
-      this.municipiosPesquisados = result.data;
+      this.municipiosPesquisados.clear();
+      result.data.forEach((municipio: Municipio) => {
+        this.municipiosPesquisados.set(`${municipio.id}`, municipio.nome);
+      });
+
     } catch (e: any) {
       this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
     }
@@ -226,10 +232,15 @@ export class UserPermissionarioNovoComponent implements OnInit {
     this.subjectMunicipio.next();
   }
 
-  public setMunicipio(event) {
-    if (event) {
-      this.municipioSelecionado = event;
-      this.form.controls['municipio'].setValue(this.municipioSelecionado.nome);
+  public async setMunicipio(event) {
+    try {
+      if (event) {
+        this.form.controls['municipio'].setValue("Carregando...");
+        this.municipioSelecionado = await this.municipioService.get(event).pipe(first()).toPromise();
+        this.form.controls['municipio'].setValue(this.municipioSelecionado.nome);
+      }
+    } catch (e: any) {
+      this.errorMessage = SharedModule.handleError(e);
     }
   }
 

@@ -32,7 +32,7 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit {
 
   estadosCivil: Map<string, string> = SharedModule.estadosCivil;
 
-  municipiosPesquisados: String[] = [];
+  municipiosPesquisados: Map<String, String> = new Map();
   municipioSelecionado: Municipio;
 
   constructor(
@@ -206,7 +206,11 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit {
         .pipe(first())
         .toPromise();
 
-      this.municipiosPesquisados = result.data.map((municipio: Municipio) => municipio.nome);
+      this.municipiosPesquisados.clear();
+      result.data.forEach((municipio: Municipio) => {
+        this.municipiosPesquisados.set(`${municipio.id}`, municipio.nome);
+      });
+
     } catch (e: any) {
       this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
     }
@@ -216,10 +220,15 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit {
     this.subjectMunicipio.next();
   }
 
-  public setMunicipio(event) {
-    if (event) {
-      this.municipioSelecionado = event;
-      this.form.controls['municipio'].setValue(this.municipioSelecionado.nome);
+  public async setMunicipio(event) {
+    try {
+      if (event) {
+        this.form.controls['municipio'].setValue("Carregando...");
+        this.municipioSelecionado = await this.municipioService.get(event).pipe(first()).toPromise();
+        this.form.controls['municipio'].setValue(this.municipioSelecionado.nome);
+      }
+    } catch (e: any) {
+      this.errorMessage = SharedModule.handleError(e);
     }
   }
 

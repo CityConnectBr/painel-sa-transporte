@@ -10,18 +10,18 @@ import { NgModel, FormControlName } from '@angular/forms';
 })
 export class InputComponent implements OnInit, AfterContentInit {
 
-  input: any
-  @Input() label: string
-  @Input() errorMessage: string
-  @Input() description: string
-  @Input() require: boolean
-  @Input() hidden: boolean = false
-  @Input() inline: boolean = false
-  @Input() options: any[]
+  input: any;
+  @Input() label: string;
+  @Input() errorMessage: string;
+  @Input() description: string;
+  @Input() require: boolean;
+  @Input() hidden: boolean = false;
+  @Input() inline: boolean = false;
+  @Input() options: Map<String, String>;
   @Output() setObjectSelected = new EventEmitter();
 
-  @ContentChild(NgModel) model: NgModel
-  @ContentChild(FormControlName) control: FormControlName
+  @ContentChild(NgModel) model: NgModel;
+  @ContentChild(FormControlName) control: FormControlName;
 
   constructor() { }
 
@@ -64,10 +64,10 @@ export class InputComponent implements OnInit, AfterContentInit {
   ngOnInit() {
   }
 
-  setOptionSelected(itemSelected: any) {
+  setOptionSelected(itemSelected: String) {
     if (itemSelected && this.setObjectSelected) {
       this.setObjectSelected.emit(itemSelected);
-      this.options = [];
+      this.options.clear();
     }
   }
 
