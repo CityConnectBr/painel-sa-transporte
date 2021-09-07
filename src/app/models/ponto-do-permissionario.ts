@@ -1,5 +1,5 @@
 export interface PontoDoPermissionario {
-  id: number
+  id: String
   permissionario_id: String
   ponto_id: String
 }

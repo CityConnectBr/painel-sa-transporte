@@ -1,1 +1,104 @@
-<p>user-permissionario-alterar-condutores works!</p>
+<form  autocomplete="off">
+  <div class="form-inline">
+
+    <div class="subitem">
+      <h3>Condutor Auxiliar</h3>
+
+      <app-input label="Nome">
+        <input type="text" class="form-control" autocomplete="off">
+      </app-input>
+
+      <app-input label="CPF">
+        <input type="text" class="form-control" autocomplete="off">
+      </app-input>
+
+      <app-input label="RG">
+        <input type="text" class="form-control" autocomplete="off">
+      </app-input>
+
+      <app-input label="CNH">
+        <input type="text" class="form-control" autocomplete="off">
+      </app-input>
+
+      <app-input label="Categoria">
+        <input type="text" class="form-control" autocomplete="off">
+      </app-input>
+
+      <app-input label="Validade da CNH">
+        <input type="text" class="form-control" autocomplete="off">
+      </app-input>
+
+      <app-input label="Atestado de Saúde">
+        <select class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Certidão Neq. Distribuição Criminal">
+        <select class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Validade">
+        <input type="text" class="form-control" autocomplete="off">
+      </app-input>
+
+      <app-input label="Registro na CTPS">
+        <select class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Cursos - SEST/SENAT">
+        <select class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Emissão">
+        <input type="text" class="form-control" autocomplete="off">
+      </app-input>
+
+    </div>
+
+
+    <div class="subitem">
+      <h3>Condutor Auxiliar Inativos</h3>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Dt. Incício</th>
+            <th>Dt. Término</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>RG</th>
+            <th>CNH</th>
+            <th>Cat. CNH</th>
+            <th>Valid. CNH</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+
+</form>

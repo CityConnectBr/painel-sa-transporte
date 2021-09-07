@@ -1,1 +1,76 @@
-<p>user-permissionario-alterar-pontos works!</p>
+<form *ngIf="!loading" [formGroup]="form" autocomplete="off">
+  <div class="form-inline">
+    <div class="subitem">
+      <h3>Dados do Permissionário</h3>
+
+      <app-input label="Modalidade" [inline]="true" require="true">
+        <select formControlName="modalidade_id" class="form-control">
+          <option *ngFor='let modalidade of modalidades;' value="{{modalidade.id}}">{{modalidade.identificador |
+            uppercase}} - {{modalidade.descricao}}
+          </option>
+        </select>
+      </app-input>
+
+      <app-input label="Prefixo" require="true">
+        <input type="text" class="form-control" formControlName="prefixo" autocomplete="off">
+      </app-input>
+
+      <app-input label="INSS" require="true">
+        <input type="text" class="form-control" formControlName="inss" autocomplete="off">
+      </app-input>
+
+      <app-input label="Entidade Associativa" [inline]="true" require="true">
+        <select formControlName="entidade_associativa_id" class="form-control">
+          <option *ngFor='let entidade of entidadesAssociativa;' value="{{entidade.id}}">{{entidade.nome}}
+          </option>
+        </select>
+      </app-input>
+
+    </div>
+
+    <form *ngIf="!loading" [formGroup]="formPonto" autocomplete="off">
+      <div class="form-inline">
+
+        <div class="subitem">
+          <h3>Pontos</h3>
+
+          <app-input label="Ponto" [inline]="true" [options]="pontosPesquisados" require="true" (setObjectSelected)="setPonto($event)">
+            <input #municipioInput type="text" class="form-control" formControlName="ponto_descricao" autocomplete="off" (keyup)="keyUpPonto()" (focus)="setFocusPontoInput(true)">
+          </app-input>
+
+          <button type="submit" class="btn btn-success pull-left" style="margin-top: 25px;" (click)="addPonto()"
+            [disabled]="!formPonto.valid">Adicionar</button>
+
+            <table *ngIf="pontosDoPermissionario.length>0" class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Ponto</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let obj of pontosDoPermissionario; index as i">
+                  <td>{{findPonto(obj?.ponto_id)?.descricao}}</td>
+                  <td class="text-right">
+                    <a href="javascript: void(0);" (click)="removePonto(obj?.id);" title="Remover"><i class="fa fa-pencil"
+                        aria-hidden="true"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+
+  <div class="clearfix">
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <strong [innerHTML]="errorMessage"></strong>
+    </div>
+    <button type="button" class="btn btn-success pull-right" (click)="salvar(form.value)"
+      [disabled]="!form.valid">Salvar</button>
+  </div>
+</form>

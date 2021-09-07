@@ -1,1 +1,184 @@
-<p>user-permissionario-alterar-documentos works!</p>
+<form *ngIf="!loading" [formGroup]="form" autocomplete="off">
+  <div class="form-inline">
+
+    <div class="subitem">
+      <h3>Documentos</h3>
+
+      <app-input label="Atestado de saúde">
+        <select formControlName="atestado_de_saude" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Certidão Negativa de Distribuição Criminal">
+        <select formControlName="certidao_negativa_de_distribuicao_criminal" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Comprovante de Endereço">
+        <select formControlName="comprovante_de_endereco" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="CMC - Inscrição Cadastro Mobiliário">
+        <select formControlName="cmc" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Cursos">
+        <select formControlName="cursos" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="C.R.L.V">
+        <select formControlName="crlv" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Contrato de Comodato">
+        <select formControlName="contrato_de_comodato" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Pessoa">
+        <select formControlName="tipo" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="IPVA">
+        <select formControlName="ipva" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="DPVAT">
+        <select formControlName="dpvat" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Relação dos Alunos Transportados">
+        <select formControlName="relacao_dos_alunos_transportados" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Laudo de Vistoria Comprovada">
+        <select formControlName="laudo_de_vistoria_comprovada" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Ciretran Vistoria">
+        <select formControlName="ciretran_vistoria" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Ciretran Autorização">
+        <select formControlName="ciretran_autorizacao" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Certificado de Pontuação do CNH">
+        <select formControlName="certificado_de_pontuacao_de_cnh" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Selo GNV">
+        <select formControlName="selo_gnv" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Validade" require="true">
+        <input type="text" class="form-control" formControlName="validade" mask="00/00/0000" autocomplete="off">
+      </app-input>
+
+      <app-input label="Número">
+        <input type="text" class="form-control" formControlName="numero" autocomplete="off">
+      </app-input>
+
+      <app-input label="Validade???" require="true">
+        <input type="text" class="form-control" formControlName="validade2" mask="00/00/0000" autocomplete="off">
+      </app-input>
+
+      <app-input label="Início da Atividade" require="true">
+        <input type="text" class="form-control" formControlName="inicio_atividades" mask="00/00/0000" autocomplete="off">
+      </app-input>
+
+      <app-input label="Término da Atividade" require="true">
+        <input type="text" class="form-control" formControlName="termino_atividades" mask="00/00/0000" autocomplete="off">
+      </app-input>
+
+      <app-input label="Motivo" require="true">
+        <input type="text" class="form-control" formControlName="motivo" autocomplete="off">
+      </app-input>
+
+      <app-input label="Tranferência" require="true">
+        <input type="text" class="form-control" formControlName="data_transferencia" mask="00/00/0000" autocomplete="off">
+      </app-input>
+
+    </div>
+
+
+    <div class="subitem">
+      <h3>Taximetro/Tacógrafo</h3>
+
+      <app-input label="Taximetro/Tacógrafo">
+        <select formControlName="taximetro_tacografo" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Número" require="true">
+        <input type="text" class="form-control" formControlName="nome_razao_social" autocomplete="off">
+      </app-input>
+
+      <app-input label="Validade" require="true">
+        <input type="text" class="form-control" formControlName="validade_taximetri_tacografo" mask="00/00/0000"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="Aferição" require="true">
+        <input type="text" class="form-control" formControlName="afericao_taximetri_tacografo" mask="00/00/0000"
+          autocomplete="off">
+      </app-input>
+    </div>
+
+
+  </div>
+  <div class="clearfix">
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <strong [innerHTML]="errorMessage"></strong>
+    </div>
+    <button type="submit" class="btn btn-success pull-right" (click)="salvar(form.value)"
+      [disabled]="!form.valid">Salvar</button>
+  </div>
+</form>
