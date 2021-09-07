@@ -33,6 +33,8 @@ export interface Permissionario {
   classificacao_do_processo: String
   numero_do_processo: String
   data_processo_seletivo: Date
+  prefixo: String
+  inss: String
   entidade_associativa_id: String
   modalidade_id: String
   endereco_id: String
