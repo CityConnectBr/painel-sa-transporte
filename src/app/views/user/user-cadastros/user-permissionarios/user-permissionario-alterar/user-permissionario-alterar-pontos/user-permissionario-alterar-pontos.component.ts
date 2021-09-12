@@ -33,11 +33,10 @@ export class UserPermissionarioAlterarPontosComponent implements OnInit {
   subjectPonto: Subject<any> = new Subject();
   pontoSelecionado: Ponto;
 
-
   pontosPesquisados: Map<String, String> = new Map();
   pontosPesquisadosObj: Ponto[] = [];
 
-  pontosDoPermissionario: PontoDoPermissionario[] = [];
+  pontosDoPermissionario: Ponto[] = [];
   entidadesAssociativa: EntidadeAssociativa[] = [];
 
   modalidades: Modalidade[];
@@ -72,6 +71,8 @@ export class UserPermissionarioAlterarPontosComponent implements OnInit {
       const idSelected: string = this.route.parent.snapshot.paramMap.get('id');
       this.permissionario = await this.permissionarioService.get(idSelected).pipe(first()).toPromise();
 
+      await this.loadPontos();
+
       ///////FORM
       this.form = this.formBuilder.group({
         modalidade_id: new FormControl(this.permissionario.modalidade_id, {
@@ -83,15 +84,13 @@ export class UserPermissionarioAlterarPontosComponent implements OnInit {
         inss: new FormControl(this.permissionario.inss, {
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(10)],
         }),
-        entidade_associativa_id: new FormControl(this.permissionario.inss, {
+        entidade_associativa_id: new FormControl(this.permissionario.entidade_associativa_id, {
           validators: [Validators.required],
         }),
       })
 
       this.formPonto = this.formBuilder.group({
-        ponto_descricao: new FormControl('', {
-          validators: [Validators.required],
-        }),
+        ponto_descricao: new FormControl('',),
       })
 
     } catch (e: any) {
@@ -101,12 +100,42 @@ export class UserPermissionarioAlterarPontosComponent implements OnInit {
     this.loading = false;
   }
 
+  async loadPontos(){
+    try{
+      this.pontosDoPermissionario = (await this.pontosDoPermissionarioService
+        .indexByPermissionario(this.permissionario.id).pipe(first()).toPromise())
+        .data.map((p: PontoDoPermissionario) => p.ponto);
+    }catch (e: any) {}
+  }
+
   async salvar(formInput: any) {
     this.loading = true;
     this.errorMessage = "";
     try {
 
+      //Sanvando dados
       await this.permissionarioService.updateModalidade(this.permissionario.id, formInput).toPromise();
+
+      //Pontos
+      const pontosDoPermissionarioCadastrados = (await this.pontosDoPermissionarioService.indexByPermissionario(this.permissionario.id).pipe(first()).toPromise()).data;
+
+      pontosDoPermissionarioCadastrados.forEach(async (pp: PontoDoPermissionario) => {
+        let indexPontoAchado: number = null;
+        this.pontosDoPermissionario.forEach((p: Ponto, i) => { if (p.id == pp.ponto_id) indexPontoAchado = i });
+
+        //removendo ponto para nao cadastrar duplicado
+        if (indexPontoAchado!==null) {
+          this.pontosDoPermissionario.splice(indexPontoAchado, 1);
+        } else {
+          //removendo da base ponto nao encontrado
+          await this.pontosDoPermissionarioService.delete(pp.id).pipe(first()).toPromise();
+        }
+      });
+
+      this.pontosDoPermissionario.forEach(async (p: Ponto) => await this.pontosDoPermissionarioService.create({ permissionario_id: this.permissionario.id, ponto_id: p.id }).pipe(first()).toPromise());
+
+      await this.loadPontos();
+
       this.snackbarService.openSnackBarSucess('Permissionário salvo!');
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -122,10 +151,10 @@ export class UserPermissionarioAlterarPontosComponent implements OnInit {
         .pipe(first())
         .toPromise();
 
-        this.pontosPesquisados.clear();
-        result.data.forEach((ponto: Ponto) => {
-          this.pontosPesquisados.set(`${ponto.id}`, ponto.descricao);
-        });
+      this.pontosPesquisados.clear();
+      result.data.forEach((ponto: Ponto) => {
+        this.pontosPesquisados.set(`${ponto.id}`, ponto.descricao);
+      });
     } catch (e: any) {
       this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
     }
@@ -136,6 +165,7 @@ export class UserPermissionarioAlterarPontosComponent implements OnInit {
   }
 
   public async setPonto(event) {
+    console.log(event);
     try {
       if (event) {
         this.formPonto.controls['ponto_descricao'].setValue("Carregando...");
@@ -153,15 +183,21 @@ export class UserPermissionarioAlterarPontosComponent implements OnInit {
     }
   }
 
-  addPonto() {
+  async addPonto() {
     if (!this.pontoSelecionado) {
       this.snackbarService.openSnackBarError("Nenhum Pontos selecionado!");
       return;
     }
 
-    this.pontosDoPermissionario.push({ id: null, ponto_id: this.pontoSelecionado.id, permissionario_id: this.permissionario.id });
+    if (this.pontosDoPermissionario.filter((p: Ponto) => p.id == this.pontoSelecionado.id).length > 0) {
+      this.snackbarService.openSnackBarError("Ponto já existe esta cadastrado.");
+      return;
+    }
+
+    this.pontosDoPermissionario.push(await this.pontoService.get(this.pontoSelecionado.id).pipe(first()).toPromise());
 
     this.formPonto.controls['ponto_descricao'].setValue("");
+    this.formPonto.reset();
     this.pontoSelecionado = null;
   }
 
@@ -169,11 +205,4 @@ export class UserPermissionarioAlterarPontosComponent implements OnInit {
     this.pontosDoPermissionario.splice(index, 1);
   }
 
-  async findPonto(id: string): Promise<Ponto> {
-    try {
-      return await this.pontoService.get(id).pipe(first()).toPromise();
-    } catch (e: any) {
-      console.error(e);
-    }
-  }
 }

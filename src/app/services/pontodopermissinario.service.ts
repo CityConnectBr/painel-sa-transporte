@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BasicCrudService } from './basic-crud.service';
+import { Observable } from 'rxjs';
+import { first, map } from 'rxjs/operators';
+import { BasicCrudService, SearchData } from './basic-crud.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,4 +14,12 @@ export class PontoDoPermissionarioService extends BasicCrudService {
   ) {
     super(httpClient, "/api/admin/pontosdopermissionario");
    }
+
+   index(): Observable<any[]>{return}
+   search(search: string, page: number = 1): Observable<any>{return}
+   update(id: number | String, obj: any): Observable<any>{return}
+
+   indexByPermissionario(permissionarioId: String): Observable<SearchData> {
+    return this.httpClient.get<SearchData>(`${this.url}?search=${permissionarioId}`, super.getHttpOptions)
+  }
 }
