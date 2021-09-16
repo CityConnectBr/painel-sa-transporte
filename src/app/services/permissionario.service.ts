@@ -15,11 +15,19 @@ export class PermissionarioService extends BasicCrudService {
     super(httpClient, "/api/admin/permissionarios");
    }
 
-  updateModalidade(id: number | String, obj: any): Observable<any> {
-    return this.httpClient.put(`${this.url}/${id}/modalidade`,
-      JSON.stringify(obj), super.getHttpOptions)
-      .pipe(
-        retry(2),
-      )
-  }
+   updateModalidade(id: number | String, obj: any): Observable<any> {
+     return this.httpClient.put(`${this.url}/${id}/modalidade`,
+       JSON.stringify(obj), super.getHttpOptions)
+       .pipe(
+         retry(2),
+       )
+   }
+
+   updateDocumentos(id: number | String, obj: any): Observable<any> {
+     return this.httpClient.put(`${this.url}/${id}/documentos`,
+       JSON.stringify(obj), super.getHttpOptions)
+       .pipe(
+         retry(2),
+       )
+   }
 }

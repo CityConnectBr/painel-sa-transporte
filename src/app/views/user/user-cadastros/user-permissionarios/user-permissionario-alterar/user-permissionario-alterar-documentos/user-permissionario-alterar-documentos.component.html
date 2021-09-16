@@ -4,15 +4,8 @@
     <div class="subitem">
       <h3>Documentos</h3>
 
-      <app-input label="Atestado de saúde">
+      <app-input label="Atestado de Saúde">
         <select formControlName="atestado_de_saude" class="form-control" require="true">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
-
-      <app-input label="Certidão Negativa de Distribuição Criminal">
-        <select formControlName="certidao_negativa_de_distribuicao_criminal" class="form-control" require="true">
           <option value="true">SIM</option>
           <option value="false">NÃO</option>
         </select>
@@ -25,36 +18,8 @@
         </select>
       </app-input>
 
-      <app-input label="CMC - Inscrição Cadastro Mobiliário">
-        <select formControlName="cmc" class="form-control" require="true">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
-
-      <app-input label="Cursos">
-        <select formControlName="cursos" class="form-control" require="true">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
-
       <app-input label="C.R.L.V">
         <select formControlName="crlv" class="form-control" require="true">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
-
-      <app-input label="Contrato de Comodato">
-        <select formControlName="contrato_de_comodato" class="form-control" require="true">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
-
-      <app-input label="Pessoa">
-        <select formControlName="tipo" class="form-control" require="true">
           <option value="true">SIM</option>
           <option value="false">NÃO</option>
         </select>
@@ -74,6 +39,13 @@
         </select>
       </app-input>
 
+      <app-input label="Certificado de Pontuação do CNH">
+        <select formControlName="certificado_pontuacao_cnh" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
       <app-input label="Relação dos Alunos Transportados">
         <select formControlName="relacao_dos_alunos_transportados" class="form-control" require="true">
           <option value="true">SIM</option>
@@ -82,7 +54,7 @@
       </app-input>
 
       <app-input label="Laudo de Vistoria Comprovada">
-        <select formControlName="laudo_de_vistoria_comprovada" class="form-control" require="true">
+        <select formControlName="laudo_vistoria_com_aprovacao_da_sa_trans" class="form-control" require="true">
           <option value="true">SIM</option>
           <option value="false">NÃO</option>
         </select>
@@ -102,12 +74,74 @@
         </select>
       </app-input>
 
-      <app-input label="Certificado de Pontuação do CNH">
-        <select formControlName="certificado_de_pontuacao_de_cnh" class="form-control" require="true">
+    </div>
+
+    <div class="subitem">
+      <h3>Certidão Negativa de Distribuição Criminal</h3>
+
+      <app-input label="Cert. Negativa Crim.">
+        <select formControlName="certidao_negativa" class="form-control" require="true">
           <option value="true">SIM</option>
           <option value="false">NÃO</option>
         </select>
       </app-input>
+
+      <app-input label="Validade" require="true">
+        <input type="text" class="form-control" formControlName="validade_certidao_negativa" mask="00/00/0000" autocomplete="off">
+      </app-input>
+
+    </div>
+
+    <div class="subitem">
+      <h3>CMC - Inscrição de Cadastro Mobiliário</h3>
+
+      <app-input label="CMC">
+        <select formControlName="inscricao_do_cadastro_mobiliario" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Número">
+        <input type="text" class="form-control" formControlName="numero_do_cadastro_mobiliario" autocomplete="off">
+      </app-input>
+
+    </div>
+
+    <div class="subitem">
+      <h3>Cursos - SEST/SENAT</h3>
+
+      <app-input label="Cursos">
+        <select formControlName="curso_primeiro_socorros" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Emissão" require="true">
+        <input type="text" class="form-control" formControlName="curso_primeiro_socorros_emissao" mask="00/00/0000" autocomplete="off">
+      </app-input>
+
+    </div>
+
+    <div class="subitem">
+      <h3>Contrato de Comodato</h3>
+
+      <app-input label="Contrato">
+        <select formControlName="contrato_comodato" class="form-control" require="true">
+          <option value="true">SIM</option>
+          <option value="false">NÃO</option>
+        </select>
+      </app-input>
+
+      <app-input label="Validade" require="true">
+        <input type="text" class="form-control" formControlName="contrato_comodato_validade" mask="00/00/0000" autocomplete="off">
+      </app-input>
+
+    </div>
+
+    <div class="subitem">
+      <h3>Selo GNV</h3>
 
       <app-input label="Selo GNV">
         <select formControlName="selo_gnv" class="form-control" require="true">
@@ -117,35 +151,10 @@
       </app-input>
 
       <app-input label="Validade" require="true">
-        <input type="text" class="form-control" formControlName="validade" mask="00/00/0000" autocomplete="off">
-      </app-input>
-
-      <app-input label="Número">
-        <input type="text" class="form-control" formControlName="numero" autocomplete="off">
-      </app-input>
-
-      <app-input label="Validade???" require="true">
-        <input type="text" class="form-control" formControlName="validade2" mask="00/00/0000" autocomplete="off">
-      </app-input>
-
-      <app-input label="Início da Atividade" require="true">
-        <input type="text" class="form-control" formControlName="inicio_atividades" mask="00/00/0000" autocomplete="off">
-      </app-input>
-
-      <app-input label="Término da Atividade" require="true">
-        <input type="text" class="form-control" formControlName="termino_atividades" mask="00/00/0000" autocomplete="off">
-      </app-input>
-
-      <app-input label="Motivo" require="true">
-        <input type="text" class="form-control" formControlName="motivo" autocomplete="off">
-      </app-input>
-
-      <app-input label="Tranferência" require="true">
-        <input type="text" class="form-control" formControlName="data_transferencia" mask="00/00/0000" autocomplete="off">
+        <input type="text" class="form-control" formControlName="selo_gnv_validade" mask="00/00/0000" autocomplete="off">
       </app-input>
 
     </div>
-
 
     <div class="subitem">
       <h3>Taximetro/Tacógrafo</h3>
@@ -158,18 +167,38 @@
       </app-input>
 
       <app-input label="Número" require="true">
-        <input type="text" class="form-control" formControlName="nome_razao_social" autocomplete="off">
-      </app-input>
-
-      <app-input label="Validade" require="true">
-        <input type="text" class="form-control" formControlName="validade_taximetri_tacografo" mask="00/00/0000"
-          autocomplete="off">
+        <input type="text" class="form-control" formControlName="taximetro_tacografo_numero" autocomplete="off">
       </app-input>
 
       <app-input label="Aferição" require="true">
-        <input type="text" class="form-control" formControlName="afericao_taximetri_tacografo" mask="00/00/0000"
-          autocomplete="off">
+        <input type="text" class="form-control" formControlName="taximetro_tacografo_afericao" mask="00/00/0000"
+          mask="00/00/0000" autocomplete="off">
       </app-input>
+    </div>
+
+    <div class="subitem">
+      <h3>Atividade</h3>
+
+      <app-input label="Início da Atividade" require="true">
+        <input type="text" class="form-control" formControlName="inicio_atividades" mask="00/00/0000" autocomplete="off">
+      </app-input>
+
+      <app-input label="Término da Atividade" require="true">
+        <input type="text" class="form-control" formControlName="termino_atividades" mask="00/00/0000" autocomplete="off">
+      </app-input>
+
+      <app-input label="Motivo" require="true">
+        <input type="text" class="form-control" formControlName="termino_atividades_motivo" autocomplete="off">
+      </app-input>
+
+      <app-input label="Tranferência" require="true">
+        <input type="text" class="form-control" formControlName="data_transferencia" mask="00/00/0000" autocomplete="off">
+      </app-input>
+    </div>
+
+    <div class="subitem">
+      <h3>Alvará</h3>
+
     </div>
 
 

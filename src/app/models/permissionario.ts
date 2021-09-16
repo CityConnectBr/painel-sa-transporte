@@ -27,9 +27,27 @@ export interface Permissionario {
   comprovante_de_endereco: boolean
   inscricao_do_cadastro_mobiliario: boolean
   numero_do_cadastro_mobiliario: String
+  curso_primeiro_socorros: boolean
+  curso_primeiro_socorros_emissao: Date
   crlv: boolean
   dpvat: boolean
   certificado_pontuacao_cnh: boolean
+  contrato_comodato: boolean
+  contrato_comodato_validade: boolean
+  ipva: boolean
+  relacao_dos_alunos_transportados: boolean
+  laudo_vistoria_com_aprovacao_da_sa_trans: boolean
+  ciretran_vistoria: boolean
+  ciretran_autorizacao: boolean
+  selo_gnv: boolean
+  selo_gnv_validade: Date
+  taximetro_tacografo: boolean
+  taximetro_tacografo_numero: String
+  taximetro_tacografo_afericao: Date
+  inicio_atividades: Date
+  termino_atividades: Date
+  termino_atividades_motivo: String
+  data_transferencia: Date
   classificacao_do_processo: String
   numero_do_processo: String
   data_processo_seletivo: Date
