@@ -192,9 +192,9 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit {
       numberLength = numbers.join('').length;
     }
     if (numberLength <= 10) {
-      return SharedModule.mascTEL8Dattern
+      return SharedModule.textMaskPhone8Dattern
     } else {
-      return SharedModule.mascTEL9Dattern
+      return SharedModule.textMaskPhone9Dattern
     }
   }
 

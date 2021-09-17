@@ -25,6 +25,8 @@ export class UserPermissionarioAlterarDocumentosComponent implements OnInit {
 
   modalidades: Modalidade[];
 
+  maskDate = SharedModule.textMaskDate;
+
   constructor(
     private formBuilder: FormBuilder,
     private permissionarioService: PermissionarioService,
@@ -47,6 +49,13 @@ export class UserPermissionarioAlterarDocumentosComponent implements OnInit {
       Object.getOwnPropertyNames(this.permissionario).forEach(key => {
         if (this.permissionario[key] == 1 || this.permissionario[key] == 0) {
           this.permissionario[key] = this.permissionario[key] == 1 ? true : false;
+        }
+      });
+
+      //formatando datas
+      Object.getOwnPropertyNames(this.permissionario).forEach(key => {
+        if (this.permissionario[key] && this.permissionario[key].toString().match(SharedModule.dateFromAPIPattern)) {
+          this.permissionario[key] = SharedModule.formatDateddMMyyyy(this.permissionario[key]);
         }
       });
 
@@ -96,24 +105,16 @@ export class UserPermissionarioAlterarDocumentosComponent implements OnInit {
     this.errorMessage = "";
     try {
 
-      if (formInput.curso_primeiro_socorros_emissao != null && formInput.curso_primeiro_socorros_emissao != '')
-        formInput.curso_primeiro_socorros_emissao = SharedModule.convertStringddMMyyyyToyyyyMMdd(formInput.curso_primeiro_socorros_emissao);
-
-      if (formInput.contrato_comodato_validade != null && formInput.contrato_comodato_validade != '')
-        formInput.contrato_comodato_validade = SharedModule.convertStringddMMyyyyToyyyyMMdd(formInput.contrato_comodato_validade);
-
-      if (formInput.selo_gnv_validade != null && formInput.selo_gnv_validade != '')
-        formInput.selo_gnv_validade = SharedModule.convertStringddMMyyyyToyyyyMMdd(formInput.selo_gnv_validade);
-
-        if (formInput.data_transferencia != null && formInput.data_transferencia != '')
-        formInput.data_transferencia = SharedModule.convertStringddMMyyyyToyyyyMMdd(formInput.data_transferencia);
-
-      if (formInput.validade_certidao_negativa != null && formInput.validade_certidao_negativa != '')
-        formInput.validade_certidao_negativa = SharedModule.convertStringddMMyyyyToyyyyMMdd(formInput.validade_certidao_negativa);
+      //convertendo datas
+      Object.getOwnPropertyNames(formInput).forEach(key => {
+        if (formInput[key] != null && formInput[key].toString().match(SharedModule.datePattern)) {
+          formInput[key] = SharedModule.convertStringddMMyyyyToyyyyMMdd(formInput[key]);
+        }
+      });
 
       //convertendo de string para boolean
       Object.getOwnPropertyNames(formInput).forEach(key => {
-        if (formInput[key]!=null && (formInput[key] == 'true' || formInput[key] == 'false')) {
+        if (formInput[key] != null && (formInput[key] == 'true' || formInput[key] == 'false')) {
           formInput[key] = formInput[key] == 'true' ? true : false;
         }
       });
