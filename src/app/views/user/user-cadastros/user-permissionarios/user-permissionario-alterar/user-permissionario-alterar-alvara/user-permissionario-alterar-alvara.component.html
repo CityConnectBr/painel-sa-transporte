@@ -1,0 +1,59 @@
+<form *ngIf="!loading" [formGroup]="form" autocomplete="off">
+  <div class="form-inline">
+
+    <div class="subitem">
+      <h3>Alvará</h3>
+
+      <app-input label="Emissão">
+        <input type="text" class="form-control" formControlName="data_emissao" [textMask]="{mask: maskDate}"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="Retorno">
+        <input type="text" class="form-control" formControlName="data_retorno" [textMask]="{mask: maskDate}"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="Vencimento">
+        <input type="text" class="form-control" formControlName="data_vencimento" [textMask]="{mask: maskDate}"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="Observação">
+        <input type="text" class="form-control" formControlName="observacao_retorno" autocomplete="off">
+      </app-input>
+
+      <button type="submit" class="btn btn-success pull-right" (click)="salvar(form.value)"
+      [disabled]="!form.valid">Salvar</button>
+    </div>
+
+
+    <div class="subitem">
+      <h3>Alvarás Anteriores</h3>
+      <table *ngIf="alvarasAnteriores.length>0" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Emissão</th>
+            <th>Dt Retorno</th>
+            <th>Dt Validade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of alvarasAnteriores">
+            <td>{{obj?.data_emissao}}</td>
+            <td>{{obj?.data_retorno}}</td>
+            <td>{{obj?.data_vencimento}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div class="clearfix">
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <strong [innerHTML]="errorMessage"></strong>
+    </div>
+    <button type="submit" class="btn btn-success pull-right" (click)="novo()" [disabled]="!form.valid">Criar
+      Novo</button>
+  </div>
+</form>

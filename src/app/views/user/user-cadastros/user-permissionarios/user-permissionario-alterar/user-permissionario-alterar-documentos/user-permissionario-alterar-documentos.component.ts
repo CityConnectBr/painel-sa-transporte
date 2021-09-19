@@ -43,21 +43,11 @@ export class UserPermissionarioAlterarDocumentosComponent implements OnInit {
       const idSelected: string = this.route.parent.snapshot.paramMap.get('id');
       this.permissionario = await this.permissionarioService.get(idSelected).pipe(first()).toPromise();
 
-      console.log(this.permissionario.atestado_de_saude);
-
       //convertendo de 1|0 para boolean
-      Object.getOwnPropertyNames(this.permissionario).forEach(key => {
-        if (this.permissionario[key] == 1 || this.permissionario[key] == 0) {
-          this.permissionario[key] = this.permissionario[key] == 1 ? true : false;
-        }
-      });
+      this.permissionario = SharedModule.convertAllFields01ToBoolean(this.permissionario);
 
       //formatando datas
-      Object.getOwnPropertyNames(this.permissionario).forEach(key => {
-        if (this.permissionario[key] && this.permissionario[key].toString().match(SharedModule.dateFromAPIPattern)) {
-          this.permissionario[key] = SharedModule.formatDateddMMyyyy(this.permissionario[key]);
-        }
-      });
+      this.permissionario = SharedModule.formatAllFieldsDateToddMMyyyy(this.permissionario);
 
       ///////FORM
       this.form = this.formBuilder.group({
@@ -94,7 +84,6 @@ export class UserPermissionarioAlterarDocumentosComponent implements OnInit {
       })
 
     } catch (e: any) {
-      console.log(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;
@@ -104,20 +93,8 @@ export class UserPermissionarioAlterarDocumentosComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     try {
-
-      //convertendo datas
-      Object.getOwnPropertyNames(formInput).forEach(key => {
-        if (formInput[key] != null && formInput[key].toString().match(SharedModule.datePattern)) {
-          formInput[key] = SharedModule.convertStringddMMyyyyToyyyyMMdd(formInput[key]);
-        }
-      });
-
-      //convertendo de string para boolean
-      Object.getOwnPropertyNames(formInput).forEach(key => {
-        if (formInput[key] != null && (formInput[key] == 'true' || formInput[key] == 'false')) {
-          formInput[key] = formInput[key] == 'true' ? true : false;
-        }
-      });
+      formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
+      formInput = SharedModule.convertAllFieldsTrueFalseToBoolean(formInput);
 
       await this.permissionarioService.updateDocumentos(this.permissionario.id, formInput).toPromise();
       this.snackbarService.openSnackBarSucess('Permissionário salvo!');

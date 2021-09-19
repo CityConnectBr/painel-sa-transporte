@@ -38,7 +38,7 @@ export class SharedModule {
   static textMaskCPFPattern = [/[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/];
   static textMaskPhone8Dattern = ['(', /[0-9]/, /[0-9]/, ')', ' ', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
   static textMaskPhone9Dattern = ['(', /[0-9]/, /[0-9]/, ')', ' ', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
-  static textMaskDate = [/\d/, /\d/, '/', /\d/, /\d/, '/' , /\d/, /\d/, /\d/, /\d/];
+  static textMaskDate = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
 
   static msgError: { [key: string]: string } = {
     "code-c-1": "Não existem mais conteúdos para exibição!",
@@ -195,6 +195,47 @@ export class SharedModule {
     }
 
     return undefined;
+  }
+
+  static formatAllFieldsDateToddMMyyyy(obj: any): any {
+    //formatando datas
+    Object.getOwnPropertyNames(obj).forEach(key => {
+      if (obj[key] && obj[key].toString().match(SharedModule.dateFromAPIPattern)) {
+        obj[key] = SharedModule.formatDateddMMyyyy(obj[key]);
+      }
+    });
+
+    return obj;
+  }
+
+  static convertAllFieldsTrueFalseToBoolean(obj: any): any {
+    Object.getOwnPropertyNames(obj).forEach(key => {
+      if (obj[key] != null && (obj[key] == 'true' || obj[key] == 'false')) {
+        obj[key] = obj[key] == 'true' ? true : false;
+      }
+    });
+
+    return obj;
+  }
+
+  static convertAllFields01ToBoolean(obj: any): any {
+    Object.getOwnPropertyNames(obj).forEach(key => {
+      if (obj[key] == 1 || obj[key] == 0) {
+        obj[key] = obj[key] == 1 ? true : false;
+      }
+    });
+
+    return obj;
+  }
+
+  static convertAllFieldsddMMyyyyToyyyyMMdd(obj: any): any {
+    Object.getOwnPropertyNames(obj).forEach(key => {
+      if (obj[key] != null && obj[key].toString().match(SharedModule.datePattern)) {
+        obj[key] = SharedModule.convertStringddMMyyyyToyyyyMMdd(obj[key]);
+      }
+    });
+
+    return obj;
   }
 
   static formatDateddMMyyyy(value: string | number | Date): String | undefined {
