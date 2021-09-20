@@ -4,7 +4,7 @@
     <div class="subitem">
       <h3>Cursos</h3>
 
-      <app-input label="UF" [inline]="true" require="true">
+      <app-input label="Curso" [inline]="true" require="true">
         <select formControlName="tipo_do_curso_id" class="form-control">
           <option *ngFor="let obj of tiposDeCurso;" value="{{obj.id}}">{{obj.descricao}}</option>
         </select>
