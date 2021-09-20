@@ -58,6 +58,9 @@
               </tr>
             </tbody>
           </table>
+          <div *ngIf="!pontosDoPermissionario || pontosDoPermissionario.length==0" class="alert alert-warning">
+            Nenhum registro encontrado!
+          </div>
         </div>
       </form>
     </div>
