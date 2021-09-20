@@ -1,15 +1,22 @@
-<form  autocomplete="off">
+<form *ngIf="!loading" [formGroup]="form" autocomplete="off">
   <div class="form-inline">
 
     <div class="subitem">
       <h3>Observação</h3>
 
+      <app-input label="Título">
+        <input type="text" class="form-control" formControlName="titulo"
+          autocomplete="off">
+      </app-input>
+
       <app-input label="Observação">
-        <input type="text" class="form-control" autocomplete="off">
+        <input type="text" class="form-control" formControlName="observacao"
+          autocomplete="off">
       </app-input>
 
       <div class="clearfix">
-        <button type="button" class="btn btn-success pull-right">Adicionar</button>
+        <button type="submit" class="btn btn-success pull-right" (click)="salvar(form.value)"
+          [disabled]="!form.valid">Adicionar</button>
       </div>
     </div>
 
@@ -17,19 +24,24 @@
     <div class="subitem">
       <h3>Observações do Permissionário</h3>
 
-      <table class="table table-striped">
+      <table *ngIf="observacoesDoPermissionario.length>0" class="table table-striped">
         <thead>
           <tr>
+            <th>Título</th>
             <th>Observação</th>
             <th>Data</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr *ngFor="let obj of observacoesDoPermissionario">
+            <td>{{obj?.titulo}}</td>
+            <td>{{obj?.observacao}}</td>
+            <td>{{obj?.created_at | date: 'dd/MM/yyyy'}}</td>
+            <td class="text-right">
+              <a href="javascript: void(0);" (click)="setIdParaDelecao(obj.id);openModal(contentExcluir)"  title="Excluir"><i class="fa fa-trash"
+                  aria-hidden="true"></i></a>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -37,5 +49,15 @@
 
 
   </div>
+
+  <ng-template #contentExcluir let-modal>
+    <app-modal modalID="excluirModal" title="Excluir" (closeModalEmit)="closeModal($event)">
+      <div class="clearfix">
+        <h6>Deseja excluir este registro?</h6>
+        <button (click)="deletar()" class="btn btn-danger btn-sm pull-right ml-1">Sim</button>
+        <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right">Não</button>
+      </div>
+    </app-modal>
+  </ng-template>
 
 </form>
