@@ -1,6 +1,6 @@
 export interface CursoDoPermissionario {
   id: String
   permissionario_id: String
-  notipo_do_curso_idme: String
+  tipo_do_curso_id: String
   data_emissao: Date
 }
