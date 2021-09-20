@@ -88,7 +88,6 @@ export class UserPermissionarioAlterarCursosComponent implements OnInit {
 
       formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
 
-      console.log(formInput);
       await this.cursoDoPermissionarioService.create(formInput).pipe(first()).toPromise();
 
       this.loadCursos(this.permissionario);
@@ -108,7 +107,7 @@ export class UserPermissionarioAlterarCursosComponent implements OnInit {
 
   findTipoDeCurso(id: String): TipoDeCurso {
     if (this.tiposDeCurso && id)
-      return this.tiposDeCurso.filter(t => t.id = id)[0];
+      return this.tiposDeCurso.filter(t => t.id == id)[0];
   }
 
   async deletarCurso() {
