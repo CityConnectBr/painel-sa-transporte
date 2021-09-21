@@ -30,4 +30,12 @@ export class PermissionarioService extends BasicCrudService {
          retry(2),
        )
    }
+
+   updateFalecimento(id: number | String, obj: any): Observable<any> {
+     return this.httpClient.put(`${this.url}/${id}/falecimento`,
+       JSON.stringify(obj), super.getHttpOptions)
+       .pipe(
+         retry(2),
+       )
+   }
 }

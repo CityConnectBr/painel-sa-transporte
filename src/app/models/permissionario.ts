@@ -56,4 +56,10 @@ export interface Permissionario {
   entidade_associativa_id: String
   modalidade_id: String
   endereco_id: String
+  data_obito: Date
+  certidao_de_obito: String
+  nome_inventariante: String
+  grau_de_paretesco_inventariante: String
+  numero_do_processo_do_inventario: String
+  parecer_do_juiz_sobre_inventario: String
 }

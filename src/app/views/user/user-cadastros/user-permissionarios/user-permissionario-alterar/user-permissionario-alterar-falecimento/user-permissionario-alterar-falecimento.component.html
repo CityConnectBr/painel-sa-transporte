@@ -1,33 +1,40 @@
-<form  autocomplete="off">
+<form *ngIf="!loading" [formGroup]="form" autocomplete="off">
   <div class="form-inline">
 
     <div class="subitem">
       <h3>Falecimento</h3>
 
       <app-input label="Data de Óbito">
-        <input type="text" class="form-control" autocomplete="off">
+        <input type="text" class="form-control" formControlName="data_obito"  [textMask]="{mask: maskDate}" autocomplete="off">
       </app-input>
 
       <app-input label="N° da Certidão de Óbito">
-        <input type="text" class="form-control" autocomplete="off">
+        <input type="text" class="form-control" formControlName="certidao_de_obito" autocomplete="off">
       </app-input>
 
       <app-input label="Nome Inventariante">
-        <input type="text" class="form-control" autocomplete="off">
+        <input type="text" class="form-control" formControlName="nome_inventariante" autocomplete="off">
       </app-input>
 
       <app-input label="Grau de Parentesco">
-        <input type="text" class="form-control" autocomplete="off">
+        <input type="text" class="form-control" formControlName="grau_de_paretesco_inventariante" autocomplete="off">
       </app-input>
 
       <app-input label="N° do Processo">
-        <input type="text" class="form-control" autocomplete="off">
+        <input type="text" class="form-control" formControlName="numero_do_processo_do_inventario" autocomplete="off">
       </app-input>
 
       <app-input label="Parecer do Juiz">
-        <input type="text" class="form-control" autocomplete="off">
+        <input type="text" class="form-control" formControlName="parecer_do_juiz_sobre_inventario" autocomplete="off">
       </app-input>
 
+    </div>
+    <div class="clearfix">
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        <strong [innerHTML]="errorMessage"></strong>
+      </div>
+      <button type="submit" class="btn btn-success pull-right" (click)="salvar(form.value)"
+        [disabled]="!form.valid">Salvar</button>
     </div>
 
   </div>
