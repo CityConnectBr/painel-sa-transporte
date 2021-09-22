@@ -25,9 +25,9 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
 
   anexosDoPermissionario: AnexoDoPermissionario[];
 
-  idParaDelecao: String;
+  fileToUpload: File | null = null;
 
-  maskDate = SharedModule.textMaskDate;
+  idParaDelecao: String;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,6 +50,9 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
 
       ///////FORM
       this.form = this.formBuilder.group({
+        file: new FormControl("", {
+          validators: [Validators.required],
+        }),
         descricao: new FormControl("", {
           validators: [Validators.required, Validators.maxLength(60)],
         }),
@@ -66,6 +69,7 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
     const { data } =
       await this.anexoDoPermissionarioService.indexByPermissionario(this.permissionario.id.toString()).pipe(first()).toPromise();
 
+    console.log(data);
     this.anexosDoPermissionario = data;
   }
 
@@ -74,10 +78,8 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
     this.errorMessage = "";
     try {
       formInput.permissionario_id = this.permissionario.id;
-
-      formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
-
-      await this.anexoDoPermissionarioService.create(formInput).pipe(first()).toPromise();
+      console.log(this.fileToUpload);
+      await this.anexoDoPermissionarioService.createWithUpload(formInput, this.fileToUpload).pipe(first()).toPromise();
 
       this.load();
 
@@ -89,6 +91,13 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
     this.loading = false;
   }
 
+  async download(id: String) {
+    this.anexoDoPermissionarioService.get(id)
+      .subscribe((resultBlob: Blob) => {
+        var downloadURL = URL.createObjectURL(resultBlob);
+        window.open(downloadURL);
+      });
+  }
 
   setIdParaDelecao(id: String) {
     this.idParaDelecao = id;
@@ -116,6 +125,10 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
 
   openModal(content: any) {
     this.modal.open(content)
+  }
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
   }
 
 }

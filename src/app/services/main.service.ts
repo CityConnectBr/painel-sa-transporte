@@ -32,12 +32,12 @@ export class MainService {
   }
 
   public static get getPerfilOfUser(): string | null {
-    try{
-      if(this.typeOfUser){
+    try {
+      if (this.typeOfUser) {
         return SharedModule.decrypt(this.typeOfUser, "tr2su9E32Cduk&zPRu1&O^OmpIHeX^Y^");
       }
 
-    }catch(e){
+    } catch (e) {
       console.error(e);
     }
 
@@ -60,7 +60,13 @@ export class MainService {
       )
     };
   }
-  get getHttpOptionsMultPart() {
+  get getHeaderWithAuthorization(): HttpHeaders {
+    return new HttpHeaders(
+      { "Authorization": "Bearer " + this.getJWT }
+    );
+  }
+  //para upload de arquivos
+  get getHttpOptionsWithOutContentType() {
     return {
       headers: new HttpHeaders(
         { "Authorization": "Bearer " + this.getJWT }

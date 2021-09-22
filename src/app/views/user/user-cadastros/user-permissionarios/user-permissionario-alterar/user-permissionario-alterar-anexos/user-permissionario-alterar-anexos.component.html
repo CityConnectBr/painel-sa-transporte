@@ -5,11 +5,12 @@
       <h3>Anexo</h3>
 
       <app-input label="Arquivo">
-        <input type="file" class="form-control" autocomplete="off">
+        <input type="file" class="form-control" autocomplete="off" formControlName="file"
+        (change)="handleFileInput($event.target.files)">
       </app-input>
 
       <app-input label="Descrição">
-        <input type="text" class="form-control" formControlName="descricao" [textMask]="{mask: maskDate}"
+        <input type="text" class="form-control" formControlName="descricao"
           autocomplete="off">
       </app-input>
 
@@ -28,17 +29,15 @@
           <tr>
             <th>Descrição</th>
             <th></th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let obj of anexosDoPermissionario">
-            <td>{{obj?.d_descricao_do_tipo}}</td>
+            <td>{{obj?.descricao}}</td>
             <td class="text-right">
-              <a href="javascript: void(0);" (click)="setIdParaDelecao(obj.id);openModal(contentExcluir)"  title="Download"><i class="fa fa-trash"
-                  aria-hidden="true"></i></a>
-            </td>
-            <td class="text-right">
+              <a href="javascript: void(0);" (click)="download(obj.id);"  title="Download"><i class="fa fa-download"
+                aria-hidden="true"></i></a>
+                 |
               <a href="javascript: void(0);" (click)="setIdParaDelecao(obj.id);openModal(contentExcluir)"  title="Excluir"><i class="fa fa-trash"
                   aria-hidden="true"></i></a>
             </td>
