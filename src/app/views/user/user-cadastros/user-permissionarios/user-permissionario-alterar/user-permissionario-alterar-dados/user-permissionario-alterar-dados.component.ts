@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -17,7 +17,7 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
   templateUrl: './user-permissionario-alterar-dados.component.html',
   styleUrls: ['./user-permissionario-alterar-dados.component.css']
 })
-export class UserPermissionarioAlterarDadosComponent implements OnInit {
+export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
   form: FormGroup
@@ -34,6 +34,8 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit {
 
   municipiosPesquisados: Map<String, String> = new Map();
   municipioSelecionado: Municipio;
+
+  maskCEP = SharedModule.textMaskCEPPattern;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -150,6 +152,10 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit {
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;
+  }
+
+  ngOnDestroy() {
+    this.subjectMunicipio.unsubscribe();
   }
 
   async salvar(formInput: any) {

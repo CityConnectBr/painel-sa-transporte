@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +17,7 @@ import { SnackBarService } from 'src/app/shared/snackbar.service';
   templateUrl: './user-permissionario-novo.component.html',
   styleUrls: ['./user-permissionario-novo.component.css']
 })
-export class UserPermissionarioNovoComponent implements OnInit {
+export class UserPermissionarioNovoComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
   form: FormGroup
@@ -33,6 +33,8 @@ export class UserPermissionarioNovoComponent implements OnInit {
   municipioSelecionado: Municipio;
 
   @ViewChild('municipioInput') municipioInputElement: ElementRef;
+
+  maskCEP = SharedModule.textMaskCEPPattern;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -150,6 +152,9 @@ export class UserPermissionarioNovoComponent implements OnInit {
     this.loading = false;
   }
 
+  ngOnDestroy() {
+    this.subjectMunicipio.unsubscribe();
+  }
 
   async salvar(formInput: any) {
     this.loading = true;

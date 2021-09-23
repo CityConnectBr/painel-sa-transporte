@@ -112,7 +112,7 @@
         <div class="subitem">
           <h3>Endereço</h3>
           <app-input label="CEP" [inline]="true" require="true">
-            <input type="text" class="form-control" formControlName="cep" mask="00000-000" autocomplete="off">
+            <input type="text" class="form-control" formControlName="cep" [textMask]="{mask: maskCEP}" autocomplete="off">
           </app-input>
 
           <app-input label="Endereço" [inline]="true" require="true">
