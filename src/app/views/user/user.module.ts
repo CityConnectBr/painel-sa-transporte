@@ -25,6 +25,8 @@ import { UserPermissionarioAlterarAnexosComponent } from './user-cadastros/user-
 import { UserPermissionarioAlterarObservacoesComponent } from './user-cadastros/user-permissionarios/user-permissionario-alterar/user-permissionario-alterar-observacoes/user-permissionario-alterar-observacoes.component';
 import { UserPermissionarioAlterarFalecimentoComponent } from './user-cadastros/user-permissionarios/user-permissionario-alterar/user-permissionario-alterar-falecimento/user-permissionario-alterar-falecimento.component';
 import { UserPermissionarioAlterarAlvaraComponent } from './user-cadastros/user-permissionarios/user-permissionario-alterar/user-permissionario-alterar-alvara/user-permissionario-alterar-alvara.component';
+import { UserEmpresasComponent } from './user-cadastros/user-empresas/user-empresas.component';
+import { UserEmpresaCrudComponent } from './user-cadastros/user-empresas/user-empresa-crud/user-empresa-crud.component';
 
 const ROUTER: Routes = [
   {
@@ -34,6 +36,9 @@ const ROUTER: Routes = [
       {
         path: 'cadastros', component: UserCadastrosComponent,
         children: [
+          { path: 'empresas', component: UserEmpresasComponent, },
+          { path: 'empresas/novo', component: UserEmpresaCrudComponent },
+          { path: 'empresas/alterar/:id', component: UserEmpresaCrudComponent },
           { path: 'perfis', component: UserPerfisComponent, },
           { path: 'perfis/novo', component: UserPerfilCrudComponent },
           { path: 'perfis/alterar/:id', component: UserPerfilCrudComponent },
@@ -89,6 +94,8 @@ const ROUTER: Routes = [
     UserPermissionarioAlterarObservacoesComponent,
     UserPermissionarioAlterarFalecimentoComponent,
     UserPermissionarioAlterarAlvaraComponent,
+    UserEmpresasComponent,
+    UserEmpresaCrudComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),
