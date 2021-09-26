@@ -27,6 +27,12 @@ import { UserPermissionarioAlterarFalecimentoComponent } from './user-cadastros/
 import { UserPermissionarioAlterarAlvaraComponent } from './user-cadastros/user-permissionarios/user-permissionario-alterar/user-permissionario-alterar-alvara/user-permissionario-alterar-alvara.component';
 import { UserEmpresasComponent } from './user-cadastros/user-empresas/user-empresas.component';
 import { UserEmpresaCrudComponent } from './user-cadastros/user-empresas/user-empresa-crud/user-empresa-crud.component';
+import { UserCondutoresComponent } from './user-cadastros/user-condutores/user-condutores.component';
+import { UserCondutoresNovoComponent } from './user-cadastros/user-condutores/user-condutores-novo/user-condutores-novo.component';
+import { UserCondutoresAlterarComponent } from './user-cadastros/user-condutores/user-condutores-alterar/user-condutores-alterar.component';
+import { UserCondutoresAlterarCursosComponent } from './user-cadastros/user-condutores/user-condutores-alterar/user-condutores-alterar-cursos/user-condutores-alterar-cursos.component';
+import { UserCondutoresAlterarAnexosComponent } from './user-cadastros/user-condutores/user-condutores-alterar/user-condutores-alterar-anexos/user-condutores-alterar-anexos.component';
+import { UserCondutoresAlterarDadosComponent } from './user-cadastros/user-condutores/user-condutores-alterar/user-condutores-alterar-dados/user-condutores-alterar-dados.component';
 
 const ROUTER: Routes = [
   {
@@ -64,6 +70,17 @@ const ROUTER: Routes = [
               { path: 'falecimento', component: UserPermissionarioAlterarFalecimentoComponent },
             ]
           },
+          { path: 'condutores', component: UserCondutoresComponent },
+          { path: 'condutores/novo', component: UserCondutoresNovoComponent },
+          {
+            path: 'condutores/alterar/:id', component: UserCondutoresAlterarComponent,
+            children: [
+              { path: '', component: UserCondutoresAlterarComponent },
+              { path: 'dados', component: UserCondutoresAlterarDadosComponent },
+              { path: 'cursos', component: UserCondutoresAlterarCursosComponent },
+              { path: 'anexos', component: UserCondutoresAlterarAnexosComponent },
+            ]
+          },
         ]
       },
     ]
@@ -96,6 +113,12 @@ const ROUTER: Routes = [
     UserPermissionarioAlterarAlvaraComponent,
     UserEmpresasComponent,
     UserEmpresaCrudComponent,
+    UserCondutoresComponent,
+    UserCondutoresNovoComponent,
+    UserCondutoresAlterarComponent,
+    UserCondutoresAlterarCursosComponent,
+    UserCondutoresAlterarAnexosComponent,
+    UserCondutoresAlterarDadosComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),
