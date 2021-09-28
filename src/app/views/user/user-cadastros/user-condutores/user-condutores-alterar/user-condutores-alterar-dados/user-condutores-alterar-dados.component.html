@@ -138,46 +138,6 @@
         </div>
 
         <div class="subitem">
-          <h3>Documentos</h3>
-
-          <app-input label="Atestado de Saúde">
-            <select formControlName="atestado_de_saude" class="form-control">
-              <option value="true">SIM</option>
-              <option value="false">NÃO</option>
-            </select>
-          </app-input>
-
-          <app-input label="Certidão Negativa">
-            <select formControlName="certidao_negativa" class="form-control">
-              <option value="true">SIM</option>
-              <option value="false">NÃO</option>
-            </select>
-          </app-input>
-
-          <app-input label="Validade da Cert. Negativa">
-            <input type="text" class="form-control" formControlName="validade_certidao_negativa" mask="d0/M0/0000" autocomplete="off">
-          </app-input>
-
-          <app-input label="CTPS">
-            <select formControlName="registro_ctps" class="form-control">
-              <option value="true">SIM</option>
-              <option value="false">NÃO</option>
-            </select>
-          </app-input>
-
-          <app-input label="Primeiros Socorros">
-            <select formControlName="primeiros_socorros" class="form-control">
-              <option value="true">SIM</option>
-              <option value="false">NÃO</option>
-            </select>
-          </app-input>
-
-          <app-input label="Emissão P. Socorros">
-            <input type="text" class="form-control" formControlName="emissao_primeiros_socorros" mask="d0/M0/0000" autocomplete="off">
-          </app-input>
-        </div>
-
-        <div class="subitem">
           <h3>Afastamento</h3>
 
           <app-input label="Motivo" [inline]="true">
