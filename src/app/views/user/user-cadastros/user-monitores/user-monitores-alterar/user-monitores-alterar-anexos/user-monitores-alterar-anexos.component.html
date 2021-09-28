@@ -1,0 +1,65 @@
+<form *ngIf="!loading" [formGroup]="form" autocomplete="off">
+  <div class="form-inline">
+
+    <div class="subitem">
+      <h3>Anexo</h3>
+
+      <app-input label="Arquivo">
+        <input type="file" class="form-control" autocomplete="off" formControlName="file"
+        (change)="handleFileInput($event.target.files)">
+      </app-input>
+
+      <app-input label="Descrição">
+        <input type="text" class="form-control" formControlName="descricao"
+          autocomplete="off">
+      </app-input>
+
+      <div class="clearfix">
+        <button type="submit" class="btn btn-success pull-right" (click)="salvar(form.value)"
+          [disabled]="!form.valid">Adicionar</button>
+      </div>
+    </div>
+
+
+    <div class="subitem">
+      <h3>Anexos do Monitor</h3>
+
+      <table *ngIf="anexosDoMonitor.length>0" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of anexosDoMonitor">
+            <td>{{obj?.descricao}}</td>
+            <td class="text-right">
+              <a href="javascript: void(0);" (click)="download(obj.id);"  title="Download"><i class="fa fa-download"
+                aria-hidden="true"></i></a>
+                 |
+              <a href="javascript: void(0);" (click)="setIdParaDelecao(obj.id);openModal(contentExcluir)"  title="Excluir"><i class="fa fa-trash"
+                  aria-hidden="true"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!anexosDoMonitor || anexosDoMonitor.length==0" class="alert alert-warning">
+        Nenhum registro encontrado!
+      </div>
+    </div>
+
+
+  </div>
+
+  <ng-template #contentExcluir let-modal>
+    <app-modal modalID="excluirModal" title="Excluir" (closeModalEmit)="closeModal($event)">
+      <div class="clearfix">
+        <h6>Deseja excluir este registro?</h6>
+        <button (click)="deletar()" class="btn btn-danger btn-sm pull-right ml-1">Sim</button>
+        <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right">Não</button>
+      </div>
+    </app-modal>
+  </ng-template>
+
+</form>
