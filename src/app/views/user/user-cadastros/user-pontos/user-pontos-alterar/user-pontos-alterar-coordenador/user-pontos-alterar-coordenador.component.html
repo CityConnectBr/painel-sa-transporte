@@ -1,0 +1,59 @@
+<form *ngIf="!loading" [formGroup]="form" autocomplete="off">
+  <div class="form-inline">
+
+    <div class="subitem">
+      <h3>Coordenador Atual
+
+        <button type="submit" class="btn btn-new pull-right" (click)="novo(form.value)">Novo</button>
+      </h3>
+
+      <app-input label="Permissionário" [inline]="true" [options]="permissionariosPesquisados" require="true" (setObjectSelected)="setPermissionario($event)">
+        <input #municipioInput type="text" class="form-control" formControlName="permissionario" autocomplete="off" (keyup)="keyUpPermissionario()" (focus)="setFocusPermissionarioInput(true)">
+      </app-input>
+
+      <app-input label="Data Inicial" require="true">
+        <input type="text" class="form-control" formControlName="data_inicial" [textMask]="{mask: maskDate}"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="Data Término">
+        <input type="text" class="form-control" formControlName="data_termino" [textMask]="{mask: maskDate}"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="Observação" require="true">
+        <input type="text" class="form-control" formControlName="observacao" autocomplete="off">
+      </app-input>
+
+      <button type="submit" class="btn pull-right" (click)="salvar(form.value)"
+        [disabled]="!form.valid">Salvar</button>
+
+    </div>
+
+    <div class="subitem">
+      <h3>Coordenadores Anteriores</h3>
+
+      <table *ngIf="coordenadoresDoPonto.length>0" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Coordenador</th>
+            <th>Data Inicial</th>
+            <th>Data Término</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of coordenadoresDoPonto">
+            <td>{{obj?.permissionario_id}}</td>
+            <td>{{obj?.data_inicial | date: 'dd/MM/yyyy'}}</td>
+            <td>{{obj?.data_termino | date: 'dd/MM/yyyy'}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!coordenadoresDoPonto || coordenadoresDoPonto.length==0" class="alert alert-warning">
+        Nenhum registro encontrado!
+      </div>
+    </div>
+
+  </div>
+
+</form>

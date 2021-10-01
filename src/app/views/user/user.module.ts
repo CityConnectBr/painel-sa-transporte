@@ -39,6 +39,11 @@ import { UserMonitoresAlterarComponent } from './user-cadastros/user-monitores/u
 import { UserMonitoresAlterarCursosComponent } from './user-cadastros/user-monitores/user-monitores-alterar/user-monitores-alterar-cursos/user-monitores-alterar-cursos.component';
 import { UserMonitoresAlterarAnexosComponent } from './user-cadastros/user-monitores/user-monitores-alterar/user-monitores-alterar-anexos/user-monitores-alterar-anexos.component';
 import { UserMonitoresAlterarDadosComponent } from './user-cadastros/user-monitores/user-monitores-alterar/user-monitores-alterar-dados/user-monitores-alterar-dados.component';
+import { UserPontosComponent } from './user-cadastros/user-pontos/user-pontos.component';
+import { UserPontosNovoComponent } from './user-cadastros/user-pontos/user-pontos-novo/user-pontos-novo.component';
+import { UserPontosAlterarComponent } from './user-cadastros/user-pontos/user-pontos-alterar/user-pontos-alterar.component';
+import { UserPontosAlterarDadosComponent } from './user-cadastros/user-pontos/user-pontos-alterar/user-pontos-alterar-dados/user-pontos-alterar-dados.component';
+import { UserPontosAlterarCoordenadorComponent } from './user-cadastros/user-pontos/user-pontos-alterar/user-pontos-alterar-coordenador/user-pontos-alterar-coordenador.component';
 
 const ROUTER: Routes = [
   {
@@ -81,7 +86,6 @@ const ROUTER: Routes = [
           {
             path: 'condutores/alterar/:id', component: UserCondutoresAlterarComponent,
             children: [
-              { path: '', component: UserCondutoresAlterarComponent },
               { path: 'dados', component: UserCondutoresAlterarDadosComponent },
               { path: 'cursos', component: UserCondutoresAlterarCursosComponent },
               { path: 'anexos', component: UserCondutoresAlterarAnexosComponent },
@@ -89,14 +93,21 @@ const ROUTER: Routes = [
           },
           { path: 'monitores', component: UserMonitoresComponent },
           { path: 'monitores/novo', component: UserMonitoresNovoComponent },
-
           {
             path: 'monitores/alterar/:id', component: UserMonitoresAlterarComponent,
             children: [
-              { path: '', component: UserMonitoresAlterarComponent },
               { path: 'dados', component: UserMonitoresAlterarDadosComponent },
               { path: 'cursos', component: UserMonitoresAlterarCursosComponent },
               { path: 'anexos', component: UserMonitoresAlterarAnexosComponent },
+            ]
+          },
+          { path: 'pontos', component: UserPontosComponent },
+          { path: 'pontos/novo', component: UserPontosNovoComponent },
+          {
+            path: 'pontos/alterar/:id', component: UserPontosAlterarComponent,
+            children: [
+              { path: 'dados', component: UserPontosAlterarDadosComponent },
+              { path: 'coordenadores', component: UserPontosAlterarCoordenadorComponent },
             ]
           },
         ]
@@ -143,6 +154,11 @@ const ROUTER: Routes = [
     UserMonitoresAlterarCursosComponent,
     UserMonitoresAlterarAnexosComponent,
     UserMonitoresAlterarDadosComponent,
+    UserPontosComponent,
+    UserPontosNovoComponent,
+    UserPontosAlterarComponent,
+    UserPontosAlterarDadosComponent,
+    UserPontosAlterarCoordenadorComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),

@@ -1,0 +1,21 @@
+<div class="crud">
+  <h3 class="titulo">
+    <a [routerLink]="['../..']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i> Voltar</a>
+    | Alteração de Ponto/Trecho
+  </h3>
+
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['dados']" routerLinkActive #rlaDados="routerLinkActive" [ngClass]="rlaDados.isActive ? 'active' : 'no-active'">Dados</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['coordenadores']" routerLinkActive #rlaCordenadores="routerLinkActive" [ngClass]="rlaCordenadores.isActive ? 'active' : 'no-active'">Coordenadores</a>
+      </li>
+    </ul>
+
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
