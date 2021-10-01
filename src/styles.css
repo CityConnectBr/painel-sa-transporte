@@ -205,6 +205,11 @@ aside a i{
   background-color: #d1eeff;
 }
 
+.crud .btn-new{
+  color: var(--lightBlue);
+  background-color: var(--lightGrey);
+}
+
 .crud .search-content{
   margin-top: 10px;
 }

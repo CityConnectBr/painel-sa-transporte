@@ -2,7 +2,10 @@
   <div class="form-inline">
 
     <div class="subitem">
-      <h3>Alvará</h3>
+      <h3>Alvará
+        <button type="submit" class="btn btn-new pull-right" (click)="novo()" [disabled]="!form.valid">Criar
+          Novo</button>
+      </h3>
 
       <app-input label="Emissão">
         <input type="text" class="form-control" formControlName="data_emissao" [textMask]="{mask: maskDate}"
@@ -56,7 +59,5 @@
     <div class="alert alert-danger" *ngIf="errorMessage">
       <strong [innerHTML]="errorMessage"></strong>
     </div>
-    <button type="submit" class="btn btn-success pull-right" (click)="novo()" [disabled]="!form.valid">Criar
-      Novo</button>
   </div>
 </form>
