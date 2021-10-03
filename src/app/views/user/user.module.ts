@@ -44,6 +44,16 @@ import { UserPontosNovoComponent } from './user-cadastros/user-pontos/user-ponto
 import { UserPontosAlterarComponent } from './user-cadastros/user-pontos/user-pontos-alterar/user-pontos-alterar.component';
 import { UserPontosAlterarDadosComponent } from './user-cadastros/user-pontos/user-pontos-alterar/user-pontos-alterar-dados/user-pontos-alterar-dados.component';
 import { UserPontosAlterarCoordenadorComponent } from './user-cadastros/user-pontos/user-pontos-alterar/user-pontos-alterar-coordenador/user-pontos-alterar-coordenador.component';
+import { UserEntidadeAssociativaComponent } from './user-cadastros/user-entidade-associativa/user-entidade-associativa.component';
+import { UserEntidadeAssociativaCrudComponent } from './user-cadastros/user-entidade-associativa/user-entidade-associativa-crud/user-entidade-associativa-crud.component';
+import { UserMarcasModelosDeVeiculosComponent } from './user-cadastros/user-marcas-modelos-de-veiculos/user-marcas-modelos-de-veiculos.component';
+import { UserMarcasModelosDeVeiculosCrudComponent } from './user-cadastros/user-marcas-modelos-de-veiculos/user-marcas-modelos-de-veiculos-crud/user-marcas-modelos-de-veiculos-crud.component';
+import { UserTiposDeVeiculoComponent } from './user-cadastros/user-tipos-de-veiculo/user-tipos-de-veiculo.component';
+import { UserTiposDeVeiculoCrudComponent } from './user-cadastros/user-tipos-de-veiculo/user-tipos-de-veiculo-crud/user-tipos-de-veiculo-crud.component';
+import { UserCoresDeVeiculoComponent } from './user-cadastros/user-cores-de-veiculo/user-cores-de-veiculo.component';
+import { UserCoresDeVeiculoCrudComponent } from './user-cadastros/user-cores-de-veiculo/user-cores-de-veiculo-crud/user-cores-de-veiculo-crud.component';
+import { UserTiposDeCombustivelComponent } from './user-cadastros/user-tipos-de-combustivel/user-tipos-de-combustivel.component';
+import { UserTiposDeCombustivelCrudComponent } from './user-cadastros/user-tipos-de-combustivel/user-tipos-de-combustivel-crud/user-tipos-de-combustivel-crud.component';
 
 const ROUTER: Routes = [
   {
@@ -110,6 +120,21 @@ const ROUTER: Routes = [
               { path: 'coordenadores', component: UserPontosAlterarCoordenadorComponent },
             ]
           },
+          { path: 'coresdeveiculos', component: UserCoresDeVeiculoComponent, },
+          { path: 'coresdeveiculos/novo', component: UserCoresDeVeiculoCrudComponent },
+          { path: 'coresdeveiculos/alterar/:id', component: UserCoresDeVeiculoCrudComponent },
+          { path: 'entidadesassociativas', component: UserEntidadeAssociativaComponent, },
+          { path: 'entidadesassociativas/novo', component: UserEntidadeAssociativaCrudComponent },
+          { path: 'entidadesassociativas/alterar/:id', component: UserEntidadeAssociativaCrudComponent },
+          { path: 'marcasmodelosdeveiculos', component: UserMarcasModelosDeVeiculosComponent, },
+          { path: 'marcasmodelosdeveiculos/novo', component: UserMarcasModelosDeVeiculosCrudComponent },
+          { path: 'marcasmodelosdeveiculos/alterar/:id', component: UserMarcasModelosDeVeiculosCrudComponent },
+          { path: 'tiposdecombustivel', component: UserTiposDeCombustivelComponent, },
+          { path: 'tiposdecombustivel/novo', component: UserTiposDeCombustivelCrudComponent },
+          { path: 'tiposdecombustivel/alterar/:id', component: UserTiposDeCombustivelCrudComponent },
+          { path: 'tiposdeveiculo', component: UserTiposDeVeiculoComponent, },
+          { path: 'tiposdeveiculo/novo', component: UserTiposDeVeiculoCrudComponent },
+          { path: 'tiposdeveiculo/alterar/:id', component: UserTiposDeVeiculoCrudComponent },
         ]
       },
     ]
@@ -159,6 +184,16 @@ const ROUTER: Routes = [
     UserPontosAlterarComponent,
     UserPontosAlterarDadosComponent,
     UserPontosAlterarCoordenadorComponent,
+    UserEntidadeAssociativaComponent,
+    UserEntidadeAssociativaCrudComponent,
+    UserMarcasModelosDeVeiculosComponent,
+    UserMarcasModelosDeVeiculosCrudComponent,
+    UserTiposDeVeiculoComponent,
+    UserTiposDeVeiculoCrudComponent,
+    UserCoresDeVeiculoComponent,
+    UserCoresDeVeiculoCrudComponent,
+    UserTiposDeCombustivelComponent,
+    UserTiposDeCombustivelCrudComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),

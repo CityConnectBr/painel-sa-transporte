@@ -1,0 +1,59 @@
+<div class="crud">
+  <h3 *ngIf="!crudObj" class="titulo">
+    <a [routerLink]="['..']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i> Voltar</a>
+    | Novo Tipo de Veículo
+  </h3>
+
+  <h3 *ngIf="crudObj" class="titulo">
+    <a [routerLink]="['../..']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i> Voltar</a>
+    | Alteração de Tipo de Veículo
+
+    <a title="Excluir" class="mr-1" href="javascript:void(0)" (click)="openModal(contentExcluir)" style="float: right;">
+      <i class="fa fa-trash"></i></a>
+  </h3>
+
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading">
+    <form [formGroup]="form" autocomplete="off">
+      <div class="form-inline">
+
+        <app-input label="Descrição" [inline]="true" require="true">
+          <input type="text" class="form-control" formControlName="descricao" autocomplete="off">
+        </app-input>
+
+        <app-input label="Modalidade" require="true">
+          <select formControlName="modalidade_transporte" class="form-control">
+            <option *ngFor="let m of modalidades" value="{{m.id}}">{{m.desc}}</option>
+          </select>
+        </app-input>
+
+        <app-input label="Idade Limite Ingresso" [inline]="true">
+          <input type="text" class="form-control" formControlName="idade_limite_ingresso" autocomplete="off">
+        </app-input>
+
+        <app-input label="Idade de Permanencia" [inline]="true">
+          <input type="text" class="form-control" formControlName="idade_limite_permanencia" autocomplete="off">
+        </app-input>
+
+      </div>
+      <div class="clearfix">
+        <div class="alert alert-danger" *ngIf="errorMessage">
+          <strong [innerHTML]="errorMessage"></strong>
+        </div>
+        <button type="submit" class="btn pull-right" (click)="salvar(form.value)"
+          [disabled]="!form.valid">Salvar</button>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #contentExcluir let-modal>
+    <app-modal modalID="excluirModal" title="Excluir" (closeModalEmit)="closeModal($event)">
+      <div class="clearfix">
+        <h6>Deseja excluir este registro?</h6>
+        <button (click)="excluir()" class="btn btn-danger btn-sm pull-right ml-1">Sim</button>
+        <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right">Não</button>
+      </div>
+    </app-modal>
+  </ng-template>
+
+</div>
