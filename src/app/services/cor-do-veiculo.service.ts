@@ -10,7 +10,7 @@ export class CorDoVeiculoService extends BasicCrudService {
   constructor(
     protected httpClient: HttpClient,
   ) {
-    super(httpClient, "/api/admin/coresveiculos");
+    super(httpClient, "/api/admin/coresdeveiculo");
    }
 
 }
