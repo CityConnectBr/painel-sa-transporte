@@ -1,4 +1,4 @@
-export interface MarcaModeloDeveitulo {
+export interface MarcaModeloDeVeiculo {
   id: String
   descricao: String
 }

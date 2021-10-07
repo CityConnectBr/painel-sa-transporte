@@ -54,6 +54,11 @@ import { UserCoresDeVeiculoComponent } from './user-cadastros/user-cores-de-veic
 import { UserCoresDeVeiculoCrudComponent } from './user-cadastros/user-cores-de-veiculo/user-cores-de-veiculo-crud/user-cores-de-veiculo-crud.component';
 import { UserTiposDeCombustivelComponent } from './user-cadastros/user-tipos-de-combustivel/user-tipos-de-combustivel.component';
 import { UserTiposDeCombustivelCrudComponent } from './user-cadastros/user-tipos-de-combustivel/user-tipos-de-combustivel-crud/user-tipos-de-combustivel-crud.component';
+import { UserVeiculosComponent } from './user-cadastros/user-veiculos/user-veiculos.component';
+import { UserVeiculosNovoComponent } from './user-cadastros/user-veiculos/user-veiculos-novo/user-veiculos-novo.component';
+import { UserVeiculosAlterarComponent } from './user-cadastros/user-veiculos/user-veiculos-alterar/user-veiculos-alterar.component';
+import { UserVeiculosAlterarDadosComponent } from './user-cadastros/user-veiculos/user-veiculos-alterar/user-veiculos-alterar-dados/user-veiculos-alterar-dados.component';
+import { UserVeiculosAlterarAnexosComponent } from './user-cadastros/user-veiculos/user-veiculos-alterar/user-veiculos-alterar-anexos/user-veiculos-alterar-anexos.component';
 
 const ROUTER: Routes = [
   {
@@ -135,6 +140,15 @@ const ROUTER: Routes = [
           { path: 'tiposdeveiculo', component: UserTiposDeVeiculoComponent, },
           { path: 'tiposdeveiculo/novo', component: UserTiposDeVeiculoCrudComponent },
           { path: 'tiposdeveiculo/alterar/:id', component: UserTiposDeVeiculoCrudComponent },
+          { path: 'veiculos', component: UserVeiculosComponent },
+          { path: 'veiculos/novo', component: UserVeiculosNovoComponent },
+          {
+            path: 'veiculos/alterar/:id', component: UserVeiculosAlterarComponent,
+            children: [
+              { path: 'dados', component: UserVeiculosAlterarDadosComponent },
+              { path: 'anexos', component: UserVeiculosAlterarAnexosComponent },
+            ]
+          },
         ]
       },
     ]
@@ -194,6 +208,11 @@ const ROUTER: Routes = [
     UserCoresDeVeiculoCrudComponent,
     UserTiposDeCombustivelComponent,
     UserTiposDeCombustivelCrudComponent,
+    UserVeiculosComponent,
+    UserVeiculosNovoComponent,
+    UserVeiculosAlterarComponent,
+    UserVeiculosAlterarDadosComponent,
+    UserVeiculosAlterarAnexosComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),

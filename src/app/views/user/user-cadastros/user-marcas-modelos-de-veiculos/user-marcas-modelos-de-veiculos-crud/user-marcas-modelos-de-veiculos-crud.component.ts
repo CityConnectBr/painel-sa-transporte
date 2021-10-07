@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, first } from 'rxjs/operators';
-import { MarcaModeloDeveitulo } from 'src/app/models/marca-modelo-de-veiculo';
+import { MarcaModeloDeVeiculo } from 'src/app/models/marca-modelo-de-veiculo';
 import { MarcaModeloDeVeiculoService } from 'src/app/services/marca-modelo-de-veiculo.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
@@ -20,7 +20,7 @@ export class UserMarcasModelosDeVeiculosCrudComponent implements OnInit {
   form: FormGroup
   errorMessage: string
 
-  crudObj: MarcaModeloDeveitulo;
+  crudObj: MarcaModeloDeVeiculo;
 
   constructor(
     private formBuilder: FormBuilder,
