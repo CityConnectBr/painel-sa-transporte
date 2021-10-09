@@ -59,6 +59,8 @@ import { UserVeiculosNovoComponent } from './user-cadastros/user-veiculos/user-v
 import { UserVeiculosAlterarComponent } from './user-cadastros/user-veiculos/user-veiculos-alterar/user-veiculos-alterar.component';
 import { UserVeiculosAlterarDadosComponent } from './user-cadastros/user-veiculos/user-veiculos-alterar/user-veiculos-alterar-dados/user-veiculos-alterar-dados.component';
 import { UserVeiculosAlterarAnexosComponent } from './user-cadastros/user-veiculos/user-veiculos-alterar/user-veiculos-alterar-anexos/user-veiculos-alterar-anexos.component';
+import { UserAplicativosComponent } from './user-cadastros/user-aplicativos/user-aplicativos.component';
+import { UserAplicativosCrudComponent } from './user-cadastros/user-aplicativos/user-aplicativos-crud/user-aplicativos-crud.component';
 
 const ROUTER: Routes = [
   {
@@ -137,6 +139,9 @@ const ROUTER: Routes = [
           { path: 'tiposdecombustivel', component: UserTiposDeCombustivelComponent, },
           { path: 'tiposdecombustivel/novo', component: UserTiposDeCombustivelCrudComponent },
           { path: 'tiposdecombustivel/alterar/:id', component: UserTiposDeCombustivelCrudComponent },
+          { path: 'aplicativos', component: UserAplicativosComponent, },
+          { path: 'aplicativos/novo', component: UserAplicativosCrudComponent },
+          { path: 'aplicativos/alterar/:id', component: UserAplicativosCrudComponent },
           { path: 'tiposdeveiculo', component: UserTiposDeVeiculoComponent, },
           { path: 'tiposdeveiculo/novo', component: UserTiposDeVeiculoCrudComponent },
           { path: 'tiposdeveiculo/alterar/:id', component: UserTiposDeVeiculoCrudComponent },
@@ -213,6 +218,8 @@ const ROUTER: Routes = [
     UserVeiculosAlterarComponent,
     UserVeiculosAlterarDadosComponent,
     UserVeiculosAlterarAnexosComponent,
+    UserAplicativosComponent,
+    UserAplicativosCrudComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),
