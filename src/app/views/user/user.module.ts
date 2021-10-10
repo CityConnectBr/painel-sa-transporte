@@ -63,6 +63,8 @@ import { UserAplicativosComponent } from './user-cadastros/user-aplicativos/user
 import { UserAplicativosCrudComponent } from './user-cadastros/user-aplicativos/user-aplicativos-crud/user-aplicativos-crud.component';
 import { UserEmpresasVistoriadorasComponent } from './user-cadastros/user-empresas-vistoriadoras/user-empresas-vistoriadoras.component';
 import { UserEmpresasVistoriadorasCrudComponent } from './user-cadastros/user-empresas-vistoriadoras/user-empresas-vistoriadoras-crud/user-empresas-vistoriadoras-crud.component';
+import { UserVistoriadoresComponent } from './user-cadastros/user-vistoriadores/user-vistoriadores.component';
+import { UserVistoriadoresCrudComponent } from './user-cadastros/user-vistoriadores/user-vistoriadores-crud/user-vistoriadores-crud.component';
 
 const ROUTER: Routes = [
   {
@@ -147,6 +149,9 @@ const ROUTER: Routes = [
           { path: 'empresasvistoriadoras', component: UserEmpresasVistoriadorasComponent, },
           { path: 'empresasvistoriadoras/novo', component: UserEmpresasVistoriadorasCrudComponent },
           { path: 'empresasvistoriadoras/alterar/:id', component: UserEmpresasVistoriadorasCrudComponent },
+          { path: 'vistoriadores', component: UserVistoriadoresComponent, },
+          { path: 'vistoriadores/novo', component: UserVistoriadoresCrudComponent },
+          { path: 'vistoriadores/alterar/:id', component: UserVistoriadoresCrudComponent },
           { path: 'tiposdeveiculo', component: UserTiposDeVeiculoComponent, },
           { path: 'tiposdeveiculo/novo', component: UserTiposDeVeiculoCrudComponent },
           { path: 'tiposdeveiculo/alterar/:id', component: UserTiposDeVeiculoCrudComponent },
@@ -227,6 +232,8 @@ const ROUTER: Routes = [
     UserAplicativosCrudComponent,
     UserEmpresasVistoriadorasComponent,
     UserEmpresasVistoriadorasCrudComponent,
+    UserVistoriadoresComponent,
+    UserVistoriadoresCrudComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),
