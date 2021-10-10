@@ -112,9 +112,7 @@ export class UserEmpresasVistoriadorasCrudComponent implements OnInit, OnDestroy
         bairro: new FormControl("", {
           validators: [Validators.required],
         }),
-        municipio: new FormControl("", {
-          validators: [Validators.required],
-        }),
+        municipio: new FormControl("",),
         uf: new FormControl("", {
           validators: [Validators.required],
         }),
