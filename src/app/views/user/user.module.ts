@@ -71,6 +71,8 @@ import { UserEntidadeCursoComponent } from './user-cadastros/user-entidade-curso
 import { UserEntidadeCursoCrudComponent } from './user-cadastros/user-entidade-curso/user-entidade-curso-crud/user-entidade-curso-crud.component';
 import { UserTiposDeCursoComponent } from './user-cadastros/user-tipos-de-curso/user-tipos-de-curso.component';
 import { UserTiposDeCursoCrudComponent } from './user-cadastros/user-tipos-de-curso/user-tipos-de-curso-crud/user-tipos-de-curso-crud.component';
+import { UserQuadroDeInfracoesComponent } from './user-cadastros/user-quadro-de-infracoes/user-quadro-de-infracoes.component';
+import { UserQuadroDeInfracoesCrudComponent } from './user-cadastros/user-quadro-de-infracoes/user-quadro-de-infracoes-crud/user-quadro-de-infracoes-crud.component';
 
 const ROUTER: Routes = [
   {
@@ -170,6 +172,9 @@ const ROUTER: Routes = [
           { path: 'tiposdecurso', component: UserTiposDeCursoComponent, },
           { path: 'tiposdecurso/novo', component: UserTiposDeCursoCrudComponent },
           { path: 'tiposdecurso/alterar/:id', component: UserTiposDeCursoCrudComponent },
+          { path: 'quadrodeinfracoes', component: UserQuadroDeInfracoesComponent, },
+          { path: 'quadrodeinfracoes/novo', component: UserQuadroDeInfracoesCrudComponent },
+          { path: 'quadrodeinfracoes/alterar/:id', component: UserQuadroDeInfracoesCrudComponent },
           { path: 'veiculos', component: UserVeiculosComponent },
           { path: 'veiculos/novo', component: UserVeiculosNovoComponent },
           {
@@ -255,6 +260,8 @@ const ROUTER: Routes = [
     UserEntidadeCursoCrudComponent,
     UserTiposDeCursoComponent,
     UserTiposDeCursoCrudComponent,
+    UserQuadroDeInfracoesComponent,
+    UserQuadroDeInfracoesCrudComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),
