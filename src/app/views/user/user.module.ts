@@ -73,6 +73,10 @@ import { UserTiposDeCursoComponent } from './user-cadastros/user-tipos-de-curso/
 import { UserTiposDeCursoCrudComponent } from './user-cadastros/user-tipos-de-curso/user-tipos-de-curso-crud/user-tipos-de-curso-crud.component';
 import { UserQuadroDeInfracoesComponent } from './user-cadastros/user-quadro-de-infracoes/user-quadro-de-infracoes.component';
 import { UserQuadroDeInfracoesCrudComponent } from './user-cadastros/user-quadro-de-infracoes/user-quadro-de-infracoes-crud/user-quadro-de-infracoes-crud.component';
+import { UserValoresDeInfracaoComponent } from './user-cadastros/user-valores-de-infracao/user-valores-de-infracao.component';
+import { UserValoresDeInfracaoCrudComponent } from './user-cadastros/user-valores-de-infracao/user-valores-de-infracao-crud/user-valores-de-infracao-crud.component';
+import { UserMoedasComponent } from './user-cadastros/user-moedas/user-moedas.component';
+import { UserMoedasCrudComponent } from './user-cadastros/user-moedas/user-moedas-crud/user-moedas-crud.component';
 
 const ROUTER: Routes = [
   {
@@ -175,6 +179,12 @@ const ROUTER: Routes = [
           { path: 'quadrodeinfracoes', component: UserQuadroDeInfracoesComponent, },
           { path: 'quadrodeinfracoes/novo', component: UserQuadroDeInfracoesCrudComponent },
           { path: 'quadrodeinfracoes/alterar/:id', component: UserQuadroDeInfracoesCrudComponent },
+          { path: 'valoresdainfracao', component: UserValoresDeInfracaoComponent, },
+          { path: 'valoresdainfracao/novo', component: UserValoresDeInfracaoCrudComponent },
+          { path: 'valoresdainfracao/alterar/:id', component: UserValoresDeInfracaoCrudComponent },
+          { path: 'tiposdemoeda', component: UserMoedasComponent, },
+          { path: 'tiposdemoeda/novo', component: UserMoedasCrudComponent },
+          { path: 'tiposdemoeda/alterar/:id', component: UserMoedasCrudComponent },
           { path: 'veiculos', component: UserVeiculosComponent },
           { path: 'veiculos/novo', component: UserVeiculosNovoComponent },
           {
@@ -262,6 +272,10 @@ const ROUTER: Routes = [
     UserTiposDeCursoCrudComponent,
     UserQuadroDeInfracoesComponent,
     UserQuadroDeInfracoesCrudComponent,
+    UserValoresDeInfracaoComponent,
+    UserValoresDeInfracaoCrudComponent,
+    UserMoedasComponent,
+    UserMoedasCrudComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),
