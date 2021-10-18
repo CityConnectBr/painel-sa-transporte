@@ -77,6 +77,8 @@ import { UserValoresDeInfracaoComponent } from './user-cadastros/user-valores-de
 import { UserValoresDeInfracaoCrudComponent } from './user-cadastros/user-valores-de-infracao/user-valores-de-infracao-crud/user-valores-de-infracao-crud.component';
 import { UserMoedasComponent } from './user-cadastros/user-moedas/user-moedas.component';
 import { UserMoedasCrudComponent } from './user-cadastros/user-moedas/user-moedas-crud/user-moedas-crud.component';
+import { UserFiscaisComponent } from './user-cadastros/user-fiscais/user-fiscais.component';
+import { UserFiscaisCrudComponent } from './user-cadastros/user-fiscais/user-fiscais-crud/user-fiscais-crud.component';
 
 const ROUTER: Routes = [
   {
@@ -185,6 +187,9 @@ const ROUTER: Routes = [
           { path: 'tiposdemoeda', component: UserMoedasComponent, },
           { path: 'tiposdemoeda/novo', component: UserMoedasCrudComponent },
           { path: 'tiposdemoeda/alterar/:id', component: UserMoedasCrudComponent },
+          { path: 'fiscais', component: UserFiscaisComponent, },
+          { path: 'fiscais/novo', component: UserFiscaisCrudComponent },
+          { path: 'fiscais/alterar/:id', component: UserFiscaisCrudComponent },
           { path: 'veiculos', component: UserVeiculosComponent },
           { path: 'veiculos/novo', component: UserVeiculosNovoComponent },
           {
@@ -276,6 +281,8 @@ const ROUTER: Routes = [
     UserValoresDeInfracaoCrudComponent,
     UserMoedasComponent,
     UserMoedasCrudComponent,
+    UserFiscaisComponent,
+    UserFiscaisCrudComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),

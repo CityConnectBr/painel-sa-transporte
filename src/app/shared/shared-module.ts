@@ -134,7 +134,7 @@ export class SharedModule {
   ];
 
   static cleanString(txt: string): string {
-    return txt.trim().replace("-", "").replace(".", "");
+    return txt.trim().replace("-", "").replace(".", "").replace(" ", "").replace("(", "").replace(")", "");
   }
 
   static htmlEntities(str: string) {
@@ -234,6 +234,16 @@ export class SharedModule {
     Object.getOwnPropertyNames(obj).forEach(key => {
       if (obj[key] != null && obj[key].toString().match(SharedModule.datePattern)) {
         obj[key] = SharedModule.convertStringddMMyyyyToyyyyMMdd(obj[key]);
+      }
+    });
+
+    return obj;
+  }
+
+  static clearAllTlefonePattern(obj: any): any {
+    Object.getOwnPropertyNames(obj).forEach(key => {
+      if (obj[key] != null && obj[key].toString().match(SharedModule.telefonePattern)) {
+        obj[key] = SharedModule.cleanString(obj[key]);
       }
     });
 

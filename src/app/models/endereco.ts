@@ -1,10 +1,10 @@
 export interface Endereco {
-  id: String
+  id?: String
   cep: String
   endereco: String
   numero: number
   complemento: String
   bairro: String
   uf: String
-  municipio_id: number
+  municipio_id: String
 }
