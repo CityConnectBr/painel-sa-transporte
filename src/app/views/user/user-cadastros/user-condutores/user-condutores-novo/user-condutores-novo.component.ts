@@ -79,13 +79,13 @@ export class UserCondutoresNovoComponent implements OnInit, OnDestroy {
       ///////FORM
       this.form = this.formBuilder.group({
         numero_de_cadastro_antigo: new FormControl('',),
-        nome: new FormControl('Teste', {
+        nome: new FormControl('', {
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(40)],
         }),
-        cpf: new FormControl('87273117080', {
+        cpf: new FormControl('', {
           validators: [Validators.required, Validators.pattern(SharedModule.CPFPatern)],
         }),
-        rg: new FormControl('312321', {
+        rg: new FormControl('', {
           validators: [Validators.required, Validators.maxLength(9)],
         }),
         telefone: new FormControl('', {
@@ -97,25 +97,25 @@ export class UserCondutoresNovoComponent implements OnInit, OnDestroy {
         email: new FormControl('', {
           validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(15)],
         }),
-        cep: new FormControl('27113-090', {
+        cep: new FormControl('', {
           validators: [Validators.required, Validators.pattern(SharedModule.cepPattern)],
         }),
-        endereco: new FormControl('Endereco', {
+        endereco: new FormControl('', {
           validators: [Validators.required],
         }),
-        numero: new FormControl('123', {
+        numero: new FormControl('', {
           validators: [Validators.required],
         }),
         complemento: new FormControl('', {
           validators: [],
         }),
-        bairro: new FormControl('Bairro', {
+        bairro: new FormControl('', {
           validators: [Validators.required],
         }),
-        municipio: new FormControl('Municipio', {
+        municipio: new FormControl('', {
           validators: [Validators.required],
         }),
-        uf: new FormControl('RJ', {
+        uf: new FormControl('', {
           validators: [Validators.required],
         }),
         cnh: new FormControl('', {
