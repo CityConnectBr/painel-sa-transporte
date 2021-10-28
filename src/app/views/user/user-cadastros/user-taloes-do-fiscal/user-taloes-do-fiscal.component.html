@@ -1,0 +1,47 @@
+<div class="crud">
+
+  <app-search (searchEmitter)="search($event)"></app-search>
+
+  <h3 class="titulo">
+    <i class="fa fa-arrow-right"></i> Talões do Fiscal |
+    <a [routerLink]="['novo']" title="Novo">Novo <i class="fa fa-plus"></i></a>
+  </h3>
+
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading" class="clearfix">
+    <table *ngIf="dataSearch.data.length>0" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Tipo do Documento</th>
+          <th>Serie</th>
+          <th>N. Primeira Folha</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of dataSearch.data">
+          <td>{{obj?.tipo_documento}}</td>
+          <td>{{obj?.serie_documento}}</td>
+          <td>{{obj?.numero_primeira_folha}}</td>
+          <td class="text-right">
+            <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
+                aria-hidden="true"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="dataSearch.data.length>0" class="float-right">
+      <app-pagination
+        [backEnabled]="dataSearch.prev_page_url!=null"
+        [nextEnabled]="dataSearch.next_page_url!=null"
+        [actualPage]="dataSearch.current_page"
+        (changePos)="changePos($event)">
+      </app-pagination>
+    </div>
+
+    <div *ngIf="!dataSearch || dataSearch.data.length==0" class="alert alert-warning">
+      Nenhum registro encontrado!
+    </div>
+  </div>
+
+</div>

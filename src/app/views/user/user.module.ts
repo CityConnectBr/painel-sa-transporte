@@ -79,6 +79,8 @@ import { UserMoedasComponent } from './user-cadastros/user-moedas/user-moedas.co
 import { UserMoedasCrudComponent } from './user-cadastros/user-moedas/user-moedas-crud/user-moedas-crud.component';
 import { UserFiscaisComponent } from './user-cadastros/user-fiscais/user-fiscais.component';
 import { UserFiscaisCrudComponent } from './user-cadastros/user-fiscais/user-fiscais-crud/user-fiscais-crud.component';
+import { UserTaloesDoFiscalComponent } from './user-cadastros/user-taloes-do-fiscal/user-taloes-do-fiscal.component';
+import { UserTaloesDoFiscalCrudComponent } from './user-cadastros/user-taloes-do-fiscal/user-taloes-do-fiscal-crud/user-taloes-do-fiscal-crud.component';
 
 const ROUTER: Routes = [
   {
@@ -190,6 +192,9 @@ const ROUTER: Routes = [
           { path: 'fiscais', component: UserFiscaisComponent, },
           { path: 'fiscais/novo', component: UserFiscaisCrudComponent },
           { path: 'fiscais/alterar/:id', component: UserFiscaisCrudComponent },
+          { path: 'taloesdofiscal', component: UserTaloesDoFiscalComponent, },
+          { path: 'taloesdofiscal/novo', component: UserTaloesDoFiscalCrudComponent },
+          { path: 'taloesdofiscal/alterar/:id', component: UserTaloesDoFiscalCrudComponent },
           { path: 'veiculos', component: UserVeiculosComponent },
           { path: 'veiculos/novo', component: UserVeiculosNovoComponent },
           {
@@ -283,6 +288,8 @@ const ROUTER: Routes = [
     UserMoedasCrudComponent,
     UserFiscaisComponent,
     UserFiscaisCrudComponent,
+    UserTaloesDoFiscalComponent,
+    UserTaloesDoFiscalCrudComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),

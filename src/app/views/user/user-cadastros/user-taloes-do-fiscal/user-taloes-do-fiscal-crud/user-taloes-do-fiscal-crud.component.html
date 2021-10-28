@@ -1,0 +1,75 @@
+<div class="crud">
+  <h3 *ngIf="!crudObj" class="titulo">
+    <a [routerLink]="['..']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i> Voltar</a>
+    | Novo Talão
+  </h3>
+
+  <h3 *ngIf="crudObj" class="titulo">
+    <a [routerLink]="['../..']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i> Voltar</a>
+    | Alteração do Talão
+
+    <a title="Excluir" class="mr-1" href="javascript:void(0)" (click)="openModal(contentExcluir)" style="float: right;">
+      <i class="fa fa-trash"></i></a>
+  </h3>
+
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading">
+    <form [formGroup]="form" autocomplete="off">
+      <div class="form-inline">
+
+
+        <app-input label="Número" [inline]="true" require="true">
+          <input type="text" class="form-control" formControlName="numero" autocomplete="off">
+        </app-input>
+
+        <app-input label="Fiscal" [inline]="true" [options]="fiscaisPesquisados" require="true"
+          (setObjectSelected)="setFiscal($event)">
+          <input #fiscalInput type="text" class="form-control" formControlName="fiscal" autocomplete="off"
+            (keyup)="keyUpFiscal()" (focus)="setFocusFiscalInput(true)">
+        </app-input>
+
+        <app-input label="Tipo" require="true">
+          <select formControlName="tipo_documento" class="form-control">
+            <option value="AIT">AIT</option>
+            <option value="NOTIFICAÇÃO">NOTIFICAÇÃO</option>
+          </select>
+        </app-input>
+
+        <app-input label="Série" [inline]="true">
+          <input type="text" class="form-control" formControlName="serie_documento" autocomplete="off">
+        </app-input>
+
+        <app-input label="N° Folha" [inline]="true" require="true">
+          <input type="text" class="form-control" formControlName="numero_primeira_folha" autocomplete="off">
+        </app-input>
+
+        <app-input label="Última Folha" [inline]="true" require="true">
+          <input type="text" class="form-control" formControlName="numero_ultima_folha" autocomplete="off">
+        </app-input>
+
+        <app-input label="Data Recto" [inline]="true" require="true">
+          <input type="text" class="form-control" formControlName="data_recebimento" [textMask]="{mask: maskDate}" autocomplete="off">
+        </app-input>
+
+      </div>
+      <div class="clearfix">
+        <div class="alert alert-danger" *ngIf="errorMessage">
+          <strong [innerHTML]="errorMessage"></strong>
+        </div>
+        <button type="submit" class="btn pull-right" (click)="salvar(form.value)"
+          [disabled]="!form.valid">Salvar</button>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #contentExcluir let-modal>
+    <app-modal modalID="excluirModal" title="Excluir" (closeModalEmit)="closeModal($event)">
+      <div class="clearfix">
+        <h6>Deseja excluir este registro?</h6>
+        <button (click)="excluir()" class="btn btn-danger btn-sm pull-right ml-1">Sim</button>
+        <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right">Não</button>
+      </div>
+    </app-modal>
+  </ng-template>
+
+</div>
