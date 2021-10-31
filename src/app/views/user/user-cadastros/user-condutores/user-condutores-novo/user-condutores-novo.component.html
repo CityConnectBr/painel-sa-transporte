@@ -151,11 +151,11 @@
           </app-input>
 
           <app-input label="Incício">
-            <input type="text" class="form-control" formControlName="data_inicio_afastamento" mask="d0/M0/0000" autocomplete="off">
+            <input type="text" class="form-control" formControlName="data_inicio_afastamento" [textMask]="{mask: maskDate}" autocomplete="off">
           </app-input>
 
           <app-input label="Término">
-            <input type="text" class="form-control" formControlName="data_termino_afastamento" mask="d0/M0/0000" autocomplete="off">
+            <input type="text" class="form-control" formControlName="data_termino_afastamento" [textMask]="{mask: maskDate}" autocomplete="off">
           </app-input>
         </div>
 

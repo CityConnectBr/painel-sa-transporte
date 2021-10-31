@@ -87,7 +87,7 @@
       </app-input>
 
       <app-input label="Validade">
-        <input type="text" class="form-control" formControlName="validade_certidao_negativa" mask="d0/M0/0000" autocomplete="off">
+        <input type="text" class="form-control" formControlName="validade_certidao_negativa" [textMask]="{mask: maskDate}" autocomplete="off">
       </app-input>
 
     </div>
