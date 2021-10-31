@@ -81,6 +81,9 @@ import { UserFiscaisComponent } from './user-cadastros/user-fiscais/user-fiscais
 import { UserFiscaisCrudComponent } from './user-cadastros/user-fiscais/user-fiscais-crud/user-fiscais-crud.component';
 import { UserTaloesDoFiscalComponent } from './user-cadastros/user-taloes-do-fiscal/user-taloes-do-fiscal.component';
 import { UserTaloesDoFiscalCrudComponent } from './user-cadastros/user-taloes-do-fiscal/user-taloes-do-fiscal-crud/user-taloes-do-fiscal-crud.component';
+import { UserFmpComponent } from './user-cadastros/user-fmp/user-fmp.component';
+import { UserFmpCrudComponent } from './user-cadastros/user-fmp/user-fmp-crud/user-fmp-crud.component';
+import { NgxCurrencyModule } from "ngx-currency";
 
 const ROUTER: Routes = [
   {
@@ -195,6 +198,9 @@ const ROUTER: Routes = [
           { path: 'taloesdofiscal', component: UserTaloesDoFiscalComponent, },
           { path: 'taloesdofiscal/novo', component: UserTaloesDoFiscalCrudComponent },
           { path: 'taloesdofiscal/alterar/:id', component: UserTaloesDoFiscalCrudComponent },
+          { path: 'fmp', component: UserFmpComponent, },
+          { path: 'fmp/novo', component: UserFmpCrudComponent },
+          { path: 'fmp/alterar/:id', component: UserFmpCrudComponent },
           { path: 'veiculos', component: UserVeiculosComponent },
           { path: 'veiculos/novo', component: UserVeiculosNovoComponent },
           {
@@ -290,12 +296,15 @@ const ROUTER: Routes = [
     UserFiscaisCrudComponent,
     UserTaloesDoFiscalComponent,
     UserTaloesDoFiscalCrudComponent,
+    UserFmpComponent,
+    UserFmpCrudComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),
     SharedModule,
     NgxMaskModule.forChild(),
     TextMaskModule,
+    NgxCurrencyModule
   ],
   exports: [
   ]

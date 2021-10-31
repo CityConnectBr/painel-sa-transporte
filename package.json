@@ -33,6 +33,7 @@
     "ng2-pdf-viewer": "^7.0.1",
     "ngb-modal": "^2.0.3",
     "ngx-clipboard": "^14.0.1",
+    "ngx-currency": "^2.5.3",
     "ngx-mask": "^11.1.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

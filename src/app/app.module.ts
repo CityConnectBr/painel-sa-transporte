@@ -19,6 +19,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { TextMaskModule } from 'angular2-text-mask';
+import { NgxCurrencyModule } from "ngx-currency";
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 registerLocaleData(localePt, 'pt');
@@ -40,7 +41,8 @@ registerLocaleData(localePt, 'pt');
     NoopAnimationsModule,
     MatSnackBarModule,
     ClipboardModule,
-    PdfViewerModule
+    PdfViewerModule,
+    NgxCurrencyModule
   ],
   providers: [
     LoggedInGuard,
