@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { debounceTime, first } from 'rxjs/operators';
@@ -54,7 +54,7 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
     private corDoVeiculoService: CorDoVeiculoService,
     private tipoDeVeiculoService: TipoDeVeiculoService,
     private tipoDeCombustivelService: TipoDeCombustivelService,
-    private location: Location,
+    private router: Router,
     private route: ActivatedRoute,
     private snackbarService: SnackBarService,
     private modal: NgbModal,
@@ -158,9 +158,9 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
       formInput.permissionario_id = this.permissionarioSelecionado.id;
       formInput.marca_modelo_veiculo_id = this.marcasModelosSelecionado.id;
 
-      await this.veiculoService.create(formInput).toPromise();
+      const veiculo = await this.veiculoService.create(formInput).toPromise();
       this.snackbarService.openSnackBarSucess('Veículo salvo!');
-      this.location.back()
+      this.router.navigate(['../alterar/' + veiculo.id + '/dados'], {relativeTo:this.route});
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
     }

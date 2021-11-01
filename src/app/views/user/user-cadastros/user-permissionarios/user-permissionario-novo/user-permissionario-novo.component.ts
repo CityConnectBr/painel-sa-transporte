@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { debounceTime, first } from 'rxjs/operators';
@@ -41,7 +41,7 @@ export class UserPermissionarioNovoComponent implements OnInit, OnDestroy {
     private enderecoService: EnderecoService,
     private municipioService: MunicipioService,
     private permissionarioService: PermissionarioService,
-    private location: Location,
+    private router: Router,
     private route: ActivatedRoute,
     private snackbarService: SnackBarService,
     private modal: NgbModal,
@@ -184,9 +184,9 @@ export class UserPermissionarioNovoComponent implements OnInit, OnDestroy {
       //convertendoDataNasc
       formInput.data_nascimento = SharedModule.convertStringddMMyyyyToyyyyMMdd(formInput.data_nascimento);
 
-      await this.permissionarioService.create(formInput).toPromise();
+      const permissionario = await this.permissionarioService.create(formInput).toPromise();
       this.snackbarService.openSnackBarSucess('Permissionário salvo!');
-      this.location.back()
+      this.router.navigate(['../alterar/' + permissionario.id + '/dados'], {relativeTo:this.route});
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
     }

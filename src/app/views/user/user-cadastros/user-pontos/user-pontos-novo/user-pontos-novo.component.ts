@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { debounceTime, first } from 'rxjs/operators';
@@ -40,7 +40,7 @@ export class UserPontosNovoComponent implements OnInit, OnDestroy {
     private enderecoService: EnderecoService,
     private municipioService: MunicipioService,
     private pontoService: PontoService,
-    private location: Location,
+    private router: Router,
     private route: ActivatedRoute,
     private snackbarService: SnackBarService,
     private modal: NgbModal,
@@ -151,9 +151,9 @@ export class UserPontosNovoComponent implements OnInit, OnDestroy {
       formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
       formInput = SharedModule.convertAllFieldsTrueFalseToBoolean(formInput);
 
-      await this.pontoService.create(formInput).toPromise();
+      const ponto = await this.pontoService.create(formInput).toPromise();
       this.snackbarService.openSnackBarSucess('Ponto salvo!');
-      this.location.back()
+      this.router.navigate(['../alterar/' + ponto.id + '/dados'], {relativeTo:this.route});
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
     }

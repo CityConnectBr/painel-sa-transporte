@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { debounceTime, first } from 'rxjs/operators';
@@ -48,7 +48,7 @@ export class UserMonitoresNovoComponent implements OnInit, OnDestroy {
     private municipioService: MunicipioService,
     private permissionarioService: PermissionarioService,
     private monitorService: MonitorService,
-    private location: Location,
+    private router: Router,
     private route: ActivatedRoute,
     private snackbarService: SnackBarService,
     private modal: NgbModal,
@@ -180,9 +180,9 @@ export class UserMonitoresNovoComponent implements OnInit, OnDestroy {
       formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
       formInput = SharedModule.convertAllFieldsTrueFalseToBoolean(formInput);
 
-      await this.monitorService.create(formInput).toPromise();
+      const monitor = await this.monitorService.create(formInput).toPromise();
       this.snackbarService.openSnackBarSucess('Monitor salvo!');
-      this.location.back()
+      this.router.navigate(['../alterar/' + monitor.id + '/dados'], {relativeTo:this.route});
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
     }
