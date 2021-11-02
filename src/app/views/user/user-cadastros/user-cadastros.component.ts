@@ -9,7 +9,19 @@ export class UserCadastrosComponent implements OnInit {
 
   constructor() { }
 
+  showOutlet: boolean = false;
+
   ngOnInit(): void {
+  }
+
+  onActivate(event: any) {
+    console.log("onActivate", event);
+    this.showOutlet = true;
+  }
+
+  onDeactivate(event: any) {
+    console.log("onDeactivate", event);
+    this.showOutlet = false;
   }
 
 }

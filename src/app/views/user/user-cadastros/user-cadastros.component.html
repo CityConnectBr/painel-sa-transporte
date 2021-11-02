@@ -1,93 +1,341 @@
 <div class="rcorners2"></div>
-
 <div class="container-fluid h-120">
-  <h3 class="titulo-white">Cadastros</h3>
-  <div class="row h-120">
-    <aside class="col-12 col-md-2 p-0 rcorners2">
-      <nav class="navbar navbar-expand navbar-dark flex-md-column flex-row align-items-start">
-        <div class="collapse navbar-collapse">
-          <ul class="flex-md-column flex-row navbar-nav w-120 justify-content-between">
-            <li class="nav-item">
-              <a routerLink="empresas" class="nav-link pl-0" href="#">Empresas</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="perfis" class="nav-link pl-0" href="#">Perfis</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="usuarios" class="nav-link pl-0" href="#">Usuários</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="permissionarios" class="nav-link pl-0" href="#">Permissionários</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="condutores" class="nav-link pl-0" href="#">Condutores Auxiliar</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="monitores" class="nav-link pl-0" href="#">Monitores</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="pontos" class="nav-link pl-0" href="#">Ponto/Trecho</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="entidadesassociativas" class="nav-link pl-0" href="#">Entidade <br>Associativa</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="marcasmodelosdeveiculos" class="nav-link pl-0" href="#">Marcas e Modelos <br>de Veículo</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="tiposdeveiculo" class="nav-link pl-0" href="#">Tipos de Veículo</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="coresdeveiculos" class="nav-link pl-0" href="#">Cores de Veículo</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="tiposdecombustivel" class="nav-link pl-0" href="#">Tipos de <br>Combustivel</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="veiculos" class="nav-link pl-0" href="#">Veículos</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="aplicativos" class="nav-link pl-0" href="#">Aplicativos</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="empresasvistoriadoras" class="nav-link pl-0" href="#">Empresas Vistoriadoras/<br>Adesivadoras</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="vistoriadores" class="nav-link pl-0" href="#">Vistoriadores</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="tiposdecertidao" class="nav-link pl-0" href="#">Tipos de Certidão</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="entidadecurso" class="nav-link pl-0" href="#">Entidades <br>Minitrantes <br>de Cursos</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="tiposdecurso" class="nav-link pl-0" href="#">Tipos de Cursos</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="quadrodeinfracoes" class="nav-link pl-0" href="#">Quadro de Infrações</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="tiposdemoeda" class="nav-link pl-0" href="#">Tipo de Moeda</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="valoresdainfracao" class="nav-link pl-0" href="#">Valores da Infração</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="fiscais" class="nav-link pl-0" href="#">Agentes de <br>Fiscalização</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="taloesdofiscal" class="nav-link pl-0" href="#">Talões do Fiscal</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="fmp" class="nav-link pl-0" href="#">Fator Monetário <br>Padrão</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </aside>
-    <main class="col">
-      <router-outlet></router-outlet>
-    </main>
+
+  <div class="border-bottom my-3">
+    <h3 class="titulo-white">
+      <a *ngIf="!showOutlet" [routerLink]="['..']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i> Voltar</a>
+      <a *ngIf="showOutlet" [routerLink]="['/user/cadastros']"><i class="fa fa-arrow-left"></i> Voltar</a>
+      | Cadastros
+    </h3>
   </div>
+
+  <div *ngIf="!showOutlet">
+    <div class="menu-horizontal">
+      <div class="container">
+        <h3 class="titulo-white">Principais</h3>
+        <div class="row">
+          <a routerLink="permissionarios">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Permissionários
+              </span>
+            </div>
+          </a>
+          <a routerLink="condutores">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Condutores
+              </span>
+            </div>
+          </a>
+          <a routerLink="monitores">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Monitores
+              </span>
+            </div>
+          </a>
+          <a routerLink="veiculos">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Veículos
+              </span>
+            </div>
+          </a>
+          <a routerLink="fiscais">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Agentes de Fiscalização
+              </span>
+            </div>
+          </a>
+          <a routerLink="vistoriadores">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Vistoriadores
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-horizontal">
+      <div class="container">
+        <h3 class="titulo-white">Secundário</h3>
+        <div class="row">
+          <a routerLink="empresas">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Empresas
+              </span>
+            </div>
+          </a>
+          <a routerLink="perfis">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Perfis
+              </span>
+            </div>
+          </a>
+          <a routerLink="usuarios">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Usuários
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-horizontal">
+      <div class="container">
+        <h3 class="titulo-white">Outros</h3>
+        <div class="row">
+          <a routerLink="pontos">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Ponto/Trecho
+              </span>
+            </div>
+          </a>
+          <a routerLink="entidadesassociativas">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Entidade Associativa
+              </span>
+            </div>
+          </a>
+          <a routerLink="marcasmodelosdeveiculos">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Marca/Modelo de Veículo
+              </span>
+            </div>
+          </a>
+          <a routerLink="tiposdeveiculo">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Tipos de Veículo
+              </span>
+            </div>
+          </a>
+          <a routerLink="coresdeveiculos">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Cores de Veículo
+              </span>
+            </div>
+          </a>
+          <a routerLink="tiposdecombustivel">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Tipos de Combustivel
+              </span>
+            </div>
+          </a>
+          <a routerLink="aplicativos">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Aplicativos
+              </span>
+            </div>
+          </a>
+          <a routerLink="empresasvistoriadoras">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Empresa Vistoriadora
+              </span>
+            </div>
+          </a>
+          <a routerLink="tiposdecertidao">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Tipo de Certidão
+              </span>
+            </div>
+          </a>
+          <a routerLink="entidadecurso">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Entidade Minitrantes de Cursos
+              </span>
+            </div>
+          </a>
+          <a routerLink="tiposdecurso">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Tipos de Curso
+              </span>
+            </div>
+          </a>
+          <a routerLink="quadrodeinfracoes">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Quadro de Infrações
+              </span>
+            </div>
+          </a>
+          <a routerLink="tiposdemoeda">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Tipos de Moeda
+              </span>
+            </div>
+          </a>
+          <a routerLink="valoresdainfracao">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Valores da Infração
+              </span>
+            </div>
+          </a>
+          <a routerLink="taloesdofiscal">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Talão do Fiscal
+              </span>
+            </div>
+          </a>
+          <a routerLink="fmp">
+            <div class="rcorners2 col-sm item-menu item-smaller">
+              <i class="fa fa-chevron-circle-right i-smaller"></i>
+              <span>
+                Fator Monetário Padrão
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container-fluid h-120">
+    <div class="row h-120">
+      <aside class="col-12 col-md-2 p-0 rcorners2" *ngIf="false">
+        <nav class="navbar navbar-expand navbar-dark flex-md-column flex-row align-items-start">
+          <div class="collapse navbar-collapse">
+            <ul class="flex-md-column flex-row navbar-nav w-120 justify-content-between">
+              <div>
+                <li class="nav-item">
+                  <a routerLink="permissionarios" class="nav-link pl-0" href="#">Permissionários</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="condutores" class="nav-link pl-0" href="#">Condutores Auxiliar</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="monitores" class="nav-link pl-0" href="#">Monitores</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="veiculos" class="nav-link pl-0" href="#">Veículos</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="fiscais" class="nav-link pl-0" href="#">Agentes de <br>Fiscalização</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="vistoriadores" class="nav-link pl-0" href="#">Vistoriadores</a>
+                </li>
+              </div>
+
+              <div>
+                <li class="nav-item">
+                  <a routerLink="empresas" class="nav-link pl-0" href="#">Empresas</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="perfis" class="nav-link pl-0" href="#">Perfis</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="usuarios" class="nav-link pl-0" href="#">Usuários</a>
+                </li>
+              </div>
+
+              <div>
+                <li class="nav-item">
+                  <a routerLink="pontos" class="nav-link pl-0" href="#">Ponto/Trecho</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="entidadesassociativas" class="nav-link pl-0" href="#">Entidade <br>Associativa</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="marcasmodelosdeveiculos" class="nav-link pl-0" href="#">Marcas e Modelos <br>de
+                    Veículo</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="tiposdeveiculo" class="nav-link pl-0" href="#">Tipos de Veículo</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="coresdeveiculos" class="nav-link pl-0" href="#">Cores de Veículo</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="tiposdecombustivel" class="nav-link pl-0" href="#">Tipos de <br>Combustivel</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="aplicativos" class="nav-link pl-0" href="#">Aplicativos</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="empresasvistoriadoras" class="nav-link pl-0" href="#">Empresas
+                    Vistoriadoras/<br>Adesivadoras</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="tiposdecertidao" class="nav-link pl-0" href="#">Tipos de Certidão</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="entidadecurso" class="nav-link pl-0" href="#">Entidades <br>Minitrantes <br>de
+                    Cursos</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="tiposdecurso" class="nav-link pl-0" href="#">Tipos de Cursos</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="quadrodeinfracoes" class="nav-link pl-0" href="#">Quadro de Infrações</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="tiposdemoeda" class="nav-link pl-0" href="#">Tipo de Moeda</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="valoresdainfracao" class="nav-link pl-0" href="#">Valores da Infração</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="taloesdofiscal" class="nav-link pl-0" href="#">Talões do Fiscal</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="fmp" class="nav-link pl-0" href="#">Fator Monetário <br>Padrão</a>
+                </li>
+              </div>
+            </ul>
+          </div>
+        </nav>
+      </aside>
+      <main class="col">
+        <router-outlet (activate)="onActivate($event)" (deactivate)="onDeactivate($event)"></router-outlet>
+      </main>
+    </div>
+  </div>
+
 </div>

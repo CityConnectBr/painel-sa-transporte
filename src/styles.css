@@ -94,8 +94,44 @@ a:hover {
   border-color: transparent !important;
 }
 
-/* ------------------------------- HEADER -------------------------------------*/
+/* ------------------------------- MENU-HORIZONTAL -------------------------------------*/
 
+.menu-horizontal .container{
+  /*margin-top: 10%;*/
+}
+
+.menu-horizontal .item-menu {
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  margin: 10px;
+}
+
+.menu-horizontal .item-smaller {
+  height: 60px !important;
+  line-height: 60px !important;
+  margin: 5px !important;
+}
+
+.menu-horizontal .item-menu span{
+  margin-left: 10px;
+}
+
+.menu-horizontal i {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  font-size: 5rem;
+  color: #2d9cdb;
+}
+
+.menu-horizontal .i-smaller {
+  font-size: 2rem !important;
+}
+
+.menu-horizontal a{
+  margin-left: 10px;
+}
 
 /* ------------------------------- FORM -------------------------------------*/
 
@@ -184,6 +220,12 @@ aside a i{
 .titulo a {
   font-size: 14px;
   font-weight: normal;
+}
+
+.titulo-white a {
+  font-size: 14px;
+  font-weight: normal;
+  color: white;
 }
 
 .crud th{
