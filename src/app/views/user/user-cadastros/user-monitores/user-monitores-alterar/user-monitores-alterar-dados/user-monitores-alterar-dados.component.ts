@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { debounceTime, first } from 'rxjs/operators';
 import { Endereco } from 'src/app/models/endereco';
@@ -43,6 +45,9 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
   maskCEP = SharedModule.textMaskCEPPattern;
   maskDate = SharedModule.textMaskDate;
 
+  photoToUpload: File | null = null;
+  photo: any | null = null;
+
   constructor(
     private formBuilder: FormBuilder,
     private enderecoService: EnderecoService,
@@ -51,6 +56,8 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
     private monitorService: MonitorService,
     private route: ActivatedRoute,
     private snackbarService: SnackBarService,
+    private modal: NgbModal,
+    private sanitizer: DomSanitizer
   ) {
   }
 
@@ -80,12 +87,13 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
       this.municipioSelecionado = await this.municipioService.get(this.enderecoDoCondutor.municipio_id).pipe(first()).toPromise();
       this.permissionarioSelecionado = await this.permissionarioService.get(this.permissionarioDoCondutor.id).pipe(first()).toPromise();
 
+      await this.refreshPhoto(this.monitor);
+
       //convertendo de 1|0 para boolean
       this.monitor = SharedModule.convertAllFields01ToBoolean(this.monitor);
 
       //formatando datas
       this.monitor = SharedModule.formatAllFieldsDateToddMMyyyy(this.monitor);
-
 
       ///////FORM
       this.form = this.formBuilder.group({
@@ -189,6 +197,37 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
+  handleFileInput(files: FileList) {
+    if (files.length > 0) {
+      this.photoToUpload = files.item(0);
+    }
+  }
+
+  async salvarFoto() {
+    this.loading = true;
+    this.errorMessage = "";
+    try {
+      if (!this.photoToUpload) {
+        this.snackbarService.openSnackBarError("Nenhuma foto foi selecionada");
+      }
+      await this.monitorService.updatePhoto(this.monitor.id, this.photoToUpload).toPromise();
+      this.snackbarService.openSnackBarSucess('Foto salva!');
+      this.closeModal("");
+      await this.refreshPhoto(this.monitor);
+    } catch (e: any) {
+      this.errorMessage = SharedModule.handleError(e);
+    }
+    this.loading = false;
+  }
+
+  private async refreshPhoto(monitor: Monitor) {
+    this.photo = null;
+    if (this.monitor.foto) {
+      const blob = await this.monitorService.getPhoto(this.monitor.id).pipe(first()).toPromise();
+      this.photo = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
+    }
+  }
+
   //função da mascara do telefone
   public telefonemask = function telefonemask(rawValue) {
     var numbers = rawValue.match(/\d/g);
@@ -281,5 +320,13 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
     if (focus) {
       this.searchPermissionarios();
     }
+  }
+
+  closeModal(event: any) {
+    return this.modal.dismissAll()
+  }
+
+  openModal(content: any) {
+    this.modal.open(content)
   }
 }

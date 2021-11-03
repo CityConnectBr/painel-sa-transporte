@@ -1,6 +1,7 @@
 export interface Condutor {
   id: String
   id_integracao: number
+  foto: boolean
   numero_de_cadastro_antigo: String
   nome: String
   cpf: String

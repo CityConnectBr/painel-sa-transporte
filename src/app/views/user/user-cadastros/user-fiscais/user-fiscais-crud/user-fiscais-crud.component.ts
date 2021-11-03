@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
@@ -37,6 +38,9 @@ export class UserFiscaisCrudComponent implements OnInit {
 
   maskCEP = SharedModule.textMaskCEPPattern;
 
+  photoToUpload: File | null = null;
+  photo: any | null = null;
+
   constructor(
     private formBuilder: FormBuilder,
     private fiscalService: FiscalService,
@@ -46,6 +50,7 @@ export class UserFiscaisCrudComponent implements OnInit {
     private route: ActivatedRoute,
     private snackbarService: SnackBarService,
     private modal: NgbModal,
+    private sanitizer: DomSanitizer
   ) {
   }
 
@@ -113,6 +118,8 @@ export class UserFiscaisCrudComponent implements OnInit {
         this.enderecoDoPermissionario = await this.enderecoService.get(this.crudObj.endereco_id).pipe(first()).toPromise();
         this.municipioSelecionado = await this.municipioService.get(this.enderecoDoPermissionario.municipio_id).pipe(first()).toPromise();
 
+        await this.refreshPhoto(this.crudObj);
+
         this.form.controls['nome'].setValue(this.crudObj.nome);
         this.form.controls['cpf'].setValue(this.crudObj.cpf);
         this.form.controls['telefone'].setValue(this.crudObj.telefone);
@@ -164,8 +171,11 @@ export class UserFiscaisCrudComponent implements OnInit {
         endereco = await this.enderecoService.create(endereco).toPromise();
 
         formInput.endereco_id = endereco.id;
-        await this.fiscalService.create(formInput).toPromise();
+        this.crudObj = await this.fiscalService.create(formInput).toPromise();
       }
+
+      await this.salvarFoto();
+
       this.snackbarService.openSnackBarSucess('Fiscal salvo!');
       this.location.back()
     } catch (e: any) {
@@ -187,7 +197,7 @@ export class UserFiscaisCrudComponent implements OnInit {
       this.errorMessage = "Este não pode ser excluido!";
     }
     this.loading = false;
-  }public async searchMunicipios() {
+  } public async searchMunicipios() {
     try {
       this.municipioSelecionado = null;
       const result = await this.municipioService
@@ -202,6 +212,43 @@ export class UserFiscaisCrudComponent implements OnInit {
 
     } catch (e: any) {
       this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+    }
+  }
+
+  handleFileInput(files: FileList) {
+    if (files.length > 0) {
+      this.photoToUpload = files.item(0);
+      this.photo = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(files.item(0)));
+    }
+  }
+
+  clearPhoto() {
+    this.photoToUpload = null;
+    this.photo = null;
+  }
+
+  async salvarFoto() {
+    this.loading = true;
+    this.errorMessage = "";
+    try {
+      if (!this.photoToUpload) {
+        this.snackbarService.openSnackBarError("Nenhuma foto foi selecionada");
+      }
+      await this.fiscalService.updatePhoto(this.crudObj.id, this.photoToUpload).toPromise();
+      this.snackbarService.openSnackBarSucess('Foto salva!');
+      this.closeModal("");
+      await this.refreshPhoto(this.crudObj);
+    } catch (e: any) {
+      this.errorMessage = SharedModule.handleError(e);
+    }
+    this.loading = false;
+  }
+
+  private async refreshPhoto(crudObj: Fiscal) {
+    this.photo = null;
+    if (this.crudObj.foto) {
+      const blob = await this.fiscalService.getPhoto(this.crudObj.id).pipe(first()).toPromise();
+      this.photo = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
     }
   }
 

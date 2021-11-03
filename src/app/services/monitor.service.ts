@@ -13,5 +13,20 @@ export class MonitorService extends BasicCrudService {
     protected httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/monitores");
-   }
+  }
+
+  updatePhoto(id: number | String, fileToUpload: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('foto', fileToUpload, fileToUpload.name);
+
+    return this.httpClient.post(`${this.url}/${id}/foto`,
+      formData, super.getHttpOptionsWithOutContentType)
+      .pipe(
+        retry(2),
+      )
+  }
+
+  getPhoto(id: number | String): Observable<Blob> {
+    return this.httpClient.get(`${this.url}/${id}/foto`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+  }
 }

@@ -294,6 +294,21 @@ aside a i{
   display: block;
 }
 
+.crud form .foto{
+  width: 75px;
+  height: 100px;
+  margin-right: 10px;
+  display: block;
+  background-color: var(--grey);
+}
+
+.crud form i{
+  margin-left: 20px;
+  line-height: 100px;
+  font-size: 2rem;
+  color: white;
+}
+
 .crud form .subitem{
   width: 100%;
   position: relative;

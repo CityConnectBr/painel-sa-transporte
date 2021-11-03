@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { debounceTime, first } from 'rxjs/operators';
 import { Endereco } from 'src/app/models/endereco';
@@ -37,6 +39,9 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
 
   maskCEP = SharedModule.textMaskCEPPattern;
 
+  photoToUpload: File | null = null;
+  photo: any | null = null;
+
   constructor(
     private formBuilder: FormBuilder,
     private enderecoService: EnderecoService,
@@ -44,6 +49,8 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
     private permissionarioService: PermissionarioService,
     private route: ActivatedRoute,
     private snackbarService: SnackBarService,
+    private modal: NgbModal,
+    private sanitizer: DomSanitizer
   ) {
   }
 
@@ -63,6 +70,8 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
       this.permissionario = await this.permissionarioService.get(idSelected).pipe(first()).toPromise();
       this.enderecoDoPermissionario = await this.enderecoService.get(this.permissionario.endereco_id).pipe(first()).toPromise();
       this.municipioSelecionado = await this.municipioService.get(this.enderecoDoPermissionario.municipio_id).pipe(first()).toPromise();
+
+      await this.refreshPhoto(this.permissionario);
 
       ///////FORM
       this.form = this.formBuilder.group({
@@ -190,6 +199,37 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
     this.loading = false;
   }
 
+  handleFileInput(files: FileList) {
+    if (files.length > 0) {
+      this.photoToUpload = files.item(0);
+    }
+  }
+
+  async salvarFoto() {
+    this.loading = true;
+    this.errorMessage = "";
+    try {
+      if (!this.photoToUpload) {
+        this.snackbarService.openSnackBarError("Nenhuma foto foi selecionada");
+      }
+      await this.permissionarioService.updatePhoto(this.permissionario.id, this.photoToUpload).toPromise();
+      this.snackbarService.openSnackBarSucess('Foto salva!');
+      this.closeModal("");
+      await this.refreshPhoto(this.permissionario);
+    } catch (e: any) {
+      this.errorMessage = SharedModule.handleError(e);
+    }
+    this.loading = false;
+  }
+
+  private async refreshPhoto(permissionario: Permissionario) {
+    this.photo = null;
+    if (this.permissionario.foto) {
+      const blob = await this.permissionarioService.getPhoto(this.permissionario.id).pipe(first()).toPromise();
+      this.photo = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
+    }
+  }
+
   //função da mascara do telefone
   public telefonemask = function telefonemask(rawValue) {
     var numbers = rawValue.match(/\d/g);
@@ -243,4 +283,13 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
       this.searchMunicipios();
     }
   }
+
+  closeModal(event: any) {
+    return this.modal.dismissAll()
+  }
+
+  openModal(content: any) {
+    this.modal.open(content)
+  }
+
 }

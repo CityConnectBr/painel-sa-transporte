@@ -1,123 +1,145 @@
-  <app-loading *ngIf="loading"></app-loading>
-  <div *ngIf="!loading">
-    <form [formGroup]="form" autocomplete="off">
-      <div class="form-inline">
+<app-loading *ngIf="loading"></app-loading>
+<div *ngIf="!loading">
+  <form [formGroup]="form" autocomplete="off">
+    <div class="form-inline">
 
-        <div class="simple-subitem">
-          <app-input label="Nº Antigo de Cadastro">
-            <input type="text" class="form-control" formControlName="numero_de_cadastro_antigo"
-              placeholder="Digite seu nome">
-          </app-input>
+      <a title="Upload" href="javascript:void(0)" (click)="openModal(uploadModal)">
+        <img *ngIf="photo" [src]=photo height="100" class="mr-3">
+        <div *ngIf="!photo" class="foto">
+          <i class="fa fa-camera"></i>
         </div>
+      </a>
 
-        <div class="subitem">
-          <h3>Dados Pessoais</h3>
+      <app-input label="Nº Antigo de Cadastro">
+        <input type="text" class="form-control" formControlName="numero_de_cadastro_antigo"
+          placeholder="Digite seu nome">
+      </app-input>
 
-          <app-input label="Nome" require="true">
-            <input type="text" class="form-control" formControlName="nome" autocomplete="off">
-          </app-input>
+      <div class="subitem">
+        <h3>Dados Pessoais</h3>
 
-          <app-input label="CPF" require="true">
-            <input type="text" class="form-control" formControlName="cpf" mask="000.000.000-00" autocomplete="off">
-          </app-input>
+        <app-input label="Nome" require="true">
+          <input type="text" class="form-control" formControlName="nome" autocomplete="off">
+        </app-input>
 
-          <app-input label="RG" require="true">
-            <input type="text" class="form-control" formControlName="rg" autocomplete="off">
-          </app-input>
+        <app-input label="CPF" require="true">
+          <input type="text" class="form-control" formControlName="cpf" mask="000.000.000-00" autocomplete="off">
+        </app-input>
 
-          <app-input label="Data de Nascimento">
-            <input type="text" class="form-control" formControlName="data_nascimento" [textMask]="{mask: maskDate}" autocomplete="off">
-          </app-input>
+        <app-input label="RG" require="true">
+          <input type="text" class="form-control" formControlName="rg" autocomplete="off">
+        </app-input>
 
-          <app-input label="Permissionário" [inline]="true" [options]="permissionariosPesquisados" require="true" (setObjectSelected)="setPermissionario($event)">
-            <input #municipioInput type="text" class="form-control" formControlName="permissionario" autocomplete="off" (keyup)="keyUpPermissionario()" (focus)="setFocusPermissionarioInput(true)">
-          </app-input>
-        </div>
+        <app-input label="Data de Nascimento">
+          <input type="text" class="form-control" formControlName="data_nascimento" [textMask]="{mask: maskDate}"
+            autocomplete="off">
+        </app-input>
 
-        <div class="subitem">
-          <h3>Documentos</h3>>
-
-          <app-input label="Certidão Negativa">
-            <select formControlName="certidao_negativa" class="form-control">
-              <option value="true">SIM</option>
-              <option value="false">NÃO</option>
-            </select>
-          </app-input>
-
-          <app-input label="Validade da Cert. Negativa">
-            <input type="text" class="form-control" formControlName="validade_da_certidao_negativa" [textMask]="{mask: maskDate}" autocomplete="off">
-          </app-input>
-
-          <app-input label="Primeiros Socorros">
-            <select formControlName="curso_de_primeiro_socorros" class="form-control">
-              <option value="true">SIM</option>
-              <option value="false">NÃO</option>
-            </select>
-          </app-input>
-
-          <app-input label="Emissão P. Socorros">
-            <input type="text" class="form-control" formControlName="emissao_curso_de_primeiro_socorros" [textMask]="{mask: maskDate}" autocomplete="off">
-          </app-input>
-        </div>
-
-        <div class="subitem">
-          <h3>Dados de Contato</h3>
-
-          <app-input label="Telefone" [inline]="true">
-            <input type="text" class="form-control" formControlName="telefone" [textMask]="{mask: telefonemask}"
-              autocomplete="off">
-          </app-input>
-
-          <app-input label="Celular" [inline]="true">
-            <input type="text" class="form-control" formControlName="celular" [textMask]="{mask: telefonemask}"
-              autocomplete="off">
-          </app-input>
-
-          <app-input label="E-mail" [inline]="true">
-            <input type="text" class="form-control" formControlName="email" autocomplete="off">
-          </app-input>
-        </div>
-
-        <div class="subitem">
-          <h3>Endereço</h3>
-          <app-input label="CEP" [inline]="true" require="true">
-            <input type="text" class="form-control" formControlName="cep" [textMask]="{mask: maskCEP}" autocomplete="off">
-          </app-input>
-
-          <app-input label="Endereço" [inline]="true" require="true">
-            <input type="text" class="form-control" formControlName="endereco" autocomplete="off">
-          </app-input>
-
-          <app-input label="Número" [inline]="true" require="true">
-            <input type="text" class="form-control" formControlName="numero" autocomplete="off">
-          </app-input>
-
-          <app-input label="Complemento" [inline]="true">
-            <input type="text" class="form-control" formControlName="complemento" autocomplete="off">
-          </app-input>
-
-          <app-input label="Bairro" [inline]="true" require="true">
-            <input type="text" class="form-control" formControlName="bairro" autocomplete="off">
-          </app-input>
-
-          <app-input label="UF" [inline]="true" require="true">
-            <select formControlName="uf" class="form-control">
-              <option *ngFor="let uf of ufs;" value="{{uf}}">{{uf}}</option>
-            </select>
-          </app-input>
-
-          <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" require="true" (setObjectSelected)="setMunicipio($event)">
-            <input #municipioInput type="text" class="form-control" formControlName="municipio" autocomplete="off" (keyup)="keyUpMunicipio()" (focus)="setFocusMunicipioInput(true)">
-          </app-input>
-        </div>
-
+        <app-input label="Permissionário" [inline]="true" [options]="permissionariosPesquisados" require="true"
+          (setObjectSelected)="setPermissionario($event)">
+          <input #municipioInput type="text" class="form-control" formControlName="permissionario" autocomplete="off"
+            (keyup)="keyUpPermissionario()" (focus)="setFocusPermissionarioInput(true)">
+        </app-input>
       </div>
-      <div class="clearfix">
-        <div class="alert alert-danger" *ngIf="errorMessage">
-          <strong [innerHTML]="errorMessage"></strong>
-        </div>
-        <button type="submit" class="btn btn-success pull-right" (click)="salvar(form.value)"
-          [disabled]="!form.valid">Salvar</button>
+
+      <div class="subitem">
+        <h3>Documentos</h3>>
+
+        <app-input label="Certidão Negativa">
+          <select formControlName="certidao_negativa" class="form-control">
+            <option value="true">SIM</option>
+            <option value="false">NÃO</option>
+          </select>
+        </app-input>
+
+        <app-input label="Validade da Cert. Negativa">
+          <input type="text" class="form-control" formControlName="validade_da_certidao_negativa"
+            [textMask]="{mask: maskDate}" autocomplete="off">
+        </app-input>
+
+        <app-input label="Primeiros Socorros">
+          <select formControlName="curso_de_primeiro_socorros" class="form-control">
+            <option value="true">SIM</option>
+            <option value="false">NÃO</option>
+          </select>
+        </app-input>
+
+        <app-input label="Emissão P. Socorros">
+          <input type="text" class="form-control" formControlName="emissao_curso_de_primeiro_socorros"
+            [textMask]="{mask: maskDate}" autocomplete="off">
+        </app-input>
       </div>
+
+      <div class="subitem">
+        <h3>Dados de Contato</h3>
+
+        <app-input label="Telefone" [inline]="true">
+          <input type="text" class="form-control" formControlName="telefone" [textMask]="{mask: telefonemask}"
+            autocomplete="off">
+        </app-input>
+
+        <app-input label="Celular" [inline]="true">
+          <input type="text" class="form-control" formControlName="celular" [textMask]="{mask: telefonemask}"
+            autocomplete="off">
+        </app-input>
+
+        <app-input label="E-mail" [inline]="true">
+          <input type="text" class="form-control" formControlName="email" autocomplete="off">
+        </app-input>
+      </div>
+
+      <div class="subitem">
+        <h3>Endereço</h3>
+        <app-input label="CEP" [inline]="true" require="true">
+          <input type="text" class="form-control" formControlName="cep" [textMask]="{mask: maskCEP}" autocomplete="off">
+        </app-input>
+
+        <app-input label="Endereço" [inline]="true" require="true">
+          <input type="text" class="form-control" formControlName="endereco" autocomplete="off">
+        </app-input>
+
+        <app-input label="Número" [inline]="true" require="true">
+          <input type="text" class="form-control" formControlName="numero" autocomplete="off">
+        </app-input>
+
+        <app-input label="Complemento" [inline]="true">
+          <input type="text" class="form-control" formControlName="complemento" autocomplete="off">
+        </app-input>
+
+        <app-input label="Bairro" [inline]="true" require="true">
+          <input type="text" class="form-control" formControlName="bairro" autocomplete="off">
+        </app-input>
+
+        <app-input label="UF" [inline]="true" require="true">
+          <select formControlName="uf" class="form-control">
+            <option *ngFor="let uf of ufs;" value="{{uf}}">{{uf}}</option>
+          </select>
+        </app-input>
+
+        <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" require="true"
+          (setObjectSelected)="setMunicipio($event)">
+          <input #municipioInput type="text" class="form-control" formControlName="municipio" autocomplete="off"
+            (keyup)="keyUpMunicipio()" (focus)="setFocusMunicipioInput(true)">
+        </app-input>
+      </div>
+
+    </div>
+    <div class="clearfix">
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        <strong [innerHTML]="errorMessage"></strong>
+      </div>
+      <button type="submit" class="btn btn-success pull-right" (click)="salvar(form.value)"
+        [disabled]="!form.valid">Salvar</button>
+    </div>
+  </form>
+</div>
+
+<ng-template #uploadModal let-modal>
+  <app-modal modalID="uploadModal" title="Upload da Foto" (closeModalEmit)="closeModal($event)">
+    <form>
+      <input type="file" id="img" name="foto" accept="image/*" (change)="handleFileInput($event.target.files)">
+
+      <button type="submit" class="btn btn-success pull-right" (click)="salvarFoto()">Salvar</button>
     </form>
-  </div>
+  </app-modal>
+</ng-template>

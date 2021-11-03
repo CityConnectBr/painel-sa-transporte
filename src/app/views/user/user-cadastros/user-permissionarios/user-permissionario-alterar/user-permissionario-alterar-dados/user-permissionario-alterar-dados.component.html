@@ -1,12 +1,17 @@
 <form *ngIf="!loading" [formGroup]="form" autocomplete="off">
   <div class="form-inline">
 
-    <div class="simple-subitem">
-      <app-input label="Nº Antigo de Cadastro">
-        <input type="text" class="form-control" formControlName="numero_de_cadastro_antigo"
-          placeholder="Digite seu nome">
-      </app-input>
-    </div>
+    <a title="Upload" href="javascript:void(0)" (click)="openModal(uploadModal)">
+      <img *ngIf="photo" [src]=photo height="100" class="mr-3">
+      <div *ngIf="!photo" class="foto">
+        <i class="fa fa-camera"></i>
+      </div>
+    </a>
+
+    <app-input label="Nº Antigo de Cadastro">
+      <input type="text" class="form-control" formControlName="numero_de_cadastro_antigo"
+        placeholder="Digite seu nome">
+    </app-input>
 
     <div class="subitem">
       <h3>Dados Pessoais</h3>
@@ -158,3 +163,14 @@
       [disabled]="!form.valid">Salvar</button>
   </div>
 </form>
+
+<ng-template #uploadModal let-modal>
+  <app-modal modalID="uploadModal" title="Upload da Foto" (closeModalEmit)="closeModal($event)">
+    <form>
+      <input type="file" id="img" name="foto" accept="image/*"
+      (change)="handleFileInput($event.target.files)">
+
+      <button type="submit" class="btn btn-success pull-right" (click)="salvarFoto()">Salvar</button>
+    </form>
+  </app-modal>
+</ng-template>
