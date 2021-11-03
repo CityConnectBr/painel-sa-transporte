@@ -222,8 +222,11 @@ export class SharedModule {
 
   static convertAllFields01ToBoolean(obj: any): any {
     Object.getOwnPropertyNames(obj).forEach(key => {
-      if (obj[key] == 1 || obj[key] == 0) {
-        obj[key] = obj[key] == 1 ? true : false;
+
+      if (key.toLowerCase().indexOf("id") == -1) {
+        if (obj[key] == 1 || obj[key] == 0) {
+          obj[key] = obj[key] == 1 ? true : false;
+        }
       }
     });
 
