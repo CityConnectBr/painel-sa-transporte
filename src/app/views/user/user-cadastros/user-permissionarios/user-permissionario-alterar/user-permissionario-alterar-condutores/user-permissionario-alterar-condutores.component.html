@@ -1,104 +1,53 @@
-<form  autocomplete="off">
-  <div class="form-inline">
+<div class="form-inline">
 
-    <div class="subitem">
-      <h3>Condutor Auxiliar</h3>
+  <div class="subitem">
+    <h3>Condutores do Permissionário</h3>
 
-      <app-input label="Nome">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="CPF">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="RG">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="CNH">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Categoria">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Validade da CNH">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Atestado de Saúde">
-        <select class="form-control" require="true">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
-
-      <app-input label="Certidão Neq. Distribuição Criminal">
-        <select class="form-control" require="true">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
-
-      <app-input label="Validade">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Registro na CTPS">
-        <select class="form-control" require="true">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
-
-      <app-input label="Cursos - SEST/SENAT">
-        <select class="form-control" require="true">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
-
-      <app-input label="Emissão">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-    </div>
-
-
-    <div class="subitem">
-      <h3>Condutor Auxiliar Inativos</h3>
-
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Dt. Incício</th>
-            <th>Dt. Término</th>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>RG</th>
-            <th>CNH</th>
-            <th>Cat. CNH</th>
-            <th>Valid. CNH</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Dt. Inicio do Afastamento</th>
+          <th>Dt. Término do Afastamento</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of condutores">
+          <td>{{obj.data_inicio_afastamento}}</td>
+          <td>{{obj.data_termino_afastamento}}</td>
+          <td>{{obj.nome}}</td>
+          <td>{{obj.cpf}}</td>
+          <td><a href="javascript: void(0)" (click)="showCondutor(veiculoModal, obj)"><i class="fa fa-eye"></i></a></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-</form>
+</div>
+
+<ng-template #veiculoModal let-modal>
+  <app-modal modalID="uploadModal" title="Veículo" (closeModalEmit)="closeModal($event)">
+    <table class="table table-sm">
+      <tbody>
+        <tr>
+          <th scope="row" class="titulo-simple2">Nome</th>
+          <td>{{condutorSelecionado.nome}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">CPF</th>
+          <td>{{condutorSelecionado.cpf}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Telefone</th>
+          <td>{{condutorSelecionado.telefone}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Celular</th>
+          <td>{{condutorSelecionado.celular}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </app-modal>
+</ng-template>

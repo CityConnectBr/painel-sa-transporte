@@ -217,6 +217,10 @@ aside a i{
   text-align: center;
 }
 
+.titulo-simple2 {
+  color: var(--lightBlue);
+}
+
 .titulo a {
   font-size: 14px;
   font-weight: normal;
@@ -309,7 +313,8 @@ aside a i{
   color: white;
 }
 
-.crud form .subitem{
+.crud form .subitem,
+.crud .subitem{
   width: 100%;
   position: relative;
   display: block;
@@ -322,7 +327,8 @@ aside a i{
   height: 5rem;
 }
 
-.crud form .subitem h3{
+.crud form .subitem h3,
+.crud .subitem h3{
   color: var(--lightBlue);
   font-size: 1.2rem;
 }

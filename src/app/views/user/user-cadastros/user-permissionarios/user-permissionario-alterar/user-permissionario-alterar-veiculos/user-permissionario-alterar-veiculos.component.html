@@ -1,101 +1,93 @@
-<form  autocomplete="off">
-  <div class="form-inline">
+<div class="form-inline">
 
-    <div class="subitem">
-      <h3>Veículo do Permissionário</h3>
+  <div class="subitem">
+    <h3>Veículos do Permissionário</h3>
 
-      <app-input label="Placa">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Marca/Modelo">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Renavam">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Chassis">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Combustivel">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Ano de Fabricação">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Ano Modelo">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Cor">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Tipo">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Capacidade">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Tipo Capacidade">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Obs">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-      <app-input label="Anos de Vida Útil">
-        <input type="text" class="form-control" autocomplete="off">
-      </app-input>
-
-    </div>
-
-
-    <div class="subitem">
-      <h3>Condutor Auxiliar Inativos</h3>
-
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Dt. Incício</th>
-            <th>Dt. Término</th>
-            <th>Marca/Modelo</th>
-            <th>Placa</th>
-            <th>Renavam</th>
-            <th>Chassis</th>
-            <th>Ano Fab</th>
-            <th>Ano Mod</th>
-            <th>Cor</th>
-            <!-- <th>Combustivel</th> -->
-            <!-- <th>Tipo</th> -->
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <!-- <td></td>
-            <td></td> -->
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Dt. Incício</th>
+          <th>Dt. Término</th>
+          <th>Marca/Modelo</th>
+          <th>Placa</th>
+          <th>Ano Fab</th>
+          <th>Cor</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of veiculos">
+          <td>{{obj.inicio_atividades}}</td>
+          <td>{{obj.termino_atividades}}</td>
+          <td>{{obj.marca_modelo_veiculo?.descricao}}</td>
+          <td>{{obj.placa}}</td>
+          <td>{{obj.ano_fabricacao}}</td>
+          <td>{{obj.cor_id}}</td>
+          <td><a href="javascript: void(0)" (click)="showVeiculo(veiculoModal, obj)"><i class="fa fa-eye"></i></a></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-</form>
+</div>
+
+<ng-template #veiculoModal let-modal>
+  <app-modal modalID="uploadModal" title="Veículo" (closeModalEmit)="closeModal($event)">
+    <table class="table table-sm">
+      <tbody>
+        <tr>
+          <th scope="row" class="titulo-simple2">Placa</th>
+          <td>{{veiculoSelecionado.placa}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Renavam</th>
+          <td>{{veiculoSelecionado.cod_renavam}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Chassi</th>
+          <td>{{veiculoSelecionado.chassi}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Marca/Modelo</th>
+          <td>{{veiculoSelecionado.marca_modelo_veiculo?.descricao}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Tipo de Combustivel</th>
+          <td>{{veiculoSelecionado.tipo_combustivel?.descricao}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Tipo do Veículo</th>
+          <td>{{veiculoSelecionado.tipo_veiculo?.descricao}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Cor</th>
+          <td>{{veiculoSelecionado.cor?.descricao}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Ano/Fabricação</th>
+          <td>{{veiculoSelecionado.chassi}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Ano/Modelo</th>
+          <td>{{veiculoSelecionado.ano_modelo}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Capacidade</th>
+          <td>{{veiculoSelecionado.capacidade}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Tipo da Capacidade</th>
+          <td>{{veiculoSelecionado.tipo_capacidade}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Observação da Capacidade</th>
+          <td>{{veiculoSelecionado.observacao_capacidade}}</td>
+        </tr>
+        <tr>
+          <th scope="row" class="titulo-simple2">Vida Útil</th>
+          <td>{{veiculoSelecionado.anos_vida_util_veiculo}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </app-modal>
+</ng-template>

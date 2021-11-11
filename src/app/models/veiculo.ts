@@ -1,3 +1,8 @@
+import { CorDoVeiculo } from "./cor-do-veiculo";
+import { MarcaModeloDeVeiculo } from "./marca-modelo-de-veiculo";
+import { TipoDeCombustivel } from "./tipo-de-combustivel";
+import { TipoDeVeiculo } from "./tipo-de-veiculo";
+
 export interface Veiculo {
   id: String
   id_integracao: String
@@ -16,4 +21,9 @@ export interface Veiculo {
   tipo_veiculo_id: String
   permissionario_id: String
   categoria_id: String
+  marca_modelo_veiculo?: MarcaModeloDeVeiculo
+  tipo_combustivel?: TipoDeCombustivel
+  tipo_veiculo?: TipoDeVeiculo
+  cor?: CorDoVeiculo
+
 }
