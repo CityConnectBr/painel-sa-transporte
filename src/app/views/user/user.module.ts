@@ -84,6 +84,7 @@ import { UserTaloesDoFiscalCrudComponent } from './user-cadastros/user-taloes-do
 import { UserFmpComponent } from './user-cadastros/user-fmp/user-fmp.component';
 import { UserFmpCrudComponent } from './user-cadastros/user-fmp/user-fmp-crud/user-fmp-crud.component';
 import { NgxCurrencyModule } from "ngx-currency";
+import { UserSolicitacoesComponent } from './user-cadastros/user-solicitacoes/user-solicitacoes.component';
 
 const ROUTER: Routes = [
   {
@@ -210,6 +211,7 @@ const ROUTER: Routes = [
               { path: 'anexos', component: UserVeiculosAlterarAnexosComponent },
             ]
           },
+          { path: 'solicitacoes', component: UserSolicitacoesComponent },
         ]
       },
     ]
@@ -298,13 +300,14 @@ const ROUTER: Routes = [
     UserTaloesDoFiscalCrudComponent,
     UserFmpComponent,
     UserFmpCrudComponent,
+    UserSolicitacoesComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),
     SharedModule,
     NgxMaskModule.forChild(),
     TextMaskModule,
-    NgxCurrencyModule
+    NgxCurrencyModule,
   ],
   exports: [
   ]

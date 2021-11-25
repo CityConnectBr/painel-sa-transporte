@@ -23,4 +23,5 @@ export interface Condutor {
   data_termino_afastamento: Date
   endereco_id: String
   permissionario_id: String
+  foto_uid: String
 }

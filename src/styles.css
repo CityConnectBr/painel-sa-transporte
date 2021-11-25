@@ -362,3 +362,29 @@ aside a i{
   font-size: .8rem !important;
   padding: .150rem .5rem;
 }
+
+/* ------------------------------- OUTROS -------------------------------------*/
+
+.modal-dialog{
+  max-width: 80% !important;
+}
+
+.quadro_foto_anterior{
+  float: left;
+  width: 220px;
+  padding: 10px;
+  background-color: var(--lightBlue);
+}
+
+.quadro_nova_foto{
+  float: right;
+  width: 220px;
+  padding: 10px;
+  background-color: #FFCDEC;
+}
+
+.semfoto{
+  line-height:100px;
+  text-align: center;
+  color: white;
+}

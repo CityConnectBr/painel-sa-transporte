@@ -9,4 +9,5 @@ export interface Fiscal {
   cargo: String
   unidade_trabalho: String
   endereco_id: String
+  foto_uid: String
 }

@@ -16,4 +16,5 @@ export interface Monitor {
   emissao_curso_de_primeiro_socorros: Date
   endereco_id: String
   permissionario_id: String
+  foto_uid: String
 }

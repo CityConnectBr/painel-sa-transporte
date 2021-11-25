@@ -63,4 +63,5 @@ export interface Permissionario {
   grau_de_paretesco_inventariante: String
   numero_do_processo_do_inventario: String
   parecer_do_juiz_sobre_inventario: String
+  foto_uid: String
 }

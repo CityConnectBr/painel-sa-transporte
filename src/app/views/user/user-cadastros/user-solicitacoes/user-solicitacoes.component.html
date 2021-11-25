@@ -1,0 +1,145 @@
+<div class="crud">
+
+  <h3 class="titulo">
+    <i class="fa fa-arrow-right"></i> Solicitações
+  </h3>
+
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading" class="clearfix">
+    <table *ngIf="dataSearch.data.length>0" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Status</th>
+          <th>Data</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of dataSearch.data">
+          <td>{{obj?.tipo.nome}}</td>
+          <td>{{getStatus(obj?.status)}}</td>
+          <td>{{obj?.created_at | date: 'dd/MM/yyyy HH:mm'}}</td>
+          <td class="text-right">
+            <a href="javascript: void(0);" (click)="visualizar(obj, visualizarSolicitacaoModal);"
+              title="Visualizar/Aprovar">
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="dataSearch.data.length>0" class="float-right">
+      <app-pagination [backEnabled]="dataSearch.prev_page_url!=null" [nextEnabled]="dataSearch.next_page_url!=null"
+        [actualPage]="dataSearch.current_page" (changePos)="changePos($event)">
+      </app-pagination>
+    </div>
+
+    <div *ngIf="!dataSearch || dataSearch.data.length==0" class="alert alert-warning">
+      Nenhum registro encontrado!
+    </div>
+  </div>
+
+  <ng-template #visualizarSolicitacaoModal let-modal>
+    <app-modal modalID="visualizarSolicitacaoModal" title="Visualizar Solicitação"
+      (closeModalEmit)="closeModal($event)">
+      <form *ngIf="!loading" [formGroup]="form" autocomplete="off">
+
+        <div class="clearfix" *ngIf="solicitacao">
+          <table class="table table-sm">
+            <tbody>
+              <tr>
+                <th scope="row" class="titulo-simple2">Tipo</th>
+                <td>{{solicitacao?.tipo.nome}}</td>
+              </tr>
+              <tr>
+                <th scope="row" class="titulo-simple2">Status</th>
+                <td>{{getStatus(solicitacao?.status)}}</td>
+              </tr>
+              <tr>
+                <th scope="row" class="titulo-simple2">Data</th>
+                <td>{{solicitacao?.created_at | date: 'dd/MM/yyyy HH:mm'}}</td>
+              </tr>
+              <tr>
+                <th scope="row" class="titulo-simple2">Solicitante</th>
+                <td>{{getSolicitante(solicitacao)}}</td>
+              </tr>
+              <tr>
+                <th scope="row" class="titulo-simple2">Alvo</th>
+                <td>{{getAlvo(solicitacao)}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="table table-striped" *ngIf="!alteracaoDeFoto">
+            <tbody>
+              <tr>
+                <th scope="row" class="titulo-simple2">Campo</th>
+                <th scope="row" class="titulo-simple2">Original</th>
+                <th scope="row" class="titulo-simple2">Novo</th>
+              </tr>
+              <tr *ngFor="let item of getCampos(solicitacao)">
+                <td scope="row" class="titulo-simple2">{{item.nome | uppercase }}</td>
+                <td scope="row">{{formatValue(item.valorOriginal)}}</td>
+                <td scope="row">{{formatValue(item.novoValor)}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div *ngIf="alteracaoDeFoto" class="clearfix" style="overflow: hidden;">
+            <div class="quadro_foto_anterior">
+              <h3 class="titulo-white">Foto Atual</h3>
+              <img *ngIf="fotoAnterior" [src]=fotoAnterior style="max-width:200px" class="mr-3">
+              <div *ngIf="!fotoAnterior" class="semfoto">
+                Sem Foto
+              </div>
+            </div>
+            <div class="quadro_nova_foto">
+              <h3 class="titulo-white">Nova Foto</h3>
+              <img [src]=novaFoto style="max-width:200px" class="mr-3">
+            </div>
+          </div>
+
+          <div *ngIf="!alteracaoDeFoto" class="subitem mt-3">
+            <h3>Comprovantes</h3>
+            <table class="table table-sm">
+              <tbody>
+                <tr *ngFor="let item of getComprovantes(solicitacao)">
+                  <th scope="row" class="titulo-simple2">{{item.nome | uppercase }}</th>
+                  <td><a href="javascript: void(0)" (click)="visualizarComprovante(item.arquivo, visualizarArquivo)">
+                      Visualizar
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div *ngIf="!solicitacao?.status">
+            <app-input label="Decisão">
+              <select formControlName="decisao" class="form-control" require="true">
+                <option value="A">Aceitar</option>
+                <option value="R">Recusar</option>
+                <option value="C">Cancelar</option>
+              </select>
+            </app-input>
+
+            <app-input *ngIf="form.value.decisao=='R' || form.value.decisao=='C'" label="Motivo" require="true">
+              <input type="text" class="form-control" formControlName="motivo" autocomplete="off">
+            </app-input>
+
+            <button type="submit" class="btn btn-success pull-right" (click)="finalizar(form.value)"
+              [disabled]="!form.valid">Finalizar</button>
+          </div>
+        </div>
+      </form>
+
+      <ng-template #visualizarArquivo let-modal>
+        <app-modal modalID="visualizarArquivo" title="Visualizar Solicitação" (closeModalEmit)="closeModal(true)">
+          <img [src]=imageFile style="max-width:100%;" class="mr-3">
+        </app-modal>
+      </ng-template>
+    </app-modal>
+  </ng-template>
+
+</div>
