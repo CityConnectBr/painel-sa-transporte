@@ -363,6 +363,22 @@ aside a i{
   padding: .150rem .5rem;
 }
 
+.btn-search{
+  font-size: .8rem !important;
+  padding: 0rem;
+  height: 40px !important;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.btn-search i{
+  line-height: 40px !important;
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+  font-size: 1.5rem;
+  color: white;
+}
+
 /* ------------------------------- OUTROS -------------------------------------*/
 
 .modal-dialog{

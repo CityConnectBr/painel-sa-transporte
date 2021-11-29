@@ -85,6 +85,13 @@ import { UserFmpComponent } from './user-cadastros/user-fmp/user-fmp.component';
 import { UserFmpCrudComponent } from './user-cadastros/user-fmp/user-fmp-crud/user-fmp-crud.component';
 import { NgxCurrencyModule } from "ngx-currency";
 import { UserSolicitacoesComponent } from './user-cadastros/user-solicitacoes/user-solicitacoes.component';
+import { UserLancamentosComponent } from './user-lancamentos/user-lancamentos.component';
+import { UserCertidoesComponent } from './user-lancamentos/user-certidoes/user-certidoes.component';
+import { UserInfracoesComponent } from './user-lancamentos/user-infracoes/user-infracoes.component';
+import { UserVistoriadepontosComponent } from './user-lancamentos/user-vistoriadepontos/user-vistoriadepontos.component';
+import { UserVistoriadepontosCrudComponent } from './user-lancamentos/user-vistoriadepontos/user-vistoriadepontos-crud/user-vistoriadepontos-crud.component';
+import { UserInfracoesCrudComponent } from './user-lancamentos/user-infracoes/user-infracoes-crud/user-infracoes-crud.component';
+import { UserCertidoesCrudComponent } from './user-lancamentos/user-certidoes/user-certidoes-crud/user-certidoes-crud.component';
 
 const ROUTER: Routes = [
   {
@@ -214,6 +221,21 @@ const ROUTER: Routes = [
           { path: 'solicitacoes', component: UserSolicitacoesComponent },
         ]
       },
+      {
+        path: 'lancamentos', component: UserLancamentosComponent,
+        children: [
+          { path: 'certidoes', component: UserCertidoesComponent, },
+          { path: 'certidoes/novo', component: UserCertidoesCrudComponent },
+          { path: 'certidoes/alterar/:id', component: UserCertidoesCrudComponent },
+          { path: 'infracoes', component: UserInfracoesComponent, },
+          { path: 'infracoes/novo', component: UserInfracoesCrudComponent },
+          { path: 'infracoes/alterar/:id', component: UserInfracoesCrudComponent },
+          { path: 'vistoriasdepontos', component: UserVistoriadepontosComponent, },
+          { path: 'vistoriasdepontos/novo', component: UserVistoriadepontosCrudComponent },
+          { path: 'vistoriasdepontos/alterar/:id', component: UserVistoriadepontosCrudComponent },
+        ]
+      }
+
     ]
   },
 ]
@@ -301,6 +323,13 @@ const ROUTER: Routes = [
     UserFmpComponent,
     UserFmpCrudComponent,
     UserSolicitacoesComponent,
+    UserLancamentosComponent,
+    UserCertidoesComponent,
+    UserInfracoesComponent,
+    UserVistoriadepontosComponent,
+    UserVistoriadepontosCrudComponent,
+    UserInfracoesCrudComponent,
+    UserCertidoesCrudComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),

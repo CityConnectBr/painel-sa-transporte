@@ -1,0 +1,154 @@
+<div class="crud">
+  <h3 *ngIf="!crudObj" class="titulo">
+    <a [routerLink]="['..']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i> Voltar</a>
+    | Nova Certidão
+  </h3>
+
+  <h3 *ngIf="crudObj" class="titulo">
+    <a [routerLink]="['../..']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i> Voltar</a>
+    | Alteração de Certidão
+
+    <a title="Excluir" class="mr-1" href="javascript:void(0)" (click)="openModal(contentExcluir)" style="float: right;">
+      <i class="fa fa-trash"></i></a>
+  </h3>
+
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading">
+    <form [formGroup]="form" autocomplete="off">
+      <div class="form-inline">
+
+        <app-input label="Data" require="true">
+          <input type="text" class="form-control" formControlName="data" [textMask]="{mask: maskDate}"
+            autocomplete="off">
+        </app-input>
+
+        <app-input label="Tipo" [inline]="true" require="true">
+          <select formControlName="tipo_de_certidao_id" class="form-control">
+            <option *ngFor="let tc of tiposDeCertidao;" value="{{tc.id}}">{{tc.descricao}}</option>
+          </select>
+        </app-input>
+
+        <app-input label="Placa" require="true">
+          <input type="text" class="form-control" formControlName="placa" mask="SSS0000" autocomplete="off">
+          <button class="btn btn-search" type="button" title="Pesquisa Veículo" (click)="searchVeiculo();openModal(pesquisaVeiculo)">
+            <i class="fa fa-search"></i>
+          </button>
+        </app-input>
+
+        <app-input label="Permissionário" [inline]="true" [options]="permissionariosPesquisados" require="true"
+          (setObjectSelected)="permissionariosPesquisados" require="true"
+          (setObjectSelected)="setPermissionario($event)">
+          <input #municipioInput type="text" class="form-control" formControlName="permissionario" autocomplete="off"
+            (keyup)="keyUpPermissionario()" (focus)="setFocusPermissionarioInput(true)">
+        </app-input>
+
+        <app-input label="Renavam" require="true">
+          <input type="text" class="form-control" formControlName="renavam" mask="00000000000" autocomplete="off">
+        </app-input>
+
+        <app-input label="Número do Chassi" require="true">
+          <input type="text" class="form-control" formControlName="chassis" autocomplete="off">
+        </app-input>
+
+        <app-input label="Marca/Modelo" [inline]="true" [options]="marcasModelosPesquisados" require="true"
+          (setObjectSelected)="marcasModelosPesquisados" require="true" (setObjectSelected)="setMarcaModelo($event)">
+          <input #municipioInput type="text" class="form-control" formControlName="marca_modelo_veiculo"
+            autocomplete="off" (keyup)="keyUpMarcaModelo()" (focus)="setFocusMarcaModeloInput(true)">
+        </app-input>
+
+        <app-input label="Ano de Fabricação" require="true">
+          <input type="text" class="form-control" formControlName="ano_fabricacao" autocomplete="off">
+        </app-input>
+
+        <app-input label="Combustivel" [inline]="true" require="true">
+          <select formControlName="tipo_combustivel_id" class="form-control">
+            <option *ngFor="let tc of tiposDeCombustivel;" value="{{tc.id}}">{{tc.descricao}}</option>
+          </select>
+        </app-input>
+
+        <app-input label="Cores" [inline]="true" require="true">
+          <select formControlName="cor_id" class="form-control">
+            <option *ngFor="let cor of cores;" value="{{cor.id}}">{{cor.descricao}}</option>
+          </select>
+        </app-input>
+
+        <app-input label="Prefixo" require="true">
+          <input type="text" class="form-control" formControlName="prefixo" autocomplete="off">
+        </app-input>
+
+        <app-input label="Observação">
+          <input type="text" class="form-control" formControlName="observacao" autocomplete="off">
+        </app-input>
+
+        <app-input label="Ponto" [inline]="true" require="true">
+          <select formControlName="ponto_id" class="form-control">
+            <option *ngFor="let ponto of pontos;" value="{{ponto.id}}">{{ponto.descricao}}</option>
+          </select>
+        </app-input>
+
+      </div>
+      <div class="clearfix">
+        <div class="alert alert-danger" *ngIf="errorMessage">
+          <strong [innerHTML]="errorMessage"></strong>
+        </div>
+        <button type="submit" class="btn pull-right" (click)="salvar(form.value)"
+          [disabled]="!form.valid">Salvar</button>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #contentExcluir let-modal>
+    <app-modal modalID="excluirModal" title="Excluir" (closeModalEmit)="closeModal($event)">
+      <div class="clearfix">
+        <h6>Deseja excluir este registro?</h6>
+        <button (click)="excluir()" class="btn btn-danger btn-sm pull-right ml-1">Sim</button>
+        <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right">Não</button>
+      </div>
+    </app-modal>
+  </ng-template>
+
+  <ng-template #pesquisaVeiculo let-modal>
+    <app-modal modalID="pesquisaVeiculo" title="Pesquisar Veículo" (closeModalEmit)="closeModal($event)">
+      <div class="crud">
+        <app-search (searchEmitter)="searchVeiculo($event)"></app-search>
+
+        <h3 class="titulo">
+          Veículos
+        </h3>
+
+        <div *ngIf="!loading" class="clearfix">
+          <table *ngIf="veiculosPesquisados.data.length>0" class="table table-striped">
+            <thead>
+              <tr>
+                <th>Placa</th>
+                <th>Renavan</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let obj of veiculosPesquisados.data">
+                <td>{{obj?.placa}}</td>
+                <td>{{obj?.cod_renavam}}</td>
+                <td class="text-right">
+                  <a href="javascript: void(0);" (click)="selecionarVeiculo(obj.id);" title="Selecionar"><i
+                      class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="veiculosPesquisados.data.length>0" class="float-right">
+            <app-pagination [backEnabled]="veiculosPesquisados.prev_page_url!=null"
+              [nextEnabled]="veiculosPesquisados.next_page_url!=null" [actualPage]="veiculosPesquisados.current_page"
+              (changePos)="changePosVeiculosPaginate($event)">
+            </app-pagination>
+          </div>
+
+          <div *ngIf="!veiculosPesquisados || veiculosPesquisados.data.length==0" class="alert alert-warning">
+            Nenhum registro encontrado!
+          </div>
+        </div>
+      </div>
+    </app-modal>
+  </ng-template>
+
+</div>
