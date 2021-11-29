@@ -35,6 +35,7 @@ export class UserPermissionarioNovoComponent implements OnInit, OnDestroy {
   @ViewChild('municipioInput') municipioInputElement: ElementRef;
 
   maskCEP = SharedModule.textMaskCEPPattern;
+  maskDate = SharedModule.textMaskDate;
 
   constructor(
     private formBuilder: FormBuilder,

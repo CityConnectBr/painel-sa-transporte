@@ -31,7 +31,7 @@
           </app-input>
 
           <app-input label="Data de Nascimento" require="true">
-            <input type="text" class="form-control" formControlName="data_nascimento" mask="00/00/0000"
+            <input type="text" class="form-control" formControlName="data_nascimento" [textMask]="{mask: maskDate}"
               autocomplete="off">
           </app-input>
 

@@ -38,6 +38,7 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
   municipioSelecionado: Municipio;
 
   maskCEP = SharedModule.textMaskCEPPattern;
+  maskDate = SharedModule.textMaskDate;
 
   photoToUpload: File | null = null;
   photo: any | null = null;
