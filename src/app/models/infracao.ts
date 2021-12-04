@@ -2,12 +2,13 @@ export interface Infracao {
   id: String
   num_aip: String
   data_infracao: Date
-  hora_infracao: Date
+  hora_infracao: String
   local: String
   obs_aip: String
   descricao: String
   acao_tomada: String
   num_processo: String
+  num_boleto: String
   data_vendimento_boleto: Date
   qtd_moeda: String
   valor_moeda: String

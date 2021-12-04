@@ -32,6 +32,7 @@ export class SharedModule {
   static dateHourFromAPIPattern = /^\d{4}-(((0)[0-9])|((1)[0-2]))-([0-2][0-9]|(3)[0-1])T(.*)$/
   static dateFromAPIPattern = /^\d{4}-(((0)[0-9])|((1)[0-2]))-([0-2][0-9]|(3)[0-1])$/
   static datePattern = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/
+  static hourPattern = /^[0-2][0-9]\:[0-6][0-9]$/
   static dateWithoutDivisorPattern = /^([0-2][0-9]|(3)[0-1])(((0)[0-9])|((1)[0-2]))\d{4}$/
   static cepPattern = /^([0-9]{5}-[0-9]{3})|([0-9]{8})$/
 
@@ -40,6 +41,7 @@ export class SharedModule {
   static textMaskPhone8Dattern = ['(', /[0-9]/, /[0-9]/, ')', ' ', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
   static textMaskPhone9Dattern = ['(', /[0-9]/, /[0-9]/, ')', ' ', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
   static textMaskDate = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
+  static textMaskHour = [/[0-2]/, /[0-9]/, ':', /[0-6]/, /[0-9]/];
   static textMaskCEPPattern = [/[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/];
 
   static msgError: { [key: string]: string } = {
@@ -271,6 +273,17 @@ export class SharedModule {
 
       return formatDate(value, "dd 'de' MMMM 'de' yyyy", "pt-br");
     } catch (e) {
+      console.log(e);
+    }
+  }
+
+  static formatHourFromAPIToHHmm(value: string): String | undefined {
+    try {
+      if (!value)
+        return;
+
+        return value.substr(0,5);
+      } catch (e) {
       console.log(e);
     }
   }
