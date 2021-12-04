@@ -13,11 +13,15 @@
       <thead>
         <tr>
           <th>Data</th>
+          <th>Ponto</th>
+          <th>Vistoriador</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let obj of dataSearch.data">
           <td>{{obj?.data_vistoria | date: 'dd/MM/yyyy'}}</td>
+          <td>{{obj?.ponto.descricao}}</td>
+          <td>{{obj?.vistoriador.nome}}</td>
           <td class="text-right">
             <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
                 aria-hidden="true"></i></a>

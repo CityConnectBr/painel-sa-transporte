@@ -1,1 +1,102 @@
-<p>user-vistoriadepontos-crud works!</p>
+<div class="crud">
+  <h3 *ngIf="!crudObj" class="titulo">
+    <a [routerLink]="['..']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i> Voltar</a>
+    | Nova Vistoria de Ponto
+  </h3>
+
+  <h3 *ngIf="crudObj" class="titulo">
+    <a [routerLink]="['../..']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i> Voltar</a>
+    | Alteração de Vistoria
+
+    <a title="Excluir" class="mr-1" href="javascript:void(0)" (click)="openModal(contentExcluir)" style="float: right;">
+      <i class="fa fa-trash"></i></a>
+  </h3>
+
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading">
+    <form [formGroup]="form" autocomplete="off">
+      <div class="form-inline">
+
+        <app-input label="Data" require="true">
+          <input type="text" class="form-control" formControlName="data_vistoria" [textMask]="{mask: maskDate}"
+            autocomplete="off">
+        </app-input>
+
+        <app-input label="Vistoriador" [inline]="true" [options]="vistoriadoresPesquisados" require="true"
+          (setObjectSelected)="vistoriadoresPesquisados" require="true" (setObjectSelected)="setVistoriador($event)">
+          <input #municipioInput type="text" class="form-control" formControlName="vistoriador" autocomplete="off"
+            (keyup)="keyUpVistoriador()" (focus)="setFocusVistoriadorInput(true)">
+        </app-input>
+
+        <app-input label="Ponto" [inline]="true" require="true">
+          <select formControlName="ponto_id" class="form-control">
+            <option *ngFor="let ponto of pontos;" value="{{ponto.id}}">{{ponto.descricao}}</option>
+          </select>
+        </app-input>
+
+        <app-input label="Condições de Pintura" require="true">
+          <select formControlName="condicoes_de_pintura" class="form-control">
+            <option value="5">Ótima</option>
+            <option value="4">Boa</option>
+            <option value="3">Regular</option>
+            <option value="2">Ruim</option>
+            <option value="1">Péssima</option>
+          </select>
+        </app-input>
+
+        <app-input label="Condições de Cobertura" require="true">
+          <select formControlName="condicoes_de_cobertura" class="form-control">
+            <option value="5">Ótima</option>
+            <option value="4">Boa</option>
+            <option value="3">Regular</option>
+            <option value="2">Ruim</option>
+            <option value="1">Péssima</option>
+          </select>
+        </app-input>
+
+        <app-input label="Condições de Emplacamento" require="true">
+          <select formControlName="condicoes_de_emplacamento" class="form-control">
+            <option value="5">Ótima</option>
+            <option value="4">Boa</option>
+            <option value="3">Regular</option>
+            <option value="2">Ruim</option>
+            <option value="1">Péssima</option>
+          </select>
+        </app-input>
+
+        <app-input label="Condições de Sanitário" require="true">
+          <select formControlName="condicoes_de_sanitario" class="form-control">
+            <option value="5">Ótima</option>
+            <option value="4">Boa</option>
+            <option value="3">Regular</option>
+            <option value="2">Ruim</option>
+            <option value="1">Péssima</option>
+          </select>
+        </app-input>
+
+        <app-input label="Observação">
+          <input type="text" class="form-control" formControlName="observacoes" autocomplete="off">
+        </app-input>
+
+      </div>
+      <div class="clearfix">
+        <div class="alert alert-danger" *ngIf="errorMessage">
+          <strong [innerHTML]="errorMessage"></strong>
+        </div>
+        <button type="submit" class="btn pull-right" (click)="salvar(form.value)"
+          [disabled]="!form.valid">Salvar</button>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #contentExcluir let-modal>
+    <app-modal modalID="excluirModal" title="Excluir" (closeModalEmit)="closeModal($event)">
+      <div class="clearfix">
+        <h6>Deseja excluir este registro?</h6>
+        <button (click)="excluir()" class="btn btn-danger btn-sm pull-right ml-1">Sim</button>
+        <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right">Não</button>
+      </div>
+    </app-modal>
+  </ng-template>
+
+</div>
