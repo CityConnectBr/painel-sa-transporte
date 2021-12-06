@@ -71,10 +71,10 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
           validators: [Validators.required, Validators.minLength(2), Validators.maxLength(40)],
         }),
         telefone: new FormControl('', {
-          validators: [Validators.maxLength(11)],
+          validators: [Validators.maxLength(15)],
         }),
         fax: new FormControl('', {
-          validators: [Validators.maxLength(11)],
+          validators: [Validators.maxLength(15)],
         }),
         home_page: new FormControl('', {
           validators: [Validators.maxLength(200)],
