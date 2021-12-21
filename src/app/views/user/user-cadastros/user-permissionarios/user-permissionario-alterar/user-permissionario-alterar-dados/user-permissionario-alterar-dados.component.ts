@@ -70,7 +70,8 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
       const idSelected: string = this.route.parent.snapshot.paramMap.get('id');
       this.permissionario = await this.permissionarioService.get(idSelected).pipe(first()).toPromise();
       this.enderecoDoPermissionario = await this.enderecoService.get(this.permissionario.endereco_id).pipe(first()).toPromise();
-      this.municipioSelecionado = await this.municipioService.get(this.enderecoDoPermissionario.municipio_id).pipe(first()).toPromise();
+      if (this.enderecoDoPermissionario.municipio_id)
+        this.municipioSelecionado = await this.municipioService.get(this.enderecoDoPermissionario.municipio_id).pipe(first()).toPromise();
 
       await this.refreshPhoto(this.permissionario);
 
@@ -104,25 +105,25 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
         procurador_responsavel: new FormControl(this.permissionario.procurador_responsavel ?? "", {
           validators: [Validators.maxLength(40)],
         }),
-        cep: new FormControl(this.enderecoDoPermissionario.cep ?? "", {
+        cep: new FormControl(this.enderecoDoPermissionario?.cep ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.cepPattern)],
         }),
-        endereco: new FormControl(this.enderecoDoPermissionario.endereco ?? "", {
+        endereco: new FormControl(this.enderecoDoPermissionario?.endereco ?? "", {
           validators: [Validators.required],
         }),
-        numero: new FormControl(this.enderecoDoPermissionario.numero ?? "", {
+        numero: new FormControl(this.enderecoDoPermissionario?.numero ?? "", {
           validators: [Validators.required],
         }),
-        complemento: new FormControl(this.enderecoDoPermissionario.complemento ?? "", {
+        complemento: new FormControl(this.enderecoDoPermissionario?.complemento ?? "", {
           validators: [],
         }),
-        bairro: new FormControl(this.enderecoDoPermissionario.bairro ?? "", {
+        bairro: new FormControl(this.enderecoDoPermissionario?.bairro ?? "", {
           validators: [Validators.required],
         }),
-        municipio: new FormControl(this.municipioSelecionado.nome ?? "", {
+        municipio: new FormControl(this.municipioSelecionado?.nome ?? "", {
           validators: [Validators.required],
         }),
-        uf: new FormControl(this.enderecoDoPermissionario.uf ?? "", {
+        uf: new FormControl(this.enderecoDoPermissionario?.uf ?? "", {
           validators: [Validators.required],
         }),
         telefone: new FormControl(this.permissionario.telefone ?? "", {
