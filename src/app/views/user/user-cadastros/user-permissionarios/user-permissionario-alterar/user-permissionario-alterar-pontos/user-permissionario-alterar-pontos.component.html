@@ -21,7 +21,7 @@
 
       <app-input label="Entidade Associativa" [inline]="true" require="true">
         <select formControlName="entidade_associativa_id" class="form-control">
-          <option *ngFor='let entidade of entidadesAssociativa;' value="{{entidade.id}}">{{entidade.nome}}
+          <option *ngFor='let entidade of entidadesAssociativa;' value="{{entidade.id}}">{{entidade.descricao}}
           </option>
         </select>
       </app-input>
