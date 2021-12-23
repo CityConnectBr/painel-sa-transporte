@@ -17,7 +17,6 @@ export class AlvaraDoPermissionarioService extends BasicCrudService {
 
    index(): Observable<any[]>{return}
    search(search: string, page: number = 1): Observable<any>{return}
-   update(id: number | String, obj: any): Observable<any>{return}
 
    indexByPermissionario(permissionarioId: String): Observable<SearchData> {
     return this.httpClient.get<SearchData>(`${this.url}?search=${permissionarioId}`, super.getHttpOptions)

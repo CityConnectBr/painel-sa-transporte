@@ -3,7 +3,7 @@
 
     <div class="subitem">
       <h3>Alvará
-        <button type="submit" class="btn btn-new pull-right" (click)="novo()" [disabled]="!form.valid">Criar
+        <button type="submit" class="btn btn-new pull-right" (click)="openModal(novoAlvaraModal)" [disabled]="!form.valid">Criar
           Novo</button>
       </h3>
 
@@ -25,10 +25,11 @@
       <app-input label="Observação">
         <input type="text" class="form-control" formControlName="observacao_retorno" autocomplete="off">
       </app-input>
-
-      <button type="submit" class="btn btn-success pull-right" (click)="salvar(form.value)"
-      [disabled]="!form.valid">Salvar</button>
     </div>
+
+
+    <button type="submit" class="btn btn-success pull-right" (click)="salvar(form.value)"
+    [disabled]="!form.valid">Salvar</button>
 
 
     <div class="subitem">
@@ -61,3 +62,14 @@
     </div>
   </div>
 </form>
+
+<ng-template #novoAlvaraModal let-modal>
+  <app-modal modalID="novoAlvaraModal" title="Novo Alvará" (closeModalEmit)="closeModal($event)">
+    <div class="clearfix">
+      <h6>Ao criar um novo alvará o atual está inválidado e mostrado no histórico.</h6><br>
+      <h6>Deseja continuar?</h6>
+      <button (click)="novo()" class="btn btn-danger btn-sm pull-right ml-1">Sim</button>
+      <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right">Não</button>
+    </div>
+  </app-modal>
+</ng-template>

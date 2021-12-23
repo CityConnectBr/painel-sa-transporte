@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { debounceTime, first } from 'rxjs/operators';
 import { AlvaraDoPermissionario } from 'src/app/models/alvara-do-permissionario';
@@ -36,6 +37,7 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
     private alvaraService: AlvaraDoPermissionarioService,
     private route: ActivatedRoute,
     private snackbarService: SnackBarService,
+    private modal: NgbModal,
   ) {
   }
 
@@ -110,6 +112,14 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
   novo(){
     this.alvaraAtual = null;
     this.form.reset();
+  }
+
+  closeModal(event: any) {
+    return this.modal.dismissAll()
+  }
+
+  openModal(content: any) {
+    this.modal.open(content)
   }
 
 }
