@@ -92,13 +92,11 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
 
       await this.refreshPhoto(this.monitor);
 
-      console.log("AKIII", this.monitor.certidao_negativa);
       //convertendo de 1|0 para boolean
       this.monitor = SharedModule.convertAllFields01ToBoolean(this.monitor);
 
       //formatando datas
       this.monitor = SharedModule.formatAllFieldsDateToddMMyyyy(this.monitor);
-      console.log("AKIII", this.monitor.certidao_negativa);
 
       ///////FORM
       this.form = this.formBuilder.group({
