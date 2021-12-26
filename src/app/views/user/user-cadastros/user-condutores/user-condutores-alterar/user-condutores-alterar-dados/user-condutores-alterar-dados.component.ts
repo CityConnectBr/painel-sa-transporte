@@ -82,10 +82,13 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
 
       const idSelected: string = this.route.parent.snapshot.paramMap.get('id');
       this.condutor = await this.condutorService.get(idSelected).pipe(first()).toPromise();
-      this.enderecoDoCondutor = await this.enderecoService.get(this.condutor.endereco_id).pipe(first()).toPromise();
       this.permissionarioDoCondutor = await this.permissionarioService.get(this.condutor.permissionario_id).pipe(first()).toPromise();
-      this.municipioSelecionado = await this.municipioService.get(this.enderecoDoCondutor.municipio_id).pipe(first()).toPromise();
-      this.permissionarioSelecionado = await this.permissionarioService.get(this.permissionarioDoCondutor.id).pipe(first()).toPromise();
+      this.enderecoDoCondutor = await this.enderecoService.get(this.condutor.endereco_id).pipe(first()).toPromise();
+      if (this.enderecoDoCondutor?.municipio_id)
+        this.municipioSelecionado = await this.municipioService.get(this.enderecoDoCondutor.municipio_id).pipe(first()).toPromise();
+
+      if (this.permissionarioDoCondutor)
+        this.permissionarioSelecionado = await this.permissionarioService.get(this.permissionarioDoCondutor.id).pipe(first()).toPromise();
 
       await this.refreshPhoto(this.condutor);
 
@@ -98,74 +101,74 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
       ///////FORM
       this.form = this.formBuilder.group({
         numero_de_cadastro_antigo: new FormControl('',),
-        nome: new FormControl(this.condutor.nome??"", {
+        nome: new FormControl(this.condutor.nome ?? "", {
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(40)],
         }),
-        cpf: new FormControl(this.condutor.cpf??"", {
+        cpf: new FormControl(this.condutor.cpf ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.CPFPatern)],
         }),
-        rg: new FormControl(this.condutor.rg??"", {
+        rg: new FormControl(this.condutor.rg ?? "", {
           validators: [Validators.required, Validators.maxLength(9)],
         }),
-        telefone: new FormControl(this.condutor.telefone??"", {
+        telefone: new FormControl(this.condutor.telefone ?? "", {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
-        celular: new FormControl(this.condutor.celular??"", {
+        celular: new FormControl(this.condutor.celular ?? "", {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
-        email: new FormControl(this.condutor.email??"", {
+        email: new FormControl(this.condutor.email ?? "", {
           validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(15)],
         }),
-        cep: new FormControl(this.enderecoDoCondutor.cep??"", {
+        cep: new FormControl(this.enderecoDoCondutor?.cep ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.cepPattern)],
         }),
-        endereco: new FormControl(this.enderecoDoCondutor.endereco??"", {
+        endereco: new FormControl(this.enderecoDoCondutor?.endereco ?? "", {
           validators: [Validators.required],
         }),
-        numero: new FormControl(this.enderecoDoCondutor.numero??"", {
+        numero: new FormControl(this.enderecoDoCondutor?.numero ?? "", {
           validators: [Validators.required],
         }),
-        complemento: new FormControl(this.enderecoDoCondutor.complemento??"", {
+        complemento: new FormControl(this.enderecoDoCondutor?.complemento ?? "", {
           validators: [],
         }),
-        bairro: new FormControl(this.enderecoDoCondutor.bairro??"", {
+        bairro: new FormControl(this.enderecoDoCondutor?.bairro ?? "", {
           validators: [Validators.required],
         }),
-        municipio: new FormControl(this.municipioSelecionado.nome, {
+        municipio: new FormControl(this.municipioSelecionado?.nome ?? "", {
           validators: [Validators.required],
         }),
-        uf: new FormControl(this.enderecoDoCondutor.uf??"", {
+        uf: new FormControl(this.enderecoDoCondutor?.uf ?? "", {
           validators: [Validators.required],
         }),
-        cnh: new FormControl(this.condutor.cnh??"", {
+        cnh: new FormControl(this.condutor.cnh ?? "", {
           validators: [Validators.maxLength(15)],
         }),
-        categoria_cnh: new FormControl(this.condutor.categoria_cnh??"", {
+        categoria_cnh: new FormControl(this.condutor.categoria_cnh ?? "", {
           validators: [Validators.maxLength(2)],
         }),
-        vencimento_cnh: new FormControl(this.condutor.vencimento_cnh??"", {
+        vencimento_cnh: new FormControl(this.condutor.vencimento_cnh ?? "", {
           validators: [Validators.pattern(SharedModule.datePattern)],
         }),
-        atestado_de_saude: new FormControl(this.condutor.atestado_de_saude??""),
-        certidao_negativa: new FormControl(),
-        validade_certidao_negativa: new FormControl(this.condutor.validade_certidao_negativa??"", {
+        atestado_de_saude: new FormControl(this.condutor.atestado_de_saude ?? ""),
+        certidao_negativa: new FormControl(this.condutor.certidao_negativa ?? ""),
+        validade_certidao_negativa: new FormControl(this.condutor.validade_certidao_negativa ?? "", {
           validators: [Validators.pattern(SharedModule.datePattern)],
         }),
-        registro_ctps: new FormControl(),
-        primeiros_socorros: new FormControl(),
-        emissao_primeiros_socorros: new FormControl(this.condutor.emissao_primeiros_socorros??"", {
+        registro_ctps: new FormControl(this.condutor.registro_ctps ?? ""),
+        primeiros_socorros: new FormControl(this.condutor.primeiros_socorros ?? ""),
+        emissao_primeiros_socorros: new FormControl(this.condutor.emissao_primeiros_socorros ?? "", {
           validators: [Validators.pattern(SharedModule.datePattern)],
         }),
-        motivo_afastamento: new FormControl(this.condutor.rg??"", {
+        motivo_afastamento: new FormControl(this.condutor.rg ?? "", {
           validators: [Validators.maxLength(40)],
         }),
-        data_inicio_afastamento: new FormControl(this.condutor.data_inicio_afastamento??"", {
+        data_inicio_afastamento: new FormControl(this.condutor.data_inicio_afastamento ?? "", {
           validators: [Validators.pattern(SharedModule.datePattern)],
         }),
-        data_termino_afastamento: new FormControl(this.condutor.data_termino_afastamento??"", {
+        data_termino_afastamento: new FormControl(this.condutor.data_termino_afastamento ?? "", {
           validators: [Validators.pattern(SharedModule.datePattern)],
         }),
-        permissionario: new FormControl(this.permissionarioSelecionado.nome_razao_social,),
+        permissionario: new FormControl(this.permissionarioSelecionado?.nome_razao_social ?? "",),
       })
 
     } catch (e: any) {
@@ -200,10 +203,10 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
         municipio_id: this.municipioSelecionado.id,
       };
 
-     formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
-     formInput = SharedModule.convertAllFieldsTrueFalseToBoolean(formInput);
+      formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
+      formInput = SharedModule.convertAllFieldsTrueFalseToBoolean(formInput);
 
-     formInput.permissionario_id = this.permissionarioSelecionado.id;
+      formInput.permissionario_id = this.permissionarioSelecionado.id;
 
       await this.enderecoService.update(this.condutor.id, endereco).toPromise();
       await this.condutorService.update(this.condutor.id, formInput).toPromise();
