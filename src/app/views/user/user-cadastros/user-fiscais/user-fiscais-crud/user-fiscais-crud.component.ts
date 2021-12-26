@@ -116,8 +116,9 @@ export class UserFiscaisCrudComponent implements OnInit {
       if (idSelected) {
         this.crudObj = await this.fiscalService.get(parseInt(idSelected)).toPromise();
         this.enderecoDoPermissionario = await this.enderecoService.get(this.crudObj.endereco_id).pipe(first()).toPromise();
-        this.municipioSelecionado = await this.municipioService.get(this.enderecoDoPermissionario.municipio_id).pipe(first()).toPromise();
-
+        if (this.enderecoDoPermissionario.municipio_id) {
+          this.municipioSelecionado = await this.municipioService.get(this.enderecoDoPermissionario.municipio_id).pipe(first()).toPromise();
+        }
         await this.refreshPhoto(this.crudObj);
 
         this.form.controls['nome'].setValue(this.crudObj.nome);
@@ -126,13 +127,13 @@ export class UserFiscaisCrudComponent implements OnInit {
         this.form.controls['email'].setValue(this.crudObj.email);
         this.form.controls['cargo'].setValue(this.crudObj.cargo);
         this.form.controls['unidade_trabalho'].setValue(this.crudObj.unidade_trabalho);
-        this.form.controls['cep'].setValue(this.enderecoDoPermissionario.cep);
-        this.form.controls['endereco'].setValue(this.enderecoDoPermissionario.endereco);
-        this.form.controls['numero'].setValue(this.enderecoDoPermissionario.numero);
-        this.form.controls['complemento'].setValue(this.enderecoDoPermissionario.complemento);
-        this.form.controls['bairro'].setValue(this.enderecoDoPermissionario.bairro);
-        this.form.controls['municipio'].setValue(this.municipioSelecionado.nome);
-        this.form.controls['uf'].setValue(this.enderecoDoPermissionario.uf);
+        this.form.controls['cep'].setValue(this.enderecoDoPermissionario?.cep ?? "");
+        this.form.controls['endereco'].setValue(this.enderecoDoPermissionario?.endereco ?? "");
+        this.form.controls['numero'].setValue(this.enderecoDoPermissionario?.numero ?? "");
+        this.form.controls['complemento'].setValue(this.enderecoDoPermissionario?.complemento ?? "");
+        this.form.controls['bairro'].setValue(this.enderecoDoPermissionario?.bairro ?? "");
+        this.form.controls['municipio'].setValue(this.municipioSelecionado?.nome ?? "");
+        this.form.controls['uf'].setValue(this.enderecoDoPermissionario?.uf ?? "");
       }
 
     } catch (e: any) {

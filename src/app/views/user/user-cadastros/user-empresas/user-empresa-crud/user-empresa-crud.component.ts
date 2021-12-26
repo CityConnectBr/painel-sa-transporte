@@ -136,8 +136,10 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
       if (idSelected) {
         this.crudObj = await this.empresaService.get(parseInt(idSelected)).toPromise();
         this.enderecoDaEmpresa = await this.enderecoService.get(this.crudObj.endereco_id).pipe(first()).toPromise();
-        this.municipioSelecionado = await this.municipioService.get(this.enderecoDaEmpresa.municipio_id).pipe(first()).toPromise();
-        this.setMunicipio(this.municipioSelecionado.id);
+        if (this.enderecoDaEmpresa.municipio_id) {
+          this.municipioSelecionado = await this.municipioService.get(this.enderecoDaEmpresa.municipio_id).pipe(first()).toPromise();
+          this.setMunicipio(this.municipioSelecionado.id);
+        }
 
         this.form.controls['nome'].setValue(this.crudObj.nome);
         this.form.controls['telefone'].setValue(this.crudObj.telefone);
@@ -154,12 +156,12 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
         this.form.controls['data_nomeacao_diretor'].setValue(SharedModule.formatDateddMMyyyy(this.crudObj.data_nomeacao_diretor));
         this.form.controls['decreto_municipal_taxi'].setValue(this.crudObj.decreto_municipal_taxi);
         this.form.controls['decreto_municipal_escolar'].setValue(this.crudObj.decreto_municipal_escolar);
-        this.form.controls['cep'].setValue(this.enderecoDaEmpresa.cep);
-        this.form.controls['bairro'].setValue(this.enderecoDaEmpresa.bairro);
-        this.form.controls['complemento'].setValue(this.enderecoDaEmpresa.complemento);
-        this.form.controls['endereco'].setValue(this.enderecoDaEmpresa.endereco);
-        this.form.controls['numero'].setValue(this.enderecoDaEmpresa.numero);
-        this.form.controls['uf'].setValue(this.enderecoDaEmpresa.uf);
+        this.form.controls['cep'].setValue(this.enderecoDaEmpresa?.cep ?? "");
+        this.form.controls['bairro'].setValue(this.enderecoDaEmpresa?.bairro ?? "");
+        this.form.controls['complemento'].setValue(this.enderecoDaEmpresa?.complemento ?? "");
+        this.form.controls['endereco'].setValue(this.enderecoDaEmpresa?.endereco ?? "");
+        this.form.controls['numero'].setValue(this.enderecoDaEmpresa?.numero ?? "");
+        this.form.controls['uf'].setValue(this.enderecoDaEmpresa?.uf ?? "");
       }
 
     } catch (e: any) {
