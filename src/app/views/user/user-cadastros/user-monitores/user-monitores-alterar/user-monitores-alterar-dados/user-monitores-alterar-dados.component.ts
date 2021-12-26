@@ -82,70 +82,75 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
 
       const idSelected: string = this.route.parent.snapshot.paramMap.get('id');
       this.monitor = await this.monitorService.get(idSelected).pipe(first()).toPromise();
-      this.enderecoDoCondutor = await this.enderecoService.get(this.monitor.endereco_id).pipe(first()).toPromise();
       this.permissionarioDoCondutor = await this.permissionarioService.get(this.monitor.permissionario_id).pipe(first()).toPromise();
-      this.municipioSelecionado = await this.municipioService.get(this.enderecoDoCondutor.municipio_id).pipe(first()).toPromise();
+
+      this.enderecoDoCondutor = await this.enderecoService.get(this.monitor.endereco_id).pipe(first()).toPromise();
+      if (this.enderecoDoCondutor.municipio_id)
+        this.municipioSelecionado = await this.municipioService.get(this.enderecoDoCondutor.municipio_id).pipe(first()).toPromise();
+
       this.permissionarioSelecionado = await this.permissionarioService.get(this.permissionarioDoCondutor.id).pipe(first()).toPromise();
 
       await this.refreshPhoto(this.monitor);
 
+      console.log("AKIII", this.monitor.certidao_negativa);
       //convertendo de 1|0 para boolean
       this.monitor = SharedModule.convertAllFields01ToBoolean(this.monitor);
 
       //formatando datas
       this.monitor = SharedModule.formatAllFieldsDateToddMMyyyy(this.monitor);
+      console.log("AKIII", this.monitor.certidao_negativa);
 
       ///////FORM
       this.form = this.formBuilder.group({
         numero_de_cadastro_antigo: new FormControl('',),
-        nome: new FormControl(this.monitor.nome??"", {
+        nome: new FormControl(this.monitor.nome ?? "", {
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(40)],
         }),
-        cpf: new FormControl(this.monitor.cpf??"", {
+        cpf: new FormControl(this.monitor.cpf ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.CPFPatern)],
         }),
-        rg: new FormControl(this.monitor.rg??"", {
+        rg: new FormControl(this.monitor.rg ?? "", {
           validators: [Validators.required, Validators.maxLength(9)],
         }),
-        telefone: new FormControl(this.monitor.telefone??"", {
+        telefone: new FormControl(this.monitor.telefone ?? "", {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
-        celular: new FormControl(this.monitor.celular??"", {
+        celular: new FormControl(this.monitor.celular ?? "", {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
-        email: new FormControl(this.monitor.email??"", {
+        email: new FormControl(this.monitor.email ?? "", {
           validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(15)],
         }),
-        data_nascimento: new FormControl(this.monitor.data_nascimento??"", {
+        data_nascimento: new FormControl(this.monitor.data_nascimento ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.datePattern)],
         }),
-        cep: new FormControl(this.enderecoDoCondutor.cep??"", {
+        cep: new FormControl(this.enderecoDoCondutor?.cep ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.cepPattern)],
         }),
-        endereco: new FormControl(this.enderecoDoCondutor.endereco??"", {
+        endereco: new FormControl(this.enderecoDoCondutor?.endereco ?? "", {
           validators: [Validators.required],
         }),
-        numero: new FormControl(this.enderecoDoCondutor.numero??"", {
+        numero: new FormControl(this.enderecoDoCondutor?.numero ?? "", {
           validators: [Validators.required],
         }),
-        complemento: new FormControl(this.enderecoDoCondutor.complemento??"", {
+        complemento: new FormControl(this.enderecoDoCondutor?.complemento ?? "", {
           validators: [],
         }),
-        bairro: new FormControl(this.enderecoDoCondutor.bairro??"", {
+        bairro: new FormControl(this.enderecoDoCondutor?.bairro ?? "", {
           validators: [Validators.required],
         }),
-        municipio: new FormControl(this.municipioSelecionado.nome, {
+        municipio: new FormControl(this.municipioSelecionado?.nome, {
           validators: [Validators.required],
         }),
-        uf: new FormControl(this.enderecoDoCondutor.uf??"", {
+        uf: new FormControl(this.enderecoDoCondutor?.uf ?? "", {
           validators: [Validators.required],
         }),
-        certidao_negativa: new FormControl(),
-        validade_da_certidao_negativa: new FormControl(this.monitor.validade_da_certidao_negativa??"", {
+        certidao_negativa: new FormControl(this.monitor.certidao_negativa ?? ""),
+        validade_da_certidao_negativa: new FormControl(this.monitor.validade_da_certidao_negativa ?? "", {
           validators: [Validators.pattern(SharedModule.datePattern)],
         }),
-        curso_de_primeiro_socorros: new FormControl(),
-        emissao_curso_de_primeiro_socorros: new FormControl(this.monitor.emissao_curso_de_primeiro_socorros??"", {
+        curso_de_primeiro_socorros: new FormControl(this.monitor.curso_de_primeiro_socorros ?? ""),
+        emissao_curso_de_primeiro_socorros: new FormControl(this.monitor.emissao_curso_de_primeiro_socorros ?? "", {
           validators: [Validators.pattern(SharedModule.datePattern)],
         }),
         permissionario: new FormControl(this.permissionarioSelecionado.nome_razao_social,),
@@ -183,10 +188,10 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
         municipio_id: this.municipioSelecionado.id,
       };
 
-     formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
-     formInput = SharedModule.convertAllFieldsTrueFalseToBoolean(formInput);
+      formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
+      formInput = SharedModule.convertAllFieldsTrueFalseToBoolean(formInput);
 
-     formInput.permissionario_id = this.permissionarioSelecionado.id;
+      formInput.permissionario_id = this.permissionarioSelecionado.id;
 
       await this.enderecoService.update(this.monitor.id, endereco).toPromise();
       await this.monitorService.update(this.monitor.id, formInput).toPromise();
