@@ -64,7 +64,8 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
       this.ponto = await this.pontoService.get(idSelected).pipe(first()).toPromise();
 
       this.enderecoDoCondutor = await this.enderecoService.get(this.ponto.endereco_id).pipe(first()).toPromise();
-      this.municipioSelecionado = await this.municipioService.get(this.enderecoDoCondutor.municipio_id).pipe(first()).toPromise();
+      if (this.enderecoDoCondutor.municipio_id)
+        this.municipioSelecionado = await this.municipioService.get(this.enderecoDoCondutor.municipio_id).pipe(first()).toPromise();
 
       //convertendo de 1|0 para boolean
       this.ponto = SharedModule.convertAllFields01ToBoolean(this.ponto);
@@ -74,46 +75,46 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
 
       ///////FORM
       this.form = this.formBuilder.group({
-        descricao: new FormControl(this.ponto.descricao??"", {
+        descricao: new FormControl(this.ponto.descricao ?? "", {
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(40)],
         }),
-        telefone: new FormControl(this.ponto.telefone??"", {
+        telefone: new FormControl(this.ponto.telefone ?? "", {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
-        data_criacao: new FormControl(this.ponto.data_criacao??"", {
+        data_criacao: new FormControl(this.ponto.data_criacao ?? "", {
           validators: [Validators.pattern(SharedModule.datePattern)],
         }),
-        data_extincao: new FormControl(this.ponto.data_extincao??"", {
+        data_extincao: new FormControl(this.ponto.data_extincao ?? "", {
           validators: [Validators.pattern(SharedModule.datePattern)],
         }),
-        ocupacao_atual: new FormControl(this.ponto.ocupacao_atual??"", {
+        ocupacao_atual: new FormControl(this.ponto.ocupacao_atual ?? "", {
           validators: [Validators.maxLength(40)],
         }),
-        observacao: new FormControl(this.ponto.observacao??"", {
+        observacao: new FormControl(this.ponto.observacao ?? "", {
           validators: [Validators.maxLength(500)],
         }),
-        modalidade_transporte: new FormControl(this.ponto.modalidade_transporte??"", {
+        modalidade_transporte: new FormControl(this.ponto.modalidade_transporte ?? "", {
           validators: [Validators.required,],
         }),
-        cep: new FormControl(this.enderecoDoCondutor.cep??"", {
+        cep: new FormControl(this.enderecoDoCondutor?.cep ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.cepPattern)],
         }),
-        endereco: new FormControl(this.enderecoDoCondutor.endereco??"", {
+        endereco: new FormControl(this.enderecoDoCondutor?.endereco ?? "", {
           validators: [Validators.required],
         }),
-        numero: new FormControl(this.enderecoDoCondutor.numero??"", {
+        numero: new FormControl(this.enderecoDoCondutor?.numero ?? "", {
           validators: [Validators.required],
         }),
-        complemento: new FormControl(this.enderecoDoCondutor.complemento??"", {
+        complemento: new FormControl(this.enderecoDoCondutor?.complemento ?? "", {
           validators: [],
         }),
-        bairro: new FormControl(this.enderecoDoCondutor.bairro??"", {
+        bairro: new FormControl(this.enderecoDoCondutor?.bairro ?? "", {
           validators: [Validators.required],
         }),
-        municipio: new FormControl(this.municipioSelecionado.nome, {
+        municipio: new FormControl(this.municipioSelecionado?.nome ?? "", {
           validators: [Validators.required],
         }),
-        uf: new FormControl(this.enderecoDoCondutor.uf??"", {
+        uf: new FormControl(this.enderecoDoCondutor?.uf ?? "", {
           validators: [Validators.required],
         }),
       })
@@ -149,8 +150,8 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
         municipio_id: this.municipioSelecionado.id,
       };
 
-     formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
-     formInput = SharedModule.convertAllFieldsTrueFalseToBoolean(formInput);
+      formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
+      formInput = SharedModule.convertAllFieldsTrueFalseToBoolean(formInput);
 
       await this.enderecoService.update(this.ponto.endereco_id, endereco).toPromise();
       await this.pontoService.update(this.ponto.id, formInput).toPromise();
