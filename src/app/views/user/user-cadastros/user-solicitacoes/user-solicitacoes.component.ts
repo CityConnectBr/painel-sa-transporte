@@ -31,6 +31,7 @@ export class UserSolicitacoesComponent implements OnInit {
   novaFoto: any | null = null;
 
   alteracaoDeFoto: boolean = false;
+  isCadastro: boolean= false;
 
   modals: NgbModalRef[] = [];
 
@@ -79,6 +80,8 @@ export class UserSolicitacoesComponent implements OnInit {
     this.alteracaoDeFoto = false;
     try {
       this.solicitacao = solicitacao;
+
+      this.isCadastro = this.solicitacao.referencia_id?true:false;
 
       if(this.solicitacao.tipo.nome.indexOf("foto")!=-1){
         this.alteracaoDeFoto = true;

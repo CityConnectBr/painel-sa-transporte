@@ -75,12 +75,12 @@
             <tbody>
               <tr>
                 <th scope="row" class="titulo-simple2">Campo</th>
-                <th scope="row" class="titulo-simple2">Original</th>
+                <th *ngIf="isCadastro" scope="row" class="titulo-simple2">Original</th>
                 <th scope="row" class="titulo-simple2">Novo</th>
               </tr>
               <tr *ngFor="let item of getCampos(solicitacao)">
                 <td scope="row" class="titulo-simple2">{{item.nome | uppercase }}</td>
-                <td scope="row">{{formatValue(item.valorOriginal)}}</td>
+                <td *ngIf="isCadastro" scope="row">{{formatValue(item.valorOriginal)}}</td>
                 <td scope="row">{{formatValue(item.novoValor)}}</td>
               </tr>
             </tbody>
