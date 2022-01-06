@@ -21,7 +21,6 @@ export class UserSolicitacoesComponent implements OnInit {
   form: FormGroup
   errorMessage: string
 
-  searchText: string = "";
   dataSearch: SearchData;
 
   solicitacao: SolicitacaoDeAlteracao;
@@ -34,6 +33,8 @@ export class UserSolicitacoesComponent implements OnInit {
   isCadastro: boolean= false;
 
   modals: NgbModalRef[] = [];
+
+  statusSelecionado: string = "";//somente abertos
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,7 +52,8 @@ export class UserSolicitacoesComponent implements OnInit {
   public async loadList(page: number) {
     this.loading = true;
     try {
-      this.dataSearch = await this.solicitacaoService.search(this.searchText, page).toPromise();
+      console.log("testeeeeee", this.statusSelecionado);
+      this.dataSearch = await this.solicitacaoService.search(this.statusSelecionado, page).toPromise();
 
       ///////FORM
       this.form = this.formBuilder.group({
@@ -66,8 +68,7 @@ export class UserSolicitacoesComponent implements OnInit {
     this.loading = false;
   }
 
-  public search(text: string = '') {
-    this.searchText = text;
+  public search() {
     this.loadList(1);
   }
 

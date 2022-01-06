@@ -2,6 +2,16 @@
 
   <h3 class="titulo">
     <i class="fa fa-arrow-right"></i> Solicitações
+
+    <div class="float-right">
+        <select class="form-control" require="true" [(ngModel)]="statusSelecionado" (ngModelChange)="search()">
+          <option value="">Aberto</option>
+          <option value="A">Aceito</option>
+          <option value="R">Recusado</option>
+          <option value="C">Cancelado</option>
+          <option value="T">Todos</option>
+        </select>
+    </div>
   </h3>
 
   <app-loading *ngIf="loading"></app-loading>
