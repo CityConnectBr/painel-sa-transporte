@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BasicCrudService } from './basic-crud.service';
+import { first, map, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,17 @@ export class ArquivoService extends BasicCrudService {
       headers: super.getHeaderWithAuthorization,
       responseType: 'blob'
     });
+  }
+
+  create(obj: any): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('foto', obj, obj.name);
+
+    return this.httpClient.post(`${this.url}`,
+      formData, super.getHttpOptionsWithOutContentType)
+      .pipe(
+        retry(2),
+      )
   }
 
 }

@@ -17,84 +17,117 @@
     <form [formGroup]="form" autocomplete="off">
       <div class="form-inline">
 
-        <app-input label="N. AIP" require="true">
-          <input type="text" class="form-control" formControlName="num_aip" autocomplete="off">
-        </app-input>
+        <div class="subitem">
+          <h3>Dados Principais</h3>
 
-        <app-input label="Permissionário" [inline]="true" [options]="permissionariosPesquisados" require="true"
-          (setObjectSelected)="permissionariosPesquisados" require="true"
-          (setObjectSelected)="setPermissionario($event)">
-          <input #municipioInput type="text" class="form-control" formControlName="permissionario" autocomplete="off"
-            (keyup)="keyUpPermissionario()" (focus)="setFocusPermissionarioInput(true)">
-        </app-input>
+          <app-input label="N. AIP" require="true">
+            <input type="text" class="form-control" formControlName="num_aip" autocomplete="off">
+          </app-input>
 
-        <app-input label="Data" require="true">
-          <input type="text" class="form-control" formControlName="data_infracao" [textMask]="{mask: maskDate}"
-            autocomplete="off">
-        </app-input>
+          <app-input label="Permissionário" [inline]="true" [options]="permissionariosPesquisados" require="true"
+            (setObjectSelected)="permissionariosPesquisados" require="true"
+            (setObjectSelected)="setPermissionario($event)">
+            <input #municipioInput type="text" class="form-control" formControlName="permissionario" autocomplete="off"
+              (keyup)="keyUpPermissionario()" (focus)="setFocusPermissionarioInput(true)">
+          </app-input>
 
-        <app-input label="Hora" require="true">
-          <input type="text" class="form-control" formControlName="hora_infracao" [textMask]="{mask: maskHour}"
-            autocomplete="off">
-        </app-input>
+          <app-input label="Data" require="true">
+            <input type="text" class="form-control" formControlName="data_infracao" [textMask]="{mask: maskDate}"
+              autocomplete="off">
+          </app-input>
 
-        <app-input label="Quadro de Infração" require="true">
-          <input type="text" class="form-control" formControlName="quadro_infracao" autocomplete="off">
-          <button class="btn btn-search" type="button" title="Pesquisa Quadro" (click)="searchQuadroDeInfracoes();openModal(pesquisaQuadro)">
-            <i class="fa fa-search"></i>
-          </button>
-        </app-input>
+          <app-input label="Hora" require="true">
+            <input type="text" class="form-control" formControlName="hora_infracao" [textMask]="{mask: maskHour}"
+              autocomplete="off">
+          </app-input>
 
-        <app-input label="Natureza" [inline]="true" require="true">
-          <select formControlName="natureza_infracao_id" class="form-control">
-            <option *ngFor="let n of naturezas;" value="{{n.id}}">{{n.descricao}}</option>
-          </select>
-        </app-input>
 
-        <app-input label="Descrição" require="true">
-          <input type="text" class="form-control" formControlName="descricao" autocomplete="off">
-        </app-input>
+        </div>
 
-        <app-input label="Acao Tomada" require="true">
-          <input type="text" class="form-control" formControlName="acao_tomada" autocomplete="off">
-        </app-input>
 
-        <app-input label="N. Boleto" require="true">
-          <input type="text" class="form-control" formControlName="num_boleto" autocomplete="off">
-        </app-input>
+        <div class="subitem">
+          <h3>Sobre a Infração</h3>
 
-        <app-input label="N. Processo" require="true">
-          <input type="text" class="form-control" formControlName="num_processo" autocomplete="off">
-        </app-input>
 
-        <app-input label="Vencimento" require="true">
-          <input type="text" class="form-control" formControlName="data_vendimento_boleto" [textMask]="{mask: maskDate}"
-            autocomplete="off">
-        </app-input>
+          <app-input label="Quadro de Infração" require="true">
+            <input type="text" class="form-control" formControlName="quadro_infracao" autocomplete="off">
+            <button class="btn btn-search" type="button" title="Pesquisa Quadro"
+              (click)="searchQuadroDeInfracoes();openModal(pesquisaQuadro)">
+              <i class="fa fa-search"></i>
+            </button>
+          </app-input>
 
-        <app-input label="Moeda" [inline]="true" require="true">
-          <select formControlName="moeda_id" class="form-control">
-            <option *ngFor="let moeda of moedas;" value="{{moeda.id}}">{{moeda.nome}}</option>
-          </select>
-        </app-input>
+          <app-input label="Natureza" [inline]="true" require="true">
+            <select formControlName="natureza_infracao_id" class="form-control">
+              <option *ngFor="let n of naturezas;" value="{{n.id}}">{{n.descricao}}</option>
+            </select>
+          </app-input>
 
-        <app-input label="Qtd Moeda" require="true">
-          <input type="text" class="form-control" formControlName="qtd_moeda"
-            autocomplete="off">
-        </app-input>
+          <app-input label="Descrição" require="true">
+            <input type="text" class="form-control" formControlName="descricao" autocomplete="off">
+          </app-input>
 
-        <app-input label="Valor" require="true">
-          <input type="text" class="form-control" formControlName="valor_moeda"
-            autocomplete="off">
-        </app-input>
+          <app-input label="Observação">
+            <input type="text" class="form-control" formControlName="obs_aip" autocomplete="off">
+          </app-input>
+
+          <app-input label="Acao Tomada" require="true">
+            <input type="text" class="form-control" formControlName="acao_tomada" autocomplete="off">
+          </app-input>
+        </div>
+
+
+        <div class="subitem">
+          <h3>Sobre a Infração</h3>
+
+          <app-input label="N. Boleto" require="true">
+            <input type="text" class="form-control" formControlName="num_boleto" autocomplete="off">
+          </app-input>
+
+          <app-input label="N. Processo" require="true">
+            <input type="text" class="form-control" formControlName="num_processo" autocomplete="off">
+          </app-input>
+
+          <app-input label="Vencimento" require="true">
+            <input type="text" class="form-control" formControlName="data_vendimento_boleto"
+              [textMask]="{mask: maskDate}" autocomplete="off">
+          </app-input>
+
+          <app-input label="Moeda" [inline]="true" require="true">
+            <select formControlName="moeda_id" class="form-control">
+              <option *ngFor="let moeda of moedas;" value="{{moeda.id}}">{{moeda.nome}}</option>
+            </select>
+          </app-input>
+
+          <app-input label="Qtd Moeda" require="true">
+            <input type="text" class="form-control" formControlName="qtd_moeda" autocomplete="off">
+          </app-input>
+        </div>
+
+        <div class="subitem mt-3">
+          <h3>Imagem da Infração</h3>
+          <a *ngIf="!imageFile" href="javascript: void(0)" (click)="openModal(uploadModal)">
+            Enviar Imagem
+          </a>
+          <a *ngIf="imageFile" href="javascript: void(0)" (click)="visualizarImagem(visualizarArquivo)">
+            Visualizar
+          </a>
+          <span *ngIf="imageFile"> | </span>
+          <a *ngIf="imageFile" href="javascript: void(0)" (click)="openModal(uploadModal)">
+            Alterar
+          </a>
+          <span *ngIf="imageFile"> | </span>
+          <a *ngIf="imageFile" href="javascript: void(0)" (click)="excluirImagem()">
+            Excluir
+          </a>
+        </div>
 
       </div>
       <div class="clearfix">
         <div class="alert alert-danger" *ngIf="errorMessage">
           <strong [innerHTML]="errorMessage"></strong>
         </div>
-        <button type="submit" class="btn pull-right" (click)="salvar(form.value)"
-          [disabled]="!form.valid">Salvar</button>
+        <button type="submit" class="btn pull-right" (click)="salvar(form.value)">Salvar</button>
       </div>
     </form>
   </div>
@@ -140,12 +173,13 @@
           </table>
           <div *ngIf="quadroDeInfracoesPesquisado.data.length>0" class="float-right">
             <app-pagination [backEnabled]="quadroDeInfracoesPesquisado.prev_page_url!=null"
-              [nextEnabled]="quadroDeInfracoesPesquisado.next_page_url!=null" [actualPage]="quadroDeInfracoesPesquisado.current_page"
-              (changePos)="changePosQuadroPaginate($event)">
+              [nextEnabled]="quadroDeInfracoesPesquisado.next_page_url!=null"
+              [actualPage]="quadroDeInfracoesPesquisado.current_page" (changePos)="changePosQuadroPaginate($event)">
             </app-pagination>
           </div>
 
-          <div *ngIf="!quadroDeInfracoesPesquisado || quadroDeInfracoesPesquisado.data.length==0" class="alert alert-warning">
+          <div *ngIf="!quadroDeInfracoesPesquisado || quadroDeInfracoesPesquisado.data.length==0"
+            class="alert alert-warning">
             Nenhum registro encontrado!
           </div>
         </div>
@@ -153,3 +187,21 @@
     </app-modal>
   </ng-template>
 </div>
+
+<ng-template #uploadModal let-modal>
+  <app-modal modalID="uploadModal" title="Upload da Foto" (closeModalEmit)="closeModal($event)">
+    <form>
+      <input type="file" id="img" name="foto" accept="image/*"
+      (change)="handleFileInput($event.target.files)">
+
+      <button type="submit" class="btn btn-success pull-right" (click)="closeModal(true)">Fechar</button>
+    </form>
+  </app-modal>
+</ng-template>
+
+<ng-template #visualizarArquivo let-modal>
+  <app-modal modalID="visualizarArquivo" title="Visualizar Solicitação" (closeModalEmit)="closeModal(true)">
+    <img [src]=imageToShow style="max-width:100%;" class="mr-3">
+  </app-modal>
+</ng-template>
+

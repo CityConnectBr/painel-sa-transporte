@@ -11,9 +11,9 @@ export interface Infracao {
   num_boleto: String
   data_vendimento_boleto: Date
   qtd_moeda: String
-  valor_moeda: String
   moeda_id: String
   permissionario_id: String
   quadro_infracao_id: String
   natureza_infracao_id: String
+  foto_uid: String
 }

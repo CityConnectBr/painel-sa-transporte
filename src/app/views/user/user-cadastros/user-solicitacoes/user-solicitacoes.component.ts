@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
 import { SolicitacaoDeAlteracao } from 'src/app/models/solicitacao';
@@ -30,7 +31,7 @@ export class UserSolicitacoesComponent implements OnInit {
   novaFoto: any | null = null;
 
   alteracaoDeFoto: boolean = false;
-  isCadastro: boolean= false;
+  isCadastro: boolean = false;
 
   modals: NgbModalRef[] = [];
 
@@ -42,7 +43,8 @@ export class UserSolicitacoesComponent implements OnInit {
     private snackbarService: SnackBarService,
     private arquivoService: ArquivoService,
     private modal: NgbModal,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -52,7 +54,6 @@ export class UserSolicitacoesComponent implements OnInit {
   public async loadList(page: number) {
     this.loading = true;
     try {
-      console.log("testeeeeee", this.statusSelecionado);
       this.dataSearch = await this.solicitacaoService.search(this.statusSelecionado, page).toPromise();
 
       ///////FORM
@@ -82,17 +83,12 @@ export class UserSolicitacoesComponent implements OnInit {
     try {
       this.solicitacao = solicitacao;
 
-      this.isCadastro = this.solicitacao.referencia_id?true:false;
+      this.isCadastro = this.solicitacao.referencia_id ? true : false;
 
-      if(this.solicitacao.tipo.nome.indexOf("foto")!=-1){
+      if (this.solicitacao.tipo.nome.indexOf("foto") != -1) {
         this.alteracaoDeFoto = true;
         const blob = await this.arquivoService.get(this.solicitacao.arquivo1_uid).pipe(first()).toPromise();
         this.novaFoto = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
-        const alvo: any = this.getAlvoObj(this.solicitacao);
-        /*if(alvo && alvo.foto_uid){
-          const blob = await this.arquivoService.get(alvo.foto_uid).pipe(first()).toPromise();
-          this.fotoAnterior = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
-        }*/
       }
 
       this.openModal(modal);
@@ -109,6 +105,12 @@ export class UserSolicitacoesComponent implements OnInit {
         (!formInput.motivo || formInput.motivo == '')) {
         this.snackbarService.openSnackBarError("Nenhum motivo digitado!");
         this.loading = false;
+        return;
+      }
+
+      if (this.isSolicitacaoValidacao()) {
+        this.router.navigate(["/user/lancamentos/infracoes/novo"], { queryParams: {solicitacaoId: this.solicitacao.id}});
+        this.closeModal(null);
         return;
       }
 
@@ -247,10 +249,19 @@ export class UserSolicitacoesComponent implements OnInit {
     return value;
   }
 
+  isSolicitacaoValidacao(): boolean {
+    try {
+      if (this.solicitacao && this.solicitacao.tipo_solicitacao_id == '60') {
+        return true;
+      }
+    } catch (e: any) { }
+    return false;
+  }
+
   closeModal(pop: boolean = false) {
-    if(pop){
-      this.modals[this.modals.length-1].close();
-    }else{
+    if (pop) {
+      this.modals[this.modals.length - 1].close();
+    } else {
       this.modal.dismissAll();
       this.modals = [];
     }
