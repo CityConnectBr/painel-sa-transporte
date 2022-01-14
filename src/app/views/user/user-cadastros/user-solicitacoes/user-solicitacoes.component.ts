@@ -8,6 +8,7 @@ import { SolicitacaoDeAlteracao } from 'src/app/models/solicitacao';
 import { ArquivoService } from 'src/app/services/arquivo.service';
 import { SearchData } from 'src/app/services/basic-crud.service';
 import { SolicitacaoService } from 'src/app/services/solicitacao.service';
+import { VeiculoService } from 'src/app/services/veiculo.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { SnackBarService } from 'src/app/shared/snackbar.service';
 
@@ -109,7 +110,7 @@ export class UserSolicitacoesComponent implements OnInit {
       }
 
       if (this.isSolicitacaoValidacao()) {
-        this.router.navigate(["/user/lancamentos/infracoes/novo"], { queryParams: {solicitacaoId: this.solicitacao.id}});
+        this.router.navigate(["/user/lancamentos/infracoes/novo"], { queryParams: { solicitacaoId: this.solicitacao.id } });
         this.closeModal(null);
         return;
       }
@@ -160,6 +161,11 @@ export class UserSolicitacoesComponent implements OnInit {
       return solicitacao.monitor_referencia.nome;
     } else if (solicitacao && solicitacao.fiscal_referencia) {
       return solicitacao.fiscal_referencia.nome;
+    } else if (solicitacao && solicitacao.veiculo_referencia) {
+      if (solicitacao.veiculo_referencia.placa)
+        return `Placa: ${solicitacao.veiculo_referencia.placa}`;
+      else if (solicitacao.veiculo_referencia.cod_renavam)
+        return `Renavan: ${solicitacao.veiculo_referencia.cod_renavam}`;
     } else {
       return "--"
     }
@@ -198,6 +204,8 @@ export class UserSolicitacoesComponent implements OnInit {
       const campo = solicitacao.tipo[`nome_campo${i}`];
       let valorDoCampo;
 
+      //VALOR ATUAL
+
       if (solicitacao && solicitacao.permissionario_referencia) {
         valorDoCampo = solicitacao.permissionario_referencia[campo];
       } else if (solicitacao && solicitacao.condutor_referencia) {
@@ -206,6 +214,8 @@ export class UserSolicitacoesComponent implements OnInit {
         valorDoCampo = solicitacao.monitor_referencia[campo];
       } else if (solicitacao && solicitacao.fiscal_referencia) {
         valorDoCampo = solicitacao.fiscal_referencia[campo];
+      } else if (solicitacao && solicitacao.veiculo_referencia) {
+        valorDoCampo = solicitacao.veiculo_referencia[campo];
       }
 
       if (campo) {

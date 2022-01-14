@@ -22,6 +22,8 @@ import { NaturezaDaInfracaoService } from 'src/app/services/natureza-da-infracao
 import { SolicitacaoDeAlteracao } from 'src/app/models/solicitacao';
 import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 import { ArquivoService } from 'src/app/services/arquivo.service';
+import { VeiculoService } from 'src/app/services/veiculo.service';
+import { Veiculo } from 'src/app/models/veiculo';
 
 @Component({
   selector: 'app-user-infracoes-crud',
@@ -42,11 +44,14 @@ export class UserInfracoesCrudComponent implements OnInit {
   permissionariosPesquisados: Map<String, String> = new Map();
   permissionarioSelecionado: Permissionario;
   quadroDeInfracoesSelecionado: QuadroDeInfracoes;
+  veiculoSelecionado: Veiculo;
 
   @ViewChild('permissionarioInput') permissionarioInputElement: ElementRef;
 
   searchText: string = "";
+  searchVeiculoText: string = "";
   quadroDeInfracoesPesquisado: SearchData;
+  veiculoPesquisado: SearchData;
 
   solicitacao: SolicitacaoDeAlteracao;
   crudObj: Infracao;
@@ -63,6 +68,7 @@ export class UserInfracoesCrudComponent implements OnInit {
     private infracaoService: InfracaoService,
     private moedaService: MoedaService,
     private permissionarioService: PermissionarioService,
+    private veiculoService: VeiculoService,
     private quadroDeInfracoesService: QuadroDeInfracoesService,
     private naturezaDaInfracaoService: NaturezaDaInfracaoService,
     private solicitacaoService: SolicitacaoService,
@@ -81,11 +87,11 @@ export class UserInfracoesCrudComponent implements OnInit {
 
     try {
       this.subjectPermissionario
-      .pipe(debounceTime(500))
-      .subscribe(() => {
-        this.searchPermissionarios();
-      }
-      );
+        .pipe(debounceTime(500))
+        .subscribe(() => {
+          this.searchPermissionarios();
+        }
+        );
 
       const idSelected: string = this.route.snapshot.paramMap.get('id');
       const solicitacaoId: string = this.route.snapshot.queryParamMap.get('solicitacaoId');
@@ -134,22 +140,30 @@ export class UserInfracoesCrudComponent implements OnInit {
         quadro_infracao: new FormControl("", {
           validators: [Validators.required],
         }),
+        veiculo: new FormControl("", {
+          validators: [Validators.required],
+        }),
         permissionario: new FormControl(""),
       });
 
-      if(solicitacaoId){
+      if (solicitacaoId) {
         this.solicitacao = await this.solicitacaoService.get(solicitacaoId).pipe(first()).toPromise();
-        if(this.solicitacao){
+        if (this.solicitacao) {
           this.form.controls['data_infracao'].setValue(SharedModule.formatDateddMMyyyy(this.solicitacao.campo1.toString()));
           this.form.controls['hora_infracao'].setValue(this.solicitacao.campo2);
           this.form.controls['descricao'].setValue(this.solicitacao.campo3);
-          this.permissionarioSelecionado = await this.permissionarioService.get(this.solicitacao.campo4).pipe(first()).toPromise();
+          this.veiculoSelecionado = await this.veiculoService.get(this.solicitacao.referencia_veiculo_id).pipe(first()).toPromise();
+          if (this.veiculoSelecionado) {
+            this.form.controls['veiculo'].setValue(this.veiculoSelecionado.placa ? this.veiculoSelecionado.placa : this.veiculoSelecionado.cod_renavam);
 
-          if(this.permissionariosPesquisados){
-            this.form.controls['permissionario'].setValue(this.permissionarioSelecionado.nome_razao_social);
+            this.permissionarioSelecionado = await this.permissionarioService.get(this.veiculoSelecionado?.permissionario_id).pipe(first()).toPromise();
+
+            if (this.permissionarioSelecionado) {
+              this.form.controls['permissionario'].setValue(this.permissionarioSelecionado.nome_razao_social);
+            }
           }
 
-          if(this.solicitacao.arquivo1_uid){
+          if (this.solicitacao.arquivo1_uid) {
             this.imageFile = await this.arquivoService.get(this.solicitacao.arquivo1_uid).pipe(first()).toPromise();
             this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.imageFile));
           }
@@ -161,8 +175,9 @@ export class UserInfracoesCrudComponent implements OnInit {
         this.crudObj = await this.infracaoService.get(parseInt(idSelected)).toPromise();
         this.permissionarioSelecionado = await this.permissionarioService.get(this.crudObj.permissionario_id).pipe(first()).toPromise();
         this.quadroDeInfracoesSelecionado = await this.quadroDeInfracoesService.get(this.crudObj.quadro_infracao_id).pipe(first()).toPromise();
+        this.veiculoSelecionado = await this.veiculoService.get(this.crudObj.veiculo_id).pipe(first()).toPromise();
 
-        if(this.crudObj.foto_uid){
+        if (this.crudObj.foto_uid) {
           this.imageFile = await this.arquivoService.get(this.crudObj.foto_uid).pipe(first()).toPromise();
           this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.imageFile));
         }
@@ -182,6 +197,7 @@ export class UserInfracoesCrudComponent implements OnInit {
         this.form.controls['moeda_id'].setValue(this.crudObj.moeda_id);
         this.form.controls['natureza_infracao_id'].setValue(this.crudObj.natureza_infracao_id);
         this.form.controls['quadro_infracao'].setValue(this.quadroDeInfracoesSelecionado.descricao);
+        this.form.controls['veiculo'].setValue(this.veiculoSelecionado.placa ? this.veiculoSelecionado.placa : this.veiculoSelecionado.cod_renavam);
         this.form.controls['permissionario'].setValue(this.permissionarioSelecionado.nome_razao_social);
       }
 
@@ -197,7 +213,7 @@ export class UserInfracoesCrudComponent implements OnInit {
     try {
       SharedModule.setAllFieldsFromFormAsTouched(this.form);
 
-      if(!this.form.valid){
+      if (!this.form.valid) {
         this.snackbarService.openSnackBarError("Verifique se existem campos inválidos!");
         this.loading = false;
         return;
@@ -215,12 +231,25 @@ export class UserInfracoesCrudComponent implements OnInit {
         return;
       }
 
-      if(!this.imageChange && this.solicitacao && this.solicitacao.arquivo1_uid){
+      if (!this.veiculoSelecionado) {
+        this.snackbarService.openSnackBarError("Nenhum veículo selecionado!");
+        this.loading = false;
+        return;
+      }
+
+      if (this.veiculoSelecionado && this.permissionarioSelecionado
+        && this.permissionarioSelecionado?.id != this.veiculoSelecionado?.permissionario_id) {
+        this.snackbarService.openSnackBarError("Veiculo selecionado não pertence ao permissionário!");
+        this.loading = false;
+        return;
+      }
+
+      if (!this.imageChange && this.solicitacao && this.solicitacao.arquivo1_uid) {
         formInput.foto_uid = this.solicitacao.arquivo1_uid;
-      }else if(this.imageChange && this.imageFile){
+      } else if (this.imageChange && this.imageFile) {
         const arquivo = await this.arquivoService.create(this.imageFile).pipe(first()).toPromise();
 
-        if(!arquivo){
+        if (!arquivo) {
           throwError('Imagem não cadastrada');
         }
 
@@ -229,13 +258,14 @@ export class UserInfracoesCrudComponent implements OnInit {
 
       formInput.permissionario_id = this.permissionarioSelecionado.id;
       formInput.quadro_infracao_id = this.quadroDeInfracoesSelecionado.id;
+      formInput.veiculo_id = this.veiculoSelecionado.id;
 
       formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
 
       if (this.crudObj) {
         await this.infracaoService.update(this.crudObj.id, formInput).toPromise();
       } else {
-        if(this.solicitacao){
+        if (this.solicitacao) {
           formInput.solicitacao_id = this.solicitacao.id;
         }
         await this.infracaoService.create(formInput).toPromise();
@@ -287,10 +317,10 @@ export class UserInfracoesCrudComponent implements OnInit {
     this.loading = false;
   }
 
-  async searchQuadroDeInfracoes(text: string = '', page: number = 1){
+  async searchQuadroDeInfracoes(text: string = '', page: number = 1) {
     this.loading = true;
     try {
-      page = this.searchText!==text?1:page;
+      page = this.searchText !== text ? 1 : page;
       this.searchText = text;
 
       this.quadroDeInfracoesPesquisado = await this.quadroDeInfracoesService.search(this.searchText, page).toPromise();
@@ -300,21 +330,43 @@ export class UserInfracoesCrudComponent implements OnInit {
     this.loading = false;
   }
 
+  async searchVeiculos(text: string = '', page: number = 1) {
+    this.loading = true;
+    try {
+      page = this.searchVeiculoText !== text ? 1 : page;
+      this.searchVeiculoText = text;
+
+      if (!this.permissionarioService) {
+        this.snackbarService.openSnackBarError("É necessário selecionar um permissionário antes.");
+        return;
+      }
+
+      this.veiculoPesquisado = await this.veiculoService.searchPorPermissionario(this.searchVeiculoText, this.permissionarioSelecionado.id.toString(), page).toPromise();
+    } catch (e) {
+      this.veiculoPesquisado = null;
+    }
+    this.loading = false;
+  }
+
   async visualizarImagem(modal) {
     try {
       this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.imageFile));
-     this.openModal(modal);
+      this.openModal(modal);
     } catch (e: any) {
       this.imageFile = null;
       this.closeModal(null);
     }
   }
 
-  public changePosQuadroPaginate(page: number){
+  public changePosQuadroPaginate(page: number) {
     this.searchQuadroDeInfracoes(this.searchText, page);
   }
 
-  async selecionarQuadro(id: String){
+  public changePosVeiculoPaginate(page: number) {
+    this.searchVeiculos(this.searchVeiculoText, page);
+  }
+
+  async selecionarQuadro(id: String) {
     this.loading = true;
     try {
       this.quadroDeInfracoesSelecionado = await this.quadroDeInfracoesService.get(id).pipe(first()).toPromise();
@@ -327,7 +379,20 @@ export class UserInfracoesCrudComponent implements OnInit {
     this.loading = false;
   }
 
-  excluirImagem(){
+  async selecionarVeiculo(id: String) {
+    this.loading = true;
+    try {
+      this.veiculoSelecionado = await this.veiculoService.get(id).pipe(first()).toPromise();
+
+      this.form.controls['veiculo'].setValue(this.veiculoSelecionado.placa ? this.veiculoSelecionado.placa : this.veiculoSelecionado.cod_renavam);
+
+      this.closeModal(null);
+    } catch (e) {
+    }
+    this.loading = false;
+  }
+
+  excluirImagem() {
     this.imageFile = null;
     this.imageChange = true;
   }

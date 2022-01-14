@@ -15,5 +15,6 @@ export interface Infracao {
   permissionario_id: String
   quadro_infracao_id: String
   natureza_infracao_id: String
+  veiculo_id: String
   foto_uid: String
 }

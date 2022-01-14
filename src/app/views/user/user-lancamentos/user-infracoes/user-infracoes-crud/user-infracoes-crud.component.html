@@ -31,6 +31,14 @@
               (keyup)="keyUpPermissionario()" (focus)="setFocusPermissionarioInput(true)">
           </app-input>
 
+          <app-input label="Veículo" require="true">
+            <input type="text" class="form-control" formControlName="veiculo" autocomplete="off">
+            <button class="btn btn-search" type="button" title="Pesquisa Veículos"
+              (click)="searchVeiculos();openModal(pesquisaVeiculoModal)">
+              <i class="fa fa-search"></i>
+            </button>
+          </app-input>
+
           <app-input label="Data" require="true">
             <input type="text" class="form-control" formControlName="data_infracao" [textMask]="{mask: maskDate}"
               autocomplete="off">
@@ -47,7 +55,6 @@
 
         <div class="subitem">
           <h3>Sobre a Infração</h3>
-
 
           <app-input label="Quadro de Infração" require="true">
             <input type="text" class="form-control" formControlName="quadro_infracao" autocomplete="off">
@@ -179,6 +186,54 @@
           </div>
 
           <div *ngIf="!quadroDeInfracoesPesquisado || quadroDeInfracoesPesquisado.data.length==0"
+            class="alert alert-warning">
+            Nenhum registro encontrado!
+          </div>
+        </div>
+      </div>
+    </app-modal>
+  </ng-template>
+
+  <ng-template #pesquisaVeiculoModal let-modal>
+    <app-modal modalID="pesquisaVeiculoModal" title="Pesquisar Veículos" (closeModalEmit)="closeModal($event)">
+      <div *ngIf="!permissionarioSelecionado" class="alert alert-warning">
+        Nenhum permissionário selecionado!
+      </div>
+      <div *ngIf="permissionarioSelecionado" class="crud">
+        <app-search (searchEmitter)="searchVeiculos($event)"></app-search>
+
+        <h3 class="titulo">
+          Veículos
+        </h3>
+
+        <div *ngIf="!loading" class="clearfix">
+          <table *ngIf="veiculoPesquisado.data.length>0" class="table table-striped">
+            <thead>
+              <tr>
+                <th>Placa</th>
+                <th>Renavan</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let obj of veiculoPesquisado.data">
+                <td>{{obj?.placa?obj?.placa:"--"}}</td>
+                <td>{{obj?.cod_renavam}}</td>
+                <td class="text-right">
+                  <a href="javascript: void(0);" (click)="selecionarVeiculo(obj.id);" title="Selecionar"><i
+                      class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="veiculoPesquisado.data.length>0" class="float-right">
+            <app-pagination [backEnabled]="veiculoPesquisado.prev_page_url!=null"
+              [nextEnabled]="veiculoPesquisado.next_page_url!=null"
+              [actualPage]="veiculoPesquisado.current_page" (changePos)="changePosVeiculoPaginate($event)">
+            </app-pagination>
+          </div>
+
+          <div *ngIf="!veiculoPesquisado || veiculoPesquisado.data.length==0"
             class="alert alert-warning">
             Nenhum registro encontrado!
           </div>
