@@ -13,7 +13,7 @@ import { MainService } from './main.service';
 export class AuthService extends MainService {
 
   url = this.urlBase + '/auth'
-  urUser = this.urlBase + '/user'
+  urUser = this.urlBase + '/api/user'
 
   private static isLoaded = false;
 
@@ -63,8 +63,7 @@ export class AuthService extends MainService {
   }
 
   refreshToken(): Observable<any> {
-    console.log("refreshToken");
-    return this.httpClient.get(this.url + '/auth/refresh', {
+    return this.httpClient.get(this.url + '/refresh', {
       headers: new HttpHeaders(
         { 'Content-Type': 'application/json', "Authorization": "Bearer " + localStorage.getItem('tokenJWT')?.toString() }
       )
@@ -74,13 +73,11 @@ export class AuthService extends MainService {
           const valAny: any = val;
           super.setJWT = valAny ? valAny["newToken"] : null;
         }),
-        //retry(2),
-        //catchError(this.handleError)
       )
   }
 
   me(): Observable<Usuario> {
-    return this.httpClient.get<Usuario>(this.url + '/auth/user', super.getHttpOptions)
+    return this.httpClient.get<Usuario>(this.urUser, super.getHttpOptions)
       .pipe(
         tap(val => {
           if (val) {
@@ -103,12 +100,11 @@ export class AuthService extends MainService {
   async isLogged(): Promise<boolean> {
     try {
       if (!AuthService.isLoaded) {
-        console.log("isLogged", "REFRESH TOKEN");
         await this.refreshToken().toPromise();
         //this.teste();
         AuthService.isLoaded = true;
       }
-      let usuario: Usuario = await this.httpClient.get<Usuario>(this.url + '/me', super.getHttpOptions)
+      let usuario: Usuario = await this.httpClient.get<Usuario>(this.urUser, super.getHttpOptions)
         .pipe(
           tap(val => {
             if (val) {
@@ -134,7 +130,7 @@ export class AuthService extends MainService {
   }
 
   async logout() {
-    await this.httpClient.get(this.url + '/auth/logout', super.getHttpOptions).toPromise();
+    await this.httpClient.get(this.url + '/logout', super.getHttpOptions).toPromise();
 
     super.setJWT = undefined;
   }

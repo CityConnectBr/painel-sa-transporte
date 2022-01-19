@@ -1,51 +1,53 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
   HttpEvent,
+  HttpHandler,
+  HttpRequest,
+  HttpErrorResponse,
   HttpInterceptor,
-  HTTP_INTERCEPTORS,
-  HttpClient,
-  HttpHeaders
-} from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { AuthService } from '../services/auth.service';
-import { environment } from 'src/environments/environment';
+} from "@angular/common/http";
+import { first, catchError, retry, switchMap } from "rxjs/operators";
+import { BehaviorSubject, Observable, throwError } from "rxjs";
+import { Injectable } from "@angular/core";
+import { AuthService } from "../services/auth.service";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  constructor(private readonly authService: AuthService) { }
 
-  private regexCheckVoucher = new RegExp('.*(\/)checkvoucher(\/).*');
-  private regexRegister = new RegExp('.*(\/)register(\/).*');
-
-
-  constructor(private authService: AuthService) {
-  }
-
-  public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      if (this.isExceptUrl(request.url)) {
-           return this.authService.handleRequest(request, next);
-      }
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<any> {
+    if (
+      !request.url.startsWith("/auth/login") ||
+      request.url.startsWith("/auth/logout") ||
+      request.url.startsWith("/auth/refresh")
+    ) {
       return next.handle(request);
-  }
+    }
 
-  private isExceptUrl(url: string): boolean{
-      const isApiUrl: boolean = url.startsWith(environment.apiUrl);
-      const isTokenCheckvoucherUrl: boolean = this.regexCheckVoucher.test(url);
-      const isTokenRegisterUrl: boolean = this.regexRegister.test(url);
-      const isTokenLoginUrl: boolean = url.endsWith('/login');
-      const isTokenGenerateRecoverCodeUrl: boolean = url.endsWith('/generaterecovercode');
-      const isTokenValidateRecoveryCodeUrl: boolean = url.endsWith('/validaterecoverycode');
-      const isTokenRecoverPasswordUrl: boolean = url.endsWith('/recoverypassword');
-      const isTokenRefreshUrl: boolean = url.endsWith('/auth/refresh');
-      return isApiUrl &&
-        !isTokenRegisterUrl &&
-        !isTokenLoginUrl &&
-        !isTokenGenerateRecoverCodeUrl &&
-        !isTokenValidateRecoveryCodeUrl &&
-        !isTokenRecoverPasswordUrl &&
-        !isTokenRefreshUrl &&
-        !isTokenCheckvoucherUrl;
+    return next.handle(request).pipe(
+      retry(1),
+      catchError((error: HttpErrorResponse) => {
+        if (error.status == 403 || error.status == 401) {
+          return this.authService.refreshToken().pipe(
+            switchMap((_) => {
+              const changedReq = request.clone({
+                headers: this.authService.getHttpHeaders,
+              });
+              return next.handle(changedReq);
+            }),
+            catchError((err) => {
+              this.authService.logout();
+              return throwError(err);
+            })
+          );
+        }
+
+        return throwError(
+          `Error Status: ${error.status}\nMessage: ${error.message}`
+        );
+      })
+    );
   }
 }

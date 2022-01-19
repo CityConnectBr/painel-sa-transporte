@@ -11,8 +11,8 @@ const routes: Routes = [
   {
     path: 'user',
     loadChildren: () => import('./views/user/user.module').then(mod => mod.UserModule),
-    //canLoad: [LoggedInGuard],
-    //canActivate: [LoggedInGuard]
+    canLoad: [LoggedInGuard],
+    canActivate: [LoggedInGuard]
   },
   { path: '**', component: UserLoginComponent },
 ];

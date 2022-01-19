@@ -60,6 +60,11 @@ export class MainService {
       )
     };
   }
+  get getHttpHeaders(): HttpHeaders {
+    return new HttpHeaders(
+        { 'Content-Type': 'application/json', "Authorization": "Bearer " + this.getJWT }
+    );
+  }
   get getHeaderWithAuthorization(): HttpHeaders {
     return new HttpHeaders(
       { "Authorization": "Bearer " + this.getJWT }
