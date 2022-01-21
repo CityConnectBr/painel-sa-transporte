@@ -28,8 +28,8 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
   errorMessage: string
 
   monitor: Monitor;
-  enderecoDoCondutor: Endereco;
-  permissionarioDoCondutor: Permissionario;
+  enderecoDoMonitor: Endereco;
+  permissionarioDoMonitor: Permissionario;
 
   subjectMunicipio: Subject<any> = new Subject();
   subjectPermissionario: Subject<any> = new Subject();
@@ -82,13 +82,13 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
 
       const idSelected: string = this.route.parent.snapshot.paramMap.get('id');
       this.monitor = await this.monitorService.get(idSelected).pipe(first()).toPromise();
-      this.permissionarioDoCondutor = await this.permissionarioService.get(this.monitor.permissionario_id).pipe(first()).toPromise();
+      this.permissionarioDoMonitor = await this.permissionarioService.get(this.monitor.permissionario_id).pipe(first()).toPromise();
 
-      this.enderecoDoCondutor = await this.enderecoService.get(this.monitor.endereco_id).pipe(first()).toPromise();
-      if (this.enderecoDoCondutor.municipio_id)
-        this.municipioSelecionado = await this.municipioService.get(this.enderecoDoCondutor.municipio_id).pipe(first()).toPromise();
+      this.enderecoDoMonitor = await this.enderecoService.get(this.monitor.endereco_id).pipe(first()).toPromise();
+      if (this.enderecoDoMonitor.municipio_id)
+        this.municipioSelecionado = await this.municipioService.get(this.enderecoDoMonitor.municipio_id).pipe(first()).toPromise();
 
-      this.permissionarioSelecionado = await this.permissionarioService.get(this.permissionarioDoCondutor.id).pipe(first()).toPromise();
+      this.permissionarioSelecionado = await this.permissionarioService.get(this.enderecoDoMonitor.id).pipe(first()).toPromise();
 
       await this.refreshPhoto(this.monitor);
 
@@ -122,25 +122,25 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
         data_nascimento: new FormControl(this.monitor.data_nascimento ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.datePattern)],
         }),
-        cep: new FormControl(this.enderecoDoCondutor?.cep ?? "", {
+        cep: new FormControl(this.enderecoDoMonitor?.cep ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.cepPattern)],
         }),
-        endereco: new FormControl(this.enderecoDoCondutor?.endereco ?? "", {
+        endereco: new FormControl(this.enderecoDoMonitor?.endereco ?? "", {
           validators: [Validators.required],
         }),
-        numero: new FormControl(this.enderecoDoCondutor?.numero ?? "", {
+        numero: new FormControl(this.enderecoDoMonitor?.numero ?? "", {
           validators: [Validators.required],
         }),
-        complemento: new FormControl(this.enderecoDoCondutor?.complemento ?? "", {
+        complemento: new FormControl(this.enderecoDoMonitor?.complemento ?? "", {
           validators: [],
         }),
-        bairro: new FormControl(this.enderecoDoCondutor?.bairro ?? "", {
+        bairro: new FormControl(this.enderecoDoMonitor?.bairro ?? "", {
           validators: [Validators.required],
         }),
         municipio: new FormControl(this.municipioSelecionado?.nome, {
           validators: [Validators.required],
         }),
-        uf: new FormControl(this.enderecoDoCondutor?.uf ?? "", {
+        uf: new FormControl(this.enderecoDoMonitor?.uf ?? "", {
           validators: [Validators.required],
         }),
         certidao_negativa: new FormControl(this.monitor.certidao_negativa ?? ""),
@@ -152,7 +152,12 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
           validators: [Validators.pattern(SharedModule.datePattern)],
         }),
         permissionario: new FormControl(this.permissionarioSelecionado.nome_razao_social,),
-      })
+      });
+
+      //setando por problema na mascara quando salva
+      if(this.enderecoDoMonitor){
+        this.form.controls['cep'].setValue(this.enderecoDoMonitor?.cep ?? "");
+      }
 
     } catch (e: any) {
       console.log(e);
@@ -177,10 +182,10 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
       }
 
       let endereco = {
-        cep: formInput.cep,
+        cep: SharedModule.formatCEP(formInput.cep),
         endereco: formInput.endereco,
         numero: formInput.numero,
-        complemento: formInput.cep,
+        complemento: formInput.complemento,
         uf: formInput.uf,
         bairro: formInput.bairro,
         municipio_id: this.municipioSelecionado.id,
@@ -191,7 +196,7 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
 
       formInput.permissionario_id = this.permissionarioSelecionado.id;
 
-      await this.enderecoService.update(this.monitor.id, endereco).toPromise();
+      await this.enderecoService.update(this.monitor.endereco_id, endereco).toPromise();
       await this.monitorService.update(this.monitor.id, formInput).toPromise();
       this.snackbarService.openSnackBarSucess('Monitor salvo!');
     } catch (e: any) {

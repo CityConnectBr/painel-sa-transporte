@@ -90,6 +90,7 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
       if (this.permissionarioDoCondutor)
         this.permissionarioSelecionado = await this.permissionarioService.get(this.permissionarioDoCondutor.id).pipe(first()).toPromise();
 
+        console.log(this.enderecoDoCondutor);
       await this.refreshPhoto(this.condutor);
 
       //convertendo de 1|0 para boolean
@@ -171,6 +172,11 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
         permissionario: new FormControl(this.permissionarioSelecionado?.nome_razao_social ?? "",),
       })
 
+      //setando por problema na mascara quando salva
+      if(this.enderecoDoCondutor){
+        this.form.controls['cep'].setValue(this.enderecoDoCondutor?.cep ?? "");
+      }
+
     } catch (e: any) {
       console.log(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
@@ -192,12 +198,11 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
         this.loading = false;
         return;
       }
-
       let endereco = {
-        cep: formInput.cep,
+        cep: SharedModule.formatCEP(formInput.cep),
         endereco: formInput.endereco,
         numero: formInput.numero,
-        complemento: formInput.cep,
+        complemento: formInput.complemento,
         uf: formInput.uf,
         bairro: formInput.bairro,
         municipio_id: this.municipioSelecionado.id,
@@ -208,7 +213,7 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
 
       formInput.permissionario_id = this.permissionarioSelecionado.id;
 
-      await this.enderecoService.update(this.condutor.id, endereco).toPromise();
+      await this.enderecoService.update(this.condutor.endereco_id, endereco).toPromise();
       await this.condutorService.update(this.condutor.id, formInput).toPromise();
       this.snackbarService.openSnackBarSucess('Condutor salvo!');
     } catch (e: any) {

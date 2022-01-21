@@ -24,7 +24,7 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
   errorMessage: string
 
   ponto: Ponto;
-  enderecoDoCondutor: Endereco;
+  endereco: Endereco;
 
   subjectMunicipio: Subject<any> = new Subject();
 
@@ -63,9 +63,9 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
       const idSelected: string = this.route.parent.snapshot.paramMap.get('id');
       this.ponto = await this.pontoService.get(idSelected).pipe(first()).toPromise();
 
-      this.enderecoDoCondutor = await this.enderecoService.get(this.ponto.endereco_id).pipe(first()).toPromise();
-      if (this.enderecoDoCondutor.municipio_id)
-        this.municipioSelecionado = await this.municipioService.get(this.enderecoDoCondutor.municipio_id).pipe(first()).toPromise();
+      this.endereco = await this.enderecoService.get(this.ponto.endereco_id).pipe(first()).toPromise();
+      if (this.endereco.municipio_id)
+        this.municipioSelecionado = await this.municipioService.get(this.endereco.municipio_id).pipe(first()).toPromise();
 
       //convertendo de 1|0 para boolean
       this.ponto = SharedModule.convertAllFields01ToBoolean(this.ponto);
@@ -96,28 +96,33 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
         modalidade_transporte: new FormControl(this.ponto.modalidade_transporte ?? "", {
           validators: [Validators.required,],
         }),
-        cep: new FormControl(this.enderecoDoCondutor?.cep ?? "", {
+        cep: new FormControl(this.endereco?.cep ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.cepPattern)],
         }),
-        endereco: new FormControl(this.enderecoDoCondutor?.endereco ?? "", {
+        endereco: new FormControl(this.endereco?.endereco ?? "", {
           validators: [Validators.required],
         }),
-        numero: new FormControl(this.enderecoDoCondutor?.numero ?? "", {
+        numero: new FormControl(this.endereco?.numero ?? "", {
           validators: [Validators.required],
         }),
-        complemento: new FormControl(this.enderecoDoCondutor?.complemento ?? "", {
+        complemento: new FormControl(this.endereco?.complemento ?? "", {
           validators: [],
         }),
-        bairro: new FormControl(this.enderecoDoCondutor?.bairro ?? "", {
+        bairro: new FormControl(this.endereco?.bairro ?? "", {
           validators: [Validators.required],
         }),
         municipio: new FormControl(this.municipioSelecionado?.nome ?? "", {
           validators: [Validators.required],
         }),
-        uf: new FormControl(this.enderecoDoCondutor?.uf ?? "", {
+        uf: new FormControl(this.endereco?.uf ?? "", {
           validators: [Validators.required],
         }),
-      })
+      });
+
+      //setando por problema na mascara quando salva
+      if(this.endereco){
+        this.form.controls['cep'].setValue(this.endereco?.cep ?? "");
+      }
 
     } catch (e: any) {
       console.log(e);
@@ -141,10 +146,10 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
       }
 
       let endereco = {
-        cep: formInput.cep,
+        cep: SharedModule.formatCEP(formInput.cep),
         endereco: formInput.endereco,
         numero: formInput.numero,
-        complemento: formInput.cep,
+        complemento: formInput.complemento,
         uf: formInput.uf,
         bairro: formInput.bairro,
         municipio_id: this.municipioSelecionado.id,

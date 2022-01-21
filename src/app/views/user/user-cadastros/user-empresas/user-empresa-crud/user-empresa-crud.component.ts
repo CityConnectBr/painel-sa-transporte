@@ -195,10 +195,10 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
     try {
 
       let endereco = {
-        cep: formInput.cep,
+        cep: SharedModule.formatCEP(formInput.cep),
         endereco: formInput.endereco,
         numero: formInput.numero,
-        complemento: formInput.cep,
+        complemento: formInput.complemento,
         uf: formInput.uf,
         bairro: formInput.bairro,
         municipio_id: this.municipioSelecionado.id,

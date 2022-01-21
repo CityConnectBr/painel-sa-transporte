@@ -156,7 +156,12 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
         estado_civil: new FormControl(this.permissionario.estado_civil ?? "", {
           validators: [Validators.required],
         }),
-      })
+      });
+
+      //setando por problema na mascara quando salva
+      if(this.enderecoDoPermissionario){
+        this.form.controls['cep'].setValue(this.enderecoDoPermissionario?.cep ?? "");
+      }
 
     } catch (e: any) {
       console.log(e);
@@ -180,10 +185,10 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
       }
 
       let endereco = {
-        cep: formInput.cep,
+        cep: SharedModule.formatCEP(formInput.cep),
         endereco: formInput.endereco,
         numero: formInput.numero,
-        complemento: formInput.cep,
+        complemento: formInput.complemento,
         uf: formInput.uf,
         bairro: formInput.bairro,
         municipio_id: this.municipioSelecionado.id,

@@ -154,10 +154,10 @@ export class UserFiscaisCrudComponent implements OnInit {
 
       console.log(formInput.telefone);
       let endereco: Endereco = {
-        cep: formInput.cep,
+        cep: SharedModule.formatCEP(formInput.cep),
         endereco: formInput.endereco,
         numero: formInput.numero,
-        complemento: formInput.cep,
+        complemento: formInput.complemento,
         uf: formInput.uf,
         bairro: formInput.bairro,
         municipio_id: this.municipioSelecionado.id,

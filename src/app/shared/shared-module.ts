@@ -299,6 +299,19 @@ export class SharedModule {
     }
   }
 
+  static formatCEP(value: string): string | undefined {
+    try {
+      if(value && value.length==8 && !value.includes("-")){
+        return `${value.substring(0, 5)}-${value.substring(5, 8)}`;
+      }
+
+      return formatDate(value, "yyyy-MM-dd", "pt-br");
+    } catch (e) {
+      console.log(e);
+    }
+    return value;
+  }
+
   static handleError(error: any): string {
 
     let errorMessage: string = "";
