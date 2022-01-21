@@ -116,13 +116,13 @@ export class UserCondutoresNovoComponent implements OnInit, OnDestroy {
           validators: [Validators.required],
         }),
         uf: new FormControl('', {
-          validators: [Validators.required],
+          validators: [Validators.required, Validators.required],
         }),
         cnh: new FormControl('', {
-          validators: [Validators.maxLength(15)],
+          validators: [Validators.required, Validators.maxLength(15)],
         }),
         categoria_cnh: new FormControl('', {
-          validators: [Validators.maxLength(2)],
+          validators: [Validators.required, Validators.maxLength(2)],
         }),
         vencimento_cnh: new FormControl('', {
           validators: [Validators.pattern(SharedModule.datePattern)],

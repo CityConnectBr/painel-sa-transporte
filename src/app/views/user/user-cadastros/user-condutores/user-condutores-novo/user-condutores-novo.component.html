@@ -38,15 +38,15 @@
 
         <div class="subitem">
           <h3>Dados da CNH</h3>
-          <app-input label="CNH" [inline]="true">
+          <app-input label="CNH" [inline]="true"  require="true">
             <input type="text" class="form-control" formControlName="cnh" autocomplete="off">
           </app-input>
 
-          <app-input label="Categoria" [inline]="true">
+          <app-input label="Categoria" [inline]="true"  require="true">
             <input type="text" class="form-control" formControlName="categoria_cnh" autocomplete="off">
           </app-input>
 
-          <app-input label="Validade" [inline]="true">
+          <app-input label="Validade" [inline]="true"  require="true">
             <input type="text" class="form-control" formControlName="vencimento_cnh" [textMask]="{mask: maskDate}" autocomplete="off">
           </app-input>
         </div>

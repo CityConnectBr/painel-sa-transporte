@@ -90,7 +90,7 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
       if (this.permissionarioDoCondutor)
         this.permissionarioSelecionado = await this.permissionarioService.get(this.permissionarioDoCondutor.id).pipe(first()).toPromise();
 
-        console.log(this.enderecoDoCondutor);
+      console.log(this.enderecoDoCondutor);
       await this.refreshPhoto(this.condutor);
 
       //convertendo de 1|0 para boolean
@@ -142,13 +142,13 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
           validators: [Validators.required],
         }),
         cnh: new FormControl(this.condutor.cnh ?? "", {
-          validators: [Validators.maxLength(15)],
+          validators: [Validators.required, Validators.maxLength(15)],
         }),
         categoria_cnh: new FormControl(this.condutor.categoria_cnh ?? "", {
-          validators: [Validators.maxLength(2)],
+          validators: [Validators.required, Validators.maxLength(2)],
         }),
         vencimento_cnh: new FormControl(this.condutor.vencimento_cnh ?? "", {
-          validators: [Validators.pattern(SharedModule.datePattern)],
+          validators: [Validators.required, Validators.pattern(SharedModule.datePattern)],
         }),
         atestado_de_saude: new FormControl(this.condutor.atestado_de_saude ?? ""),
         certidao_negativa: new FormControl(this.condutor.certidao_negativa ?? ""),
@@ -173,7 +173,7 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
       })
 
       //setando por problema na mascara quando salva
-      if(this.enderecoDoCondutor){
+      if (this.enderecoDoCondutor) {
         this.form.controls['cep'].setValue(this.enderecoDoCondutor?.cep ?? "");
       }
 
