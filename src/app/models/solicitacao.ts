@@ -1,4 +1,5 @@
 import { Condutor } from "./condutores";
+import { Endereco } from "./endereco";
 import { Fiscal } from "./fiscal";
 import { Monitor } from "./monitor";
 import { Permissionario } from "./permissionario";
@@ -44,6 +45,7 @@ export interface SolicitacaoDeAlteracao {
   referencia_monitor_id: String
   referencia_condutor_id: String
   referencia_veiculo_id: String
+  endereco_id: String
   arquivo1_uid: String
   arquivo2_uid: String
   arquivo3_uid: String
@@ -52,6 +54,7 @@ export interface SolicitacaoDeAlteracao {
   permissionario: Permissionario
   condutor: Condutor
   fiscal: Fiscal
+  endereco: Endereco
   permissionario_referencia: Permissionario
   fiscal_referencia: Fiscal
   condutor_referencia: Condutor
