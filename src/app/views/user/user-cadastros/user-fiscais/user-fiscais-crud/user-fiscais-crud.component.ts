@@ -137,7 +137,7 @@ export class UserFiscaisCrudComponent implements OnInit {
       }
 
     } catch (e: any) {
-      console.log(e);
+      console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;
@@ -152,7 +152,6 @@ export class UserFiscaisCrudComponent implements OnInit {
     this.errorMessage = "";
     try {
 
-      console.log(formInput.telefone);
       let endereco: Endereco = {
         cep: SharedModule.formatCEP(formInput.cep),
         endereco: formInput.endereco,

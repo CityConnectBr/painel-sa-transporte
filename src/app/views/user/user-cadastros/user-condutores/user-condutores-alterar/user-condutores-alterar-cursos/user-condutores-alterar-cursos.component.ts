@@ -64,7 +64,6 @@ export class UserCondutoresAlterarCursosComponent implements OnInit {
         }),
       });
     } catch (e: any) {
-      console.log(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;

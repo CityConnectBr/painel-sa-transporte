@@ -133,7 +133,7 @@ export class UserMonitoresNovoComponent implements OnInit, OnDestroy {
       })
 
     } catch (e: any) {
-      console.log(e);
+      console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;
@@ -175,7 +175,6 @@ export class UserMonitoresNovoComponent implements OnInit, OnDestroy {
       formInput.endereco_id = endereco.id;
       formInput.permissionario_id = this.permissionarioSelecionado.id;
 
-      console.log(formInput);
       //convertendoDataNasc
       formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
       formInput = SharedModule.convertAllFieldsTrueFalseToBoolean(formInput);

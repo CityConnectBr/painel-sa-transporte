@@ -58,7 +58,7 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
         }),
       });
     } catch (e: any) {
-      console.log(e);
+      console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;
@@ -69,7 +69,6 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
     const { data } =
       await this.anexoDoPermissionarioService.indexByPermissionario(this.permissionario.id.toString()).pipe(first()).toPromise();
 
-    console.log(data);
     this.anexosDoPermissionario = data;
   }
 
@@ -78,7 +77,7 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
     this.errorMessage = "";
     try {
       formInput.permissionario_id = this.permissionario.id;
-      console.log(this.fileToUpload);
+
       await this.anexoDoPermissionarioService.createWithUpload(formInput, this.fileToUpload).pipe(first()).toPromise();
 
       this.load();

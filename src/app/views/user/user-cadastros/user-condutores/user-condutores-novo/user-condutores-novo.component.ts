@@ -150,7 +150,7 @@ export class UserCondutoresNovoComponent implements OnInit, OnDestroy {
       })
 
     } catch (e: any) {
-      console.log(e);
+      console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;

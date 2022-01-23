@@ -13,12 +13,10 @@ export class UserLancamentosComponent implements OnInit {
   }
 
   onActivate(event: any) {
-    console.log("onActivate", event);
     this.showOutlet = true;
   }
 
   onDeactivate(event: any) {
-    console.log("onDeactivate", event);
     this.showOutlet = false;
   }
 }

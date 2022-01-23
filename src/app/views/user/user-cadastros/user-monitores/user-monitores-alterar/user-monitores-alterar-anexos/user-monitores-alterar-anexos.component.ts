@@ -58,7 +58,7 @@ export class UserMonitoresAlterarAnexosComponent implements OnInit {
         }),
       });
     } catch (e: any) {
-      console.log(e);
+      console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;
@@ -69,7 +69,6 @@ export class UserMonitoresAlterarAnexosComponent implements OnInit {
     const { data } =
       await this.anexoDoMonitorService.indexByCondutor(this.monitor.id.toString()).pipe(first()).toPromise();
 
-    console.log(data);
     this.anexosDoMonitor = data;
   }
 
@@ -78,9 +77,8 @@ export class UserMonitoresAlterarAnexosComponent implements OnInit {
     this.errorMessage = "";
     try {
       formInput.monitor_id = this.monitor.id;
-      const r = await this.anexoDoMonitorService.createWithUpload(formInput, this.fileToUpload).pipe(first()).toPromise();
+      await this.anexoDoMonitorService.createWithUpload(formInput, this.fileToUpload).pipe(first()).toPromise();
 
-      console.log(r);
       this.load();
 
       this.snackbarService.openSnackBarSucess('Anexo salvo!');

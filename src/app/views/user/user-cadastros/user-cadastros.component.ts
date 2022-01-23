@@ -15,12 +15,10 @@ export class UserCadastrosComponent implements OnInit {
   }
 
   onActivate(event: any) {
-    console.log("onActivate", event);
     this.showOutlet = true;
   }
 
   onDeactivate(event: any) {
-    console.log("onDeactivate", event);
     this.showOutlet = false;
   }
 

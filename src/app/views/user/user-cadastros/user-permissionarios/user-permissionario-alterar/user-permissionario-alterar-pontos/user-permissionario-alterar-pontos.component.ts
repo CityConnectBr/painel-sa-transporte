@@ -94,7 +94,7 @@ export class UserPermissionarioAlterarPontosComponent implements OnInit {
       })
 
     } catch (e: any) {
-      console.log(e);
+      console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;
@@ -165,7 +165,6 @@ export class UserPermissionarioAlterarPontosComponent implements OnInit {
   }
 
   public async setPonto(event) {
-    console.log(event);
     try {
       if (event) {
         this.formPonto.controls['ponto_descricao'].setValue("Carregando...");

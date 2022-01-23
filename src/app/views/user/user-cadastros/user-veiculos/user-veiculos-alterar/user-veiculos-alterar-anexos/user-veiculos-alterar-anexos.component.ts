@@ -58,7 +58,7 @@ export class UserVeiculosAlterarAnexosComponent implements OnInit {
         }),
       });
     } catch (e: any) {
-      console.log(e);
+      console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;
@@ -69,7 +69,6 @@ export class UserVeiculosAlterarAnexosComponent implements OnInit {
     const { data } =
       await this.anexoDoVeiculoService.indexByPermissionario(this.veiculo.id.toString()).pipe(first()).toPromise();
 
-    console.log(data);
     this.anexosDoVeiculo = data;
   }
 
@@ -78,7 +77,7 @@ export class UserVeiculosAlterarAnexosComponent implements OnInit {
     this.errorMessage = "";
     try {
       formInput.veiculo_id = this.veiculo.id;
-      console.log(this.fileToUpload);
+
       await this.anexoDoVeiculoService.createWithUpload(formInput, this.fileToUpload).pipe(first()).toPromise();
 
       this.load();

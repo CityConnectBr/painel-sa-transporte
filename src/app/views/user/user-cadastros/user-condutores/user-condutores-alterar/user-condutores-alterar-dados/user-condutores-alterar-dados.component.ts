@@ -90,7 +90,6 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
       if (this.permissionarioDoCondutor)
         this.permissionarioSelecionado = await this.permissionarioService.get(this.permissionarioDoCondutor.id).pipe(first()).toPromise();
 
-      console.log(this.enderecoDoCondutor);
       await this.refreshPhoto(this.condutor);
 
       //convertendo de 1|0 para boolean
@@ -178,7 +177,6 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
       }
 
     } catch (e: any) {
-      console.log(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;

@@ -58,7 +58,7 @@ export class UserCondutoresAlterarAnexosComponent implements OnInit {
         }),
       });
     } catch (e: any) {
-      console.log(e);
+      console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;
@@ -69,7 +69,6 @@ export class UserCondutoresAlterarAnexosComponent implements OnInit {
     const { data } =
       await this.anexoDoCondutorService.indexByCondutor(this.condutor.id.toString()).pipe(first()).toPromise();
 
-    console.log(data);
     this.anexosDoCondutor = data;
   }
 
@@ -78,10 +77,8 @@ export class UserCondutoresAlterarAnexosComponent implements OnInit {
     this.errorMessage = "";
     try {
       formInput.condutor_id = this.condutor.id;
-      console.log(formInput);
-      const r = await this.anexoDoCondutorService.createWithUpload(formInput, this.fileToUpload).pipe(first()).toPromise();
+      await this.anexoDoCondutorService.createWithUpload(formInput, this.fileToUpload).pipe(first()).toPromise();
 
-      console.log(r);
       this.load();
 
       this.snackbarService.openSnackBarSucess('Anexo salvo!');

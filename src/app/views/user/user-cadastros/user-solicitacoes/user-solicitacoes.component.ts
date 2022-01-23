@@ -206,7 +206,9 @@ export class UserSolicitacoesComponent implements OnInit {
 
       //VALOR ATUAL
 
-      if (solicitacao && solicitacao.permissionario_referencia) {
+      if (solicitacao && solicitacao.endereco) {
+        valorDoCampo = solicitacao.endereco[campo];
+      }if (solicitacao && solicitacao.permissionario_referencia) {
         valorDoCampo = solicitacao.permissionario_referencia[campo];
       } else if (solicitacao && solicitacao.condutor_referencia) {
         valorDoCampo = solicitacao.condutor_referencia[campo];

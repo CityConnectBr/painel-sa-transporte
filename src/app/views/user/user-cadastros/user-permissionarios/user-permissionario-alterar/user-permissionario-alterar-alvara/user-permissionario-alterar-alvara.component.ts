@@ -51,7 +51,7 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
       await this.loadAlvara(this.permissionario);
 
     } catch (e: any) {
-      console.log(e);
+      console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;
@@ -62,7 +62,6 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
     const { data } =
       await this.alvaraService.indexByPermissionario(permissionario.id.toString()).pipe(first()).toPromise();
 
-      console.log(data);
     if (data && data.length > 0) {
       this.alvaraAtual = data[0];
 

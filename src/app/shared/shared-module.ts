@@ -262,7 +262,7 @@ export class SharedModule {
 
       return formatDate(value, "dd/MM/yyyy", "pt-br");
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 
@@ -273,7 +273,7 @@ export class SharedModule {
 
       return formatDate(value, "dd 'de' MMMM 'de' yyyy", "pt-br");
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 
@@ -284,7 +284,7 @@ export class SharedModule {
 
         return value.substr(0,5);
       } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 
@@ -295,7 +295,7 @@ export class SharedModule {
 
       return formatDate(value, "yyyy-MM-dd", "pt-br");
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 
@@ -307,7 +307,7 @@ export class SharedModule {
 
       return formatDate(value, "yyyy-MM-dd", "pt-br");
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
     return value;
   }

@@ -85,7 +85,7 @@ export class UserPontosAlterarCoordenadorComponent implements OnInit, OnDestroy 
       await this.loadData(this.ponto);
 
     } catch (e: any) {
-      console.log(e);
+      console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;

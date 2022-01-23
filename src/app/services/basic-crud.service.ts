@@ -41,7 +41,6 @@ export class BasicCrudService extends MainService {
   }
 
   create(obj: any): Observable<any> {
-    console.log(JSON.stringify(obj));
     return this.httpClient.post(this.url,
       JSON.stringify(obj), super.getHttpOptions)
       .pipe(
