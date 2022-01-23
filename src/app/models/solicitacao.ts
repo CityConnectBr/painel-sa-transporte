@@ -36,6 +36,31 @@ export interface SolicitacaoDeAlteracao {
   campo23: String
   campo24: String
   campo25: String
+  valor_anterior_campo1: String
+  valor_anterior_campo2: String
+  valor_anterior_campo3: String
+  valor_anterior_campo4: String
+  valor_anterior_campo5: String
+  valor_anterior_campo6: String
+  valor_anterior_campo7: String
+  valor_anterior_campo8: String
+  valor_anterior_campo9: String
+  valor_anterior_campo10: String
+  valor_anterior_campo11: String
+  valor_anterior_campo12: String
+  valor_anterior_campo13: String
+  valor_anterior_campo14: String
+  valor_anterior_campo15: String
+  valor_anterior_campo16: String
+  valor_anterior_campo17: String
+  valor_anterior_campo18: String
+  valor_anterior_campo19: String
+  valor_anterior_campo20: String
+  valor_anterior_campo21: String
+  valor_anterior_campo22: String
+  valor_anterior_campo23: String
+  valor_anterior_campo24: String
+  valor_anterior_campo25: String
   tipo_solicitacao_id: String
   permissionario_id: String
   condutor_id: String

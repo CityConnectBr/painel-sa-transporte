@@ -204,19 +204,23 @@ export class UserSolicitacoesComponent implements OnInit {
       const campo = solicitacao.tipo[`nome_campo${i}`];
       let valorDoCampo;
 
-      //VALOR ATUAL
-      if (solicitacao && solicitacao.endereco) {
-        valorDoCampo = solicitacao.endereco[campo];
-      } else if (solicitacao && solicitacao.permissionario_referencia) {
-        valorDoCampo = solicitacao.permissionario_referencia[campo];
-      } else if (solicitacao && solicitacao.condutor_referencia) {
-        valorDoCampo = solicitacao.condutor_referencia[campo];
-      } else if (solicitacao && solicitacao.monitor_referencia) {
-        valorDoCampo = solicitacao.monitor_referencia[campo];
-      } else if (solicitacao && solicitacao.fiscal_referencia) {
-        valorDoCampo = solicitacao.fiscal_referencia[campo];
-      } else if (solicitacao && solicitacao.veiculo_referencia) {
-        valorDoCampo = solicitacao.veiculo_referencia[campo];
+      if (solicitacao.tipo == null) {
+        //VALOR ATUAL
+        if (solicitacao && solicitacao.endereco) {
+          valorDoCampo = solicitacao.endereco[campo];
+        } else if (solicitacao && solicitacao.permissionario_referencia) {
+          valorDoCampo = solicitacao.permissionario_referencia[campo];
+        } else if (solicitacao && solicitacao.condutor_referencia) {
+          valorDoCampo = solicitacao.condutor_referencia[campo];
+        } else if (solicitacao && solicitacao.monitor_referencia) {
+          valorDoCampo = solicitacao.monitor_referencia[campo];
+        } else if (solicitacao && solicitacao.fiscal_referencia) {
+          valorDoCampo = solicitacao.fiscal_referencia[campo];
+        } else if (solicitacao && solicitacao.veiculo_referencia) {
+          valorDoCampo = solicitacao.veiculo_referencia[campo];
+        }
+      } else {
+        valorDoCampo = solicitacao[`valor_anterior_campo${i}`];
       }
 
       if (campo) {
