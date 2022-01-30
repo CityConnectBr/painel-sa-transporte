@@ -142,6 +142,9 @@ export class UserEmpresasVistoriadorasCrudComponent implements OnInit, OnDestroy
         this.form.controls['endereco'].setValue(this.enderecoDaEmpresa?.endereco ?? "");
         this.form.controls['numero'].setValue(this.enderecoDaEmpresa?.numero ?? "");
         this.form.controls['uf'].setValue(this.enderecoDaEmpresa?.uf ?? "");
+
+        //forçando verificação de erros
+        SharedModule.setAllFieldsFromFormAsTouched(this.form);
       }
 
     } catch (e: any) {
@@ -173,6 +176,11 @@ export class UserEmpresasVistoriadorasCrudComponent implements OnInit, OnDestroy
     this.loading = true;
     this.errorMessage = "";
     try {
+      if(!this.form.valid){
+        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.loading = false;
+        return;
+      }
 
       let endereco = {
         cep: SharedModule.formatCEP(formInput.cep),

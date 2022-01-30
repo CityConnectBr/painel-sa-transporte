@@ -176,6 +176,9 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
         this.form.controls['cep'].setValue(this.enderecoDoCondutor?.cep ?? "");
       }
 
+      //forçando verificação de erros
+      SharedModule.setAllFieldsFromFormAsTouched(this.form);
+
     } catch (e: any) {
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
@@ -191,6 +194,12 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.errorMessage = "";
     try {
+      if(!this.form.valid){
+        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.loading = false;
+        return;
+      }
+
       if (!this.municipioSelecionado) {
         this.snackbarService.openSnackBarError("Nenhum Município selecionado!");
         this.loading = false;

@@ -84,6 +84,9 @@ export class UserQuadroDeInfracoesCrudComponent implements OnInit {
         this.form.controls['qtd_reincidencia'].setValue(this.crudObj.qtd_reincidencia);
         this.form.controls['unidade_reincidencia'].setValue(this.crudObj.unidade_reincidencia);
         this.form.controls['natureza_infracao_id'].setValue(this.crudObj.natureza_infracao_id);
+
+        //forçando verificação de erros
+        SharedModule.setAllFieldsFromFormAsTouched(this.form);
       }
 
     } catch (e: any) {
@@ -97,6 +100,11 @@ export class UserQuadroDeInfracoesCrudComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     try {
+      if(!this.form.valid){
+        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.loading = false;
+        return;
+      }
 
       if (this.crudObj) {
         await this.quadroDeInfracoesService.update(this.crudObj.id, formInput).toPromise();

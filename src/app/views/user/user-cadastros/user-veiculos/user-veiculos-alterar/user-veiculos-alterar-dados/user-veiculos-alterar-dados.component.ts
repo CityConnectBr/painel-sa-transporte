@@ -136,6 +136,8 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
         categoria_id: new FormControl('1',),//1-veiculo,2-onibus
       })
 
+      //forçando verificação de erros
+      SharedModule.setAllFieldsFromFormAsTouched(this.form);
     } catch (e: any) {
       console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
@@ -152,6 +154,12 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.errorMessage = "";
     try {
+      if(!this.form.valid){
+        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.loading = false;
+        return;
+      }
+
       if (!this.permissionarioSelecionado) {
         this.snackbarService.openSnackBarError("Nenhum Permissionário selecionado!");
         this.loading = false;

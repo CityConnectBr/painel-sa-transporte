@@ -51,6 +51,8 @@ export class UserAplicativosCrudComponent implements OnInit {
         this.crudObj = await this.aplicativoService.get(parseInt(idSelected)).toPromise();
 
         this.form.controls['descricao'].setValue(this.crudObj.descricao);
+
+        SharedModule.setAllFieldsFromFormAsTouched(this.form);
       }
 
     } catch (e: any) {
@@ -64,6 +66,12 @@ export class UserAplicativosCrudComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     try {
+
+      if(!this.form.valid){
+        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.loading = false;
+        return;
+      }
 
       if (this.crudObj) {
         await this.aplicativoService.update(this.crudObj.id, formInput).toPromise();

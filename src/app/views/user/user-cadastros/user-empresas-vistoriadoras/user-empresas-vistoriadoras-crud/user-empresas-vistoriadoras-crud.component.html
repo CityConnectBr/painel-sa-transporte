@@ -111,8 +111,7 @@
         <div class="alert alert-danger" *ngIf="errorMessage">
           <strong [innerHTML]="errorMessage"></strong>
         </div>
-        <button type="submit" class="btn pull-right" (click)="salvar(form.value)"
-          [disabled]="!form.valid">Salvar</button>
+        <button type="submit" class="btn pull-right" (click)="salvar(form.value)">Salvar</button>
       </div>
     </form>
   </div>

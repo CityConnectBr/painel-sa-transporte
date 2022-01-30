@@ -134,6 +134,9 @@ export class UserFiscaisCrudComponent implements OnInit {
         this.form.controls['bairro'].setValue(this.enderecoDoPermissionario?.bairro ?? "");
         this.form.controls['municipio'].setValue(this.municipioSelecionado?.nome ?? "");
         this.form.controls['uf'].setValue(this.enderecoDoPermissionario?.uf ?? "");
+
+        //forçando verificação de erros
+        SharedModule.setAllFieldsFromFormAsTouched(this.form);
       }
 
     } catch (e: any) {
@@ -151,6 +154,11 @@ export class UserFiscaisCrudComponent implements OnInit {
     this.loading = true;
     this.errorMessage = "";
     try {
+      if(!this.form.valid){
+        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.loading = false;
+        return;
+      }
 
       let endereco: Endereco = {
         cep: SharedModule.formatCEP(formInput.cep),

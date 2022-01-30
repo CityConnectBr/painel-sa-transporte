@@ -157,6 +157,9 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
         this.form.controls['cep'].setValue(this.enderecoDoMonitor?.cep ?? "");
       }
 
+      //forçando verificação de erros
+      SharedModule.setAllFieldsFromFormAsTouched(this.form);
+
     } catch (e: any) {
       console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
@@ -173,6 +176,12 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.errorMessage = "";
     try {
+      if(!this.form.valid){
+        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.loading = false;
+        return;
+      }
+
       if (!this.municipioSelecionado) {
         this.snackbarService.openSnackBarError("Nenhum Município selecionado!");
         this.loading = false;
@@ -194,6 +203,7 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
 
       formInput.permissionario_id = this.permissionarioSelecionado.id;
 
+      console.log(formInput);
       await this.enderecoService.update(this.monitor.endereco_id, endereco).toPromise();
       await this.monitorService.update(this.monitor.id, formInput).toPromise();
       this.snackbarService.openSnackBarSucess('Monitor salvo!');
