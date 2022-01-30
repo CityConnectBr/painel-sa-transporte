@@ -305,7 +305,7 @@ export class SharedModule {
         return `${value.substring(0, 5)}-${value.substring(5, 8)}`;
       }
 
-      return formatDate(value, "yyyy-MM-dd", "pt-br");
+      return value;
     } catch (e) {
       console.error(e);
     }
