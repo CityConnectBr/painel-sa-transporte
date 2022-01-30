@@ -1,6 +1,7 @@
 export interface Fiscal {
   id: String
   id_integracao: number
+  ativo: boolean
   foto: boolean
   nome: String
   cpf: String

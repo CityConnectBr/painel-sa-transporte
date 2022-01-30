@@ -25,5 +25,6 @@ export interface Veiculo {
   tipo_combustivel?: TipoDeCombustivel
   tipo_veiculo?: TipoDeVeiculo
   cor?: CorDoVeiculo
+  ativo: boolean
 
 }

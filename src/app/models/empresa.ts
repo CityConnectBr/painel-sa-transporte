@@ -1,6 +1,7 @@
 export interface Empresa {
   id: String
   id_integracao: number
+  ativo: boolean
   nome: String
   telefone: String
   fax: String
