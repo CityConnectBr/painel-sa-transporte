@@ -29,7 +29,7 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
 
   monitor: Monitor;
   enderecoDoMonitor: Endereco;
-  permissionarioDoMonitor: Permissionario;
+  //permissionarioDoMonitor: Permissionario;
 
   subjectMunicipio: Subject<any> = new Subject();
   subjectPermissionario: Subject<any> = new Subject();
@@ -82,13 +82,11 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
 
       const idSelected: string = this.route.parent.snapshot.paramMap.get('id');
       this.monitor = await this.monitorService.get(idSelected).pipe(first()).toPromise();
-      this.permissionarioDoMonitor = await this.permissionarioService.get(this.monitor.permissionario_id).pipe(first()).toPromise();
+      this.permissionarioSelecionado = await this.permissionarioService.get(this.monitor.permissionario_id).pipe(first()).toPromise();
 
       this.enderecoDoMonitor = await this.enderecoService.get(this.monitor.endereco_id).pipe(first()).toPromise();
       if (this.enderecoDoMonitor.municipio_id)
         this.municipioSelecionado = await this.municipioService.get(this.enderecoDoMonitor.municipio_id).pipe(first()).toPromise();
-
-      this.permissionarioSelecionado = await this.permissionarioService.get(this.enderecoDoMonitor.id).pipe(first()).toPromise();
 
       await this.refreshPhoto(this.monitor);
 
