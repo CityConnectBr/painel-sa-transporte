@@ -92,6 +92,10 @@ import { UserVistoriadepontosComponent } from './user-lancamentos/user-vistoriad
 import { UserVistoriadepontosCrudComponent } from './user-lancamentos/user-vistoriadepontos/user-vistoriadepontos-crud/user-vistoriadepontos-crud.component';
 import { UserInfracoesCrudComponent } from './user-lancamentos/user-infracoes/user-infracoes-crud/user-infracoes-crud.component';
 import { UserCertidoesCrudComponent } from './user-lancamentos/user-certidoes/user-certidoes-crud/user-certidoes-crud.component';
+import { UserMarcasModelosDeChassiComponent } from './user-cadastros/user-marcas-modelos-de-chassi/user-marcas-modelos-de-chassi.component';
+import { UserMarcasModelosDeCarroceriaComponent } from './user-cadastros/user-marcas-modelos-de-carroceria/user-marcas-modelos-de-carroceria.component';
+import { UserMarcasModelosDeCarroceriaCrudComponent } from './user-cadastros/user-marcas-modelos-de-carroceria/user-marcas-modelos-de-carroceria-crud/user-marcas-modelos-de-carroceria-crud.component';
+import { UserMarcasModelosDeChassiCrudComponent } from './user-cadastros/user-marcas-modelos-de-chassi/user-marcas-modelos-de-chassi-crud/user-marcas-modelos-de-chassi-crud.component';
 
 const ROUTER: Routes = [
   {
@@ -167,6 +171,12 @@ const ROUTER: Routes = [
           { path: 'marcasmodelosdeveiculos', component: UserMarcasModelosDeVeiculosComponent, },
           { path: 'marcasmodelosdeveiculos/novo', component: UserMarcasModelosDeVeiculosCrudComponent },
           { path: 'marcasmodelosdeveiculos/alterar/:id', component: UserMarcasModelosDeVeiculosCrudComponent },
+          { path: 'marcasmodelosdechassi', component: UserMarcasModelosDeChassiComponent, },
+          { path: 'marcasmodelosdechassi/novo', component: UserMarcasModelosDeChassiCrudComponent },
+          { path: 'marcasmodelosdechassi/alterar/:id', component: UserMarcasModelosDeChassiCrudComponent },
+          { path: 'marcasmodelosdecarroceria', component: UserMarcasModelosDeCarroceriaComponent, },
+          { path: 'marcasmodelosdecarroceria/novo', component: UserMarcasModelosDeCarroceriaCrudComponent },
+          { path: 'marcasmodelosdecarroceria/alterar/:id', component: UserMarcasModelosDeCarroceriaCrudComponent },
           { path: 'tiposdecombustivel', component: UserTiposDeCombustivelComponent, },
           { path: 'tiposdecombustivel/novo', component: UserTiposDeCombustivelCrudComponent },
           { path: 'tiposdecombustivel/alterar/:id', component: UserTiposDeCombustivelCrudComponent },
@@ -330,6 +340,10 @@ const ROUTER: Routes = [
     UserVistoriadepontosCrudComponent,
     UserInfracoesCrudComponent,
     UserCertidoesCrudComponent,
+    UserMarcasModelosDeChassiComponent,
+    UserMarcasModelosDeCarroceriaComponent,
+    UserMarcasModelosDeCarroceriaCrudComponent,
+    UserMarcasModelosDeChassiCrudComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),

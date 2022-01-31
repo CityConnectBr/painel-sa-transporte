@@ -11,6 +11,14 @@
 
         <div class="subitem">
           <h3>Dados do Veículo</h3>
+
+          <app-input label="Categoria" require="true">
+            <select formControlName="categoria_id" class="form-control" require="true">
+              <option value="1">Veículo</option>
+              <option value="2">Ônibus</option>
+            </select>
+          </app-input>
+
           <app-input label="Placa" require="true">
             <input type="text" class="form-control" formControlName="placa" mask="SSS0000" autocomplete="off">
           </app-input>
