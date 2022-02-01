@@ -5,17 +5,17 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { debounceTime, first } from 'rxjs/operators';
 import { CorDoVeiculo } from 'src/app/models/cor-do-veiculo';
-import { Endereco } from 'src/app/models/endereco';
+import { MarcaModeloDeCarroceria } from 'src/app/models/marca-modelo-de-carroceria';
+import { MarcaModeloDeChassi } from 'src/app/models/marca-modelo-de-chassi';
 import { MarcaModeloDeVeiculo } from 'src/app/models/marca-modelo-de-veiculo';
-import { Municipio } from 'src/app/models/municipio';
 import { Permissionario } from 'src/app/models/permissionario';
 import { TipoDeCombustivel } from 'src/app/models/tipo-de-combustivel';
 import { TipoDeVeiculo } from 'src/app/models/tipo-de-veiculo';
 import { Veiculo } from 'src/app/models/veiculo';
 import { CorDoVeiculoService } from 'src/app/services/cor-do-veiculo.service';
-import { EnderecoService } from 'src/app/services/endereco.service';
+import { MarcaModeloDeCarroceriaService } from 'src/app/services/marca-modelo-de-carroceria.service';
+import { MarcaModeloDeChassiService } from 'src/app/services/marca-modelo-de-chassi.service';
 import { MarcaModeloDeVeiculoService } from 'src/app/services/marca-modelo-de-veiculo.service';
-import { MunicipioService } from 'src/app/services/municipio.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { TipoDeCombustivelService } from 'src/app/services/tipo-de-combustivel.service';
 import { TipoDeVeiculoService } from 'src/app/services/tipo-de-veiculo.service';
@@ -38,6 +38,8 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
 
   subjectPermissionario: Subject<any> = new Subject();
   subjectMarcaModelo: Subject<any> = new Subject();
+  subjectMarcaModeloChassi: Subject<any> = new Subject();
+  subjectMarcaModeloCarroceria: Subject<any> = new Subject();
 
   tiposDeCombustivel: TipoDeCombustivel[];
   cores: CorDoVeiculo[];
@@ -49,6 +51,12 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
   marcasModelosPesquisados: Map<String, String> = new Map();
   marcasModelosSelecionado: MarcaModeloDeVeiculo;
 
+  marcasModelosChassiPesquisados: Map<String, String> = new Map();
+  marcasModelosChassiSelecionado: MarcaModeloDeChassi;
+
+  marcasModelosCarroceriaPesquisados: Map<String, String> = new Map();
+  marcasModelosCarroceriaSelecionado: MarcaModeloDeCarroceria;
+
   @ViewChild('permissionarioInput') permissionarioInputElement: ElementRef;
   @ViewChild('marcaModeloInput') marcaModeloInputElement: ElementRef;
 
@@ -56,6 +64,8 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private veiculoService: VeiculoService,
     private marcaModeloVeiculoService: MarcaModeloDeVeiculoService,
+    private marcaModeloChassiService: MarcaModeloDeChassiService,
+    private marcaModeloCarroceriaService: MarcaModeloDeCarroceriaService,
     private corDoVeiculoService: CorDoVeiculoService,
     private tipoDeVeiculoService: TipoDeVeiculoService,
     private tipoDeCombustivelService: TipoDeCombustivelService,
@@ -71,18 +81,32 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
     this.errorMessage = "";
     try {
       this.subjectPermissionario
-      .pipe(debounceTime(500))
-      .subscribe(() => {
-        this.searchPermissionarios();
-      }
-      );
+        .pipe(debounceTime(500))
+        .subscribe(() => {
+          this.searchPermissionarios();
+        }
+        );
 
       this.subjectMarcaModelo
-      .pipe(debounceTime(500))
-      .subscribe(() => {
-        this.searchMarcaModelo();
-      }
-      );
+        .pipe(debounceTime(500))
+        .subscribe(() => {
+          this.searchMarcaModelo();
+        }
+        );
+
+      this.subjectMarcaModeloChassi
+        .pipe(debounceTime(500))
+        .subscribe(() => {
+          this.searchMarcaModeloChassi();
+        }
+        );
+
+      this.subjectMarcaModeloCarroceria
+        .pipe(debounceTime(500))
+        .subscribe(() => {
+          this.searchMarcaModeloCarroceria();
+        }
+        );
 
       this.tiposDeCombustivel = await this.tipoDeCombustivelService.index().pipe(first()).toPromise();
       this.cores = await this.corDoVeiculoService.index().pipe(first()).toPromise();
@@ -91,49 +115,56 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
       const idSelected: string = this.route.parent.snapshot.paramMap.get('id');
       this.veiculo = await this.veiculoService.get(idSelected).pipe(first()).toPromise();
       this.permissionarioSelecionado = await this.permissionarioService.get(this.veiculo.permissionario_id).pipe(first()).toPromise();
-      this.marcasModelosSelecionado = await this.marcaModeloVeiculoService.get(this.veiculo.permissionario_id).pipe(first()).toPromise();
+      if (this.veiculo.marca_modelo_veiculo_id)
+        this.marcasModelosSelecionado = await this.marcaModeloVeiculoService.get(this.veiculo.marca_modelo_veiculo_id).pipe(first()).toPromise();
+      if (this.veiculo.marca_modelo_chassi_id)
+        this.marcasModelosChassiSelecionado = await this.marcaModeloChassiService.get(this.veiculo.marca_modelo_chassi_id).pipe(first()).toPromise();
+      if (this.veiculo.marca_modelo_carroceria_id)
+        this.marcasModelosCarroceriaSelecionado = await this.marcaModeloCarroceriaService.get(this.veiculo.marca_modelo_carroceria_id).pipe(first()).toPromise();
 
       ///////FORM
       this.form = this.formBuilder.group({
-        placa: new FormControl(this.veiculo.placa??"", {
+        placa: new FormControl(this.veiculo.placa ?? "", {
           validators: [Validators.required, Validators.minLength(7), Validators.maxLength(7)],
         }),
-        cod_renavam: new FormControl(this.veiculo.cod_renavam??"", {
+        cod_renavam: new FormControl(this.veiculo.cod_renavam ?? "", {
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(11)],
         }),
-        chassi: new FormControl(this.veiculo.chassi??"", {
+        chassi: new FormControl(this.veiculo.chassi ?? "", {
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(25)],
         }),
-        ano_fabricacao: new FormControl(this.veiculo.ano_fabricacao??"", {
+        ano_fabricacao: new FormControl(this.veiculo.ano_fabricacao ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.numberPatern)],
         }),
-        ano_modelo: new FormControl(this.veiculo.ano_modelo??"", {
+        ano_modelo: new FormControl(this.veiculo.ano_modelo ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.numberPatern)],
         }),
-        anos_vida_util_veiculo: new FormControl(this.veiculo.anos_vida_util_veiculo??"", {
+        anos_vida_util_veiculo: new FormControl(this.veiculo.anos_vida_util_veiculo ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.numberPatern)],
         }),
-        capacidade: new FormControl(this.veiculo.capacidade??"", {
+        capacidade: new FormControl(this.veiculo.capacidade ?? "", {
           validators: [Validators.required, Validators.minLength(1), Validators.maxLength(15)],
         }),
-        observacao_capacidade: new FormControl(this.veiculo.observacao_capacidade??"", {
+        observacao_capacidade: new FormControl(this.veiculo.observacao_capacidade ?? "", {
           validators: [Validators.maxLength(40)],
         }),
-        tipo_capacidade: new FormControl(this.veiculo.tipo_capacidade??"", {
+        tipo_capacidade: new FormControl(this.veiculo.tipo_capacidade ?? "", {
           validators: [Validators.required],
         }),
-        marca_modelo_veiculo: new FormControl(this.marcasModelosSelecionado.descricao??""),
-        tipo_combustivel_id: new FormControl(this.veiculo.tipo_combustivel_id??"", {
+        marca_modelo_veiculo: new FormControl(this.marcasModelosSelecionado?.descricao ?? ""),
+        marca_modelo_chassi: new FormControl(this.marcasModelosChassiSelecionado?.descricao ?? ""),
+        marca_modelo_carroceria: new FormControl(this.marcasModelosCarroceriaSelecionado?.descricao ?? ""),
+        tipo_combustivel_id: new FormControl(this.veiculo.tipo_combustivel_id ?? "", {
           validators: [Validators.required],
         }),
-        cor_id: new FormControl(this.veiculo.cor_id??"", {
+        cor_id: new FormControl(this.veiculo.cor_id ?? "", {
           validators: [Validators.required],
         }),
-        tipo_veiculo_id: new FormControl(this.veiculo.tipo_veiculo_id??"", {
+        tipo_veiculo_id: new FormControl(this.veiculo.tipo_veiculo_id ?? "", {
           validators: [Validators.required],
         }),
-        permissionario: new FormControl(this.permissionarioSelecionado.nome_razao_social??""),
-        categoria_id: new FormControl('1',),//1-veiculo,2-onibus
+        permissionario: new FormControl(this.permissionarioSelecionado.nome_razao_social ?? ""),
+        categoria_id: new FormControl(this.veiculo.categoria_id, Validators.required),//1-veiculo,2-onibus
       })
 
       //forçando verificação de erros
@@ -154,7 +185,7 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.errorMessage = "";
     try {
-      if(!this.form.valid){
+      if (!this.form.valid) {
         this.snackbarService.openSnackBarError("Existem campos inválidos!");
         this.loading = false;
         return;
@@ -166,15 +197,36 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
         return;
       }
 
-      if (!this.marcasModelosSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Marca/Modelo selecionado!");
-        this.loading = false;
-        return;
+      if (formInput.categoria_id == 1) {
+        if (!this.marcasModelosSelecionado) {
+          this.snackbarService.openSnackBarError("Nenhum Marca/Modelo selecionado!");
+          this.loading = false;
+          return;
+        }
+      } else {
+        if (!this.marcasModelosChassiSelecionado) {
+          this.snackbarService.openSnackBarError("Nenhum Marca/Modelo de Chassi selecionado!");
+          this.loading = false;
+          return;
+        }
+
+        if (!this.marcasModelosCarroceriaSelecionado) {
+          this.snackbarService.openSnackBarError("Nenhum Marca/Modelo de Carroceria selecionado!");
+          this.loading = false;
+          return;
+        }
       }
 
       formInput.permissionario_id = this.permissionarioSelecionado.id;
-      formInput.marca_modelo_veiculo_id = this.marcasModelosSelecionado.id;
-
+      if (formInput.categoria_id == 1) {
+        formInput.marca_modelo_veiculo_id = this.marcasModelosSelecionado.id;
+        formInput.marca_modelo_chassi_id = null;
+        formInput.marca_modelo_carroceria_id = null;
+      } else {
+        formInput.marca_modelo_veiculo_id = null;
+        formInput.marca_modelo_chassi_id = this.marcasModelosChassiSelecionado.id;
+        formInput.marca_modelo_carroceria_id = this.marcasModelosCarroceriaSelecionado.id;
+      }
       await this.veiculoService.update(this.veiculo.id, formInput).toPromise();
       this.snackbarService.openSnackBarSucess('Veículo salvo!');
     } catch (e: any) {
@@ -270,6 +322,90 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
   public setFocusMarcaModeloInput(focus: boolean) {
     if (focus) {
       this.searchMarcaModelo();
+    }
+  }
+
+  ///////
+
+  public async searchMarcaModeloChassi() {
+    try {
+      this.marcasModelosChassiSelecionado = null;
+      const result = await this.marcaModeloChassiService
+        .search(this.form.controls['marca_modelo_chassi'].value)
+        .pipe(first())
+        .toPromise();
+
+      this.marcasModelosChassiPesquisados.clear();
+      result.data.forEach((marcaModelo: MarcaModeloDeChassi) => {
+        this.marcasModelosChassiPesquisados.set(`${marcaModelo.id}`, marcaModelo.descricao);
+      });
+
+    } catch (e: any) {
+      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+    }
+  }
+
+  public keyUpMarcaModeloChassi() {
+    this.subjectMarcaModeloChassi.next();
+  }
+
+  public async setMarcaModeloChassi(event) {
+    try {
+      if (event) {
+        this.form.controls['marca_modelo_chassi'].setValue("Carregando...");
+        this.marcasModelosChassiSelecionado = await this.marcaModeloChassiService.get(event).pipe(first()).toPromise();
+        this.form.controls['marca_modelo_chassi'].setValue(this.marcasModelosChassiSelecionado.descricao);
+      }
+    } catch (e: any) {
+      this.errorMessage = SharedModule.handleError(e);
+    }
+  }
+
+  public setFocusMarcaModeloChassiInput(focus: boolean) {
+    if (focus) {
+      this.searchMarcaModeloChassi();
+    }
+  }
+
+  ///////
+
+  public async searchMarcaModeloCarroceria() {
+    try {
+      this.marcasModelosCarroceriaSelecionado = null;
+      const result = await this.marcaModeloCarroceriaService
+        .search(this.form.controls['marca_modelo_carroceria'].value)
+        .pipe(first())
+        .toPromise();
+
+      this.marcasModelosCarroceriaPesquisados.clear();
+      result.data.forEach((marcaModelo: MarcaModeloDeCarroceria) => {
+        this.marcasModelosCarroceriaPesquisados.set(`${marcaModelo.id}`, marcaModelo.descricao);
+      });
+
+    } catch (e: any) {
+      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+    }
+  }
+
+  public keyUpMarcaModeloCarroceria() {
+    this.subjectMarcaModeloCarroceria.next();
+  }
+
+  public async setMarcaModeloCarroceria(event) {
+    try {
+      if (event) {
+        this.form.controls['marca_modelo_carroceria'].setValue("Carregando...");
+        this.marcasModelosCarroceriaSelecionado = await this.marcaModeloCarroceriaService.get(event).pipe(first()).toPromise();
+        this.form.controls['marca_modelo_carroceria'].setValue(this.marcasModelosCarroceriaSelecionado.descricao);
+      }
+    } catch (e: any) {
+      this.errorMessage = SharedModule.handleError(e);
+    }
+  }
+
+  public setFocusMarcaModeloCarroceriaInput(focus: boolean) {
+    if (focus) {
+      this.searchMarcaModeloCarroceria();
     }
   }
 }

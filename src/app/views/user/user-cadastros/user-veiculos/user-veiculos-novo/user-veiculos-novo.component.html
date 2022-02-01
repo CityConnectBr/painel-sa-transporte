@@ -31,10 +31,22 @@
             <input type="text" class="form-control" formControlName="chassi" autocomplete="off">
           </app-input>
 
-          <app-input label="Marca/Modelo" [inline]="true" [options]="marcasModelosPesquisados" require="true"
+          <app-input *ngIf="form.value['categoria_id']=='1'" label="Marca/Modelo" [inline]="true" [options]="marcasModelosPesquisados" require="true"
             (setObjectSelected)="marcasModelosPesquisados" require="true" (setObjectSelected)="setMarcaModelo($event)">
             <input #municipioInput type="text" class="form-control" formControlName="marca_modelo_veiculo"
               autocomplete="off" (keyup)="keyUpMarcaModelo()" (focus)="setFocusMarcaModeloInput(true)">
+          </app-input>
+
+          <app-input *ngIf="form.value['categoria_id']=='2'" label="Marca/Modelo do Chassi" [inline]="true" [options]="marcasModelosChassiPesquisados" require="true"
+            (setObjectSelected)="marcasModelosChassiPesquisados" require="true" (setObjectSelected)="setMarcaModeloChassi($event)">
+            <input #municipioInput type="text" class="form-control" formControlName="marca_modelo_chassi"
+              autocomplete="off" (keyup)="keyUpMarcaModeloChassi()" (focus)="setFocusMarcaModeloChassiInput(true)">
+          </app-input>
+
+          <app-input *ngIf="form.value['categoria_id']=='2'" label="Marca/Modelo da Carroceria" [inline]="true" [options]="marcasModelosCarroceriaPesquisados" require="true"
+            (setObjectSelected)="marcasModelosCarroceriaPesquisados" require="true" (setObjectSelected)="setMarcaModeloCarroceria($event)">
+            <input #municipioInput type="text" class="form-control" formControlName="marca_modelo_carroceria"
+              autocomplete="off" (keyup)="keyUpMarcaModeloCarroceria()" (focus)="setFocusMarcaModeloCarroceriaInput(true)">
           </app-input>
 
           <app-input label="Permissionário" [inline]="true" [options]="permissionariosPesquisados" require="true"
