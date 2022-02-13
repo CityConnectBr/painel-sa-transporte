@@ -1,0 +1,59 @@
+<div class="clearfix" *ngIf="printButton">
+  <button type="submit" class="btn btn-success pull-right print-button" (click)="printDiv()">
+    <i class="fas fa-print"></i> Imprimir
+  </button>
+</div>
+<div id="printDivReportId" class="report-page clearfix">
+  <style>
+    @media print {
+
+      table.paging thead td,
+      table.paging tfoot td {
+        height: .5in;
+      }
+
+      @media print {
+        header,
+        footer {
+          position: fixed;
+        }
+
+        footer {
+          bottom: 0;
+        }
+      }
+    }
+  </style>
+  <header>
+    <h3>SA Transportes - {{title!=null?title:'Título'}}</h3>
+    <p>Referência: {{reference!=null?reference:'--'}}</p>
+  </header>
+
+  <table class=paging>
+    <thead>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+
+          <div class="content">
+            <ng-content></ng-content>
+          </div>
+
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <footer>
+    <p>Data/Hora: {{actualDate | date: 'dd/MM/yyyy'}} às {{actualDate | date: 'HH:mm'}}h</p>
+  </footer>
+</div>

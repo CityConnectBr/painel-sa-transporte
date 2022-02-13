@@ -11,13 +11,14 @@ import { formatDate } from '@angular/common'
 import { LoadingSimpleComponent } from "./loading-simple/loading-simple.component";
 import { SearchComponent } from "./search/search.component";
 import { PaginationComponent } from "./pagination/pagination.component";
+import { PrintPageComponent } from "./print-page/print-page.component";
 
 
 @NgModule({
-  declarations: [InputComponent, LoadingComponent, ModalComponent, FooterSimpleComponent, LoadingSimpleComponent, SearchComponent, PaginationComponent],
+  declarations: [InputComponent, LoadingComponent, ModalComponent, FooterSimpleComponent, LoadingSimpleComponent, SearchComponent, PaginationComponent, PrintPageComponent],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [InputComponent, LoadingComponent, ModalComponent, FooterSimpleComponent,
-    CommonModule, FormsModule, ReactiveFormsModule, LoadingSimpleComponent, SearchComponent, PaginationComponent]
+    CommonModule, FormsModule, ReactiveFormsModule, LoadingSimpleComponent, SearchComponent, PaginationComponent, PrintPageComponent]
 })
 export class SharedModule {
 
@@ -43,6 +44,7 @@ export class SharedModule {
   static textMaskDate = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
   static textMaskHour = [/[0-2]/, /[0-9]/, ':', /[0-6]/, /[0-9]/];
   static textMaskCEPPattern = [/[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/];
+  static textMaskMountYear = [/[0-1]/, /[0-9]/, '/', /[0-2]/, /[0-9]/, /[0-9]/, /[0-9]/];
 
   static msgError: { [key: string]: string } = {
     "code-c-1": "Não existem mais conteúdos para exibição!",
@@ -282,8 +284,8 @@ export class SharedModule {
       if (!value)
         return;
 
-        return value.substr(0,5);
-      } catch (e) {
+      return value.substr(0, 5);
+    } catch (e) {
       console.error(e);
     }
   }
@@ -301,7 +303,7 @@ export class SharedModule {
 
   static formatCEP(value: string): string | undefined {
     try {
-      if(value && value.length==8 && !value.includes("-")){
+      if (value && value.length == 8 && !value.includes("-")) {
         return `${value.substring(0, 5)}-${value.substring(5, 8)}`;
       }
 

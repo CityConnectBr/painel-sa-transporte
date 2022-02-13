@@ -96,6 +96,8 @@ import { UserMarcasModelosDeChassiComponent } from './user-cadastros/user-marcas
 import { UserMarcasModelosDeCarroceriaComponent } from './user-cadastros/user-marcas-modelos-de-carroceria/user-marcas-modelos-de-carroceria.component';
 import { UserMarcasModelosDeCarroceriaCrudComponent } from './user-cadastros/user-marcas-modelos-de-carroceria/user-marcas-modelos-de-carroceria-crud/user-marcas-modelos-de-carroceria-crud.component';
 import { UserMarcasModelosDeChassiCrudComponent } from './user-cadastros/user-marcas-modelos-de-chassi/user-marcas-modelos-de-chassi-crud/user-marcas-modelos-de-chassi-crud.component';
+import { UserRelatoriosComponent } from './user-relatorios/user-relatorios.component';
+import { UserRelEntradaSaidaVeiculosComponent } from './user-relatorios/user-rel-entrada-saida-veiculos/user-rel-entrada-saida-veiculos.component';
 
 const ROUTER: Routes = [
   {
@@ -244,6 +246,12 @@ const ROUTER: Routes = [
           { path: 'vistoriasdepontos/novo', component: UserVistoriadepontosCrudComponent },
           { path: 'vistoriasdepontos/alterar/:id', component: UserVistoriadepontosCrudComponent },
         ]
+      },
+      {
+        path: 'relatorios', component: UserRelatoriosComponent,
+        children: [
+          { path: 'entradasaidadeveiculos', component: UserRelEntradaSaidaVeiculosComponent, },
+        ]
       }
 
     ]
@@ -344,6 +352,8 @@ const ROUTER: Routes = [
     UserMarcasModelosDeCarroceriaComponent,
     UserMarcasModelosDeCarroceriaCrudComponent,
     UserMarcasModelosDeChassiCrudComponent,
+    UserRelatoriosComponent,
+    UserRelEntradaSaidaVeiculosComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),
