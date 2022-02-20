@@ -98,6 +98,11 @@ import { UserMarcasModelosDeCarroceriaCrudComponent } from './user-cadastros/use
 import { UserMarcasModelosDeChassiCrudComponent } from './user-cadastros/user-marcas-modelos-de-chassi/user-marcas-modelos-de-chassi-crud/user-marcas-modelos-de-chassi-crud.component';
 import { UserRelatoriosComponent } from './user-relatorios/user-relatorios.component';
 import { UserRelEntradaSaidaVeiculosComponent } from './user-relatorios/user-rel-entrada-saida-veiculos/user-rel-entrada-saida-veiculos.component';
+import { UserImpressosComponent } from './user-impressos/user-impressos.component';
+import { UserFormulario1RenovacaoPermissionarioComponent } from './user-impressos/user-formulario1-renovacao-permissionario/user-formulario1-renovacao-permissionario.component';
+import { UserFormulario7DeclaracaoMonitorComponent } from './user-impressos/user-formulario7-declaracao-monitor/user-formulario7-declaracao-monitor.component';
+import { UserFormulario8CondutorAuxiliarComponent } from './user-impressos/user-formulario8-condutor-auxiliar/user-formulario8-condutor-auxiliar.component';
+import { UserFormulario17SolicitaacaoBaixaCondutorComponent } from './user-impressos/user-formulario17-solicitaacao-baixa-condutor/user-formulario17-solicitaacao-baixa-condutor.component';
 
 const ROUTER: Routes = [
   {
@@ -248,6 +253,15 @@ const ROUTER: Routes = [
         ]
       },
       {
+        path: 'impressos', component: UserImpressosComponent,
+        children: [
+          { path: 'formulariorenovacaopermissao', component: UserFormulario1RenovacaoPermissionarioComponent, },
+          { path: 'formulariodeclaracaomonitor', component: UserFormulario7DeclaracaoMonitorComponent, },
+          { path: 'condutorauxiliar', component: UserFormulario8CondutorAuxiliarComponent, },
+          { path: 'solicitacaodebaixadecondutorauxiliar', component: UserFormulario17SolicitaacaoBaixaCondutorComponent, },
+        ]
+      },
+      {
         path: 'relatorios', component: UserRelatoriosComponent,
         children: [
           { path: 'entradasaidadeveiculos', component: UserRelEntradaSaidaVeiculosComponent, },
@@ -354,6 +368,11 @@ const ROUTER: Routes = [
     UserMarcasModelosDeChassiCrudComponent,
     UserRelatoriosComponent,
     UserRelEntradaSaidaVeiculosComponent,
+    UserImpressosComponent,
+    UserFormulario1RenovacaoPermissionarioComponent,
+    UserFormulario7DeclaracaoMonitorComponent,
+    UserFormulario8CondutorAuxiliarComponent,
+    UserFormulario17SolicitaacaoBaixaCondutorComponent,
   ],
   imports: [
     RouterModule.forChild(ROUTER),

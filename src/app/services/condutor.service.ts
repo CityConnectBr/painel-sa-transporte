@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BasicCrudService } from './basic-crud.service';
 import { Observable } from 'rxjs';
-import { retry } from 'rxjs/operators';
+import { first, retry, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +28,13 @@ export class CondutorService extends BasicCrudService {
 
   getPhoto(id: number | String): Observable<Blob> {
     return this.httpClient.get(`${this.url}/${id}/foto`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+  }
+
+  indexByPermissionario(permissionarioId: number | String): Observable<any> {
+    return this.httpClient.get<any>(`${this.url}/permissionario/${permissionarioId}`, super.getHttpOptions)
+      .pipe(
+        map(result => result['data']),
+        first(),
+      )
   }
 }

@@ -1,0 +1,87 @@
+<div class="crud">
+
+  <app-search (searchEmitter)="search($event)"></app-search>
+
+  <h3 class="titulo">
+    <i class="fa fa-arrow-right"></i> ANEXO 08 - CONDUTOR AUXILIAR
+  </h3>
+
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading" class="clearfix">
+    <table *ngIf="dataSearch.data.length>0" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of dataSearch.data">
+          <td>{{obj?.nome_razao_social}}</td>
+          <td class="text-right">
+            <a href="javascript: void(0);" (click)="selecionarNovo(obj.id, solicitacoesModal);" title="Selecionar">
+              Incluir Novo <i class="fa fa-plus" aria-hidden="true"></i>
+            </a>
+            |
+            <a href="javascript: void(0);" (click)="selecionarParaRenovacao(obj.id, condutoresModal);" title="Selecionar">
+              Renovação <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="dataSearch.data.length>0" class="float-right">
+      <app-pagination [backEnabled]="dataSearch.prev_page_url!=null" [nextEnabled]="dataSearch.next_page_url!=null"
+        [actualPage]="dataSearch.current_page" (changePos)="changePos($event)">
+      </app-pagination>
+    </div>
+
+    <div *ngIf="!dataSearch || dataSearch.data.length==0" class="alert alert-warning">
+      Nenhum registro encontrado!
+    </div>
+  </div>
+
+  <ng-template #condutoresModal let-modal>
+    <app-modal modalID="condutoresModal" title="Condutores" (closeModalEmit)="closeModal($event)">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of condutores">
+            <td>{{obj?.nome}}</td>
+            <td class="text-right">
+              <a href="javascript: void(0);" (click)="selecionarCondutor(obj.id);" title="Selecionar"><i
+                  class="fa fa-arrow-right" aria-hidden="true"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </app-modal>
+  </ng-template>
+
+  <ng-template #solicitacoesModal let-modal>
+    <app-modal modalID="solicitacoesModal" title="Solicitações" (closeModalEmit)="closeModal($event)">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of solicitacoes">
+            <td>{{obj?.campo15}}</td>
+            <td class="text-right">
+              <a href="javascript: void(0);" (click)="selecionarSolicitacao(obj.id);" title="Selecionar"><i
+                  class="fa fa-arrow-right" aria-hidden="true"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </app-modal>
+  </ng-template>
+</div>
