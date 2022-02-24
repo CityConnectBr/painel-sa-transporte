@@ -379,4 +379,15 @@ export class SharedModule {
     return nAutoK;
   }
 
+  static getStatusSolicitacao(status: String): string {
+    if (status && status == "A") {
+      return "Aceito";
+    } else if (status && status == "R") {
+      return "Recusado";
+    } else if (status && status == "C") {
+      return "Cancelado";
+    }
+    return "Aberto";
+  }
+
 }

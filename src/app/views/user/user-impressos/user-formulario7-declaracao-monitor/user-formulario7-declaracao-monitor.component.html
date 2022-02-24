@@ -1,1 +1,162 @@
-<p>user-formulario7-declaracao-monitor works!</p>
+<div class="crud">
+
+  <app-search (searchEmitter)="search($event)"></app-search>
+
+  <h3 class="titulo">
+    <i class="fa fa-arrow-right"></i> ANEXO 07 - DECLARAÇÃO DE MONITOR
+  </h3>
+
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading" class="clearfix">
+    <table *ngIf="dataSearch.data.length>0" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of dataSearch.data">
+          <td>{{obj?.nome_razao_social}}</td>
+          <td class="text-right">
+            <a href="javascript: void(0);" (click)="selecionarPermissionario(obj.id, monitorSolicitacaoModal);"
+              title="Selecionar"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="dataSearch.data.length>0" class="float-right">
+      <app-pagination [backEnabled]="dataSearch.prev_page_url!=null" [nextEnabled]="dataSearch.next_page_url!=null"
+        [actualPage]="dataSearch.current_page" (changePos)="changePos($event)">
+      </app-pagination>
+    </div>
+
+    <div *ngIf="!dataSearch || dataSearch.data.length==0" class="alert alert-warning">
+      Nenhum registro encontrado!
+    </div>
+  </div>
+
+  <ng-template #monitorSolicitacaoModal let-modal>
+    <app-modal modalID="monitorSolicitacaoModal" title="Seleção de Monitor/Solicitação"
+      (closeModalEmit)="closeModal($event)">
+      <div class="stepper-wrapper">
+        <div class="stepper-item" [class.completed]="step>1" [class.active]="step==1">
+          <div class="step-counter">1</div>
+          <div class="step-name">Monitor</div>
+        </div>
+        <div class="stepper-item" [class.completed]="step>2" [class.active]="step==2">
+          <div class="step-counter">2</div>
+          <div class="step-name">Solicitação</div>
+        </div>
+        <div class="stepper-item" [class.active]="step==3">
+          <div class="step-counter">3</div>
+          <div class="step-name">Formulário</div>
+        </div>
+      </div>
+
+      <a *ngIf="step>1" (click)="backStep()" href="javascript:void(0)"><i class="fa fa-arrow-left"></i> Voltar</a>
+
+      <div class="crud" *ngIf="step==1">
+        <app-search (searchEmitter)="searchMonitor($event)"></app-search>
+
+        <div class="clearfix w-100">
+          <br>
+          <app-loading *ngIf="subloading"></app-loading>
+          <div *ngIf="!subloading" class="clearfix">
+            <table *ngIf="dataSearchMonitor.data.length>0" class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let obj of dataSearchMonitor.data">
+                  <td>{{obj?.nome}}</td>
+                  <td class="text-right">
+                    <a href="javascript: void(0);" (click)="selecionarMonitor(obj.id);"
+                      title="Selecionar"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div *ngIf="!dataSearchMonitor || dataSearchMonitor?.data.length==0" class="alert alert-warning">
+              Nenhum registro encontrado para o permissionário selecionado!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="crud" *ngIf="step==2">
+        <div class="clearfix w-100">
+          <br>
+          <app-loading *ngIf="subloading"></app-loading>
+          <div *ngIf="!subloading" class="clearfix">
+            <table *ngIf="dataSearchSolicitacao.length>0" class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Status</th>
+                  <th>Data</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let obj of dataSearchSolicitacao">
+                  <td></td>
+                  <td>monitor_cadastro</td>
+                  <td>{{obj?.created_at | date: 'dd/MM/yyyy HH:mm'}}</td>
+                  <td class="text-right">
+                    <a href="javascript: void(0);" (click)="selecionarSolicitacao(obj.id);"
+                    title="Selecionar"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="!dataSearchSolicitacao || dataSearchSolicitacao.length==0" class="alert alert-warning">
+              Nenhum registro encontrado para o permissionário selecionado!
+            </div>
+            <button type="submit" class="btn btn-success pull-right" (click)="selecionarSolicitacao(null)">Pular</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="crud" *ngIf="step==3">
+
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Permissionário
+            <span class="badge badge-pill"
+              [class.badge-success]="permissionarioSelecionadoId"
+              [class.badge-danger]="!permissionarioSelecionadoId">
+              <i *ngIf="permissionarioSelecionadoId" class="fa fa-check"></i>
+              <i *ngIf="!permissionarioSelecionadoId" class="fa fa-times-circle"></i>
+            </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Monitor
+            <span class="badge badge-pill"
+            [class.badge-success]="monitorSelecionadoId"
+            [class.badge-danger]="!monitorSelecionadoId">
+              <i *ngIf="monitorSelecionadoId" class="fa fa-check"></i>
+              <i *ngIf="!monitorSelecionadoId" class="fa fa-times-circle"></i>
+            </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Solicitação
+            <span class="badge badge-success badge-pill"
+            [class.badge-success]="solicitacaoSelecionadaId"
+            [class.badge-danger]="!solicitacaoSelecionadaId">
+              <i *ngIf="solicitacaoSelecionadaId" class="fa fa-check"></i>
+              <i *ngIf="!solicitacaoSelecionadaId" class="fa fa-times-circle"></i>
+            </span>
+          </li>
+        </ul>
+
+        <button type="submit" class="btn btn-success pull-right m-3" (click)="gerarFormulario()">Gerar Formulário</button>
+      </div>
+    </app-modal>
+  </ng-template>
+
+</div>

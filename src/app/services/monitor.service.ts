@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BasicCrudService } from './basic-crud.service';
+import { BasicCrudService, SearchData } from './basic-crud.service';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
 
@@ -13,6 +13,10 @@ export class MonitorService extends BasicCrudService {
     protected httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/monitores");
+  }
+
+  searchByPermissionario(permissionarioId: number, search: string, page: number = 1): Observable<SearchData> {
+    return this.httpClient.get<SearchData>(`${this.url}bypermissionario?permissionario_id=${permissionarioId ?? ""}&search=${search ?? ""}&page=${page ?? '1'}`, super.getHttpOptions)
   }
 
   updatePhoto(id: number | String, fileToUpload: File): Observable<any> {

@@ -185,15 +185,8 @@ export class UserSolicitacoesComponent implements OnInit {
     }
   }
 
-  getStatus(status: String) {
-    if (status && status == "A") {
-      return "Aceito";
-    } else if (status && status == "R") {
-      return "Recusado";
-    } else if (status && status == "C") {
-      return "Cancelado";
-    }
-    return "Aberto";
+  getStatus(status: String): string {
+    return SharedModule.getStatusSolicitacao(status);
   }
 
   getCampos(solicitacao: SolicitacaoDeAlteracao) {
