@@ -74,7 +74,7 @@ export class UserFormulario17SolicitaacaoBaixaCondutorComponent implements OnIni
     }
   }
 
-  async selecionarCondutor(id: number) {
+  async selecionarCondutor(id: any) {
     this.loading = true;
     try {
       const formulario = await this.formularioService.getFormulario17(this.permissionarioSelecionadoId, id).toPromise();

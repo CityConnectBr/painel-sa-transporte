@@ -23,19 +23,19 @@
         </select>
       </app-input>
 
-      <app-input label="Nome/Razão Social" require="true">
+      <app-input label="Nome/Razão Social" [require]="true">
         <input type="text" class="form-control" formControlName="nome_razao_social" autocomplete="off">
       </app-input>
 
-      <app-input label="Data de Nascimento" require="true">
-        <input type="text" class="form-control" formControlName="data_nascimento" [textMask]="{mask: maskDate}"
+      <app-input label="Data de Nascimento" [require]="true">
+        <input type="text" class="form-control" formControlName="data_nascimento" mask="00/00/0000"
           autocomplete="off">
       </app-input>
 
-      <app-input label="CPF" *ngIf="form.value['tipo']=='F'" require="true">
+      <app-input label="CPF" *ngIf="form.value['tipo']=='F'" [require]="true">
         <input type="text" class="form-control" formControlName="cpf_cnpj" mask="000.000.000-00" autocomplete="off">
       </app-input>
-      <app-input label="CNPJ" *ngIf="form.value['tipo']=='J'" require="true">
+      <app-input label="CNPJ" *ngIf="form.value['tipo']=='J'" [require]="true">
         <input type="text" class="form-control" formControlName="cpf_cnpj" mask="00.000.000/0000-00"
           autocomplete="off">
       </app-input>
@@ -52,7 +52,7 @@
         <input type="text" class="form-control" formControlName="nacionalidade" autocomplete="off">
       </app-input>
 
-      <app-input label="Estado Civil" [inline]="true" require="true">
+      <app-input label="Estado Civil" [inline]="true" [require]="true">
         <select formControlName="estado_civil" class="form-control">
           <option *ngFor='let estadoCivil of estadosCivil | keyvalue; index as i;' value="{{estadoCivil.key}}">{{(i+1)+' - '+estadoCivil.value}}
           </option>
@@ -64,11 +64,11 @@
     <div class="subitem">
       <h3>Dados do Alvará</h3>
 
-      <app-input label="Inscrição Municipal" [inline]="true" require="true">
+      <app-input label="Inscrição Municipal" [inline]="true" [require]="true">
         <input type="text" class="form-control" formControlName="inscricao_municipal" autocomplete="off">
       </app-input>
 
-      <app-input label="Alvará de Funcionamento" [inline]="true" require="true">
+      <app-input label="Alvará de Funcionamento" [inline]="true" [require]="true">
         <input type="text" class="form-control" formControlName="alvara_de_funcionamento" autocomplete="off"
           autocomplete="off">
       </app-input>
@@ -87,17 +87,17 @@
       <h3>Dados de Contato</h3>
 
       <app-input label="Telefone" [inline]="true">
-        <input type="text" class="form-control" formControlName="telefone" [textMask]="{mask: telefonemask}"
+        <input type="text" class="form-control" formControlName="telefone" mask="000"
           autocomplete="off">
       </app-input>
 
       <app-input label="Celular" [inline]="true">
-        <input type="text" class="form-control" formControlName="celular" [textMask]="{mask: telefonemask}"
+        <input type="text" class="form-control" formControlName="celular" mask="000"
           autocomplete="off">
       </app-input>
 
       <app-input label="Telefone para Recados" [inline]="true">
-        <input type="text" class="form-control" formControlName="telefone2" [textMask]="{mask: telefonemask}"
+        <input type="text" class="form-control" formControlName="telefone2" mask="000"
           autocomplete="off">
       </app-input>
 
@@ -108,15 +108,15 @@
 
     <div class="subitem">
       <h3>Endereço</h3>
-      <app-input label="CEP" [inline]="true" require="true">
-        <input type="text" class="form-control" formControlName="cep" [textMask]="{mask: maskCEP}" autocomplete="off">
+      <app-input label="CEP" [inline]="true" [require]="true">
+        <input type="text" class="form-control" formControlName="cep" mask="00000-000" autocomplete="off">
       </app-input>
 
-      <app-input label="Endereço" [inline]="true" require="true">
+      <app-input label="Endereço" [inline]="true" [require]="true">
         <input type="text" class="form-control" formControlName="endereco" autocomplete="off">
       </app-input>
 
-      <app-input label="Número" [inline]="true" require="true">
+      <app-input label="Número" [inline]="true" [require]="true">
         <input type="text" class="form-control" formControlName="numero" autocomplete="off">
       </app-input>
 
@@ -124,17 +124,17 @@
         <input type="text" class="form-control" formControlName="complemento" autocomplete="off">
       </app-input>
 
-      <app-input label="Bairro" [inline]="true" require="true">
+      <app-input label="Bairro" [inline]="true" [require]="true">
         <input type="text" class="form-control" formControlName="bairro" autocomplete="off">
       </app-input>
 
-      <app-input label="UF" [inline]="true" require="true">
+      <app-input label="UF" [inline]="true" [require]="true">
         <select formControlName="uf" class="form-control">
           <option *ngFor="let uf of ufs;" value="{{uf}}">{{uf}}</option>
         </select>
       </app-input>
 
-      <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" require="true" (setObjectSelected)="setMunicipio($event)">
+      <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" [require]="true" (setObjectSelected)="setMunicipio($event)">
         <input #municipioInput type="text" class="form-control" formControlName="municipio" autocomplete="off" (keyup)="keyUpMunicipio()" (focus)="setFocusMunicipioInput(true)">
       </app-input>
     </div>
@@ -150,7 +150,7 @@
       </app-input>
 
       <app-input label="Validade" [inline]="true">
-        <input type="text" class="form-control" formControlName="cnh_validade" [textMask]="{mask: maskDate}" autocomplete="off">
+        <input type="text" class="form-control" formControlName="cnh_validade" mask="00/00/0000" autocomplete="off">
       </app-input>
     </div>
 
@@ -167,7 +167,7 @@
   <app-modal modalID="uploadModal" title="Upload da Foto" (closeModalEmit)="closeModal($event)">
     <form>
       <input type="file" id="img" name="foto" accept="image/*"
-      (change)="handleFileInput($event.target.files)">
+      (change)="handleFileInput($event)">
 
       <button type="submit" class="btn btn-success pull-right" (click)="salvarFoto()">Salvar</button>
     </form>

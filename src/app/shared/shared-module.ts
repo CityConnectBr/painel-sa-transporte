@@ -5,7 +5,6 @@ import { CommonModule } from "@angular/common";
 import { LoadingComponent } from "./loading/loading.component";
 import { ModalComponent } from "./modal/modal.component";
 import { FooterSimpleComponent } from './footer-simple/footer-simple.component';
-import * as CryptoJS from 'crypto-js';
 import { HttpErrorResponse } from "@angular/common/http";
 import { formatDate } from '@angular/common'
 import { LoadingSimpleComponent } from "./loading-simple/loading-simple.component";
@@ -146,11 +145,13 @@ export class SharedModule {
   }
 
   static encrypt(txt: string, pass: string): string {
-    return CryptoJS.AES.encrypt(txt, pass).toString();
+    return txt;
+    //return CryptoJS.AES.encrypt(txt, pass).toString();
   }
 
   static decrypt(txt: string, pass: string): string {
-    return CryptoJS.AES.decrypt(txt, pass).toString(CryptoJS.enc.Utf8);
+    return txt;
+    //return CryptoJS.AES.decrypt(txt, pass).toString(CryptoJS.enc.Utf8);
   }
 
   static convertDateTimeToDate(dateTime: any) {

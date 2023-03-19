@@ -24,17 +24,17 @@
             <input type="text" class="form-control" formControlName="id_integracao" autocomplete="off">
           </app-input>
 
-          <app-input label="Descrição" [inline]="true" require="true">
+          <app-input label="Descrição" [inline]="true" [require]="true">
             <input type="text" class="form-control" formControlName="descricao" autocomplete="off">
           </app-input>
 
-          <app-input label="Natureza" [inline]="true" require="true">
+          <app-input label="Natureza" [inline]="true" [require]="true">
             <select formControlName="natureza_infracao_id" class="form-control">
               <option *ngFor="let obj of naturezasDaInfracao;" value="{{obj.id}}">{{obj.descricao}}</option>
             </select>
           </app-input>
 
-          <app-input label="Ação" [inline]="true" require="true">
+          <app-input label="Ação" [inline]="true" [require]="true">
             <input type="text" class="form-control" formControlName="acao" autocomplete="off">
           </app-input>
 

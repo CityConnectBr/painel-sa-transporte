@@ -10,7 +10,7 @@ import { retry } from 'rxjs/operators';
 export class MonitorService extends BasicCrudService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/monitores");
   }

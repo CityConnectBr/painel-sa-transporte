@@ -200,7 +200,7 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
   }
 
   public keyUpMunicipio() {
-    this.subjectMunicipio.next();
+    this.subjectMunicipio.next(null);
   }
 
   public async setMunicipio(event) {

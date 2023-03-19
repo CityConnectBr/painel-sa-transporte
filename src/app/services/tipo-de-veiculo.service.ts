@@ -14,7 +14,7 @@ export class TipoDeVeiculoService extends BasicCrudService {
   ]
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/tiposdeveiculo");
   }

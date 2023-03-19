@@ -149,7 +149,7 @@ export class UserVistoriadoresCrudComponent implements OnInit, OnDestroy {
   }
 
   public keyUpEmpresa() {
-    this.subjectEmpresa.next();
+    this.subjectEmpresa.next(null);
   }
 
   public async setEmpresa(event) {

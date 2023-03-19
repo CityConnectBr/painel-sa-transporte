@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class InfracaoService extends BasicCrudService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/infracoes");
   }

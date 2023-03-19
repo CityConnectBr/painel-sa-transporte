@@ -10,14 +10,10 @@ import { BasicCrudService, SearchData } from './basic-crud.service';
 export class AplicativoDoPermissionarioService extends BasicCrudService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/aplicativosdopermissionario");
    }
-
-   index(): Observable<any[]>{return}
-   search(search: string, page: number = 1): Observable<any>{return}
-   update(id: number | String, obj: any): Observable<any>{return}
 
    indexByPermissionario(permissionarioId: String): Observable<SearchData> {
     return this.httpClient.get<SearchData>(`${this.url}?search=${permissionarioId}`, super.getHttpOptions)

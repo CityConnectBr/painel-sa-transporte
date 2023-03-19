@@ -18,17 +18,17 @@
       <div class="form-inline">
 
 
-        <app-input label="Número" [inline]="true" require="true">
+        <app-input label="Número" [inline]="true" [require]="true">
           <input type="text" class="form-control" formControlName="numero" autocomplete="off">
         </app-input>
 
-        <app-input label="Fiscal" [inline]="true" [options]="fiscaisPesquisados" require="true"
+        <app-input label="Fiscal" [inline]="true" [options]="fiscaisPesquisados" [require]="true"
           (setObjectSelected)="setFiscal($event)">
           <input #fiscalInput type="text" class="form-control" formControlName="fiscal" autocomplete="off"
             (keyup)="keyUpFiscal()" (focus)="setFocusFiscalInput(true)">
         </app-input>
 
-        <app-input label="Tipo" require="true">
+        <app-input label="Tipo" [require]="true">
           <select formControlName="tipo_documento" class="form-control">
             <option value="AIT">AIT</option>
             <option value="NOTIFICAÇÃO">NOTIFICAÇÃO</option>
@@ -39,16 +39,16 @@
           <input type="text" class="form-control" formControlName="serie_documento" autocomplete="off">
         </app-input>
 
-        <app-input label="N° Folha" [inline]="true" require="true">
+        <app-input label="N° Folha" [inline]="true" [require]="true">
           <input type="text" class="form-control" formControlName="numero_primeira_folha" autocomplete="off">
         </app-input>
 
-        <app-input label="Última Folha" [inline]="true" require="true">
+        <app-input label="Última Folha" [inline]="true" [require]="true">
           <input type="text" class="form-control" formControlName="numero_ultima_folha" autocomplete="off">
         </app-input>
 
-        <app-input label="Data Recto" [inline]="true" require="true">
-          <input type="text" class="form-control" formControlName="data_recebimento" [textMask]="{mask: maskDate}" autocomplete="off">
+        <app-input label="Data Recto" [inline]="true" [require]="true">
+          <input type="text" class="form-control" formControlName="data_recebimento" mask="00/00/0000" autocomplete="off">
         </app-input>
 
       </div>

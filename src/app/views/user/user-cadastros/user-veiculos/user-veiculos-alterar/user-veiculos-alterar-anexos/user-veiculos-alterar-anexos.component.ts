@@ -126,8 +126,11 @@ export class UserVeiculosAlterarAnexosComponent implements OnInit {
     this.modal.open(content)
   }
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+  handleFileInput(event: any){
+    if(event.target.files.length > 0){
+      const file = event.target.files[0];
+      this.form.get('file').setValue(file);
+    }
   }
 
 }

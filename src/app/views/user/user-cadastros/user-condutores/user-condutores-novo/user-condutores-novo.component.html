@@ -19,35 +19,35 @@
         <div class="subitem">
           <h3>Dados Pessoais</h3>
 
-          <app-input label="Nome" require="true">
+          <app-input label="Nome" [require]="true">
             <input type="text" class="form-control" formControlName="nome" autocomplete="off">
           </app-input>
 
-          <app-input label="CPF" require="true">
+          <app-input label="CPF" [require]="true">
             <input type="text" class="form-control" formControlName="cpf" mask="000.000.000-00" autocomplete="off">
           </app-input>
 
-          <app-input label="RG" require="true">
+          <app-input label="RG" [require]="true">
             <input type="text" class="form-control" formControlName="rg" autocomplete="off">
           </app-input>
 
-          <app-input label="Permissionário" [inline]="true" [options]="permissionariosPesquisados" require="true" (setObjectSelected)="setPermissionario($event)">
+          <app-input label="Permissionário" [inline]="true" [options]="permissionariosPesquisados" [require]="true" (setObjectSelected)="setPermissionario($event)">
             <input #municipioInput type="text" class="form-control" formControlName="permissionario" autocomplete="off" (keyup)="keyUpPermissionario()" (focus)="setFocusPermissionarioInput(true)">
           </app-input>
         </div>
 
         <div class="subitem">
           <h3>Dados da CNH</h3>
-          <app-input label="CNH" [inline]="true"  require="true">
+          <app-input label="CNH" [inline]="true"  [require]="true">
             <input type="text" class="form-control" formControlName="cnh" autocomplete="off">
           </app-input>
 
-          <app-input label="Categoria" [inline]="true"  require="true">
+          <app-input label="Categoria" [inline]="true"  [require]="true">
             <input type="text" class="form-control" formControlName="categoria_cnh" autocomplete="off">
           </app-input>
 
-          <app-input label="Validade" [inline]="true"  require="true">
-            <input type="text" class="form-control" formControlName="vencimento_cnh" [textMask]="{mask: maskDate}" autocomplete="off">
+          <app-input label="Validade" [inline]="true"  [require]="true">
+            <input type="text" class="form-control" formControlName="vencimento_cnh" mask="00/00/0000" autocomplete="off">
           </app-input>
         </div>
 
@@ -69,7 +69,7 @@
           </app-input>
 
           <app-input label="Validade da Cert. Negativa">
-            <input type="text" class="form-control" formControlName="validade_certidao_negativa" [textMask]="{mask: maskDate}" autocomplete="off">
+            <input type="text" class="form-control" formControlName="validade_certidao_negativa" mask="00/00/0000" autocomplete="off">
           </app-input>
 
           <app-input label="CTPS">
@@ -87,7 +87,7 @@
           </app-input>
 
           <app-input label="Emissão P. Socorros">
-            <input type="text" class="form-control" formControlName="emissao_primeiros_socorros" [textMask]="{mask: maskDate}" autocomplete="off">
+            <input type="text" class="form-control" formControlName="emissao_primeiros_socorros" mask="00/00/0000" autocomplete="off">
           </app-input>
         </div>
 
@@ -95,12 +95,12 @@
           <h3>Dados de Contato</h3>
 
           <app-input label="Telefone" [inline]="true">
-            <input type="text" class="form-control" formControlName="telefone" [textMask]="{mask: telefonemask}"
+            <input type="text" class="form-control" formControlName="telefone" mask="000"
               autocomplete="off">
           </app-input>
 
           <app-input label="Celular" [inline]="true">
-            <input type="text" class="form-control" formControlName="celular" [textMask]="{mask: telefonemask}"
+            <input type="text" class="form-control" formControlName="celular" mask="000"
               autocomplete="off">
           </app-input>
 
@@ -111,15 +111,15 @@
 
         <div class="subitem">
           <h3>Endereço</h3>
-          <app-input label="CEP" [inline]="true" require="true">
-            <input type="text" class="form-control" formControlName="cep" [textMask]="{mask: maskCEP}" autocomplete="off">
+          <app-input label="CEP" [inline]="true" [require]="true">
+            <input type="text" class="form-control" formControlName="cep" mask="00000-000" autocomplete="off">
           </app-input>
 
-          <app-input label="Endereço" [inline]="true" require="true">
+          <app-input label="Endereço" [inline]="true" [require]="true">
             <input type="text" class="form-control" formControlName="endereco" autocomplete="off">
           </app-input>
 
-          <app-input label="Número" [inline]="true" require="true">
+          <app-input label="Número" [inline]="true" [require]="true">
             <input type="text" class="form-control" formControlName="numero" autocomplete="off">
           </app-input>
 
@@ -127,17 +127,17 @@
             <input type="text" class="form-control" formControlName="complemento" autocomplete="off">
           </app-input>
 
-          <app-input label="Bairro" [inline]="true" require="true">
+          <app-input label="Bairro" [inline]="true" [require]="true">
             <input type="text" class="form-control" formControlName="bairro" autocomplete="off">
           </app-input>
 
-          <app-input label="UF" [inline]="true" require="true">
+          <app-input label="UF" [inline]="true" [require]="true">
             <select formControlName="uf" class="form-control">
               <option *ngFor="let uf of ufs;" value="{{uf}}">{{uf}}</option>
             </select>
           </app-input>
 
-          <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" require="true" (setObjectSelected)="setMunicipio($event)">
+          <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" [require]="true" (setObjectSelected)="setMunicipio($event)">
             <input #municipioInput type="text" class="form-control" formControlName="municipio" autocomplete="off" (keyup)="keyUpMunicipio()" (focus)="setFocusMunicipioInput(true)">
           </app-input>
         </div>
@@ -151,11 +151,11 @@
           </app-input>
 
           <app-input label="Incício">
-            <input type="text" class="form-control" formControlName="data_inicio_afastamento" [textMask]="{mask: maskDate}" autocomplete="off">
+            <input type="text" class="form-control" formControlName="data_inicio_afastamento" mask="00/00/0000" autocomplete="off">
           </app-input>
 
           <app-input label="Término">
-            <input type="text" class="form-control" formControlName="data_termino_afastamento" [textMask]="{mask: maskDate}" autocomplete="off">
+            <input type="text" class="form-control" formControlName="data_termino_afastamento" mask="00/00/0000" autocomplete="off">
           </app-input>
         </div>
 

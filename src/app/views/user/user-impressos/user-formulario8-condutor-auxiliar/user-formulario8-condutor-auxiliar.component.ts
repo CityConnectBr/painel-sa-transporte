@@ -97,7 +97,7 @@ export class UserFormulario8CondutorAuxiliarComponent implements OnInit {
     }
   }
 
-  async selecionarCondutor(id: number) {
+  async selecionarCondutor(id: any) {
     this.loading = true;
     try {
       const formulario = await this.formularioService.getFormulario8ByCondutor(this.permissionarioSelecionadoId, id).toPromise();
@@ -109,7 +109,7 @@ export class UserFormulario8CondutorAuxiliarComponent implements OnInit {
     this.loading = false;
   }
 
-  async selecionarSolicitacao(id: number) {
+  async selecionarSolicitacao(id: any) {
     this.loading = true;
     try {
       const formulario = await this.formularioService.getFormulario8BySolicitacao(this.permissionarioSelecionadoId, id).toPromise();

@@ -294,8 +294,9 @@ export class UserInfracoesCrudComponent implements OnInit {
     this.loading = false;
   }
 
-  handleFileInput(files: FileList) {
-    if (files.length > 0) {
+  handleFileInput(event: any) {
+    if (event.target.files && event.target.files.length) {
+      const files = event.target.files;
       this.imageFile = files.item(0);
       this.imageChange = true;
     }
@@ -424,7 +425,7 @@ export class UserInfracoesCrudComponent implements OnInit {
   }
 
   public keyUpPermissionario() {
-    this.subjectPermissionario.next();
+    this.subjectPermissionario.next(null);
   }
 
   public async setPermissionario(event) {

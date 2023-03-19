@@ -223,11 +223,8 @@ export class UserFiscaisCrudComponent implements OnInit {
     }
   }
 
-  handleFileInput(files: FileList) {
-    if (files.length > 0) {
-      this.photoToUpload = files.item(0);
-      this.photo = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(files.item(0)));
-    }
+  handleFileInput(event: any){
+    const file = event.target.files[0];
   }
 
   clearPhoto() {
@@ -275,7 +272,7 @@ export class UserFiscaisCrudComponent implements OnInit {
   }
 
   public keyUpMunicipio() {
-    this.subjectMunicipio.next();
+    this.subjectMunicipio.next(null);
   }
 
   public async setMunicipio(event) {

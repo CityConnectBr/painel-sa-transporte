@@ -88,7 +88,7 @@
                 <th scope="row" class="titulo-simple2">Novo</th>
               </tr>
               <tr *ngFor="let item of getCampos(solicitacao)">
-                <td scope="row" class="titulo-simple2">{{item.nome | uppercase }}</td>
+                <td scope="row" class="titulo-simple2">{{item!=null ? item.nome.toUpperCase() : ''}}</td>
                 <td *ngIf="isCadastro" scope="row">{{formatValue(item.valorOriginal)}}</td>
                 <td scope="row">{{formatValue(item.novoValor)}}</td>
               </tr>
@@ -114,7 +114,7 @@
             <table class="table table-sm">
               <tbody>
                 <tr *ngFor="let item of getComprovantes(solicitacao)">
-                  <th scope="row" class="titulo-simple2">{{item.nome | uppercase }}</th>
+                  <th scope="row" class="titulo-simple2">{{item!=null ? item.nome.toUpperCase() : ''}}</th>
                   <td><a href="javascript: void(0)" (click)="visualizarComprovante(item.arquivo, visualizarArquivo)">
                       Visualizar
                     </a>
@@ -133,7 +133,7 @@
               </select>
             </app-input>
 
-            <app-input *ngIf="form.value.decisao=='R' || form.value.decisao=='C'" label="Motivo" require="true">
+            <app-input *ngIf="form.value.decisao=='R' || form.value.decisao=='C'" label="Motivo" [require]="true">
               <input type="text" class="form-control" formControlName="motivo" autocomplete="off">
             </app-input>
 

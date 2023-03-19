@@ -8,7 +8,7 @@ import { BasicCrudService, SearchData } from './basic-crud.service';
 export class MarcaModeloDeChassiService extends BasicCrudService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/marcasmodelosdechassi");
    }

@@ -4,14 +4,14 @@
     <div class="subitem">
       <h3>Cursos</h3>
 
-      <app-input label="Curso" [inline]="true" require="true">
+      <app-input label="Curso" [inline]="true" [require]="true">
         <select formControlName="tipo_do_curso_id" class="form-control">
           <option *ngFor="let obj of tiposDeCurso;" value="{{obj.id}}">{{obj.descricao}}</option>
         </select>
       </app-input>
 
       <app-input label="Emissão">
-        <input type="text" class="form-control" formControlName="data_emissao" [textMask]="{mask: maskDate}"
+        <input type="text" class="form-control" formControlName="data_emissao" mask="00/00/0000"
           autocomplete="off">
       </app-input>
 
@@ -35,7 +35,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let obj of cursosDoCondutor">
-            <td>{{obj?.d_descricao_do_tipo}}</td>
+            <td>{{obj?.descricao}}</td>
             <td>{{obj?.data_emissao | date: 'dd/MM/yyyy'}}</td>
             <td class="text-right">
               <a href="javascript: void(0);" (click)="setCursoParaDelecao(obj.id);openModal(contentExcluir)"  title="Excluir"><i class="fa fa-trash"

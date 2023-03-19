@@ -8,17 +8,17 @@
       </h3>
 
       <app-input label="Emissão">
-        <input type="text" class="form-control" formControlName="data_emissao" [textMask]="{mask: maskDate}"
+        <input type="text" class="form-control" formControlName="data_emissao" mask="00/00/0000"
           autocomplete="off">
       </app-input>
 
       <app-input label="Retorno">
-        <input type="text" class="form-control" formControlName="data_retorno" [textMask]="{mask: maskDate}"
+        <input type="text" class="form-control" formControlName="data_retorno" mask="00/00/0000"
           autocomplete="off">
       </app-input>
 
       <app-input label="Vencimento">
-        <input type="text" class="form-control" formControlName="data_vencimento" [textMask]="{mask: maskDate}"
+        <input type="text" class="form-control" formControlName="data_vencimento" mask="00/00/0000"
           autocomplete="off">
       </app-input>
 
@@ -44,9 +44,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let obj of alvarasAnteriores">
-            <td>{{obj?.data_emissao | date: 'dd/MM/yyyy'}}</td>
-            <td>{{obj?.data_retorno | date: 'dd/MM/yyyy'}}</td>
-            <td>{{obj?.data_vencimento | date: 'dd/MM/yyyy'}}</td>
+            <td>{{obj?.data_emissao}}</td>
+            <td>{{obj?.data_retorno}}</td>
+            <td>{{obj?.data_vencimento}}</td>
           </tr>
         </tbody>
       </table>

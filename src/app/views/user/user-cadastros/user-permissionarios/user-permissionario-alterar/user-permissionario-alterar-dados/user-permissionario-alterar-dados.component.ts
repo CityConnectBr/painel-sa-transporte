@@ -214,9 +214,9 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
     this.loading = false;
   }
 
-  handleFileInput(files: FileList) {
-    if (files.length > 0) {
-      this.photoToUpload = files.item(0);
+  handleFileInput(event: any){
+    if (event.target.files.length > 0) {
+      this.photoToUpload = event.target.files[0];
     }
   }
 
@@ -278,7 +278,7 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
   }
 
   public keyUpMunicipio() {
-    this.subjectMunicipio.next();
+    this.subjectMunicipio.next(null);
   }
 
   public async setMunicipio(event) {

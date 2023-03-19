@@ -12,79 +12,79 @@
         <div class="subitem">
           <h3>Dados do Veículo</h3>
 
-          <app-input label="Categoria" require="true">
+          <app-input label="Categoria" [require]="true">
             <select formControlName="categoria_id" class="form-control" require="true">
               <option value="1">Veículo</option>
               <option value="2">Ônibus</option>
             </select>
           </app-input>
 
-          <app-input label="Placa" require="true">
+          <app-input label="Placa" [require]="true">
             <input type="text" class="form-control" formControlName="placa" mask="SSS0000" autocomplete="off">
           </app-input>
 
-          <app-input label="Renavam" require="true">
+          <app-input label="Renavam" [require]="true">
             <input type="text" class="form-control" formControlName="cod_renavam" mask="00000000000" autocomplete="off">
           </app-input>
 
-          <app-input label="Número do Chassi" require="true">
+          <app-input label="Número do Chassi" [require]="true">
             <input type="text" class="form-control" formControlName="chassi" autocomplete="off">
           </app-input>
 
-          <app-input *ngIf="form.value['categoria_id']=='1'" label="Marca/Modelo" [inline]="true" [options]="marcasModelosPesquisados" require="true"
-            (setObjectSelected)="marcasModelosPesquisados" require="true" (setObjectSelected)="setMarcaModelo($event)">
+          <app-input *ngIf="form.value['categoria_id']=='1'" label="Marca/Modelo" [inline]="true" [options]="marcasModelosPesquisados" [require]="true"
+            (setObjectSelected)="marcasModelosPesquisados" [require]="true" (setObjectSelected)="setMarcaModelo($event)">
             <input #municipioInput type="text" class="form-control" formControlName="marca_modelo_veiculo"
               autocomplete="off" (keyup)="keyUpMarcaModelo()" (focus)="setFocusMarcaModeloInput(true)">
           </app-input>
 
-          <app-input *ngIf="form.value['categoria_id']=='2'" label="Marca/Modelo do Chassi" [inline]="true" [options]="marcasModelosChassiPesquisados" require="true"
-            (setObjectSelected)="marcasModelosChassiPesquisados" require="true" (setObjectSelected)="setMarcaModeloChassi($event)">
+          <app-input *ngIf="form.value['categoria_id']=='2'" label="Marca/Modelo do Chassi" [inline]="true" [options]="marcasModelosChassiPesquisados" [require]="true"
+            (setObjectSelected)="marcasModelosChassiPesquisados" [require]="true" (setObjectSelected)="setMarcaModeloChassi($event)">
             <input #municipioInput type="text" class="form-control" formControlName="marca_modelo_chassi"
               autocomplete="off" (keyup)="keyUpMarcaModeloChassi()" (focus)="setFocusMarcaModeloChassiInput(true)">
           </app-input>
 
-          <app-input *ngIf="form.value['categoria_id']=='2'" label="Marca/Modelo da Carroceria" [inline]="true" [options]="marcasModelosCarroceriaPesquisados" require="true"
-            (setObjectSelected)="marcasModelosCarroceriaPesquisados" require="true" (setObjectSelected)="setMarcaModeloCarroceria($event)">
+          <app-input *ngIf="form.value['categoria_id']=='2'" label="Marca/Modelo da Carroceria" [inline]="true" [options]="marcasModelosCarroceriaPesquisados" [require]="true"
+            (setObjectSelected)="marcasModelosCarroceriaPesquisados" [require]="true" (setObjectSelected)="setMarcaModeloCarroceria($event)">
             <input #municipioInput type="text" class="form-control" formControlName="marca_modelo_carroceria"
               autocomplete="off" (keyup)="keyUpMarcaModeloCarroceria()" (focus)="setFocusMarcaModeloCarroceriaInput(true)">
           </app-input>
 
-          <app-input label="Permissionário" [inline]="true" [options]="permissionariosPesquisados" require="true"
-            (setObjectSelected)="permissionariosPesquisados" require="true"
+          <app-input label="Permissionário" [inline]="true" [options]="permissionariosPesquisados" [require]="true"
+            (setObjectSelected)="permissionariosPesquisados" [require]="true"
             (setObjectSelected)="setPermissionario($event)">
             <input #municipioInput type="text" class="form-control" formControlName="permissionario" autocomplete="off"
               (keyup)="keyUpPermissionario()" (focus)="setFocusPermissionarioInput(true)">
           </app-input>
 
-          <app-input label="Anos de Vída Útil" require="true">
+          <app-input label="Anos de Vída Útil" [require]="true">
             <input type="text" class="form-control" formControlName="anos_vida_util_veiculo" autocomplete="off">
           </app-input>
 
-          <app-input label="Ano de Fabricação" require="true">
+          <app-input label="Ano de Fabricação" [require]="true">
             <input type="text" class="form-control" formControlName="ano_fabricacao" autocomplete="off">
           </app-input>
 
-          <app-input label="Ano de Fabricação" require="true">
+          <app-input label="Ano de Fabricação" [require]="true">
             <input type="text" class="form-control" formControlName="ano_fabricacao" autocomplete="off">
           </app-input>
 
-          <app-input label="Ano Modelo" require="true">
+          <app-input label="Ano Modelo" [require]="true">
             <input type="text" class="form-control" formControlName="ano_modelo" autocomplete="off">
           </app-input>
 
-          <app-input label="Combustivel" [inline]="true" require="true">
+          <app-input label="Combustivel" [inline]="true" [require]="true">
             <select formControlName="tipo_combustivel_id" class="form-control">
               <option *ngFor="let tc of tiposDeCombustivel;" value="{{tc.id}}">{{tc.descricao}}</option>
             </select>
           </app-input>
 
-          <app-input label="Cores" [inline]="true" require="true">
+          <app-input label="Cores" [inline]="true" [require]="true">
             <select formControlName="cor_id" class="form-control">
               <option *ngFor="let cor of cores;" value="{{cor.id}}">{{cor.descricao}}</option>
             </select>
           </app-input>
 
-          <app-input label="Tipo do Veículo" [inline]="true" require="true">
+          <app-input label="Tipo do Veículo" [inline]="true" [require]="true">
             <select formControlName="tipo_veiculo_id" class="form-control">
               <option *ngFor="let tv of tiposDeVeiculo;" value="{{tv.id}}">{{tv.descricao}}</option>
             </select>
@@ -94,11 +94,11 @@
         <div class="subitem">
           <h3>Capacidade do Veículo</h3>
 
-          <app-input label="Capacidade" require="true">
+          <app-input label="Capacidade" [require]="true">
             <input type="text" class="form-control" formControlName="capacidade" autocomplete="off">
           </app-input>
 
-          <app-input label="Tipo da Capacidade" require="true">
+          <app-input label="Tipo da Capacidade" [require]="true">
             <select formControlName="tipo_capacidade" class="form-control" require="true">
               <option value="N">Normal</option>
               <option value="H">Homologada</option>

@@ -10,15 +10,10 @@ import { BasicCrudService, SearchData } from './basic-crud.service';
 export class AnexoDoPermissionarioService extends BasicCrudService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/anexosdopermissionario");
   }
-
-  index(): Observable<any[]> { return }
-  search(search: string, page: number = 1): Observable<any> { return }
-  update(id: number | String, obj: any): Observable<any> { return }
-  create(obj: any): Observable<any> { return }
 
   createWithUpload(obj: any, fileToUpload: File): Observable<any> {
     const formData: FormData = new FormData();
@@ -31,7 +26,7 @@ export class AnexoDoPermissionarioService extends BasicCrudService {
       );
   }
 
-  get(id: number | String): Observable<any> {
+  getFile(id: number | String): Observable<any> {
     return this.httpClient.get(`${this.url}/${id}`, {
       headers: super.getHeaderWithAuthorization,
       responseType: 'blob'

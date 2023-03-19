@@ -17,62 +17,62 @@
     <form [formGroup]="form" autocomplete="off">
       <div class="form-inline">
 
-        <app-input label="Data" require="true">
-          <input type="text" class="form-control" formControlName="data" [textMask]="{mask: maskDate}"
+        <app-input label="Data" [require]="true">
+          <input type="text" class="form-control" formControlName="data" mask="00/00/0000"
             autocomplete="off">
         </app-input>
 
-        <app-input label="Tipo" [inline]="true" require="true">
+        <app-input label="Tipo" [inline]="true" [require]="true">
           <select formControlName="tipo_de_certidao_id" class="form-control">
             <option *ngFor="let tc of tiposDeCertidao;" value="{{tc.id}}">{{tc.descricao}}</option>
           </select>
         </app-input>
 
-        <app-input label="Placa" require="true">
+        <app-input label="Placa" [require]="true">
           <input type="text" class="form-control" formControlName="placa" mask="SSS0000" autocomplete="off">
           <button class="btn btn-search" type="button" title="Pesquisa Veículo" (click)="searchVeiculo();openModal(pesquisaVeiculo)">
             <i class="fa fa-search"></i>
           </button>
         </app-input>
 
-        <app-input label="Permissionário" [inline]="true" [options]="permissionariosPesquisados" require="true"
-          (setObjectSelected)="permissionariosPesquisados" require="true"
+        <app-input label="Permissionário" [inline]="true" [options]="permissionariosPesquisados" [require]="true"
+          (setObjectSelected)="permissionariosPesquisados" [require]="true"
           (setObjectSelected)="setPermissionario($event)">
           <input #municipioInput type="text" class="form-control" formControlName="permissionario" autocomplete="off"
             (keyup)="keyUpPermissionario()" (focus)="setFocusPermissionarioInput(true)">
         </app-input>
 
-        <app-input label="Renavam" require="true">
+        <app-input label="Renavam" [require]="true">
           <input type="text" class="form-control" formControlName="renavam" mask="00000000000" autocomplete="off">
         </app-input>
 
-        <app-input label="Número do Chassi" require="true">
+        <app-input label="Número do Chassi" [require]="true">
           <input type="text" class="form-control" formControlName="chassis" autocomplete="off">
         </app-input>
 
-        <app-input label="Marca/Modelo" [inline]="true" [options]="marcasModelosPesquisados" require="true"
-          (setObjectSelected)="marcasModelosPesquisados" require="true" (setObjectSelected)="setMarcaModelo($event)">
+        <app-input label="Marca/Modelo" [inline]="true" [options]="marcasModelosPesquisados" [require]="true"
+          (setObjectSelected)="marcasModelosPesquisados" [require]="true" (setObjectSelected)="setMarcaModelo($event)">
           <input #municipioInput type="text" class="form-control" formControlName="marca_modelo_veiculo"
             autocomplete="off" (keyup)="keyUpMarcaModelo()" (focus)="setFocusMarcaModeloInput(true)">
         </app-input>
 
-        <app-input label="Ano de Fabricação" require="true">
+        <app-input label="Ano de Fabricação" [require]="true">
           <input type="text" class="form-control" formControlName="ano_fabricacao" autocomplete="off">
         </app-input>
 
-        <app-input label="Combustivel" [inline]="true" require="true">
+        <app-input label="Combustivel" [inline]="true" [require]="true">
           <select formControlName="tipo_combustivel_id" class="form-control">
             <option *ngFor="let tc of tiposDeCombustivel;" value="{{tc.id}}">{{tc.descricao}}</option>
           </select>
         </app-input>
 
-        <app-input label="Cores" [inline]="true" require="true">
+        <app-input label="Cores" [inline]="true" [require]="true">
           <select formControlName="cor_id" class="form-control">
             <option *ngFor="let cor of cores;" value="{{cor.id}}">{{cor.descricao}}</option>
           </select>
         </app-input>
 
-        <app-input label="Prefixo" require="true">
+        <app-input label="Prefixo" [require]="true">
           <input type="text" class="form-control" formControlName="prefixo" autocomplete="off">
         </app-input>
 
@@ -80,7 +80,7 @@
           <input type="text" class="form-control" formControlName="observacao" autocomplete="off">
         </app-input>
 
-        <app-input label="Ponto" [inline]="true" require="true">
+        <app-input label="Ponto" [inline]="true" [require]="true">
           <select formControlName="ponto_id" class="form-control">
             <option *ngFor="let ponto of pontos;" value="{{ponto.id}}">{{ponto.descricao}}</option>
           </select>

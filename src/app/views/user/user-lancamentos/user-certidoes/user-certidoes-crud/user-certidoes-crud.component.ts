@@ -283,7 +283,7 @@ export class UserCertidoesCrudComponent implements OnInit {
   }
 
   public keyUpPermissionario() {
-    this.subjectPermissionario.next();
+    this.subjectPermissionario.next(null);
   }
 
   public async setPermissionario(event) {
@@ -325,7 +325,7 @@ export class UserCertidoesCrudComponent implements OnInit {
   }
 
   public keyUpMarcaModelo() {
-    this.subjectMarcaModelo.next();
+    this.subjectMarcaModelo.next(null);
   }
 
   public async setMarcaModelo(event) {

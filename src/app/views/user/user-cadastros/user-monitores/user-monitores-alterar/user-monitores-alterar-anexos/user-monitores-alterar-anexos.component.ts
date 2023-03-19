@@ -126,8 +126,10 @@ export class UserMonitoresAlterarAnexosComponent implements OnInit {
     this.modal.open(content)
   }
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+  handleFileInput(event: any){
+    if (event.target.files && event.target.files[0]) {
+      this.fileToUpload = event.target.files[0];
+    }
   }
 
 }
