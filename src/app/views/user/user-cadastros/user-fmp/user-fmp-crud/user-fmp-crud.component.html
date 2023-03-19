@@ -17,25 +17,25 @@
     <form [formGroup]="form" autocomplete="off">
       <div class="form-inline">
 
-        <app-input label="Descrição" [inline]="true" require="true">
+        <app-input label="Descrição" [inline]="true" [require]="true">
           <input type="text" class="form-control" formControlName="descricao" autocomplete="off">
         </app-input>
 
-        <app-input label="Moeda" [inline]="true" require="true">
+        <app-input label="Moeda" [inline]="true" [require]="true">
           <select formControlName="moeda_id" class="form-control">
             <option *ngFor="let moeda of moedas;" value="{{moeda.id}}">{{moeda.nome}}</option>
           </select>
         </app-input>
 
-        <app-input label="Data Inicial" require="true">
-          <input type="text" class="form-control" formControlName="data_inicial" [textMask]="{mask: maskDate}" autocomplete="off">
+        <app-input label="Data Inicial" [require]="true">
+          <input type="text" class="form-control" formControlName="data_inicial" mask="00/00/0000" autocomplete="off">
         </app-input>
 
-        <app-input label="Data Final" require="true">
-          <input type="text" class="form-control" formControlName="data_final" [textMask]="{mask: maskDate}" autocomplete="off">
+        <app-input label="Data Final" [require]="true">
+          <input type="text" class="form-control" formControlName="data_final" mask="00/00/0000" autocomplete="off">
         </app-input>
 
-        <app-input label="Valor" [inline]="true" require="true">
+        <app-input label="Valor" [inline]="true" [require]="true">
           <input currencyMask type="text" class="form-control" formControlName="valor" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" autocomplete="off">
         </app-input>
 

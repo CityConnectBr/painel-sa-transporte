@@ -9,7 +9,7 @@ import { BasicCrudService, SearchData } from './basic-crud.service';
 export class VeiculoService extends BasicCrudService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/veiculos");
    }

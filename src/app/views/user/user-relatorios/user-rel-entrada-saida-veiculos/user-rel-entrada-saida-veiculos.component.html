@@ -22,8 +22,8 @@
         <form [formGroup]="form" autocomplete="off">
           <div class="form-inline">
 
-            <app-input label="Referencia" [inline]="true" require="true">
-              <input type="text" class="form-control" formControlName="referencia" [textMask]="{mask: maskMountYear}" placeholder="mm/aaaa" autocomplete="off">
+            <app-input label="Referencia" [inline]="true" [require]="true">
+              <input type="text" class="form-control" formControlName="referencia" mask="00/0000" placeholder="mm/aaaa" autocomplete="off">
             </app-input>
 
           </div>

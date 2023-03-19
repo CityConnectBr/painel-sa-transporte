@@ -161,7 +161,7 @@ export class UserPermissionarioAlterarPontosComponent implements OnInit {
   }
 
   public keyUpPonto() {
-    this.subjectPonto.next();
+    this.subjectPonto.next(null);
   }
 
   public async setPonto(event) {

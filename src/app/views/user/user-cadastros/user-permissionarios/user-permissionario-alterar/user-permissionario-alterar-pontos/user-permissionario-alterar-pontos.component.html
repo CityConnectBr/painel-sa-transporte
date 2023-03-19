@@ -3,23 +3,24 @@
     <div class="subitem">
       <h3>Dados do Permissionário</h3>
 
-      <app-input label="Modalidade" [inline]="true" require="true">
+      <app-input label="Modalidade" [inline]="true" [require]="true">
         <select formControlName="modalidade_id" class="form-control">
-          <option *ngFor='let modalidade of modalidades;' value="{{modalidade.id}}">{{modalidade.identificador |
-            uppercase}} - {{modalidade.descricao}}
+          <option *ngFor='let modalidade of modalidades;' value="{{modalidade.id}}">
+            {{modalidade?modalidade.identificador.toUpperCase():""}}
+            - {{modalidade.descricao}}
           </option>
         </select>
       </app-input>
 
-      <app-input label="Prefixo" require="true">
+      <app-input label="Prefixo" [require]="true">
         <input type="text" class="form-control" formControlName="prefixo" autocomplete="off">
       </app-input>
 
-      <app-input label="INSS" require="true">
+      <app-input label="INSS" [require]="true">
         <input type="text" class="form-control" formControlName="inss" autocomplete="off">
       </app-input>
 
-      <app-input label="Entidade Associativa" [inline]="true" require="true">
+      <app-input label="Entidade Associativa" [inline]="true" [require]="true">
         <select formControlName="entidade_associativa_id" class="form-control">
           <option *ngFor='let entidade of entidadesAssociativa;' value="{{entidade.id}}">{{entidade.descricao}}
           </option>
@@ -32,7 +33,7 @@
       <h3>Pontos</h3>
       <form *ngIf="!loading" [formGroup]="formPonto" autocomplete="off">
         <div class="form-inline">
-          <app-input label="Ponto" [inline]="true" [options]="pontosPesquisados" require="true"
+          <app-input label="Ponto" [inline]="true" [options]="pontosPesquisados" [require]="true"
             (setObjectSelected)="setPonto($event)">
             <input #municipioInput type="text" class="form-control" formControlName="ponto_descricao" autocomplete="off"
               (keyup)="keyUpPonto()" (focus)="setFocusPontoInput(true)">

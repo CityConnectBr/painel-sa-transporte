@@ -25,6 +25,8 @@ export interface Veiculo {
   tipo_veiculo_id: String
   permissionario_id: String
   categoria_id: String
+  termino_atividades: String
+  inicio_atividades: String
   marca_modelo_veiculo?: MarcaModeloDeVeiculo
   marca_modelo_chassi?: MarcaModeloDeChassi
   marca_modelo_carroceria?: MarcaModeloDeCarroceria

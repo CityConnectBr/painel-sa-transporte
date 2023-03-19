@@ -17,11 +17,11 @@
     <form [formGroup]="form" autocomplete="off">
       <div class="form-inline">
 
-        <app-input label="Descrição" [inline]="true" require="true">
+        <app-input label="Descrição" [inline]="true" [require]="true">
           <input type="text" class="form-control" formControlName="descricao" autocomplete="off">
         </app-input>
 
-        <app-input label="Modalidade" require="true">
+        <app-input label="Modalidade" [require]="true">
           <select formControlName="modalidade_transporte" class="form-control">
             <option *ngFor="let m of modalidades" value="{{m.id}}">{{m.desc}}</option>
           </select>

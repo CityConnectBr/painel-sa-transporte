@@ -17,28 +17,28 @@
     <form [formGroup]="form" autocomplete="off">
       <div class="form-inline">
 
-        <app-input label="Descrição" [inline]="true" require="true">
+        <app-input label="Descrição" [inline]="true" [require]="true">
           <input type="text" class="form-control" formControlName="descricao" autocomplete="off">
         </app-input>
 
-        <app-input label="Modalidade" require="true">
+        <app-input label="Modalidade" [require]="true">
           <select class="form-control" formControlName="modalidade_transporte" require="true">
             <option value="T">Taxí</option>
             <option value="T">Escolar</option>
           </select>
         </app-input>
 
-        <app-input label="Natureza" [inline]="true" require="true">
+        <app-input label="Natureza" [inline]="true" [require]="true">
           <select formControlName="natureza_infracao_id" class="form-control">
             <option *ngFor="let obj of naturezas;" value="{{obj.id}}">{{obj.descricao}}</option>
           </select>
         </app-input>
 
-        <app-input label="Quantidade" [inline]="true" require="true">
+        <app-input label="Quantidade" [inline]="true" [require]="true">
           <input type="text" class="form-control" formControlName="quantidade" autocomplete="off">
         </app-input>
 
-        <app-input label="Tipos de Moeda" [inline]="true" require="true">
+        <app-input label="Tipos de Moeda" [inline]="true" [require]="true">
           <select formControlName="moeda_id" class="form-control">
             <option *ngFor="let obj of tiposDeMoeda;" value="{{obj.id}}">{{obj.nome}}</option>
           </select>

@@ -243,7 +243,7 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
   }
 
   public keyUpPermissionario() {
-    this.subjectPermissionario.next();
+    this.subjectPermissionario.next(null);
   }
 
   public async setPermissionario(event) {
@@ -285,7 +285,7 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
   }
 
   public keyUpMarcaModelo() {
-    this.subjectMarcaModelo.next();
+    this.subjectMarcaModelo.next(null);
   }
 
   public async setMarcaModelo(event) {
@@ -327,7 +327,7 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
   }
 
   public keyUpMarcaModeloChassi() {
-    this.subjectMarcaModeloChassi.next();
+    this.subjectMarcaModeloChassi.next(null);
   }
 
   public async setMarcaModeloChassi(event) {
@@ -369,7 +369,7 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
   }
 
   public keyUpMarcaModeloCarroceria() {
-    this.subjectMarcaModeloCarroceria.next();
+    this.subjectMarcaModeloCarroceria.next(null);
   }
 
   public async setMarcaModeloCarroceria(event) {

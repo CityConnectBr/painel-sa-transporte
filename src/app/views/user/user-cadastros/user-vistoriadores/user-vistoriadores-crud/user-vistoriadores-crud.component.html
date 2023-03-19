@@ -17,11 +17,11 @@
     <form [formGroup]="form" autocomplete="off">
       <div class="form-inline">
 
-        <app-input label="Nome" [inline]="true" require="true">
+        <app-input label="Nome" [inline]="true" [require]="true">
           <input type="text" class="form-control" formControlName="nome" autocomplete="off">
         </app-input>
 
-        <app-input label="Cargo" [inline]="true" require="true">
+        <app-input label="Cargo" [inline]="true" [require]="true">
           <input type="text" class="form-control" formControlName="cargo" autocomplete="off">
         </app-input>
 

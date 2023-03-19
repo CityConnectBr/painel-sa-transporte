@@ -10,7 +10,7 @@ import { retry } from 'rxjs/operators';
 export class FormularioService extends BasicCrudService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/formularios");
   }

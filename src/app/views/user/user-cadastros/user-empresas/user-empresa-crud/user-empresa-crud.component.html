@@ -20,16 +20,16 @@
     <div class="subitem">
       <h3>Dados da Empresa</h3>
 
-      <app-input label="Nome" [inline]="true" require="true">
+      <app-input label="Nome" [inline]="true" [require]="true">
         <input type="text" class="form-control" formControlName="nome" autocomplete="off">
       </app-input>
 
       <app-input label="Telefone" [inline]="true">
-        <input type="text" class="form-control" formControlName="telefone" [textMask]="{mask: telefonemask}" autocomplete="off">
+        <input type="text" class="form-control" formControlName="telefone" mask="000" autocomplete="off">
       </app-input>
 
       <app-input label="Fax" [inline]="true">
-        <input type="text" class="form-control" formControlName="fax" [textMask]="{mask: telefonemask}" autocomplete="off">
+        <input type="text" class="form-control" formControlName="fax" mask="000" autocomplete="off">
       </app-input>
 
       <app-input label="Home Page" [inline]="true">
@@ -40,7 +40,7 @@
         <input type="text" class="form-control" formControlName="email" autocomplete="off">
       </app-input>
 
-      <app-input label="CNPJ" [inline]="true" require="true">
+      <app-input label="CNPJ" [inline]="true" [require]="true">
         <input type="text" class="form-control" formControlName="cnpj" mask="00.000.000/0000-00" autocomplete="off">
       </app-input>
 
@@ -55,15 +55,15 @@
 
     <div class="subitem">
       <h3>Endereço</h3>
-      <app-input label="CEP" [inline]="true" require="true">
-        <input type="text" class="form-control" formControlName="cep" [textMask]="{mask: maskCEP}" autocomplete="off">
+      <app-input label="CEP" [inline]="true" [require]="true">
+        <input type="text" class="form-control" formControlName="cep" mask="00000-000" autocomplete="off">
       </app-input>
 
-      <app-input label="Endereço" [inline]="true" require="true">
+      <app-input label="Endereço" [inline]="true" [require]="true">
         <input type="text" class="form-control" formControlName="endereco" autocomplete="off">
       </app-input>
 
-      <app-input label="Número" [inline]="true" require="true">
+      <app-input label="Número" [inline]="true" [require]="true">
         <input type="text" class="form-control" formControlName="numero" autocomplete="off">
       </app-input>
 
@@ -71,17 +71,17 @@
         <input type="text" class="form-control" formControlName="complemento" autocomplete="off">
       </app-input>
 
-      <app-input label="Bairro" [inline]="true" require="true">
+      <app-input label="Bairro" [inline]="true" [require]="true">
         <input type="text" class="form-control" formControlName="bairro" autocomplete="off">
       </app-input>
 
-      <app-input label="UF" [inline]="true" require="true">
+      <app-input label="UF" [inline]="true" [require]="true">
         <select formControlName="uf" class="form-control">
           <option *ngFor="let uf of ufs;" value="{{uf}}">{{uf}}</option>
         </select>
       </app-input>
 
-      <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" require="true" (setObjectSelected)="setMunicipio($event)">
+      <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" [require]="true" (setObjectSelected)="setMunicipio($event)">
         <input #municipioInput type="text" class="form-control" formControlName="municipio" autocomplete="off" (keyup)="keyUpMunicipio()" (focus)="setFocusMunicipioInput(true)">
       </app-input>
 

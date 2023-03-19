@@ -8,7 +8,7 @@ import { BasicCrudService } from './basic-crud.service';
 export class CertidaoService extends BasicCrudService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/certidoes");
   }

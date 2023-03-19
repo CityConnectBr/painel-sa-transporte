@@ -10,7 +10,7 @@ import { first, retry, map } from 'rxjs/operators';
 export class CondutorService extends BasicCrudService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/condutores");
   }

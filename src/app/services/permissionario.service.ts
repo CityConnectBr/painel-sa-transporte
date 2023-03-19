@@ -12,7 +12,7 @@ import { Veiculo } from '../models/veiculo';
 export class PermissionarioService extends BasicCrudService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/permissionarios");
   }

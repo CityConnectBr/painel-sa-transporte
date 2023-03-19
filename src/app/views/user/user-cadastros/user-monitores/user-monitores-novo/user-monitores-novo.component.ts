@@ -229,7 +229,7 @@ export class UserMonitoresNovoComponent implements OnInit, OnDestroy {
   }
 
   public keyUpMunicipio() {
-    this.subjectMunicipio.next();
+    this.subjectMunicipio.next(null);
   }
 
   public async setMunicipio(event) {
@@ -269,7 +269,7 @@ export class UserMonitoresNovoComponent implements OnInit, OnDestroy {
   }
 
   public keyUpPermissionario() {
-    this.subjectPermissionario.next();
+    this.subjectPermissionario.next(null);
   }
 
   public async setPermissionario(event) {

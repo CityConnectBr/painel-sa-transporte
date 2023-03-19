@@ -10,7 +10,6 @@ import { UserLoginComponent } from './views/user/user-login/user-login.component
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ModalModule } from 'ngb-modal';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {registerLocaleData} from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { LoggedInGuard } from './security/loggedin.guard';
@@ -18,10 +17,8 @@ import { UserRecuperarSenhaComponent } from './views/user/user-recuperar-senha/u
 import { ClipboardModule } from 'ngx-clipboard';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
-import { TextMaskModule } from 'angular2-text-mask';
 import { NgxCurrencyModule } from "ngx-currency";
 
-export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
@@ -34,12 +31,10 @@ registerLocaleData(localePt, 'pt');
     BrowserModule,
     AppRoutingModule,
     NgxMaskModule.forRoot(),
-    TextMaskModule,
     SharedModule.forRoot(),
     HttpClientModule,
     ModalModule,
     NoopAnimationsModule,
-    MatSnackBarModule,
     ClipboardModule,
     PdfViewerModule,
     NgxCurrencyModule

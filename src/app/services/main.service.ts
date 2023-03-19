@@ -15,7 +15,7 @@ export class MainService {
   private static typeOfUser: string | null | undefined
 
   constructor(
-    protected httpClient: HttpClient,
+    public httpClient: HttpClient,
   ) { }
 
   get getJWT(): string | null | undefined {

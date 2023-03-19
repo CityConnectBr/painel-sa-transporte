@@ -124,7 +124,7 @@ export class UserFormulario7DeclaracaoMonitorComponent implements OnInit {
     this.loading = false;
   }
 
-  async selecionarSolicitacao(id: number) {
+  async selecionarSolicitacao(id: any) {
     this.loading = true;
     try {
       this.step = 3;

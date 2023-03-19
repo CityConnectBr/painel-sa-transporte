@@ -10,19 +10,19 @@ import { first, map, retry } from 'rxjs/operators';
 export class ArquivoService extends BasicCrudService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/arquivos");
   }
 
-  get(id: number | String): Observable<any> {
+  getFile(id: number | String): Observable<any> {
     return this.httpClient.get(`${this.url}/${id}`, {
       headers: super.getHeaderWithAuthorization,
       responseType: 'blob'
     });
   }
 
-  create(obj: any): Observable<any> {
+  createFile(obj: any): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('foto', obj, obj.name);
 

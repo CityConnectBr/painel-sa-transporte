@@ -52,6 +52,8 @@ export class UserTiposDeVeiculoComponent implements OnInit {
     if (modalidade) {
       return TipoDeVeiculoService.modalidades.find(m => m.id == modalidade)
     }
+
+    return null;
   }
 
 }

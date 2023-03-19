@@ -8,7 +8,7 @@ import { BasicCrudService } from './basic-crud.service';
 export class VistoriadorService extends BasicCrudService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/vistoriadores");
    }

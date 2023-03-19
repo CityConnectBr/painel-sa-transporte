@@ -4,7 +4,7 @@
     <div class="subitem">
       <h3>Aplicativos</h3>
 
-      <app-input label="Aplicativos" [inline]="true" require="true">
+      <app-input label="Aplicativos" [inline]="true" [require]="true">
         <select formControlName="aplicativo_id" class="form-control">
           <option *ngFor="let obj of aplicativos;" value="{{obj.id}}">{{obj.descricao}}</option>
         </select>
@@ -29,7 +29,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let obj of aplicativosDoPermissionario">
-            <td>{{obj?.d_descricao}}</td>
+            <td>{{obj?.descricao}}</td>
             <td class="text-right">
               <a href="javascript: void(0);" (click)="setAplicativoParaDelecao(obj.id);openModal(contentExcluir)"  title="Excluir"><i class="fa fa-trash"
                   aria-hidden="true"></i></a>

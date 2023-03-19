@@ -187,7 +187,7 @@ export class UserVistoriadepontosCrudComponent implements OnInit {
   }
 
   public keyUpVistoriador() {
-    this.subjectVistoriador.next();
+    this.subjectVistoriador.next(null);
   }
 
   public async setVistoriador(event) {

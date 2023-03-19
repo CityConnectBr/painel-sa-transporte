@@ -10,7 +10,7 @@ import { BasicCrudService, SearchData } from './basic-crud.service';
 export class TalaoDoFiscalService extends BasicCrudService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
   ) {
     super(httpClient, "/api/admin/taloesdofiscal");
    }

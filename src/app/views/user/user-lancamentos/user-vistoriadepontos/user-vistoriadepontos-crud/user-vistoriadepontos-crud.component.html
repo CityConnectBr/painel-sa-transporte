@@ -17,24 +17,24 @@
     <form [formGroup]="form" autocomplete="off">
       <div class="form-inline">
 
-        <app-input label="Data" require="true">
-          <input type="text" class="form-control" formControlName="data_vistoria" [textMask]="{mask: maskDate}"
+        <app-input label="Data" [require]="true">
+          <input type="text" class="form-control" formControlName="data_vistoria" mask="00/00/0000"
             autocomplete="off">
         </app-input>
 
-        <app-input label="Vistoriador" [inline]="true" [options]="vistoriadoresPesquisados" require="true"
-          (setObjectSelected)="vistoriadoresPesquisados" require="true" (setObjectSelected)="setVistoriador($event)">
+        <app-input label="Vistoriador" [inline]="true" [options]="vistoriadoresPesquisados" [require]="true"
+          (setObjectSelected)="vistoriadoresPesquisados" [require]="true" (setObjectSelected)="setVistoriador($event)">
           <input #municipioInput type="text" class="form-control" formControlName="vistoriador" autocomplete="off"
             (keyup)="keyUpVistoriador()" (focus)="setFocusVistoriadorInput(true)">
         </app-input>
 
-        <app-input label="Ponto" [inline]="true" require="true">
+        <app-input label="Ponto" [inline]="true" [require]="true">
           <select formControlName="ponto_id" class="form-control">
             <option *ngFor="let ponto of pontos;" value="{{ponto.id}}">{{ponto.descricao}}</option>
           </select>
         </app-input>
 
-        <app-input label="Condições de Pintura" require="true">
+        <app-input label="Condições de Pintura" [require]="true">
           <select formControlName="condicoes_de_pintura" class="form-control">
             <option value="5">Ótima</option>
             <option value="4">Boa</option>
@@ -44,7 +44,7 @@
           </select>
         </app-input>
 
-        <app-input label="Condições de Cobertura" require="true">
+        <app-input label="Condições de Cobertura" [require]="true">
           <select formControlName="condicoes_de_cobertura" class="form-control">
             <option value="5">Ótima</option>
             <option value="4">Boa</option>
@@ -54,7 +54,7 @@
           </select>
         </app-input>
 
-        <app-input label="Condições de Emplacamento" require="true">
+        <app-input label="Condições de Emplacamento" [require]="true">
           <select formControlName="condicoes_de_emplacamento" class="form-control">
             <option value="5">Ótima</option>
             <option value="4">Boa</option>
@@ -64,7 +64,7 @@
           </select>
         </app-input>
 
-        <app-input label="Condições de Sanitário" require="true">
+        <app-input label="Condições de Sanitário" [require]="true">
           <select formControlName="condicoes_de_sanitario" class="form-control">
             <option value="5">Ótima</option>
             <option value="4">Boa</option>

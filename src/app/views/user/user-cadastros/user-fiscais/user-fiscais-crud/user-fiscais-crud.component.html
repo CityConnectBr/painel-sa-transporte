@@ -25,11 +25,11 @@
           </div>
         </a>
 
-        <app-input label="Nome" require="true">
+        <app-input label="Nome" [require]="true">
           <input type="text" class="form-control" formControlName="nome" autocomplete="off">
         </app-input>
 
-        <app-input label="CPF" require="true">
+        <app-input label="CPF" [require]="true">
           <input type="text" class="form-control" formControlName="cpf" mask="000.000.000-00" autocomplete="off">
         </app-input>
 
@@ -45,7 +45,7 @@
           <h3>Dados de Contato</h3>
 
           <app-input label="Telefone" [inline]="true">
-            <input type="text" class="form-control" formControlName="telefone" [textMask]="{mask: telefonemask}"
+            <input type="text" class="form-control" formControlName="telefone" mask="000"
               autocomplete="off">
           </app-input>
 
@@ -56,16 +56,16 @@
 
         <div class="subitem">
           <h3>Endereço</h3>
-          <app-input label="CEP" [inline]="true" require="true">
-            <input type="text" class="form-control" formControlName="cep" [textMask]="{mask: maskCEP}"
+          <app-input label="CEP" [inline]="true" [require]="true">
+            <input type="text" class="form-control" formControlName="cep" mask="00000-000"
               autocomplete="off">
           </app-input>
 
-          <app-input label="Endereço" [inline]="true" require="true">
+          <app-input label="Endereço" [inline]="true" [require]="true">
             <input type="text" class="form-control" formControlName="endereco" autocomplete="off">
           </app-input>
 
-          <app-input label="Número" [inline]="true" require="true">
+          <app-input label="Número" [inline]="true" [require]="true">
             <input type="text" class="form-control" formControlName="numero" autocomplete="off">
           </app-input>
 
@@ -73,17 +73,17 @@
             <input type="text" class="form-control" formControlName="complemento" autocomplete="off">
           </app-input>
 
-          <app-input label="Bairro" [inline]="true" require="true">
+          <app-input label="Bairro" [inline]="true" [require]="true">
             <input type="text" class="form-control" formControlName="bairro" autocomplete="off">
           </app-input>
 
-          <app-input label="UF" [inline]="true" require="true">
+          <app-input label="UF" [inline]="true" [require]="true">
             <select formControlName="uf" class="form-control">
               <option *ngFor="let uf of ufs;" value="{{uf}}">{{uf}}</option>
             </select>
           </app-input>
 
-          <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" require="true"
+          <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" [require]="true"
             (setObjectSelected)="setMunicipio($event)">
             <input #municipioInput type="text" class="form-control" formControlName="municipio" autocomplete="off"
               (keyup)="keyUpMunicipio()" (focus)="setFocusMunicipioInput(true)">
@@ -116,7 +116,7 @@
   <app-modal modalID="uploadModal" title="Upload da Foto" (closeModalEmit)="closeModal($event)">
     <form>
       <input type="file" id="img" name="foto" accept="image/*"
-      (change)="handleFileInput($event.target.files)">
+      (change)="handleFileInput($event)">
       <br>
       <div class="m-2">
         <button type="submit" class="btn btn-success pull-right m-2" (click)="closeModal($event)">Fechar</button>

@@ -11,7 +11,7 @@ import { MainService } from './main.service';
 export class BasicCrudService extends MainService {
 
   constructor(
-    protected httpClient: HttpClient,
+    httpClient: HttpClient,
     urlParth: String
   ) {
     super(httpClient);

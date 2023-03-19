@@ -171,7 +171,7 @@ export class UserTaloesDoFiscalCrudComponent implements OnInit {
   }
 
   public keyUpFiscal() {
-    this.subjectFiscal.next();
+    this.subjectFiscal.next(null);
   }
 
   public async setFiscal(event) {

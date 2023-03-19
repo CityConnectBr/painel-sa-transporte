@@ -5,4 +5,5 @@ export interface ObservacaoDoPermissionario {
   permissionario_id: String
   titulo: String
   observacao: String
+  created_at: Date
 }

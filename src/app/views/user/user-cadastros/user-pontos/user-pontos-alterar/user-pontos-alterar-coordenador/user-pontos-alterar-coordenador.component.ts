@@ -186,7 +186,7 @@ export class UserPontosAlterarCoordenadorComponent implements OnInit, OnDestroy 
   }
 
   public keyUpPermissionario() {
-    this.subjectPermissionario.next();
+    this.subjectPermissionario.next(null);
   }
 
   public async setPermissionario(event) {

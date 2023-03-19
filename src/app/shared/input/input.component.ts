@@ -13,8 +13,8 @@ export class InputComponent implements OnInit, AfterContentInit {
   input: any;
   @Input() label: string;
   @Input() errorMessage: string;
-  @Input() description: string;
-  @Input() require: boolean;
+  @Input() description: string = "";
+  @Input() require: boolean = false;
   @Input() hidden: boolean = false;
   @Input() inline: boolean = false;
   @Input() options: Map<String, String>;

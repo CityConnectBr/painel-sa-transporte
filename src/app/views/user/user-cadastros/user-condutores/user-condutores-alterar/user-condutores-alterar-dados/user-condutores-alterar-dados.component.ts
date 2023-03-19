@@ -229,9 +229,9 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
-  handleFileInput(files: FileList) {
-    if (files.length > 0) {
-      this.photoToUpload = files.item(0);
+  handleFileInput(event: any){
+    if (event.target.files.length > 0) {
+      this.photoToUpload = event.target.files[0];
     }
   }
 
@@ -293,7 +293,7 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
   }
 
   public keyUpMunicipio() {
-    this.subjectMunicipio.next();
+    this.subjectMunicipio.next(null);
   }
 
   public async setMunicipio(event) {
@@ -333,7 +333,7 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
   }
 
   public keyUpPermissionario() {
-    this.subjectPermissionario.next();
+    this.subjectPermissionario.next(null);
   }
 
   public async setPermissionario(event) {
