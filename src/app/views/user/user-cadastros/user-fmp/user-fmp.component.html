@@ -12,13 +12,17 @@
     <table *ngIf="dataSearch.data.length>0" class="table table-striped">
       <thead>
         <tr>
-          <th>Descrição</th>
+          <th>Data Inicial</th>
+          <th>Data Final</th>
+          <th>Valor</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let obj of dataSearch.data">
-          <td>{{obj?.descricao}}</td>
+          <td>{{obj?.data_inicial | date:'dd/MM/yyyy'}}</td>
+          <td>{{obj?.data_final | date:'dd/MM/yyyy'}}</td>
+          <td>{{obj?.valor | currency:'R$':'symbol':'1.2-2'}}</td>
           <td class="text-right">
             <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
                 aria-hidden="true"></i></a>
