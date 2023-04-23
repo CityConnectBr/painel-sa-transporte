@@ -686,4 +686,12 @@ export class UserInfracoesCrudComponent implements OnInit {
       this.searchPermissionarios();
     }
   }
+
+  public isStatusPago(): boolean {
+    if(!this.form || !this.form.controls['status']) {
+      return false;
+    }
+
+    return this.form.controls['status'].value == 'pago';
+  }
 }

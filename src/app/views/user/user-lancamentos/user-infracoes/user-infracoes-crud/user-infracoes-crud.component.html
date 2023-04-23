@@ -8,7 +8,7 @@
     <a [routerLink]="['../..']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i> Voltar</a>
     | Alteração de Infração
 
-    <a title="Excluir" class="mr-1" href="javascript:void(0)" (click)="openModal(contentExcluir)" style="float: right;">
+    <a title="Excluir" class="mr-1" href="javascript:void(0)" (click)="openModal(contentExcluir)" style="float: right;" *ngIf="isStatusPago() == false">
       <i class="fa fa-trash"></i></a>
   </h3>
 
@@ -158,7 +158,7 @@
         <div class="alert alert-danger" *ngIf="errorMessage">
           <strong [innerHTML]="errorMessage"></strong>
         </div>
-        <button type="submit" class="btn pull-right" (click)="salvar(form.value)">Salvar</button>
+        <button type="submit" class="btn pull-right" (click)="salvar(form.value)" *ngIf="isStatusPago() == false">Salvar</button>
       </div>
     </form>
   </div>
