@@ -34,6 +34,8 @@ import { Veiculo } from 'src/app/models/veiculo';
 import { FMPService } from 'src/app/services/fmp.service';
 import { FMP } from 'src/app/models/fmp';
 import { ValoresDeInfracao } from 'src/app/models/valores-de-infracao';
+import { EmpresaService } from 'src/app/services/empresa.service';
+import { Empresa } from 'src/app/models/empresa';
 
 @Component({
   selector: 'app-user-infracoes-crud',
@@ -50,6 +52,7 @@ export class UserInfracoesCrudComponent implements OnInit {
   moedas: Moeda[];
   naturezas: NaturezaDaInfracao[];
   fmp: FMP;
+  empresa: Empresa;
 
   permissionariosPesquisados: Map<string, string> = new Map();
   permissionarioSelecionado: Permissionario;
@@ -86,6 +89,7 @@ export class UserInfracoesCrudComponent implements OnInit {
     private naturezaDaInfracaoService: NaturezaDaInfracaoService,
     private valoresDaInfracaoService: ValoresDeInfracaoService,
     private solicitacaoService: SolicitacaoService,
+    private empresaService: EmpresaService,
     private arquivoService: ArquivoService,
     private route: ActivatedRoute,
     private router: Router,
@@ -170,7 +174,7 @@ export class UserInfracoesCrudComponent implements OnInit {
           validators: [Validators.required],
         }),
         permissionario: new FormControl('', {
-          validators: [],//manter sem validação por um erro na selação do autocomplete
+          validators: [], //manter sem validação por um erro na selação do autocomplete
         }),
         valor_fmp: new FormControl('', {
           validators: [
@@ -190,11 +194,12 @@ export class UserInfracoesCrudComponent implements OnInit {
         codigo_pix: new FormControl('', {
           validators: [],
         }),
-        tipoPix: new FormControl(0),///nao é persistido
-        tipoDeChavePix: new FormControl(0)///nao é persistido
+        tipoPix: new FormControl(0), ///nao é persistido
+        tipoDeChavePix: new FormControl(0), ///nao é persistido
       });
 
       await this.loadFMP();
+      await this.loadEmpresa();
 
       if (solicitacaoId) {
         this.solicitacao = await this.solicitacaoService
@@ -309,10 +314,11 @@ export class UserInfracoesCrudComponent implements OnInit {
 
         this.valorInfracaoOriginal = this.crudObj.valor;
 
-        if(this.crudObj.chave_pix){
-          this.form.controls['tipoDeChavePix'].setValue(SharedModule.detectTipoPix(this.crudObj.chave_pix));
+        if (this.crudObj.chave_pix) {
+          this.form.controls['tipoDeChavePix'].setValue(
+            SharedModule.detectTipoPix(this.crudObj.chave_pix)
+          );
         }
-
       }
     } catch (e: any) {
       this.errorMessage = 'Ocorreu um erro ao montar a página';
@@ -351,18 +357,20 @@ export class UserInfracoesCrudComponent implements OnInit {
         return;
       }
 
-      if(this.form.controls['tipoPix'].value == '0' &&  !this.form.controls['chave_pix'].value){
-        this.snackbarService.openSnackBarError(
-          'Informe a chave pix!'
-        );
+      if (
+        this.form.controls['tipoPix'].value == '0' &&
+        !this.form.controls['chave_pix'].value
+      ) {
+        this.snackbarService.openSnackBarError('Informe a chave pix!');
         this.loading = false;
         return;
       }
 
-      if(this.form.controls['tipoPix'].value == '1' &&  !this.form.controls['codigo_pix'].value){
-        this.snackbarService.openSnackBarError(
-          'Informe o código pix!'
-        );
+      if (
+        this.form.controls['tipoPix'].value == '1' &&
+        !this.form.controls['codigo_pix'].value
+      ) {
+        this.snackbarService.openSnackBarError('Informe o código pix!');
         this.loading = false;
         return;
       }
@@ -409,15 +417,18 @@ export class UserInfracoesCrudComponent implements OnInit {
       formInput.quadro_infracao_id = this.quadroDeInfracoesSelecionado.id;
       formInput.veiculo_id = this.veiculoSelecionado.id;
       formInput.valor = this.valorInfracaoOriginal;
-      formInput.tipo_pagamento = 'pix';//somente pix por hora
-      formInput.valor_fmp = SharedModule.correncyToNumber(this.form.controls['valor_fmp'].value);
-      formInput.valor_final = SharedModule.correncyToNumber(this.form.controls['valor_final'].value);
+      formInput.tipo_pagamento = 'pix'; //somente pix por hora
+      formInput.valor_fmp = SharedModule.correncyToNumber(
+        this.form.controls['valor_fmp'].value
+      );
+      formInput.valor_final = SharedModule.correncyToNumber(
+        this.form.controls['valor_final'].value
+      );
       formInput.fmp_id = this.fmp.id;
       formInput.valor_fmp_atual = this.fmp.valor;
-
+      formInput.empresa_id = this.empresa.id;
 
       formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
-
 
       if (this.crudObj) {
         await this.infracaoService
@@ -445,7 +456,18 @@ export class UserInfracoesCrudComponent implements OnInit {
       this.snackbarService.openSnackBarError('Nenhum FMP válido encontrado!');
     }
     this.fmp = fmps[0];
-    this.form.controls['valor_fmp'].setValue(this.fmp.valor.toFixed(2).replace('.', ','));
+    this.form.controls['valor_fmp'].setValue(
+      this.fmp.valor.toFixed(2).replace('.', ',')
+    );
+  }
+
+  async loadEmpresa() {
+    const empresas = await this.empresaService.index().toPromise();
+    if (!empresas || empresas.length == 0) {
+      this.snackbarService.openSnackBarError('Nenhuma empresa encontrada!');
+    }
+
+    this.empresa = empresas[0];
   }
 
   async excluir() {
@@ -602,7 +624,9 @@ export class UserInfracoesCrudComponent implements OnInit {
     this.form.controls['moeda_id'].setValue(valores[0].moeda_id);
     this.form.controls['qtd_fmp'].setValue(valores[0].quantidade);
     this.valorInfracaoOriginal = this.fmp.valor * valores[0].quantidade;
-    this.form.controls['valor_final'].setValue(`${this.valorInfracaoOriginal},00`);
+    this.form.controls['valor_final'].setValue(
+      `${this.valorInfracaoOriginal},00`
+    );
   }
 
   async selecionarVeiculo(id: string) {
@@ -688,7 +712,7 @@ export class UserInfracoesCrudComponent implements OnInit {
   }
 
   public isStatusPago(): boolean {
-    if(!this.form || !this.form.controls['status']) {
+    if (!this.form || !this.form.controls['status']) {
       return false;
     }
 

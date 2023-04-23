@@ -26,4 +26,5 @@ export interface Infracao {
   qtd_fmp: number
   valor: number//valor automatico: qtd_moeda * valor_fmp_atual
   valor_final: number
+  empresa_id: number
 }
