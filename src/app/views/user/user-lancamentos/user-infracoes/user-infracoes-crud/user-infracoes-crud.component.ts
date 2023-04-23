@@ -8,7 +8,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, firstValueFrom, throwError } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -87,8 +87,8 @@ export class UserInfracoesCrudComponent implements OnInit {
     private valoresDaInfracaoService: ValoresDeInfracaoService,
     private solicitacaoService: SolicitacaoService,
     private arquivoService: ArquivoService,
-    private location: Location,
     private route: ActivatedRoute,
+    private router: Router,
     private snackbarService: SnackBarService,
     private modal: NgbModal,
     private sanitizer: DomSanitizer
@@ -431,7 +431,7 @@ export class UserInfracoesCrudComponent implements OnInit {
         await this.infracaoService.create(formInput).toPromise();
       }
       this.snackbarService.openSnackBarSucess('Infração salva!');
-      this.location.back();
+      this.router.navigate(['/user/lancamentos/infracoes']);
     } catch (e: any) {
       console.error(e);
       this.errorMessage = SharedModule.handleError(e);
@@ -455,7 +455,7 @@ export class UserInfracoesCrudComponent implements OnInit {
       await this.infracaoService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll();
       this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
-      this.location.back();
+      this.router.navigate(['/user/lancamentos/infracoes']);
     } catch (e: any) {
       this.modal.dismissAll();
       this.errorMessage = 'Este não pode ser excluido!';
