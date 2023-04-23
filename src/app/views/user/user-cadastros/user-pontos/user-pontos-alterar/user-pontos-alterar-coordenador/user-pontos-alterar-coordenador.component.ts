@@ -37,7 +37,7 @@ export class UserPontosAlterarCoordenadorComponent implements OnInit, OnDestroy 
 
   coordenadorAtual: CoordenadorDoPonto;
 
-  cursoParaDelecao: String;
+  cursoParaDelecao: string;
 
   maskDate = SharedModule.textMaskDate;
 
@@ -163,7 +163,7 @@ export class UserPontosAlterarCoordenadorComponent implements OnInit, OnDestroy 
   }
 
 
-  setCursoParaDelecao(id: String) {
+  setCursoParaDelecao(id: string) {
     this.cursoParaDelecao = id;
   }
 

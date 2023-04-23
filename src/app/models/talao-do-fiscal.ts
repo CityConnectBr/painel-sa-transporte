@@ -1,10 +1,10 @@
 export interface TalaoDoFiscal {
-  id: String
-  numero: String,
-  tipo_documento: String,
-  serie_documento: String,
-  numero_primeira_folha: String,
-  numero_ultima_folha: String,
-  data_recebimento: String,
-  fiscal_id: String
+  id: string
+  numero: string,
+  tipo_documento: string,
+  serie_documento: string,
+  numero_primeira_folha: string,
+  numero_ultima_folha: string,
+  data_recebimento: string,
+  fiscal_id: string
 }

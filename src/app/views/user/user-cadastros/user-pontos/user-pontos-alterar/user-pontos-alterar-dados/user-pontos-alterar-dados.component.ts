@@ -93,7 +93,7 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
         observacao: new FormControl(this.ponto.observacao ?? "", {
           validators: [Validators.maxLength(500)],
         }),
-        modalidade_transporte: new FormControl(this.ponto.modalidade_transporte ?? "", {
+        modalidade_id: new FormControl(this.ponto.modalidade_id ?? "", {
           validators: [Validators.required,],
         }),
         cep: new FormControl(this.endereco?.cep ?? "", {

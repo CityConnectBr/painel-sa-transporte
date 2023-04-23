@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, ContentChild, AfterContentInit, Output, EventEmitter } from '@angular/core';
 import { NgModel, FormControlName } from '@angular/forms';
 
-
-
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',

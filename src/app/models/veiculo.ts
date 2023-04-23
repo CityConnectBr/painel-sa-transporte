@@ -6,27 +6,27 @@ import { TipoDeCombustivel } from "./tipo-de-combustivel";
 import { TipoDeVeiculo } from "./tipo-de-veiculo";
 
 export interface Veiculo {
-  id: String
-  id_integracao: String
-  placa: String
-  cod_renavam: String
-  chassi: String
-  ano_fabricacao: String
-  ano_modelo: String
-  capacidade: String
-  tipo_capacidade: String
-  observacao_capacidade: String
-  anos_vida_util_veiculo: String
-  marca_modelo_veiculo_id: String
-  marca_modelo_chassi_id: String
-  marca_modelo_carroceria_id: String
-  tipo_combustivel_id: String
-  cor_id: String
-  tipo_veiculo_id: String
-  permissionario_id: String
-  categoria_id: String
-  termino_atividades: String
-  inicio_atividades: String
+  id: string
+  id_integracao: string
+  placa: string
+  cod_renavam: string
+  chassi: string
+  ano_fabricacao: string
+  ano_modelo: string
+  capacidade: string
+  tipo_capacidade: string
+  observacao_capacidade: string
+  anos_vida_util_veiculo: string
+  marca_modelo_veiculo_id: string
+  marca_modelo_chassi_id: string
+  marca_modelo_carroceria_id: string
+  tipo_combustivel_id: string
+  cor_id: string
+  tipo_veiculo_id: string
+  permissionario_id: string
+  categoria_id: string
+  termino_atividades: string
+  inicio_atividades: string
   marca_modelo_veiculo?: MarcaModeloDeVeiculo
   marca_modelo_chassi?: MarcaModeloDeChassi
   marca_modelo_carroceria?: MarcaModeloDeCarroceria

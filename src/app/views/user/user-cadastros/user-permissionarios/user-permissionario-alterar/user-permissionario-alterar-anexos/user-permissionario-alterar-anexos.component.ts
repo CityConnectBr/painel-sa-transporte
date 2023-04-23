@@ -27,7 +27,7 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
 
   fileToUpload: File | null = null;
 
-  idParaDelecao: String;
+  idParaDelecao: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -90,7 +90,7 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
     this.loading = false;
   }
 
-  async download(id: String) {
+  async download(id: string) {
     this.anexoDoPermissionarioService.get(id)
       .subscribe((resultBlob: Blob) => {
         var downloadURL = URL.createObjectURL(resultBlob);
@@ -98,7 +98,7 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
       });
   }
 
-  setIdParaDelecao(id: String) {
+  setIdParaDelecao(id: string) {
     this.idParaDelecao = id;
   }
 

@@ -8,17 +8,17 @@
       </h3>
 
       <app-input label="Emissão">
-        <input type="text" class="form-control" formControlName="data_emissao" mask="00/00/0000"
+        <input type="text" class="form-control" formControlName="data_emissao" mask="00/00/0000" [dropSpecialCharacters]="false"
           autocomplete="off">
       </app-input>
 
       <app-input label="Retorno">
-        <input type="text" class="form-control" formControlName="data_retorno" mask="00/00/0000"
+        <input type="text" class="form-control" formControlName="data_retorno" mask="00/00/0000" [dropSpecialCharacters]="false"
           autocomplete="off">
       </app-input>
 
       <app-input label="Vencimento">
-        <input type="text" class="form-control" formControlName="data_vencimento" mask="00/00/0000"
+        <input type="text" class="form-control" formControlName="data_vencimento" mask="00/00/0000" [dropSpecialCharacters]="false"
           autocomplete="off">
       </app-input>
 

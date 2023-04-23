@@ -233,7 +233,7 @@ export class UserCertidoesCrudComponent implements OnInit {
     this.searchVeiculo(this.searchText, page);
   }
 
-  async selecionarVeiculo(id: String){
+  async selecionarVeiculo(id: string){
     this.loading = true;
     try {
       const veiculo: Veiculo = await this.veiculoService.get(id).pipe(first()).toPromise();

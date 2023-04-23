@@ -15,7 +15,7 @@ export class AplicativoDoPermissionarioService extends BasicCrudService {
     super(httpClient, "/api/admin/aplicativosdopermissionario");
    }
 
-   indexByPermissionario(permissionarioId: String): Observable<SearchData> {
+   indexByPermissionario(permissionarioId: string): Observable<SearchData> {
     return this.httpClient.get<SearchData>(`${this.url}?search=${permissionarioId}`, super.getHttpOptions)
   }
 }

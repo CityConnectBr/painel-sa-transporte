@@ -14,7 +14,7 @@ export class CoordenadorDoPontoService extends BasicCrudService {
     super(httpClient, "/api/admin/coordenadoresdoponto");
    }
 
-   indexByPonto(pontoId: String): Observable<SearchData> {
+   indexByPonto(pontoId: string): Observable<SearchData> {
     return this.httpClient.get<SearchData>(`${this.url}?search=${pontoId}`, super.getHttpOptions)
   }
 

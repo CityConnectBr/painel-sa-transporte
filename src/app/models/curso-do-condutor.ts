@@ -1,7 +1,7 @@
 export interface CursoDoCondutor {
-  id: String
-  condutor_id: String
-  tipo_do_curso_id: String
+  id: string
+  condutor_id: string
+  tipo_do_curso_id: string
   data_emissao: Date
-  descricao: String
+  descricao: string
 }

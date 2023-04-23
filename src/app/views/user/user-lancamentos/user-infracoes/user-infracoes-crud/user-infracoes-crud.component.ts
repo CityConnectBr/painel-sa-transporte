@@ -1,9 +1,16 @@
+import { ValoresDeInfracaoService } from 'src/app/services/valores-de-infracao.service';
 import { Location } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject, throwError } from 'rxjs';
+import { Subject, firstValueFrom, throwError } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Permissionario } from 'src/app/models/permissionario';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
@@ -24,32 +31,35 @@ import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 import { ArquivoService } from 'src/app/services/arquivo.service';
 import { VeiculoService } from 'src/app/services/veiculo.service';
 import { Veiculo } from 'src/app/models/veiculo';
+import { FMPService } from 'src/app/services/fmp.service';
+import { FMP } from 'src/app/models/fmp';
+import { ValoresDeInfracao } from 'src/app/models/valores-de-infracao';
 
 @Component({
   selector: 'app-user-infracoes-crud',
   templateUrl: './user-infracoes-crud.component.html',
-  styleUrls: ['./user-infracoes-crud.component.css']
+  styleUrls: ['./user-infracoes-crud.component.css'],
 })
 export class UserInfracoesCrudComponent implements OnInit {
-
   loading: boolean = false;
-  form: FormGroup
-  errorMessage: string
+  form: FormGroup;
+  errorMessage: string;
 
   subjectPermissionario: Subject<any> = new Subject();
 
   moedas: Moeda[];
   naturezas: NaturezaDaInfracao[];
+  fmp: FMP;
 
-  permissionariosPesquisados: Map<String, String> = new Map();
+  permissionariosPesquisados: Map<string, string> = new Map();
   permissionarioSelecionado: Permissionario;
   quadroDeInfracoesSelecionado: QuadroDeInfracoes;
   veiculoSelecionado: Veiculo;
 
   @ViewChild('permissionarioInput') permissionarioInputElement: ElementRef;
 
-  searchText: string = "";
-  searchVeiculoText: string = "";
+  searchText: string = '';
+  searchVeiculoText: string = '';
   quadroDeInfracoesPesquisado: SearchData;
   veiculoPesquisado: SearchData;
 
@@ -63,14 +73,18 @@ export class UserInfracoesCrudComponent implements OnInit {
   imageToShow: any | null = null;
   imageChange: boolean = false;
 
+  valorInfracaoOriginal: number = 0;
+
   constructor(
     private formBuilder: FormBuilder,
     private infracaoService: InfracaoService,
+    private fmpService: FMPService,
     private moedaService: MoedaService,
     private permissionarioService: PermissionarioService,
     private veiculoService: VeiculoService,
     private quadroDeInfracoesService: QuadroDeInfracoesService,
     private naturezaDaInfracaoService: NaturezaDaInfracaoService,
+    private valoresDaInfracaoService: ValoresDeInfracaoService,
     private solicitacaoService: SolicitacaoService,
     private arquivoService: ArquivoService,
     private location: Location,
@@ -78,176 +92,311 @@ export class UserInfracoesCrudComponent implements OnInit {
     private snackbarService: SnackBarService,
     private modal: NgbModal,
     private sanitizer: DomSanitizer
-  ) {
-  }
+  ) {}
 
   async ngOnInit() {
     this.loading = true;
-    this.errorMessage = "";
+    this.errorMessage = '';
 
     try {
-      this.subjectPermissionario
-        .pipe(debounceTime(500))
-        .subscribe(() => {
-          this.searchPermissionarios();
-        }
-        );
+      this.subjectPermissionario.pipe(debounceTime(500)).subscribe(() => {
+        this.searchPermissionarios();
+      });
 
       const idSelected: string = this.route.snapshot.paramMap.get('id');
-      const solicitacaoId: string = this.route.snapshot.queryParamMap.get('solicitacaoId');
+      const solicitacaoId: string =
+        this.route.snapshot.queryParamMap.get('solicitacaoId');
 
       this.moedas = await this.moedaService.index().pipe(first()).toPromise();
-      this.naturezas = await this.naturezaDaInfracaoService.index().pipe(first()).toPromise();
+      this.naturezas = await this.naturezaDaInfracaoService
+        .index()
+        .pipe(first())
+        .toPromise();
 
       ///////FORM
       this.form = this.formBuilder.group({
-        num_aip: new FormControl("", {
-          validators: [Validators.required, Validators.minLength(1), Validators.maxLength(11)],
+        num_aip: new FormControl('', {
+          validators: [
+            Validators.required,
+            Validators.minLength(1),
+            Validators.maxLength(11),
+          ],
         }),
         data_infracao: new FormControl('', {
-          validators: [Validators.required, Validators.pattern(SharedModule.datePattern)],
+          validators: [
+            Validators.required,
+            Validators.pattern(SharedModule.datePattern),
+          ],
         }),
-        hora_infracao: new FormControl("", {
-          validators: [Validators.required, Validators.pattern(SharedModule.hourPattern)],
+        hora_infracao: new FormControl('', {
+          validators: [
+            Validators.required,
+            Validators.pattern(SharedModule.hourPattern),
+          ],
         }),
-        obs_aip: new FormControl("", {
+        obs_aip: new FormControl('', {
           validators: [Validators.maxLength(500)],
         }),
-        descricao: new FormControl("", {
-          validators: [Validators.required, Validators.minLength(3), Validators.maxLength(500)],
+        acao_tomada: new FormControl('', {
+          validators: [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(500),
+          ],
         }),
-        acao_tomada: new FormControl("", {
-          validators: [Validators.required, Validators.minLength(3), Validators.maxLength(500)],
+        num_processo: new FormControl('', {
+          validators: [
+            Validators.required,
+            Validators.minLength(1),
+            Validators.maxLength(15),
+          ],
         }),
-        num_processo: new FormControl("", {
-          validators: [Validators.required, Validators.minLength(1), Validators.maxLength(15)],
+        qtd_fmp: new FormControl('', {
+          validators: [
+            Validators.required,
+            Validators.pattern(SharedModule.numberPatern),
+          ],
         }),
-        num_boleto: new FormControl("", {
-          validators: [Validators.required, Validators.minLength(1), Validators.maxLength(15)],
-        }),
-        data_vendimento_boleto: new FormControl('', {
-          validators: [Validators.required, Validators.pattern(SharedModule.datePattern)],
-        }),
-        qtd_moeda: new FormControl('', {
-          validators: [Validators.required, Validators.pattern(SharedModule.numberPatern)],
-        }),
-        moeda_id: new FormControl("", {
+        moeda_id: new FormControl('', {
           validators: [Validators.required],
         }),
-        natureza_infracao_id: new FormControl("", {
+        natureza_infracao_id: new FormControl('', {
           validators: [Validators.required],
         }),
-        quadro_infracao: new FormControl("", {
+        quadro_infracao: new FormControl('', {
           validators: [Validators.required],
         }),
-        veiculo: new FormControl("", {
+        veiculo: new FormControl('', {
           validators: [Validators.required],
         }),
-        permissionario: new FormControl(""),
+        permissionario: new FormControl('', {
+          validators: [],//manter sem validação por um erro na selação do autocomplete
+        }),
+        valor_fmp: new FormControl('', {
+          validators: [
+            Validators.required,
+            Validators.pattern(SharedModule.numberPaternWithDotAndComma),
+          ],
+        }),
+        valor_final: new FormControl('', {
+          validators: [
+            Validators.required,
+            Validators.pattern(SharedModule.numberPaternWithDotAndComma),
+          ],
+        }),
+        chave_pix: new FormControl('', {
+          validators: [],
+        }),
+        codigo_pix: new FormControl('', {
+          validators: [],
+        }),
+        tipoPix: new FormControl(0),///nao é persistido
+        tipoDeChavePix: new FormControl(0)///nao é persistido
       });
 
+      await this.loadFMP();
+
       if (solicitacaoId) {
-        this.solicitacao = await this.solicitacaoService.get(solicitacaoId).pipe(first()).toPromise();
+        this.solicitacao = await this.solicitacaoService
+          .get(solicitacaoId)
+          .pipe(first())
+          .toPromise();
         if (this.solicitacao) {
-          this.form.controls['data_infracao'].setValue(SharedModule.formatDateddMMyyyy(this.solicitacao.campo1.toString()));
+          this.form.controls['data_infracao'].setValue(
+            SharedModule.formatDateddMMyyyy(this.solicitacao.campo1.toString())
+          );
           this.form.controls['hora_infracao'].setValue(this.solicitacao.campo2);
           this.form.controls['descricao'].setValue(this.solicitacao.campo3);
-          this.veiculoSelecionado = await this.veiculoService.get(this.solicitacao.referencia_veiculo_id).pipe(first()).toPromise();
+          this.veiculoSelecionado = await this.veiculoService
+            .get(this.solicitacao.referencia_veiculo_id)
+            .pipe(first())
+            .toPromise();
           if (this.veiculoSelecionado) {
-            this.form.controls['veiculo'].setValue(this.veiculoSelecionado.placa ? this.veiculoSelecionado.placa : this.veiculoSelecionado.cod_renavam);
+            this.form.controls['veiculo'].setValue(
+              this.veiculoSelecionado.placa
+                ? this.veiculoSelecionado.placa
+                : this.veiculoSelecionado.cod_renavam
+            );
 
-            this.permissionarioSelecionado = await this.permissionarioService.get(this.veiculoSelecionado?.permissionario_id).pipe(first()).toPromise();
+            this.permissionarioSelecionado = await this.permissionarioService
+              .get(this.veiculoSelecionado?.permissionario_id)
+              .pipe(first())
+              .toPromise();
 
             if (this.permissionarioSelecionado) {
-              this.form.controls['permissionario'].setValue(this.permissionarioSelecionado.nome_razao_social);
+              this.form.controls['permissionario'].setValue(
+                this.permissionarioSelecionado.nome_razao_social
+              );
             }
           }
 
           if (this.solicitacao.arquivo1_uid) {
-            this.imageFile = await this.arquivoService.get(this.solicitacao.arquivo1_uid).pipe(first()).toPromise();
-            this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.imageFile));
+            this.imageFile = await this.arquivoService
+              .get(this.solicitacao.arquivo1_uid)
+              .pipe(first())
+              .toPromise();
+            this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(
+              URL.createObjectURL(this.imageFile)
+            );
           }
         }
       }
 
       ///////SET IN FORM
       if (idSelected) {
-        this.crudObj = await this.infracaoService.get(parseInt(idSelected)).toPromise();
-        this.permissionarioSelecionado = await this.permissionarioService.get(this.crudObj.permissionario_id).pipe(first()).toPromise();
-        this.quadroDeInfracoesSelecionado = await this.quadroDeInfracoesService.get(this.crudObj.quadro_infracao_id).pipe(first()).toPromise();
-        this.veiculoSelecionado = await this.veiculoService.get(this.crudObj.veiculo_id).pipe(first()).toPromise();
+        this.crudObj = await this.infracaoService
+          .get(parseInt(idSelected))
+          .toPromise();
+        this.permissionarioSelecionado = await this.permissionarioService
+          .get(this.crudObj.permissionario_id)
+          .pipe(first())
+          .toPromise();
+        this.quadroDeInfracoesSelecionado = await this.quadroDeInfracoesService
+          .get(this.crudObj.quadro_infracao_id)
+          .pipe(first())
+          .toPromise();
+        this.veiculoSelecionado = await this.veiculoService
+          .get(this.crudObj.veiculo_id)
+          .pipe(first())
+          .toPromise();
 
         if (this.crudObj.foto_uid) {
-          this.imageFile = await this.arquivoService.get(this.crudObj.foto_uid).pipe(first()).toPromise();
-          this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.imageFile));
+          this.imageFile = await this.arquivoService
+            .get(this.crudObj.foto_uid)
+            .pipe(first())
+            .toPromise();
+          this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(
+            URL.createObjectURL(this.imageFile)
+          );
         }
 
         this.crudObj = SharedModule.formatAllFieldsDateToddMMyyyy(this.crudObj);
 
         this.form.controls['num_aip'].setValue(this.crudObj.num_aip);
-        this.form.controls['data_infracao'].setValue(this.crudObj.data_infracao);
-        this.form.controls['hora_infracao'].setValue(SharedModule.formatHourFromAPIToHHmm(this.crudObj.hora_infracao.toString()));
+        this.form.controls['data_infracao'].setValue(
+          this.crudObj.data_infracao
+        );
+        this.form.controls['hora_infracao'].setValue(
+          SharedModule.formatHourFromAPIToHHmm(
+            this.crudObj.hora_infracao.toString()
+          )
+        );
+
         this.form.controls['obs_aip'].setValue(this.crudObj.obs_aip);
-        this.form.controls['descricao'].setValue(this.crudObj.descricao);
         this.form.controls['acao_tomada'].setValue(this.crudObj.acao_tomada);
         this.form.controls['num_processo'].setValue(this.crudObj.num_processo);
-        this.form.controls['num_boleto'].setValue(this.crudObj.num_boleto);
-        this.form.controls['data_vendimento_boleto'].setValue(this.crudObj.data_vendimento_boleto);
-        this.form.controls['qtd_moeda'].setValue(this.crudObj.qtd_moeda);
+        this.form.controls['qtd_fmp'].setValue(this.crudObj.qtd_fmp);
+        this.form.controls['valor_final'].setValue(
+          SharedModule.numberToCorrency(this.crudObj.valor_final)
+        );
         this.form.controls['moeda_id'].setValue(this.crudObj.moeda_id);
-        this.form.controls['natureza_infracao_id'].setValue(this.crudObj.natureza_infracao_id);
-        this.form.controls['quadro_infracao'].setValue(this.quadroDeInfracoesSelecionado.descricao);
-        this.form.controls['veiculo'].setValue(this.veiculoSelecionado.placa ? this.veiculoSelecionado.placa : this.veiculoSelecionado.cod_renavam);
-        this.form.controls['permissionario'].setValue(this.permissionarioSelecionado.nome_razao_social);
-      }
+        this.form.controls['natureza_infracao_id'].setValue(
+          this.quadroDeInfracoesSelecionado.natureza_infracao_id
+        );
+        this.form.controls['quadro_infracao'].setValue(
+          this.quadroDeInfracoesSelecionado.descricao
+        );
+        this.form.controls['veiculo'].setValue(
+          this.veiculoSelecionado.placa
+            ? this.veiculoSelecionado.placa
+            : this.veiculoSelecionado.cod_renavam
+        );
+        this.form.controls['permissionario'].setValue(
+          this.permissionarioSelecionado.nome_razao_social
+        );
+        this.form.controls['chave_pix'].setValue(this.crudObj.chave_pix);
+        this.form.controls['codigo_pix'].setValue(this.crudObj.codigo_pix);
 
+        this.valorInfracaoOriginal = this.crudObj.valor;
+
+        if(this.crudObj.chave_pix){
+          this.form.controls['tipoDeChavePix'].setValue(SharedModule.detectTipoPix(this.crudObj.chave_pix));
+        }
+
+      }
     } catch (e: any) {
-      this.errorMessage = "Ocorreu um erro ao montar a página";
+      this.errorMessage = 'Ocorreu um erro ao montar a página';
+      console.error(e);
     }
     this.loading = false;
   }
 
   async salvar(formInput: any) {
     this.loading = true;
-    this.errorMessage = "";
+    this.errorMessage = '';
     try {
       SharedModule.setAllFieldsFromFormAsTouched(this.form);
 
       if (!this.form.valid) {
-        this.snackbarService.openSnackBarError("Verifique se existem campos inválidos!");
+        this.snackbarService.openSnackBarError(
+          'Verifique se existem campos inválidos!'
+        );
         this.loading = false;
         return;
       }
 
       if (!this.permissionarioSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Permissionário selecionado!");
+        this.snackbarService.openSnackBarError(
+          'Nenhum Permissionário selecionado!'
+        );
         this.loading = false;
         return;
       }
 
       if (!this.quadroDeInfracoesSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Quadro de Infração selecionado!");
+        this.snackbarService.openSnackBarError(
+          'Nenhum Quadro de Infração selecionado!'
+        );
+        this.loading = false;
+        return;
+      }
+
+      if(this.form.controls['tipoPix'].value == '0' &&  !this.form.controls['chave_pix'].value){
+        this.snackbarService.openSnackBarError(
+          'Informe a chave pix!'
+        );
+        this.loading = false;
+        return;
+      }
+
+      if(this.form.controls['tipoPix'].value == '1' &&  !this.form.controls['codigo_pix'].value){
+        this.snackbarService.openSnackBarError(
+          'Informe o código pix!'
+        );
         this.loading = false;
         return;
       }
 
       if (!this.veiculoSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum veículo selecionado!");
+        this.snackbarService.openSnackBarError('Nenhum veículo selecionado!');
         this.loading = false;
         return;
       }
 
-      if (this.veiculoSelecionado && this.permissionarioSelecionado
-        && this.permissionarioSelecionado?.id != this.veiculoSelecionado?.permissionario_id) {
-        this.snackbarService.openSnackBarError("Veiculo selecionado não pertence ao permissionário!");
+      if (
+        this.veiculoSelecionado &&
+        this.permissionarioSelecionado &&
+        this.permissionarioSelecionado?.id !=
+          this.veiculoSelecionado?.permissionario_id
+      ) {
+        this.snackbarService.openSnackBarError(
+          'Veiculo selecionado não pertence ao permissionário!'
+        );
         this.loading = false;
         return;
       }
 
-      if (!this.imageChange && this.solicitacao && this.solicitacao.arquivo1_uid) {
+      if (
+        !this.imageChange &&
+        this.solicitacao &&
+        this.solicitacao.arquivo1_uid
+      ) {
         formInput.foto_uid = this.solicitacao.arquivo1_uid;
       } else if (this.imageChange && this.imageFile) {
-        const arquivo = await this.arquivoService.create(this.imageFile).pipe(first()).toPromise();
+        const arquivo = await this.arquivoService
+          .create(this.imageFile)
+          .pipe(first())
+          .toPromise();
 
         if (!arquivo) {
           throwError('Imagem não cadastrada');
@@ -259,19 +408,30 @@ export class UserInfracoesCrudComponent implements OnInit {
       formInput.permissionario_id = this.permissionarioSelecionado.id;
       formInput.quadro_infracao_id = this.quadroDeInfracoesSelecionado.id;
       formInput.veiculo_id = this.veiculoSelecionado.id;
+      formInput.valor = this.valorInfracaoOriginal;
+      formInput.tipo_pagamento = 'pix';//somente pix por hora
+      formInput.valor_fmp = SharedModule.correncyToNumber(this.form.controls['valor_fmp'].value);
+      formInput.valor_final = SharedModule.correncyToNumber(this.form.controls['valor_final'].value);
+      formInput.fmp_id = this.fmp.id;
+      formInput.valor_fmp_atual = this.fmp.valor;
+
 
       formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
 
+
       if (this.crudObj) {
-        await this.infracaoService.update(this.crudObj.id, formInput).toPromise();
+        await this.infracaoService
+          .update(this.crudObj.id, formInput)
+          .toPromise();
       } else {
         if (this.solicitacao) {
           formInput.solicitacao_id = this.solicitacao.id;
         }
+
         await this.infracaoService.create(formInput).toPromise();
       }
       this.snackbarService.openSnackBarSucess('Infração salva!');
-      this.location.back()
+      this.location.back();
     } catch (e: any) {
       console.error(e);
       this.errorMessage = SharedModule.handleError(e);
@@ -279,17 +439,26 @@ export class UserInfracoesCrudComponent implements OnInit {
     this.loading = false;
   }
 
+  async loadFMP() {
+    const fmps = await this.fmpService.indexValidos().toPromise();
+    if (!fmps || fmps.length == 0) {
+      this.snackbarService.openSnackBarError('Nenhum FMP válido encontrado!');
+    }
+    this.fmp = fmps[0];
+    this.form.controls['valor_fmp'].setValue(this.fmp.valor.toFixed(2).replace('.', ','));
+  }
+
   async excluir() {
     this.loading = true;
-    this.errorMessage = "";
+    this.errorMessage = '';
     try {
       await this.infracaoService.delete(this.crudObj.id).toPromise();
-      this.modal.dismissAll()
+      this.modal.dismissAll();
       this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
-      this.location.back()
+      this.location.back();
     } catch (e: any) {
-      this.modal.dismissAll()
-      this.errorMessage = "Este não pode ser excluido!";
+      this.modal.dismissAll();
+      this.errorMessage = 'Este não pode ser excluido!';
     }
     this.loading = false;
   }
@@ -304,14 +473,16 @@ export class UserInfracoesCrudComponent implements OnInit {
 
   async salvarFoto() {
     this.loading = true;
-    this.errorMessage = "";
+    this.errorMessage = '';
     try {
       if (!this.imageFile) {
-        this.snackbarService.openSnackBarError("Nenhuma foto foi selecionada");
+        this.snackbarService.openSnackBarError('Nenhuma foto foi selecionada');
       }
-      await this.permissionarioService.updatePhoto(this.crudObj.id, this.imageFile).toPromise();
+      await this.permissionarioService
+        .updatePhoto(this.crudObj.id, this.imageFile)
+        .toPromise();
       this.snackbarService.openSnackBarSucess('Foto salva!');
-      this.closeModal("");
+      this.closeModal('');
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
     }
@@ -324,7 +495,9 @@ export class UserInfracoesCrudComponent implements OnInit {
       page = this.searchText !== text ? 1 : page;
       this.searchText = text;
 
-      this.quadroDeInfracoesPesquisado = await this.quadroDeInfracoesService.search(this.searchText, page).toPromise();
+      this.quadroDeInfracoesPesquisado = await this.quadroDeInfracoesService
+        .search(this.searchText, page)
+        .toPromise();
     } catch (e) {
       this.quadroDeInfracoesPesquisado = null;
     }
@@ -338,11 +511,19 @@ export class UserInfracoesCrudComponent implements OnInit {
       this.searchVeiculoText = text;
 
       if (!this.permissionarioService) {
-        this.snackbarService.openSnackBarError("É necessário selecionar um permissionário antes.");
+        this.snackbarService.openSnackBarError(
+          'É necessário selecionar um permissionário antes.'
+        );
         return;
       }
 
-      this.veiculoPesquisado = await this.veiculoService.searchPorPermissionario(this.searchVeiculoText, this.permissionarioSelecionado.id.toString(), page).toPromise();
+      this.veiculoPesquisado = await this.veiculoService
+        .searchPorPermissionario(
+          this.searchVeiculoText,
+          this.permissionarioSelecionado.id.toString(),
+          page
+        )
+        .toPromise();
     } catch (e) {
       this.veiculoPesquisado = null;
     }
@@ -351,7 +532,9 @@ export class UserInfracoesCrudComponent implements OnInit {
 
   async visualizarImagem(modal) {
     try {
-      this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.imageFile));
+      this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(
+        URL.createObjectURL(this.imageFile)
+      );
       this.openModal(modal);
     } catch (e: any) {
       this.imageFile = null;
@@ -367,29 +550,77 @@ export class UserInfracoesCrudComponent implements OnInit {
     this.searchVeiculos(this.searchVeiculoText, page);
   }
 
-  async selecionarQuadro(id: String) {
+  async selecionarQuadro(id: string) {
     this.loading = true;
     try {
-      this.quadroDeInfracoesSelecionado = await this.quadroDeInfracoesService.get(id).pipe(first()).toPromise();
+      this.quadroDeInfracoesSelecionado = await this.quadroDeInfracoesService
+        .get(id)
+        .pipe(first())
+        .toPromise();
 
-      this.form.controls['quadro_infracao'].setValue(this.quadroDeInfracoesSelecionado.descricao);
+      this.form.controls['quadro_infracao'].setValue(
+        this.quadroDeInfracoesSelecionado.descricao
+      );
+
+      this.form.controls['natureza_infracao_id'].setValue(
+        this.quadroDeInfracoesSelecionado.natureza_infracao_id
+      );
+
+      this.loadValoresDaInfracao();
 
       this.closeModal(null);
-    } catch (e) {
-    }
+    } catch (e) {}
     this.loading = false;
   }
 
-  async selecionarVeiculo(id: String) {
+  private async loadValoresDaInfracao() {
+    if (!this.quadroDeInfracoesSelecionado || !this.permissionarioSelecionado) {
+      return;
+    }
+
+    const valores: ValoresDeInfracao[] = await firstValueFrom(
+      this.valoresDaInfracaoService.getByModalidadeIdAndNaturezaId(
+        this.permissionarioSelecionado.modalidade_id,
+        this.quadroDeInfracoesSelecionado.natureza_infracao_id
+      )
+    );
+
+    if (!valores || valores.length == 0) {
+      this.snackbarService.openSnackBarError(
+        'Não foi encontrado valores para a modalidade do permissionário e natureza selecionada.'
+      );
+      return;
+    }
+
+    if (valores.length > 1) {
+      this.snackbarService.openSnackBarError(
+        'Mais de um valor foi encontrado para a modalidade do permissionário e natureza selecionada.'
+      );
+      return;
+    }
+
+    this.form.controls['moeda_id'].setValue(valores[0].moeda_id);
+    this.form.controls['qtd_fmp'].setValue(valores[0].quantidade);
+    this.valorInfracaoOriginal = this.fmp.valor * valores[0].quantidade;
+    this.form.controls['valor_final'].setValue(`${this.valorInfracaoOriginal},00`);
+  }
+
+  async selecionarVeiculo(id: string) {
     this.loading = true;
     try {
-      this.veiculoSelecionado = await this.veiculoService.get(id).pipe(first()).toPromise();
+      this.veiculoSelecionado = await this.veiculoService
+        .get(id)
+        .pipe(first())
+        .toPromise();
 
-      this.form.controls['veiculo'].setValue(this.veiculoSelecionado.placa ? this.veiculoSelecionado.placa : this.veiculoSelecionado.cod_renavam);
+      this.form.controls['veiculo'].setValue(
+        this.veiculoSelecionado.placa
+          ? this.veiculoSelecionado.placa
+          : this.veiculoSelecionado.cod_renavam
+      );
 
       this.closeModal(null);
-    } catch (e) {
-    }
+    } catch (e) {}
     this.loading = false;
   }
 
@@ -399,11 +630,11 @@ export class UserInfracoesCrudComponent implements OnInit {
   }
 
   closeModal(event: any) {
-    return this.modal.dismissAll()
+    return this.modal.dismissAll();
   }
 
   openModal(content: any) {
-    this.modal.open(content)
+    this.modal.open(content);
   }
 
   public async searchPermissionarios() {
@@ -416,11 +647,13 @@ export class UserInfracoesCrudComponent implements OnInit {
 
       this.permissionariosPesquisados.clear();
       result.data.forEach((permissionario: Permissionario) => {
-        this.permissionariosPesquisados.set(`${permissionario.id}`, permissionario.nome_razao_social);
+        this.permissionariosPesquisados.set(
+          `${permissionario.id}`,
+          permissionario.nome_razao_social
+        );
       });
-
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.snackbarService.openSnackBarError('Ocorreu um erro ao pesquisar.');
     }
   }
 
@@ -431,9 +664,17 @@ export class UserInfracoesCrudComponent implements OnInit {
   public async setPermissionario(event) {
     try {
       if (event) {
-        this.form.controls['permissionario'].setValue("Carregando...");
-        this.permissionarioSelecionado = await this.permissionarioService.get(event).pipe(first()).toPromise();
-        this.form.controls['permissionario'].setValue(this.permissionarioSelecionado.nome_razao_social);
+        this.form.controls['permissionario'].setValue('Carregando...');
+        this.permissionarioSelecionado = await this.permissionarioService
+          .get(event)
+          .pipe(first())
+          .toPromise();
+        this.form.controls['permissionario'].setValue(
+          this.permissionarioSelecionado.nome_razao_social
+        );
+
+        this.loadValoresDaInfracao();
+        this.form.controls['veiculo'].setValue('');
       }
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -445,5 +686,4 @@ export class UserInfracoesCrudComponent implements OnInit {
       this.searchPermissionarios();
     }
   }
-
 }

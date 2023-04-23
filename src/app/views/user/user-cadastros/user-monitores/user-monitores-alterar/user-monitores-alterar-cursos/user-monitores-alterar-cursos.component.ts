@@ -28,7 +28,7 @@ export class UserMonitoresAlterarCursosComponent implements OnInit {
   tiposDeCurso: TipoDeCurso[];
   cursosDoMonitor: CursoDoMonitor[];
 
-  cursoParaDelecao: String;
+  cursoParaDelecao: string;
 
   maskDate = SharedModule.textMaskDate;
 
@@ -101,11 +101,11 @@ export class UserMonitoresAlterarCursosComponent implements OnInit {
   }
 
 
-  setCursoParaDelecao(id: String) {
+  setCursoParaDelecao(id: string) {
     this.cursoParaDelecao = id;
   }
 
-  findTipoDeCurso(id: String): TipoDeCurso {
+  findTipoDeCurso(id: string): TipoDeCurso {
     if (this.tiposDeCurso && id)
       return this.tiposDeCurso.filter(t => t.id == id)[0];
   }

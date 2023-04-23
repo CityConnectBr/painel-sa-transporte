@@ -25,11 +25,11 @@
       </app-input>
 
       <app-input label="Telefone" [inline]="true">
-        <input type="text" class="form-control" formControlName="telefone" mask="000" autocomplete="off">
+        <input type="text" class="form-control" formControlName="telefone"  mask="(00) 00000-0000 || (00) 0000-0000" autocomplete="off">
       </app-input>
 
       <app-input label="Fax" [inline]="true">
-        <input type="text" class="form-control" formControlName="fax" mask="000" autocomplete="off">
+        <input type="text" class="form-control" formControlName="fax"  mask="(00) 00000-0000 || (00) 0000-0000" autocomplete="off">
       </app-input>
 
       <app-input label="Home Page" [inline]="true">
@@ -56,7 +56,7 @@
     <div class="subitem">
       <h3>Endereço</h3>
       <app-input label="CEP" [inline]="true" [require]="true">
-        <input type="text" class="form-control" formControlName="cep" mask="00000-000" autocomplete="off">
+        <input type="text" class="form-control" formControlName="cep" mask="00000-000" [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
 
       <app-input label="Endereço" [inline]="true" [require]="true">

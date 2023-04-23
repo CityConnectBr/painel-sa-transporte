@@ -1,5 +1,5 @@
 export interface EntidadeCurso {
-  id: String
-  descricao: String
-  base_legal: String
+  id: string
+  descricao: string
+  base_legal: string
 }

@@ -20,6 +20,7 @@
     "@angular/router": "^14.2.0",
     "@ng-bootstrap/ng-bootstrap": "^13.1.1",
     "@popperjs/core": "^2.11.6",
+    "angularx-qrcode": "14.0.0",
     "bootstrap": "^4.6.0",
     "font-awesome": "^4.7.0",
     "jspdf": "^2.3.1",
@@ -28,6 +29,7 @@
     "ngx-clipboard": "^14.0.1",
     "ngx-currency": "^3.0.0",
     "ngx-mask": "^14.0.0",
+    "qrcode-pix": "^5.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

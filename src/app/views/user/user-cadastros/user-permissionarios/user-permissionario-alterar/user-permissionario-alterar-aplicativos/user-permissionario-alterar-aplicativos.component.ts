@@ -28,7 +28,7 @@ export class UserPermissionarioAlterarAplicativosComponent implements OnInit {
   aplicativos: Aplicativo[];
   aplicativosDoPermissionario: AplicativoDoPermissionario[];
 
-  idParaDelecao: String;
+  idParaDelecao: string;
 
   maskDate = SharedModule.textMaskDate;
 
@@ -98,11 +98,11 @@ export class UserPermissionarioAlterarAplicativosComponent implements OnInit {
   }
 
 
-  setAplicativoParaDelecao(id: String) {
+  setAplicativoParaDelecao(id: string) {
     this.idParaDelecao = id;
   }
 
-  findAplicativo(id: String): Aplicativo {
+  findAplicativo(id: string): Aplicativo {
     if (this.aplicativos && id)
       return this.aplicativos.filter(t => t.id == id)[0];
   }

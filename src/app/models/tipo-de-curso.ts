@@ -1,5 +1,5 @@
 export interface TipoDeCurso {
-  id: String
-  descricao: String
-  modalidade: String
+  id: string
+  descricao: string
+  modalidade: string
 }

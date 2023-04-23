@@ -25,7 +25,7 @@ export class UserPermissionarioAlterarObservacoesComponent implements OnInit {
 
   observacoesDoPermissionario: ObservacaoDoPermissionario[];
 
-  idParaDelecao: String;
+  idParaDelecao: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -89,7 +89,7 @@ export class UserPermissionarioAlterarObservacoesComponent implements OnInit {
   }
 
 
-  setIdParaDelecao(id: String) {
+  setIdParaDelecao(id: string) {
     this.idParaDelecao = id;
   }
 

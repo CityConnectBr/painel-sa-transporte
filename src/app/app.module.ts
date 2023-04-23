@@ -18,6 +18,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { NgxCurrencyModule } from "ngx-currency";
+import { QRCodeModule } from 'angularx-qrcode';
 
 registerLocaleData(localePt, 'pt');
 
@@ -37,7 +38,8 @@ registerLocaleData(localePt, 'pt');
     NoopAnimationsModule,
     ClipboardModule,
     PdfViewerModule,
-    NgxCurrencyModule
+    NgxCurrencyModule,
+    QRCodeModule
   ],
   providers: [
     LoggedInGuard,

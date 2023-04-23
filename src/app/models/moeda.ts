@@ -1,5 +1,5 @@
 export interface Moeda {
-  id: String
-  id_integracao: String
-  nome: String
+  id: string
+  id_integracao: string
+  nome: string
 }

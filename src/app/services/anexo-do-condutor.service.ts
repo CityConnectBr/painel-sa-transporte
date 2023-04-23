@@ -33,7 +33,7 @@ export class AnexoDoCondutorService extends BasicCrudService {
     });
   }
 
-  indexByCondutor(condutorId: String): Observable<SearchData> {
+  indexByCondutor(condutorId: string): Observable<SearchData> {
     return this.httpClient.get<SearchData>(`${this.url}?search=${condutorId}`, super.getHttpOptions)
   }
 

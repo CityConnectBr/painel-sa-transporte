@@ -1,17 +1,17 @@
 export interface Certidao {
-  id: String
+  id: string
   data: Date
-  renavam: String
-  placa: String
-  ano_fabricacao: String
-  chassis: String
-  prefixo: String
-  marca_modelo_veiculo_id: String
-  tipo_de_certidao_id: String
-  permissionario_id: String
-  tipo_combustivel_id: String
-  cor_id: String
-  ponto_id: String
-  observacao: String
+  renavam: string
+  placa: string
+  ano_fabricacao: string
+  chassis: string
+  prefixo: string
+  marca_modelo_veiculo_id: string
+  tipo_de_certidao_id: string
+  permissionario_id: string
+  tipo_combustivel_id: string
+  cor_id: string
+  ponto_id: string
+  observacao: string
   created_at: Date
 }

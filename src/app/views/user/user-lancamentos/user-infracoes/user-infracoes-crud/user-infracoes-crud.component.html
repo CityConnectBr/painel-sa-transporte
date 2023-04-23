@@ -32,7 +32,7 @@
           </app-input>
 
           <app-input label="Veículo" [require]="true">
-            <input type="text" class="form-control" formControlName="veiculo" autocomplete="off">
+            <input type="text" class="form-control" formControlName="veiculo" autocomplete="off" [readOnly]="true">
             <button class="btn btn-search" type="button" title="Pesquisa Veículos"
               (click)="searchVeiculos();openModal(pesquisaVeiculoModal)">
               <i class="fa fa-search"></i>
@@ -41,12 +41,12 @@
 
           <app-input label="Data" [require]="true">
             <input type="text" class="form-control" formControlName="data_infracao" mask="00/00/0000"
-              autocomplete="off">
+              [dropSpecialCharacters]="false" autocomplete="off">
           </app-input>
 
           <app-input label="Hora" [require]="true">
             <input type="text" class="form-control" formControlName="hora_infracao" mask="00:00"
-              autocomplete="off">
+              [dropSpecialCharacters]="false" autocomplete="off">
           </app-input>
 
 
@@ -57,48 +57,33 @@
           <h3>Sobre a Infração</h3>
 
           <app-input label="Quadro de Infração" [require]="true">
-            <input type="text" class="form-control" formControlName="quadro_infracao" autocomplete="off">
+            <input type="text" class="form-control" formControlName="quadro_infracao" autocomplete="off" [readOnly]="true">
             <button class="btn btn-search" type="button" title="Pesquisa Quadro"
               (click)="searchQuadroDeInfracoes();openModal(pesquisaQuadro)">
               <i class="fa fa-search"></i>
             </button>
           </app-input>
 
-          <app-input label="Natureza" [inline]="true" [require]="true">
-            <select formControlName="natureza_infracao_id" class="form-control">
-              <option *ngFor="let n of naturezas;" value="{{n.id}}">{{n.descricao}}</option>
-            </select>
-          </app-input>
-
-          <app-input label="Descrição" [require]="true">
-            <input type="text" class="form-control" formControlName="descricao" autocomplete="off">
-          </app-input>
-
-          <app-input label="Observação">
-            <input type="text" class="form-control" formControlName="obs_aip" autocomplete="off">
-          </app-input>
-
-          <app-input label="Acao Tomada" [require]="true">
-            <input type="text" class="form-control" formControlName="acao_tomada" autocomplete="off">
-          </app-input>
-        </div>
-
-
-        <div class="subitem">
-          <h3>Sobre a Infração</h3>
-
-          <app-input label="N. Boleto" [require]="true">
-            <input type="text" class="form-control" formControlName="num_boleto" autocomplete="off">
-          </app-input>
-
           <app-input label="N. Processo" [require]="true">
             <input type="text" class="form-control" formControlName="num_processo" autocomplete="off">
           </app-input>
+        </div>
 
-          <app-input label="Vencimento" [require]="true">
-            <input type="text" class="form-control" formControlName="data_vendimento_boleto"
-              mask="00/00/0000" autocomplete="off">
-          </app-input>
+        <div class="row">
+          <div class="col-md-6">
+            <app-input label="Observação">
+              <textarea class="form-control" formControlName="obs_aip" cols="50"></textarea>
+            </app-input>
+          </div>
+          <div class="col-md-6">
+            <app-input label="Acao Tomada" [require]="true">
+              <textarea class="form-control" formControlName="acao_tomada" cols="50"></textarea>
+            </app-input>
+          </div>
+        </div>
+
+        <div class="subitem">
+          <h3>Sobre o Valor</h3>
 
           <app-input label="Moeda" [inline]="true" [require]="true">
             <select formControlName="moeda_id" class="form-control">
@@ -107,7 +92,47 @@
           </app-input>
 
           <app-input label="Qtd Moeda" [require]="true">
-            <input type="text" class="form-control" formControlName="qtd_moeda" autocomplete="off">
+            <input type="text" class="form-control" formControlName="qtd_fmp" [readOnly]="true">
+          </app-input>
+
+          <app-input label="Valor FMP" [require]="true">
+            <input type="text" class="form-control" formControlName="valor_fmp" [readOnly]="true">
+          </app-input>
+
+          <app-input label="Valor da Infração" [require]="true">
+            <input type="text" class="form-control" formControlName="valor_final" autocomplete="off" [mask]="'0*,00'">
+          </app-input>
+        </div>
+
+        <div class="subitem">
+          <h3>Sobre o Pagamento</h3>
+
+          <app-input label="Tipo de Pix" [require]="true">
+            <select class="form-control" formControlName="tipoPix">
+              <option value="0">Sistema Gerar</option>
+              <option value="1">Código já gerado</option>
+            </select>
+          </app-input>
+
+          <app-input label="Tipo de Chave" [require]="true">
+            <select class="form-control" formControlName="tipoDeChavePix">
+              <option value="0">Celular</option>
+              <option value="1">Email</option>
+              <option value="2">CPF</option>
+              <option value="3">CNPJ</option>
+              <option value="4">Aleatório</option>
+            </select>
+          </app-input>
+
+          <app-input label="Chave PIX" [require]="true" *ngIf="form.get('tipoPix').value == 0">
+            <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 0" mask="(00) 00000-0000 || (00) 0000-0000">
+            <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 1 || form.get('tipoDeChavePix').value == 4">
+            <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 2" mask="000.000.000-00">
+            <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 3" mask="00.000.000/0000-00">
+          </app-input>
+
+          <app-input label="Código PIX" [require]="true" *ngIf="form.get('tipoPix').value == 1">
+            <input type="text" class="form-control" formControlName="codigo_pix" autocomplete="off">
           </app-input>
         </div>
 
@@ -128,7 +153,6 @@
             Excluir
           </a>
         </div>
-
       </div>
       <div class="clearfix">
         <div class="alert alert-danger" *ngIf="errorMessage">
@@ -164,13 +188,15 @@
               <tr>
                 <th>Codigo</th>
                 <th>Descricao</th>
+                <th>Natureza</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let obj of quadroDeInfracoesPesquisado.data">
-                <td>{{obj?.codigo}}</td>
+                <td>{{obj?.id_integracao}}</td>
                 <td>{{obj?.descricao}}</td>
+                <td>{{obj?.natureza_infracao?.descricao}}</td>
                 <td class="text-right">
                   <a href="javascript: void(0);" (click)="selecionarQuadro(obj.id);" title="Selecionar"><i
                       class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
@@ -228,13 +254,12 @@
           </table>
           <div *ngIf="veiculoPesquisado.data.length>0" class="float-right">
             <app-pagination [backEnabled]="veiculoPesquisado.prev_page_url!=null"
-              [nextEnabled]="veiculoPesquisado.next_page_url!=null"
-              [actualPage]="veiculoPesquisado.current_page" (changePos)="changePosVeiculoPaginate($event)">
+              [nextEnabled]="veiculoPesquisado.next_page_url!=null" [actualPage]="veiculoPesquisado.current_page"
+              (changePos)="changePosVeiculoPaginate($event)">
             </app-pagination>
           </div>
 
-          <div *ngIf="!veiculoPesquisado || veiculoPesquisado.data.length==0"
-            class="alert alert-warning">
+          <div *ngIf="!veiculoPesquisado || veiculoPesquisado.data.length==0" class="alert alert-warning">
             Nenhum registro encontrado!
           </div>
         </div>
@@ -246,8 +271,7 @@
 <ng-template #uploadModal let-modal>
   <app-modal modalID="uploadModal" title="Upload da Foto" (closeModalEmit)="closeModal($event)">
     <form>
-      <input type="file" id="img" name="foto" accept="image/*"
-      (change)="handleFileInput($event)">
+      <input type="file" id="img" name="foto" accept="image/*" (change)="handleFileInput($event)">
 
       <button type="submit" class="btn btn-success pull-right" (click)="closeModal(true)">Fechar</button>
     </form>
@@ -259,4 +283,3 @@
     <img [src]=imageToShow style="max-width:100%;" class="mr-3">
   </app-modal>
 </ng-template>
-

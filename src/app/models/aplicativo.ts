@@ -1,4 +1,4 @@
 export interface Aplicativo {
-  id: String
-  descricao: String
+  id: string
+  descricao: string
 }

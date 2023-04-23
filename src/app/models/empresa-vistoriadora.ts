@@ -1,15 +1,15 @@
 export interface EmpresaVistoriadora {
-  id: String
+  id: string
   id_integracao: number
-  nome: String
-  tipo: String
-  telefone: String
-  email: String
-  cnpj: String
-  inscricao_estadual: String
-  inscricao_municipal: String
-  nome_diretor: String
-  nome_delegado: String
+  nome: string
+  tipo: string
+  telefone: string
+  email: string
+  cnpj: string
+  inscricao_estadual: string
+  inscricao_municipal: string
+  nome_diretor: string
+  nome_delegado: string
   total_vistorias_dia: number
-  endereco_id: String
+  endereco_id: string
 }

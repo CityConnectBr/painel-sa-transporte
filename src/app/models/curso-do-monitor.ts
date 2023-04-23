@@ -1,7 +1,7 @@
 export interface CursoDoMonitor {
-  id: String
-  monitor_id: String
-  tipo_do_curso_id: String
+  id: string
+  monitor_id: string
+  tipo_do_curso_id: string
   data_emissao: Date
-  descricao: String
+  descricao: string
 }

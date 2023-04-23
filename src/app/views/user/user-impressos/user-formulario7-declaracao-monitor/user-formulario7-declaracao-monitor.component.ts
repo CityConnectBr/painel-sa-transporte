@@ -146,7 +146,7 @@ export class UserFormulario7DeclaracaoMonitorComponent implements OnInit {
     }
   }
 
-  getStatus(status: String): string {
+  getStatus(status: string): string {
     return SharedModule.getStatusSolicitacao(status);
   }
 

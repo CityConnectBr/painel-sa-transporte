@@ -18,7 +18,7 @@
       <div class="form-inline">
 
         <app-input label="Data" [require]="true">
-          <input type="text" class="form-control" formControlName="data_vistoria" mask="00/00/0000"
+          <input type="text" class="form-control" formControlName="data_vistoria" mask="00/00/0000" [dropSpecialCharacters]="false"
             autocomplete="off">
         </app-input>
 

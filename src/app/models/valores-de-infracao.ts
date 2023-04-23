@@ -1,8 +1,8 @@
 export interface ValoresDeInfracao {
-  id: String
-  descricao: String
-  modalidade_transporte: String
+  id: string
+  descricao: string
+  modalidade_transporte: string
   quantidade: number
-  natureza_infracao_id: String
-  moeda_id: String
+  natureza_infracao_id: string
+  moeda_id: string
 }

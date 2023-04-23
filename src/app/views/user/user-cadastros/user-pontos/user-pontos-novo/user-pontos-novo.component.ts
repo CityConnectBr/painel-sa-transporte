@@ -5,8 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { debounceTime, first } from 'rxjs/operators';
+import { Modalidade } from 'src/app/models/modalidade';
 import { Municipio } from 'src/app/models/municipio';
 import { EnderecoService } from 'src/app/services/endereco.service';
+import { ModalidadeService } from 'src/app/services/modalidade.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
 import { PontoService } from 'src/app/services/ponto.service';
 import { SharedModule } from 'src/app/shared/shared-module';
@@ -30,6 +32,8 @@ export class UserPontosNovoComponent implements OnInit, OnDestroy {
   municipiosPesquisados: Map<String, String> = new Map();
   municipioSelecionado: Municipio;
 
+  modalidades: Modalidade[] = [];
+
   @ViewChild('municipioInput') municipioInputElement: ElementRef;
 
   maskCEP = SharedModule.textMaskCEPPattern;
@@ -40,6 +44,7 @@ export class UserPontosNovoComponent implements OnInit, OnDestroy {
     private enderecoService: EnderecoService,
     private municipioService: MunicipioService,
     private pontoService: PontoService,
+    private modalidadeService: ModalidadeService,
     private router: Router,
     private route: ActivatedRoute,
     private snackbarService: SnackBarService,
@@ -52,6 +57,8 @@ export class UserPontosNovoComponent implements OnInit, OnDestroy {
     this.errorMessage = "";
 
     try {
+
+      this.loadModalidades();
 
       //pesquisa municipio
       this.subjectMunicipio
@@ -81,7 +88,7 @@ export class UserPontosNovoComponent implements OnInit, OnDestroy {
         observacao: new FormControl('', {
           validators: [Validators.maxLength(500)],
         }),
-        modalidade_transporte: new FormControl('', {
+        modalidade_id: new FormControl('', {
           validators: [Validators.required,],
         }),
         celular: new FormControl('', {
@@ -179,6 +186,10 @@ export class UserPontosNovoComponent implements OnInit, OnDestroy {
     } else {
       return SharedModule.textMaskPhone9Dattern
     }
+  }
+
+  private loadModalidades() {
+    this.modalidadeService.index().subscribe((result: any) => this.modalidades = result);
   }
 
   public async searchMunicipios() {

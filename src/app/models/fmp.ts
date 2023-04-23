@@ -1,8 +1,8 @@
 export interface FMP {
-  id: String
-  descricao: String,
-  data_inicial: String,
-  data_final: String,
-  valor: String,
-  moeda_id: String
+  id: string
+  descricao: string,
+  data_inicial: string,
+  data_final: string,
+  valor: number,
+  moeda_id: string
 }

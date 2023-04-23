@@ -129,7 +129,7 @@ export class UserSolicitacoesComponent implements OnInit {
     this.loading = false;
   }
 
-  async visualizarComprovante(id: String, modal) {
+  async visualizarComprovante(id: string, modal) {
     try {
       const blob = await this.arquivoService.get(id).pipe(first()).toPromise();
       this.imageFile = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
@@ -185,12 +185,12 @@ export class UserSolicitacoesComponent implements OnInit {
     }
   }
 
-  getStatus(status: String): string {
+  getStatus(status: string): string {
     return SharedModule.getStatusSolicitacao(status);
   }
 
   getCampos(solicitacao: SolicitacaoDeAlteracao) {
-    const campos: { nome: String, valorOriginal: String, novoValor: String }[] = [];
+    const campos: { nome: string, valorOriginal: string, novoValor: string }[] = [];
 
     for (let i = 1; i < 26; i++) {
       const desc = solicitacao.tipo[`desc_campo${i}`];
@@ -226,7 +226,7 @@ export class UserSolicitacoesComponent implements OnInit {
   }
 
   getComprovantes(solicitacao: SolicitacaoDeAlteracao) {
-    const comprovantes: { nome: String, arquivo: String }[] = [];
+    const comprovantes: { nome: string, arquivo: string }[] = [];
 
     for (let i = 1; i < 5; i++) {
       const arquivo = solicitacao[`arquivo${i}_uid`];
@@ -240,7 +240,7 @@ export class UserSolicitacoesComponent implements OnInit {
     return comprovantes;
   }
 
-  formatValue(value: String): String {
+  formatValue(value: string): string {
 
     try {
       if (value) {

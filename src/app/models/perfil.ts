@@ -1,6 +1,6 @@
 export interface Perfil {
-  id: String
-  nome: String
+  id: string
+  nome: string
   incluir: boolean
   alterar: boolean
   excluir: boolean

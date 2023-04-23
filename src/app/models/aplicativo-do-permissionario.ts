@@ -1,6 +1,6 @@
 export interface AplicativoDoPermissionario {
-  id: String
-  permissionario_id: String
-  aplicativo_id: String
-  descricao: String
+  id: string
+  permissionario_id: string
+  aplicativo_id: string
+  descricao: string
 }

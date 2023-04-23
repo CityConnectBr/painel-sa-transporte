@@ -1,7 +1,7 @@
 export interface Vistoriador {
-  id: String
-  id_integracao: String
-  nome: String
-  cargo: String
-  empresa_vistoriadora_id: String
+  id: string
+  id_integracao: string
+  nome: string
+  cargo: string
+  empresa_vistoriadora_id: string
 }

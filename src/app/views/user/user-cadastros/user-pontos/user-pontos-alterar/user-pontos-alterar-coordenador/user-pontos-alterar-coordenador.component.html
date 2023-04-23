@@ -12,12 +12,12 @@
       </app-input>
 
       <app-input label="Data Inicial" [require]="true">
-        <input type="text" class="form-control" formControlName="data_inicial" mask="00/00/0000"
+        <input type="text" class="form-control" formControlName="data_inicial" mask="00/00/0000" [dropSpecialCharacters]="false"
           autocomplete="off">
       </app-input>
 
       <app-input label="Data Término">
-        <input type="text" class="form-control" formControlName="data_termino" mask="00/00/0000"
+        <input type="text" class="form-control" formControlName="data_termino" mask="00/00/0000" [dropSpecialCharacters]="false"
           autocomplete="off">
       </app-input>
 

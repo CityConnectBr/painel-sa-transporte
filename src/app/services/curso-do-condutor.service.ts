@@ -14,7 +14,7 @@ export class CursoDoCondutorService extends BasicCrudService {
     super(httpClient, "/api/admin/cursosdocondutor");
    }
 
-   indexByCondutor(condutorId: String): Observable<SearchData> {
+   indexByCondutor(condutorId: string): Observable<SearchData> {
     return this.httpClient.get<SearchData>(`${this.url}?search=${condutorId}`, super.getHttpOptions)
   }
 

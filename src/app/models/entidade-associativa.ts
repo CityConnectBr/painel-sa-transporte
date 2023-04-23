@@ -1,5 +1,5 @@
 export interface EntidadeAssociativa {
-  id: String
-  id_integracao: String
-  descricao: String
+  id: string
+  id_integracao: string
+  descricao: string
 }

@@ -1,34 +1,34 @@
 export interface Permissionario {
-  id: String
+  id: string
   id_integracao: number
   ativo: boolean
   foto: boolean
-  numero_de_cadastro_antigo: String
-  nome_razao_social: String
-  tipo: String
-  cpf_cnpj: String
-  rg: String
-  estado_civil: String
-  inscricao_municipal: String
-  alvara_de_funcionamento: String
-  responsavel: String
-  procurador_responsavel: String
-  telefone: String
-  telefone2: String
-  celular: String
-  email: String
+  numero_de_cadastro_antigo: string
+  nome_razao_social: string
+  tipo: string
+  cpf_cnpj: string
+  rg: string
+  estado_civil: string
+  inscricao_municipal: string
+  alvara_de_funcionamento: string
+  responsavel: string
+  procurador_responsavel: string
+  telefone: string
+  telefone2: string
+  celular: string
+  email: string
   data_nascimento: Date
-  naturalidade: String
-  nacionalidade: String
-  cnh: String
-  categoria_cnh: String
+  naturalidade: string
+  nacionalidade: string
+  cnh: string
+  categoria_cnh: string
   vencimento_cnh: Date
   atestado_de_saude: boolean
   certidao_negativa: boolean
   validade_certidao_negativa: Date
   comprovante_de_endereco: boolean
   inscricao_do_cadastro_mobiliario: boolean
-  numero_do_cadastro_mobiliario: String
+  numero_do_cadastro_mobiliario: string
   curso_primeiro_socorros: boolean
   curso_primeiro_socorros_emissao: Date
   crlv: boolean
@@ -44,25 +44,25 @@ export interface Permissionario {
   selo_gnv: boolean
   selo_gnv_validade: Date
   taximetro_tacografo: boolean
-  taximetro_tacografo_numero: String
+  taximetro_tacografo_numero: string
   taximetro_tacografo_afericao: Date
   inicio_atividades: Date
   termino_atividades: Date
-  termino_atividades_motivo: String
+  termino_atividades_motivo: string
   data_transferencia: Date
-  classificacao_do_processo: String
-  numero_do_processo: String
+  classificacao_do_processo: string
+  numero_do_processo: string
   data_processo_seletivo: Date
-  prefixo: String
-  inss: String
-  entidade_associativa_id: String
-  modalidade_id: String
-  endereco_id: String
+  prefixo: string
+  inss: string
+  entidade_associativa_id: string
+  modalidade_id: string
+  endereco_id: string
   data_obito: Date
-  certidao_de_obito: String
-  nome_inventariante: String
-  grau_de_paretesco_inventariante: String
-  numero_do_processo_do_inventario: String
-  parecer_do_juiz_sobre_inventario: String
-  foto_uid: String
+  certidao_de_obito: string
+  nome_inventariante: string
+  grau_de_paretesco_inventariante: string
+  numero_do_processo_do_inventario: string
+  parecer_do_juiz_sobre_inventario: string
+  foto_uid: string
 }

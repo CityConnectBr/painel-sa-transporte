@@ -13,11 +13,11 @@ export class ModalComponent implements OnInit {
   @Input() close: boolean
 
   constructor(){}
-  
+
   ngOnInit() {}
 
     @Output() closeModalEmit = new EventEmitter()
-    
+
     closeModal(){
       this.closeModalEmit.emit()
   }

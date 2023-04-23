@@ -8,7 +8,7 @@ import { SharedModule } from '../shared/shared-module';
 })
 export class MainService {
 
-  protected readonly urlBase: String = environment.apiUrl;
+  protected readonly urlBase: string = environment.apiUrl;
 
   private static jwt: string | null | undefined;
 
