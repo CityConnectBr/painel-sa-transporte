@@ -16,6 +16,7 @@ import { LoadingSimpleComponent } from './loading-simple/loading-simple.componen
 import { SearchComponent } from './search/search.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { PrintPageComponent } from './print-page/print-page.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { PrintPageComponent } from './print-page/print-page.component';
     PaginationComponent,
     PrintPageComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, QRCodeModule],
   exports: [
     InputComponent,
     LoadingComponent,
@@ -41,6 +42,7 @@ import { PrintPageComponent } from './print-page/print-page.component';
     SearchComponent,
     PaginationComponent,
     PrintPageComponent,
+    QRCodeModule
   ],
 })
 export class SharedModule {

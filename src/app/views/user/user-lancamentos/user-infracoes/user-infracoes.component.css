@@ -1,0 +1,10 @@
+.acoes-qrcode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.acoes-qrcode button {
+    margin: 10px;
+}

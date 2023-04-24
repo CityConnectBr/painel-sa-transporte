@@ -39,7 +39,6 @@ registerLocaleData(localePt, 'pt');
     ClipboardModule,
     PdfViewerModule,
     NgxCurrencyModule,
-    QRCodeModule
   ],
   providers: [
     LoggedInGuard,
