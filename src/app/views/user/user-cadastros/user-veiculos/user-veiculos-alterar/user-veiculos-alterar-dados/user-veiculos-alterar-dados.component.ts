@@ -21,8 +21,7 @@ import { TipoDeCombustivelService } from 'src/app/services/tipo-de-combustivel.s
 import { TipoDeVeiculoService } from 'src/app/services/tipo-de-veiculo.service';
 import { VeiculoService } from 'src/app/services/veiculo.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-veiculos-alterar-dados',
   templateUrl: './user-veiculos-alterar-dados.component.html',
@@ -71,7 +70,7 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
     private tipoDeCombustivelService: TipoDeCombustivelService,
     private permissionarioService: PermissionarioService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -186,32 +185,32 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
     this.errorMessage = "";
     try {
       if (!this.form.valid) {
-        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.toastr.error("Existem campos inválidos!");
         this.loading = false;
         return;
       }
 
       if (!this.permissionarioSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Permissionário selecionado!");
+        this.toastr.error("Nenhum Permissionário selecionado!");
         this.loading = false;
         return;
       }
 
       if (formInput.categoria_id == 1) {
         if (!this.marcasModelosSelecionado) {
-          this.snackbarService.openSnackBarError("Nenhum Marca/Modelo selecionado!");
+          this.toastr.error("Nenhum Marca/Modelo selecionado!");
           this.loading = false;
           return;
         }
       } else {
         if (!this.marcasModelosChassiSelecionado) {
-          this.snackbarService.openSnackBarError("Nenhum Marca/Modelo de Chassi selecionado!");
+          this.toastr.error("Nenhum Marca/Modelo de Chassi selecionado!");
           this.loading = false;
           return;
         }
 
         if (!this.marcasModelosCarroceriaSelecionado) {
-          this.snackbarService.openSnackBarError("Nenhum Marca/Modelo de Carroceria selecionado!");
+          this.toastr.error("Nenhum Marca/Modelo de Carroceria selecionado!");
           this.loading = false;
           return;
         }
@@ -228,7 +227,7 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
         formInput.marca_modelo_carroceria_id = this.marcasModelosCarroceriaSelecionado.id;
       }
       await this.veiculoService.update(this.veiculo.id, formInput).toPromise();
-      this.snackbarService.openSnackBarSucess('Veículo salvo!');
+      this.toastr.success('Veículo salvo!');
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
     }
@@ -257,7 +256,7 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 
@@ -299,7 +298,7 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 
@@ -341,7 +340,7 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 
@@ -383,7 +382,7 @@ export class UserVeiculosAlterarDadosComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

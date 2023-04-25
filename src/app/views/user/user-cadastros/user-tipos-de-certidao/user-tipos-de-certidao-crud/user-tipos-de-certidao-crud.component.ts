@@ -7,8 +7,7 @@ import { debounceTime, first } from 'rxjs/operators';
 import { TipoDeCertidao } from 'src/app/models/tipo-de-certidao';
 import { TipoDeCertidaoService } from 'src/app/services/tipo-de-certidao.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-tipos-de-certidao-crud',
   templateUrl: './user-tipos-de-certidao-crud.component.html',
@@ -27,7 +26,7 @@ export class UserTiposDeCertidaoCrudComponent implements OnInit {
     private tipoDeCertidaoService: TipoDeCertidaoService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -70,7 +69,7 @@ export class UserTiposDeCertidaoCrudComponent implements OnInit {
       } else {
         await this.tipoDeCertidaoService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Tipo de Certidão salvo!');
+      this.toastr.success('Tipo de Certidão salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -84,7 +83,7 @@ export class UserTiposDeCertidaoCrudComponent implements OnInit {
     try {
       await this.tipoDeCertidaoService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

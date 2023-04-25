@@ -11,8 +11,7 @@ import { CoordenadorDoPontoService } from 'src/app/services/coordenador-do-ponto
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { PontoService } from 'src/app/services/ponto.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-pontos-alterar-coordenador',
   templateUrl: './user-pontos-alterar-coordenador.component.html',
@@ -37,7 +36,7 @@ export class UserPontosAlterarCoordenadorComponent implements OnInit, OnDestroy 
 
   coordenadorAtual: CoordenadorDoPonto;
 
-  cursoParaDelecao: String;
+  cursoParaDelecao: string;
 
   maskDate = SharedModule.textMaskDate;
 
@@ -47,7 +46,7 @@ export class UserPontosAlterarCoordenadorComponent implements OnInit, OnDestroy 
     private permissionarioService: PermissionarioService,
     private pontoService: PontoService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -126,12 +125,12 @@ export class UserPontosAlterarCoordenadorComponent implements OnInit, OnDestroy 
     this.errorMessage = "";
     try {
       if (terminarCoordenador && (formInput.data_termino == null || formInput.data_termino == '')) {
-        this.snackbarService.openSnackBarError("Data de término vazia!");
+        this.toastr.error("Data de término vazia!");
         return;
       }
 
       if (!this.permissionarioSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Permissionário selecionado!");
+        this.toastr.error("Nenhum Permissionário selecionado!");
         this.loading = false;
         return;
       }
@@ -149,7 +148,7 @@ export class UserPontosAlterarCoordenadorComponent implements OnInit, OnDestroy 
 
       if (!terminarCoordenador) {
         this.loadData(this.ponto);
-        this.snackbarService.openSnackBarSucess('Coordenador salvo!');
+        this.toastr.success('Coordenador salvo!');
       } else {
         this.coordenadorAtual = null;
       }
@@ -163,7 +162,7 @@ export class UserPontosAlterarCoordenadorComponent implements OnInit, OnDestroy 
   }
 
 
-  setCursoParaDelecao(id: String) {
+  setCursoParaDelecao(id: string) {
     this.cursoParaDelecao = id;
   }
 
@@ -181,7 +180,7 @@ export class UserPontosAlterarCoordenadorComponent implements OnInit, OnDestroy 
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

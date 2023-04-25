@@ -9,8 +9,7 @@ import { FormularioService } from 'src/app/services/formulario.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-formulario8-condutor-auxiliar',
   templateUrl: './user-formulario8-condutor-auxiliar.component.html',
@@ -32,7 +31,7 @@ export class UserFormulario8CondutorAuxiliarComponent implements OnInit {
     private condutorService: CondutorService,
     private solicitadaoService: SolicitacaoService,
     private formularioService: FormularioService,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) { }
 
@@ -66,13 +65,13 @@ export class UserFormulario8CondutorAuxiliarComponent implements OnInit {
       this.solicitacoes = await this.solicitadaoService.indexByPermissionarioAndTipo(permissionarioId, 5).toPromise();//tipo 5 = novo condutor
 
       if(this.solicitacoes.length == 0){
-        this.snackbarService.openSnackBarError("Não existem solicitações de novo condutor para este Permissionário.");
+        this.toastr.error("Não existem solicitações de novo condutor para este Permissionário.");
         return;
       }
 
       this.modal.open(modal);
     } catch (e) {
-      this.snackbarService.openSnackBarError(SharedModule.handleError(e));
+      this.toastr.error(SharedModule.handleError(e));
     }finally{
       this.loading = false;
     }
@@ -85,13 +84,13 @@ export class UserFormulario8CondutorAuxiliarComponent implements OnInit {
       this.condutores = await this.condutorService.indexByPermissionario(permissionarioId).toPromise();
 
       if(this.condutores.length == 0){
-        this.snackbarService.openSnackBarError("Não existem condutores cadastrados para este Permissionário.");
+        this.toastr.error("Não existem condutores cadastrados para este Permissionário.");
         return;
       }
 
       this.modal.open(modal);
     } catch (e) {
-      this.snackbarService.openSnackBarError(SharedModule.handleError(e));
+      this.toastr.error(SharedModule.handleError(e));
     }finally{
       this.loading = false;
     }
@@ -104,7 +103,7 @@ export class UserFormulario8CondutorAuxiliarComponent implements OnInit {
       const url = window.URL.createObjectURL(formulario);
       window.open(url);
     } catch (e) {
-      this.snackbarService.openSnackBarError(SharedModule.handleError(e));
+      this.toastr.error(SharedModule.handleError(e));
     }
     this.loading = false;
   }
@@ -116,7 +115,7 @@ export class UserFormulario8CondutorAuxiliarComponent implements OnInit {
       const url = window.URL.createObjectURL(formulario);
       window.open(url);
     } catch (e) {
-      this.snackbarService.openSnackBarError(SharedModule.handleError(e));
+      this.toastr.error(SharedModule.handleError(e));
     }
     this.loading = false;
   }

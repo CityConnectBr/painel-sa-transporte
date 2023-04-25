@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Veiculo } from 'src/app/models/veiculo';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-import { debounceTime, first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';import { debounceTime, first } from 'rxjs/operators';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -19,7 +18,7 @@ export class UserPermissionarioAlterarVeiculosComponent implements OnInit {
 
   constructor(
     private permissionarioService: PermissionarioService,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private route: ActivatedRoute,
     private modal: NgbModal,
   ) { }
@@ -31,7 +30,7 @@ export class UserPermissionarioAlterarVeiculosComponent implements OnInit {
       this.veiculos = await this.permissionarioService.indexVeiculos(idSelected).pipe(first()).toPromise();
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao montar a página");
+      this.toastr.error("Ocorreu um erro ao montar a página");
     }
   }
 

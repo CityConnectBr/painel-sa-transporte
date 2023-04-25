@@ -1,5 +1,5 @@
 export interface Usuario {
-  id: String
+  id: string
   nome: string
   email: string
   perfil_web_id: number

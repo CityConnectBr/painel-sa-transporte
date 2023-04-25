@@ -8,8 +8,7 @@ import { Permissionario } from 'src/app/models/permissionario';
 import { ModalidadeService } from 'src/app/services/modalidade.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-permissionario-alterar-documentos',
   templateUrl: './user-permissionario-alterar-documentos.component.html',
@@ -32,7 +31,7 @@ export class UserPermissionarioAlterarDocumentosComponent implements OnInit {
     private permissionarioService: PermissionarioService,
     private modalidadeService: ModalidadeService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
   ) {
   }
 
@@ -97,7 +96,7 @@ export class UserPermissionarioAlterarDocumentosComponent implements OnInit {
       formInput = SharedModule.convertAllFieldsTrueFalseToBoolean(formInput);
 
       await this.permissionarioService.updateDocumentos(this.permissionario.id, formInput).toPromise();
-      this.snackbarService.openSnackBarSucess('Permissionário salvo!');
+      this.toastr.success('Permissionário salvo!');
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
     }

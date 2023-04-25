@@ -8,8 +8,7 @@ import { TipoDeVeiculo } from 'src/app/models/tipo-de-veiculo';
 import { CorDoVeiculoService } from 'src/app/services/cor-do-veiculo.service';
 import { TipoDeVeiculoService } from 'src/app/services/tipo-de-veiculo.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-tipos-de-veiculo-crud',
   templateUrl: './user-tipos-de-veiculo-crud.component.html',
@@ -30,7 +29,7 @@ export class UserTiposDeVeiculoCrudComponent implements OnInit {
     private tipoDeVeiculoService: TipoDeVeiculoService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -81,7 +80,7 @@ export class UserTiposDeVeiculoCrudComponent implements OnInit {
       } else {
         await this.tipoDeVeiculoService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Tipo de Veículo salvo!');
+      this.toastr.success('Tipo de Veículo salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -95,7 +94,7 @@ export class UserTiposDeVeiculoCrudComponent implements OnInit {
     try {
       await this.tipoDeVeiculoService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

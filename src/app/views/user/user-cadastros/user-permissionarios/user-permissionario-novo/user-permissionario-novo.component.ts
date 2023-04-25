@@ -10,8 +10,7 @@ import { EnderecoService } from 'src/app/services/endereco.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-permissionario-novo',
   templateUrl: './user-permissionario-novo.component.html',
@@ -44,7 +43,7 @@ export class UserPermissionarioNovoComponent implements OnInit, OnDestroy {
     private permissionarioService: PermissionarioService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -162,7 +161,7 @@ export class UserPermissionarioNovoComponent implements OnInit, OnDestroy {
     this.errorMessage = "";
     try {
       if (!this.municipioSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Município selecionado!");
+        this.toastr.error("Nenhum Município selecionado!");
         this.loading = false;
         return;
       }
@@ -186,7 +185,7 @@ export class UserPermissionarioNovoComponent implements OnInit, OnDestroy {
       formInput.data_nascimento = SharedModule.convertStringddMMyyyyToyyyyMMdd(formInput.data_nascimento);
 
       const permissionario = await this.permissionarioService.create(formInput).toPromise();
-      this.snackbarService.openSnackBarSucess('Permissionário salvo!');
+      this.toastr.success('Permissionário salvo!');
       this.router.navigate(['../alterar/' + permissionario.id + '/dados'], {relativeTo:this.route});
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -230,7 +229,7 @@ export class UserPermissionarioNovoComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

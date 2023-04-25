@@ -15,7 +15,7 @@ export class SolicitacaoService extends BasicCrudService {
     super(httpClient, "/api/admin/solicitacoes");
   }
 
-  finish(id: number | String, obj: { 'status': String, 'motivo_recusado'?: String }): Observable<any> {
+  finish(id: number | String, obj: { 'status': string, 'motivo_recusado'?: string }): Observable<any> {
     return this.httpClient.patch(`${this.url}/${id}/concluir`,
       JSON.stringify(obj), super.getHttpOptions)
       .pipe(

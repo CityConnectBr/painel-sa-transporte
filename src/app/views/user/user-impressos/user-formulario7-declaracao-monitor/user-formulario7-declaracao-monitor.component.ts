@@ -8,8 +8,7 @@ import { MonitorService } from 'src/app/services/monitor.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-formulario7-declaracao-monitor',
   templateUrl: './user-formulario7-declaracao-monitor.component.html',
@@ -39,7 +38,7 @@ export class UserFormulario7DeclaracaoMonitorComponent implements OnInit {
     private formularioService: FormularioService,
     private solicitadaoService: SolicitacaoService,
     private monitorService: MonitorService,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) { }
 
@@ -95,7 +94,7 @@ export class UserFormulario7DeclaracaoMonitorComponent implements OnInit {
       this.openModal(modal);
       this.searchMonitor();
     } catch (e) {
-      this.snackbarService.openSnackBarError(SharedModule.handleError(e));
+      this.toastr.error(SharedModule.handleError(e));
     }
     this.loading = false;
   }
@@ -107,7 +106,7 @@ export class UserFormulario7DeclaracaoMonitorComponent implements OnInit {
       this.monitorSelecionadoId = id;
       this.searchSolicitacao();
     } catch (e) {
-      this.snackbarService.openSnackBarError(SharedModule.handleError(e));
+      this.toastr.error(SharedModule.handleError(e));
     }
     this.loading = false;
   }
@@ -119,7 +118,7 @@ export class UserFormulario7DeclaracaoMonitorComponent implements OnInit {
       const url = window.URL.createObjectURL(formulario);
       window.open(url);
     } catch (e) {
-      this.snackbarService.openSnackBarError(SharedModule.handleError(e));
+      this.toastr.error(SharedModule.handleError(e));
     }
     this.loading = false;
   }
@@ -130,7 +129,7 @@ export class UserFormulario7DeclaracaoMonitorComponent implements OnInit {
       this.step = 3;
       this.solicitacaoSelecionadaId = id;
     } catch (e) {
-      this.snackbarService.openSnackBarError(SharedModule.handleError(e));
+      this.toastr.error(SharedModule.handleError(e));
     }
     this.loading = false;
   }
@@ -146,7 +145,7 @@ export class UserFormulario7DeclaracaoMonitorComponent implements OnInit {
     }
   }
 
-  getStatus(status: String): string {
+  getStatus(status: string): string {
     return SharedModule.getStatusSolicitacao(status);
   }
 

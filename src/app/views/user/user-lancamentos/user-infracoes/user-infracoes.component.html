@@ -13,26 +13,41 @@
       <thead>
         <tr>
           <th>N. AIP</th>
+          <th>Permissionário</th>
+          <th>Placa</th>
+          <th>Status</th>
           <th>Data</th>
+          <th>Data Pagamento</th>
+          <th class="text-right"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let obj of dataSearch.data">
           <td>{{obj?.num_aip}}</td>
+          <td>{{obj?.permissionario.nome_razao_social}}</td>
+          <td>{{obj?.veiculo.placa}}</td>
+          <td>{{obj?.status}}</td>
           <td>{{obj?.data_infracao | date: 'dd/MM/yyyy'}}</td>
+          <td>{{obj?.data_pagamento | date: 'dd/MM/yyyy'}}</td>
           <td class="text-right">
-            <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
-                aria-hidden="true"></i></a>
+            <a href="javascript: void(0);" (click)="initLancamentoPagamento(obj.id);" title="Lançar Pagamento"
+              class="mr-2">
+              <i class="fa fa-book" aria-hidden="true"></i>
+            </a>
+            <a href="javascript: void(0);" (click)="getQrCode(shareQRCodeModal, obj.id);"
+              title="Compartilhar QRCode de Pagamento" class="mr-2">
+              <i class="fa fa-qrcode" aria-hidden="true"></i>
+            </a>
+            <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
           </td>
         </tr>
       </tbody>
     </table>
     <div *ngIf="dataSearch.data.length>0" class="float-right">
-      <app-pagination
-        [backEnabled]="dataSearch.prev_page_url!=null"
-        [nextEnabled]="dataSearch.next_page_url!=null"
-        [actualPage]="dataSearch.current_page"
-        (changePos)="changePos($event)">
+      <app-pagination [backEnabled]="dataSearch.prev_page_url!=null" [nextEnabled]="dataSearch.next_page_url!=null"
+        [actualPage]="dataSearch.current_page" (changePos)="changePos($event)">
       </app-pagination>
     </div>
 
@@ -40,5 +55,32 @@
       Nenhum registro encontrado!
     </div>
   </div>
+
+  <ng-template #shareQRCodeModal let-modal>
+    <app-modal modalID="uploadModal" title="Código para Pagamento da Infração" (closeModalEmit)="closeModal($event)">
+      <div class="row">
+        <div class="col-md-4">
+          <qrcode #qrcodeChild id="qrcode" [qrdata]="qrCodePix.payload()" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="qrcode">Código PIX para Pagamento da Infração</label>
+                <textarea class="form-control" id="qrcode" rows="3" [value]="qrCodePix.payload()"></textarea>
+              </div>
+            </div>
+            <div class="row w-100">
+              <div class="col-md-12 acoes-qrcode">
+                <button class="btn btn-primary" (click)="copyCode()"><em class="fa fa-copy"></em> Copiar código PIX</button>
+                <button class="btn btn-primary" (click)="copyQrCode()"><em class="fa fa-copy"></em> Copiar QRCode</button>
+                <button class="btn btn-primary" (click)="saveQrCode()"><em class="fa fa-save"></em> Salvar QRCode</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-modal>
+  </ng-template>
 
 </div>

@@ -11,7 +11,7 @@
       </app-input>
 
       <app-input label="Emissão">
-        <input type="text" class="form-control" formControlName="data_emissao" mask="00/00/0000"
+        <input type="text" class="form-control" formControlName="data_emissao" mask="00/00/0000" [dropSpecialCharacters]="false"
           autocomplete="off">
       </app-input>
 

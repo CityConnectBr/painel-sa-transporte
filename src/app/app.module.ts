@@ -8,7 +8,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptores/auth.interceptor';
 import { UserLoginComponent } from './views/user/user-login/user-login.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { ModalModule } from 'ngb-modal';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {registerLocaleData} from '@angular/common';
 import localePt from '@angular/common/locales/pt';
@@ -18,6 +17,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { NgxCurrencyModule } from "ngx-currency";
+import { ToastrModule } from 'ngx-toastr';
 
 registerLocaleData(localePt, 'pt');
 
@@ -32,12 +32,12 @@ registerLocaleData(localePt, 'pt');
     AppRoutingModule,
     NgxMaskModule.forRoot(),
     SharedModule.forRoot(),
+    ToastrModule.forRoot(),
     HttpClientModule,
-    ModalModule,
     NoopAnimationsModule,
     ClipboardModule,
     PdfViewerModule,
-    NgxCurrencyModule
+    NgxCurrencyModule,
   ],
   providers: [
     LoggedInGuard,

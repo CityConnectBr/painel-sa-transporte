@@ -21,8 +21,7 @@ import { TipoDeCertidaoService } from 'src/app/services/tipo-de-certidao.service
 import { TipoDeCombustivelService } from 'src/app/services/tipo-de-combustivel.service';
 import { VeiculoService } from 'src/app/services/veiculo.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-import { debounceTime, first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';import { debounceTime, first } from 'rxjs/operators';
 import { SearchData } from 'src/app/services/basic-crud.service';
 
 @Component({
@@ -72,7 +71,7 @@ export class UserCertidoesCrudComponent implements OnInit {
     private pontoService: PontoService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -172,13 +171,13 @@ export class UserCertidoesCrudComponent implements OnInit {
     this.errorMessage = "";
     try {
       if (!this.permissionarioSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Permissionário selecionado!");
+        this.toastr.error("Nenhum Permissionário selecionado!");
         this.loading = false;
         return;
       }
 
       if (!this.marcasModelosSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Marca/Modelo selecionado!");
+        this.toastr.error("Nenhum Marca/Modelo selecionado!");
         this.loading = false;
         return;
       }
@@ -193,7 +192,7 @@ export class UserCertidoesCrudComponent implements OnInit {
       } else {
         await this.certidaoService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Certidão salva!');
+      this.toastr.success('Certidão salva!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -207,7 +206,7 @@ export class UserCertidoesCrudComponent implements OnInit {
     try {
       await this.certidaoService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()
@@ -233,7 +232,7 @@ export class UserCertidoesCrudComponent implements OnInit {
     this.searchVeiculo(this.searchText, page);
   }
 
-  async selecionarVeiculo(id: String){
+  async selecionarVeiculo(id: string){
     this.loading = true;
     try {
       const veiculo: Veiculo = await this.veiculoService.get(id).pipe(first()).toPromise();
@@ -278,7 +277,7 @@ export class UserCertidoesCrudComponent implements OnInit {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 
@@ -320,7 +319,7 @@ export class UserCertidoesCrudComponent implements OnInit {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

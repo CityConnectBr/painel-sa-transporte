@@ -1,7 +1,7 @@
 export interface TipoDeVeiculo {
-  id: String
-  descricao: String
-  modalidade_transporte: String
+  id: string
+  descricao: string
+  modalidade_transporte: string
   idade_limite_ingresso: Number
   idade_limite_permanencia: Number
 }

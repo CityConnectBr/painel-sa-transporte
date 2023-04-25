@@ -1,21 +1,21 @@
 export interface Empresa {
-  id: String
+  id: string
   id_integracao: number
   ativo: boolean
-  nome: String
-  telefone: String
-  fax: String
-  home_page: String
-  email: String
-  cnpj: String
-  inscricao_estadual: String
-  inscricao_municipal: String
-  nome_do_diretor: String
-  nome_do_gerente: String
-  nome_do_encarregado_vistoriador: String
-  portaria_diretor: String
+  nome: string
+  telefone: string
+  fax: string
+  home_page: string
+  email: string
+  cnpj: string
+  inscricao_estadual: string
+  inscricao_municipal: string
+  nome_do_diretor: string
+  nome_do_gerente: string
+  nome_do_encarregado_vistoriador: string
+  portaria_diretor: string
   data_nomeacao_diretor: Date
-  decreto_municipal_taxi: String
+  decreto_municipal_taxi: string
   decreto_municipal_escolar: Date
-  endereco_id: String
+  endereco_id: string
 }

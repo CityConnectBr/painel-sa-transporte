@@ -10,8 +10,7 @@ import { Vistoriador } from 'src/app/models/vistoriador';
 import { EmpresaVistoriadoraService } from 'src/app/services/empresa_vistoriadora.service';
 import { VistoriadorService } from 'src/app/services/vistoriador.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-vistoriadores-crud',
   templateUrl: './user-vistoriadores-crud.component.html',
@@ -36,7 +35,7 @@ export class UserVistoriadoresCrudComponent implements OnInit, OnDestroy {
     private vistoriadorService: VistoriadorService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -108,7 +107,7 @@ export class UserVistoriadoresCrudComponent implements OnInit, OnDestroy {
       } else {
         await this.vistoriadorService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Vistoriador salva!');
+      this.toastr.success('Vistoriador salva!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -122,7 +121,7 @@ export class UserVistoriadoresCrudComponent implements OnInit, OnDestroy {
     try {
       await this.vistoriadorService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()
@@ -144,7 +143,7 @@ export class UserVistoriadoresCrudComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

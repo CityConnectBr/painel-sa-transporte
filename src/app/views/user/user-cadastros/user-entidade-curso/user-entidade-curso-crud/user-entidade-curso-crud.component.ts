@@ -6,8 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EntidadeCurso } from 'src/app/models/entidade-curso';
 import { EntidadeCursoService } from 'src/app/services/entidade-curso.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-entidade-curso-crud',
   templateUrl: './user-entidade-curso-crud.component.html',
@@ -26,7 +25,7 @@ export class UserEntidadeCursoCrudComponent implements OnInit {
     private entidadeCursoService: EntidadeCursoService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -73,7 +72,7 @@ export class UserEntidadeCursoCrudComponent implements OnInit {
       } else {
         await this.entidadeCursoService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Entidade salva!');
+      this.toastr.success('Entidade salva!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -87,7 +86,7 @@ export class UserEntidadeCursoCrudComponent implements OnInit {
     try {
       await this.entidadeCursoService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

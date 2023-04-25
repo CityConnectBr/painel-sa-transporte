@@ -1,9 +1,9 @@
 import { Ponto } from "./ponto";
 
 export interface ObservacaoDoPermissionario {
-  id: String
-  permissionario_id: String
-  titulo: String
-  observacao: String
+  id: string
+  permissionario_id: string
+  titulo: string
+  observacao: string
   created_at: Date
 }

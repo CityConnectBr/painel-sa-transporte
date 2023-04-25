@@ -1,6 +1,6 @@
 export interface Modalidade {
-  id: String
-  identificador: String
-  descricao: String
+  id: string
+  identificador: string
+  descricao: string
   limite: number
 }

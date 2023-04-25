@@ -13,8 +13,7 @@ import { EnderecoService } from 'src/app/services/endereco.service';
 import { FiscalService } from 'src/app/services/fiscal.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-fiscais-crud',
   templateUrl: './user-fiscais-crud.component.html',
@@ -48,7 +47,7 @@ export class UserFiscaisCrudComponent implements OnInit {
     private municipioService: MunicipioService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
     private sanitizer: DomSanitizer
   ) {
@@ -155,7 +154,7 @@ export class UserFiscaisCrudComponent implements OnInit {
     this.errorMessage = "";
     try {
       if(!this.form.valid){
-        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.toastr.error("Existem campos inválidos!");
         this.loading = false;
         return;
       }
@@ -184,7 +183,7 @@ export class UserFiscaisCrudComponent implements OnInit {
 
       await this.salvarFoto();
 
-      this.snackbarService.openSnackBarSucess('Fiscal salvo!');
+      this.toastr.success('Fiscal salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -198,7 +197,7 @@ export class UserFiscaisCrudComponent implements OnInit {
     try {
       await this.fiscalService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()
@@ -219,7 +218,7 @@ export class UserFiscaisCrudComponent implements OnInit {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 
@@ -237,10 +236,10 @@ export class UserFiscaisCrudComponent implements OnInit {
     this.errorMessage = "";
     try {
       if (!this.photoToUpload) {
-        this.snackbarService.openSnackBarError("Nenhuma foto foi selecionada");
+        this.toastr.error("Nenhuma foto foi selecionada");
       }
       await this.fiscalService.updatePhoto(this.crudObj.id, this.photoToUpload).toPromise();
-      this.snackbarService.openSnackBarSucess('Foto salva!');
+      this.toastr.success('Foto salva!');
       this.closeModal("");
       await this.refreshPhoto(this.crudObj);
     } catch (e: any) {

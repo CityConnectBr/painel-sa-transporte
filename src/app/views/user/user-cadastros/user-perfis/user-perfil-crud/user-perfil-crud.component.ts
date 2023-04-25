@@ -6,8 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Perfil } from 'src/app/models/perfil';
 import { PerfilService } from 'src/app/services/perfil.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-perfil-crud',
   templateUrl: './user-perfil-crud.component.html',
@@ -26,7 +25,7 @@ export class UserPerfilCrudComponent implements OnInit {
     private perfilService: PerfilService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -88,7 +87,7 @@ export class UserPerfilCrudComponent implements OnInit {
       } else {
         await this.perfilService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Perfil salvo!');
+      this.toastr.success('Perfil salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -102,7 +101,7 @@ export class UserPerfilCrudComponent implements OnInit {
     try {
       await this.perfilService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

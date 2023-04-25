@@ -9,7 +9,7 @@ export class SearchComponent implements OnInit {
 
   @Output() searchEmitter = new EventEmitter();
 
-  textInput: String = "";
+  textInput: string = "";
 
   constructor() { }
 

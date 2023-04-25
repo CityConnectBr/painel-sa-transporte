@@ -10,8 +10,7 @@ import { AlvaraDoPermissionarioService } from 'src/app/services/alvaradopermissi
 import { SearchData } from 'src/app/services/basic-crud.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-permissionario-alterar-alvara',
   templateUrl: './user-permissionario-alterar-alvara.component.html',
@@ -36,7 +35,7 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
     private permissionarioService: PermissionarioService,
     private alvaraService: AlvaraDoPermissionarioService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -101,7 +100,7 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
 
       this.loadAlvara(this.permissionario);
 
-      this.snackbarService.openSnackBarSucess('Alvará salvo!');
+      this.toastr.success('Alvará salvo!');
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
     }

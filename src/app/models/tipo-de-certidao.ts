@@ -1,4 +1,4 @@
 export interface TipoDeCertidao {
-  id: String
-  descricao: String
+  id: string
+  descricao: string
 }

@@ -48,7 +48,7 @@
         </app-input>
 
         <app-input label="Data Recto" [inline]="true" [require]="true">
-          <input type="text" class="form-control" formControlName="data_recebimento" mask="00/00/0000" autocomplete="off">
+          <input type="text" class="form-control" formControlName="data_recebimento" mask="00/00/0000" [dropSpecialCharacters]="false" autocomplete="off">
         </app-input>
 
       </div>

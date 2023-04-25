@@ -1,11 +1,11 @@
 export interface Ponto {
-  id: String
-  descricao: String
-  telefone: String
+  id: string
+  descricao: string
+  telefone: string
   data_criacao: Date
   data_extincao: Date
-  ocupacao_atual: String
-  observacao: String
-  modalidade_transporte: String
-  endereco_id: String
+  ocupacao_atual: string
+  observacao: string
+  modalidade_id: string
+  endereco_id: string
 }

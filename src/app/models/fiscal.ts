@@ -1,14 +1,14 @@
 export interface Fiscal {
-  id: String
+  id: string
   id_integracao: number
   ativo: boolean
   foto: boolean
-  nome: String
-  cpf: String
-  telefone: String
-  email: String
-  cargo: String
-  unidade_trabalho: String
-  endereco_id: String
-  foto_uid: String
+  nome: string
+  cpf: string
+  telefone: string
+  email: string
+  cargo: string
+  unidade_trabalho: string
+  endereco_id: string
+  foto_uid: string
 }

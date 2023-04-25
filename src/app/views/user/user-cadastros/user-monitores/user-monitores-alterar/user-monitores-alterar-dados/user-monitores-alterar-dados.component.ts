@@ -14,8 +14,7 @@ import { MonitorService } from 'src/app/services/monitor.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-monitores-alterar-dados',
   templateUrl: './user-monitores-alterar-dados.component.html',
@@ -55,7 +54,7 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
     private permissionarioService: PermissionarioService,
     private monitorService: MonitorService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
     private sanitizer: DomSanitizer
   ) {
@@ -177,13 +176,13 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
     this.errorMessage = "";
     try {
       if(!this.form.valid){
-        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.toastr.error("Existem campos inválidos!");
         this.loading = false;
         return;
       }
 
       if (!this.municipioSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Município selecionado!");
+        this.toastr.error("Nenhum Município selecionado!");
         this.loading = false;
         return;
       }
@@ -206,7 +205,7 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
       console.log(formInput);
       await this.enderecoService.update(this.monitor.endereco_id, endereco).toPromise();
       await this.monitorService.update(this.monitor.id, formInput).toPromise();
-      this.snackbarService.openSnackBarSucess('Monitor salvo!');
+      this.toastr.success('Monitor salvo!');
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
     }
@@ -224,10 +223,10 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
     this.errorMessage = "";
     try {
       if (!this.photoToUpload) {
-        this.snackbarService.openSnackBarError("Nenhuma foto foi selecionada");
+        this.toastr.error("Nenhuma foto foi selecionada");
       }
       await this.monitorService.updatePhoto(this.monitor.id, this.photoToUpload).toPromise();
-      this.snackbarService.openSnackBarSucess('Foto salva!');
+      this.toastr.success('Foto salva!');
       this.closeModal("");
       await this.refreshPhoto(this.monitor);
     } catch (e: any) {
@@ -272,7 +271,7 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 
@@ -312,7 +311,7 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

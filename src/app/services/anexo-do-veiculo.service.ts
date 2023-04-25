@@ -33,7 +33,7 @@ export class AnexoDoVeiculoService extends BasicCrudService {
     });
   }
 
-  indexByPermissionario(veiculoId: String): Observable<SearchData> {
+  indexByPermissionario(veiculoId: string): Observable<SearchData> {
     return this.httpClient.get<SearchData>(`${this.url}?search=${veiculoId}`, super.getHttpOptions)
   }
 

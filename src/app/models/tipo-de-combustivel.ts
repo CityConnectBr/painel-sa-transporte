@@ -1,4 +1,4 @@
 export interface TipoDeCombustivel {
-  id: String
-  descricao: String
+  id: string
+  descricao: string
 }

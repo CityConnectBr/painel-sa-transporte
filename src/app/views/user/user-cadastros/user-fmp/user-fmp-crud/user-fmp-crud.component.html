@@ -28,11 +28,11 @@
         </app-input>
 
         <app-input label="Data Inicial" [require]="true">
-          <input type="text" class="form-control" formControlName="data_inicial" mask="00/00/0000" autocomplete="off">
+          <input type="text" class="form-control" formControlName="data_inicial" mask="00/00/0000" [dropSpecialCharacters]="false" autocomplete="off">
         </app-input>
 
         <app-input label="Data Final" [require]="true">
-          <input type="text" class="form-control" formControlName="data_final" mask="00/00/0000" autocomplete="off">
+          <input type="text" class="form-control" formControlName="data_final" mask="00/00/0000" [dropSpecialCharacters]="false" autocomplete="off">
         </app-input>
 
         <app-input label="Valor" [inline]="true" [require]="true">

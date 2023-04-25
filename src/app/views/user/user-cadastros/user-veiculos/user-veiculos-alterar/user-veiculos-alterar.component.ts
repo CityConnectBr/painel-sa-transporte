@@ -4,8 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
 import { VeiculoService } from 'src/app/services/veiculo.service';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-veiculos-alterar',
   templateUrl: './user-veiculos-alterar.component.html',
@@ -18,7 +17,7 @@ export class UserVeiculosAlterarComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private veiculoService: VeiculoService,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private location: Location,
   ) { }
 
@@ -29,12 +28,12 @@ export class UserVeiculosAlterarComponent implements OnInit {
       try{
         const veiculo = await this.veiculoService.get(parseInt(idSelected)).pipe(first()).toPromise();
         if(!veiculo){
-          this.snackbarService.openSnackBarError('Veículo não encontrado!');
+          this.toastr.error('Veículo não encontrado!');
           this.location.back()
         }
 
       } catch (e: any) {
-        this.snackbarService.openSnackBarError('Ocorreu um problema ao carregar o Veículo selecionado!');
+        this.toastr.error('Ocorreu um problema ao carregar o Veículo selecionado!');
         this.location.back()
       }
       this.loading = false;

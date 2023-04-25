@@ -7,8 +7,7 @@ import { debounceTime, first } from 'rxjs/operators';
 import { Aplicativo } from 'src/app/models/aplicativo';
 import { AplicativoService } from 'src/app/services/aplicativo.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-aplicativos-crud',
   templateUrl: './user-aplicativos-crud.component.html',
@@ -27,7 +26,7 @@ export class UserAplicativosCrudComponent implements OnInit {
     private aplicativoService: AplicativoService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -68,7 +67,7 @@ export class UserAplicativosCrudComponent implements OnInit {
     try {
 
       if(!this.form.valid){
-        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.toastr.error("Existem campos inválidos!");
         this.loading = false;
         return;
       }
@@ -78,7 +77,7 @@ export class UserAplicativosCrudComponent implements OnInit {
       } else {
         await this.aplicativoService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Aplicativo salvo!');
+      this.toastr.success('Aplicativo salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -92,7 +91,7 @@ export class UserAplicativosCrudComponent implements OnInit {
     try {
       await this.aplicativoService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

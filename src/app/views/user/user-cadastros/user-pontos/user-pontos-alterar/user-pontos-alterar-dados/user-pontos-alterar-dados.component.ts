@@ -10,8 +10,7 @@ import { EnderecoService } from 'src/app/services/endereco.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
 import { PontoService } from 'src/app/services/ponto.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-pontos-alterar-dados',
   templateUrl: './user-pontos-alterar-dados.component.html',
@@ -44,7 +43,7 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
     private municipioService: MunicipioService,
     private pontoService: PontoService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
   ) {
   }
 
@@ -93,7 +92,7 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
         observacao: new FormControl(this.ponto.observacao ?? "", {
           validators: [Validators.maxLength(500)],
         }),
-        modalidade_transporte: new FormControl(this.ponto.modalidade_transporte ?? "", {
+        modalidade_id: new FormControl(this.ponto.modalidade_id ?? "", {
           validators: [Validators.required,],
         }),
         cep: new FormControl(this.endereco?.cep ?? "", {
@@ -140,7 +139,7 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
     this.errorMessage = "";
     try {
       if (!this.municipioSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Ponto selecionado!");
+        this.toastr.error("Nenhum Ponto selecionado!");
         this.loading = false;
         return;
       }
@@ -160,7 +159,7 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
 
       await this.enderecoService.update(this.ponto.endereco_id, endereco).toPromise();
       await this.pontoService.update(this.ponto.id, formInput).toPromise();
-      this.snackbarService.openSnackBarSucess('Ponto salvo!');
+      this.toastr.success('Ponto salvo!');
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
     }
@@ -195,7 +194,7 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

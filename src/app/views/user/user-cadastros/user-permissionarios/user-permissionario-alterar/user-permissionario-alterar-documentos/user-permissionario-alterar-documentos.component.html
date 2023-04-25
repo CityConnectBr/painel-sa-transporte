@@ -87,7 +87,7 @@
       </app-input>
 
       <app-input label="Validade">
-        <input type="text" class="form-control" formControlName="validade_certidao_negativa" mask="00/00/0000" autocomplete="off">
+        <input type="text" class="form-control" formControlName="validade_certidao_negativa" mask="00/00/0000" [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
 
     </div>
@@ -119,7 +119,7 @@
       </app-input>
 
       <app-input label="Emissão">
-        <input type="text" class="form-control" formControlName="curso_primeiro_socorros_emissao"  mask="00/00/0000" autocomplete="off">
+        <input type="text" class="form-control" formControlName="curso_primeiro_socorros_emissao"  mask="00/00/0000" [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
 
     </div>
@@ -135,7 +135,7 @@
       </app-input>
 
       <app-input label="Validade">
-        <input type="text" class="form-control" formControlName="contrato_comodato_validade"  mask="00/00/0000" autocomplete="off">
+        <input type="text" class="form-control" formControlName="contrato_comodato_validade"  mask="00/00/0000" [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
 
     </div>
@@ -151,7 +151,7 @@
       </app-input>
 
       <app-input label="Validade">
-        <input type="text" class="form-control" formControlName="selo_gnv_validade"  mask="00/00/0000" autocomplete="off">
+        <input type="text" class="form-control" formControlName="selo_gnv_validade"  mask="00/00/0000" [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
 
     </div>
@@ -171,8 +171,8 @@
       </app-input>
 
       <app-input label="Aferição">
-        <input type="text" class="form-control" formControlName="taximetro_tacografo_afericao"  mask="00/00/0000"
-           mask="00/00/0000" autocomplete="off">
+        <input type="text" class="form-control" formControlName="taximetro_tacografo_afericao"  mask="00/00/0000" [dropSpecialCharacters]="false"
+           mask="00/00/0000" [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
     </div>
 
@@ -180,11 +180,11 @@
       <h3>Atividade</h3>
 
       <app-input label="Início da Atividade">
-        <input type="text" class="form-control" formControlName="inicio_atividades"  mask="00/00/0000" autocomplete="off">
+        <input type="text" class="form-control" formControlName="inicio_atividades"  mask="00/00/0000" [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
 
       <app-input label="Término da Atividade">
-        <input type="text" class="form-control" formControlName="termino_atividades"  mask="00/00/0000" autocomplete="off">
+        <input type="text" class="form-control" formControlName="termino_atividades"  mask="00/00/0000" [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
 
       <app-input label="Motivo">
@@ -192,7 +192,7 @@
       </app-input>
 
       <app-input label="Tranferência">
-        <input type="text" class="form-control" formControlName="data_transferencia"  mask="00/00/0000" autocomplete="off">
+        <input type="text" class="form-control" formControlName="data_transferencia"  mask="00/00/0000" [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
     </div>
 

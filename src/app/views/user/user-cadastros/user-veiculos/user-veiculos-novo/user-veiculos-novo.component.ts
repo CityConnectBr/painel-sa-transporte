@@ -21,8 +21,7 @@ import { TipoDeCombustivelService } from 'src/app/services/tipo-de-combustivel.s
 import { TipoDeVeiculoService } from 'src/app/services/tipo-de-veiculo.service';
 import { VeiculoService } from 'src/app/services/veiculo.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-veiculos-novo',
   templateUrl: './user-veiculos-novo.component.html',
@@ -70,7 +69,7 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
     private tipoDeCombustivelService: TipoDeCombustivelService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -174,26 +173,26 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
     this.errorMessage = "";
     try {
       if (!this.permissionarioSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Permissionário selecionado!");
+        this.toastr.error("Nenhum Permissionário selecionado!");
         this.loading = false;
         return;
       }
 
       if (formInput.categoria_id == 1) {
         if (!this.marcasModelosSelecionado) {
-          this.snackbarService.openSnackBarError("Nenhum Marca/Modelo selecionado!");
+          this.toastr.error("Nenhum Marca/Modelo selecionado!");
           this.loading = false;
           return;
         }
       } else {
         if (!this.marcasModelosChassiSelecionado) {
-          this.snackbarService.openSnackBarError("Nenhum Marca/Modelo de Chassi selecionado!");
+          this.toastr.error("Nenhum Marca/Modelo de Chassi selecionado!");
           this.loading = false;
           return;
         }
 
         if (!this.marcasModelosCarroceriaSelecionado) {
-          this.snackbarService.openSnackBarError("Nenhum Marca/Modelo de Carroceria selecionado!");
+          this.toastr.error("Nenhum Marca/Modelo de Carroceria selecionado!");
           this.loading = false;
           return;
         }
@@ -208,7 +207,7 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
       }
 
       const veiculo = await this.veiculoService.create(formInput).toPromise();
-      this.snackbarService.openSnackBarSucess('Veículo salvo!');
+      this.toastr.success('Veículo salvo!');
       this.router.navigate(['../alterar/' + veiculo.id + '/dados'], { relativeTo: this.route });
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -238,7 +237,7 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 
@@ -280,7 +279,7 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 
@@ -322,7 +321,7 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 
@@ -364,7 +363,7 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

@@ -1,6 +1,6 @@
 
 export interface AnexoDoVeiculo{
-  id: String
-  veiculo_id: String
-  descricao: String
+  id: string
+  veiculo_id: string
+  descricao: string
 }

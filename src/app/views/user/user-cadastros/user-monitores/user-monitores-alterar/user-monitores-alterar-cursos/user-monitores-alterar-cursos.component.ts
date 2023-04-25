@@ -10,8 +10,7 @@ import { CursoDoMonitorService } from 'src/app/services/curso-do-monitor.service
 import { MonitorService } from 'src/app/services/monitor.service';
 import { TipoDeCursoService } from 'src/app/services/tipo-de-curso.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-monitores-alterar-cursos',
   templateUrl: './user-monitores-alterar-cursos.component.html',
@@ -28,7 +27,7 @@ export class UserMonitoresAlterarCursosComponent implements OnInit {
   tiposDeCurso: TipoDeCurso[];
   cursosDoMonitor: CursoDoMonitor[];
 
-  cursoParaDelecao: String;
+  cursoParaDelecao: string;
 
   maskDate = SharedModule.textMaskDate;
 
@@ -38,7 +37,7 @@ export class UserMonitoresAlterarCursosComponent implements OnInit {
     private tipodeCursoService: TipoDeCursoService,
     private cursoDoMonitorService: CursoDoMonitorService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -92,7 +91,7 @@ export class UserMonitoresAlterarCursosComponent implements OnInit {
 
       this.loadCursos(this.monitor);
 
-      this.snackbarService.openSnackBarSucess('Curso salvo!');
+      this.toastr.success('Curso salvo!');
       this.form.reset();
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -101,11 +100,11 @@ export class UserMonitoresAlterarCursosComponent implements OnInit {
   }
 
 
-  setCursoParaDelecao(id: String) {
+  setCursoParaDelecao(id: string) {
     this.cursoParaDelecao = id;
   }
 
-  findTipoDeCurso(id: String): TipoDeCurso {
+  findTipoDeCurso(id: string): TipoDeCurso {
     if (this.tiposDeCurso && id)
       return this.tiposDeCurso.filter(t => t.id == id)[0];
   }
@@ -118,7 +117,7 @@ export class UserMonitoresAlterarCursosComponent implements OnInit {
 
       this.loadCursos(this.monitor);
 
-      this.snackbarService.openSnackBarSucess('Curso deletado!');
+      this.toastr.success('Curso deletado!');
       this.closeModal(null);
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
