@@ -4593,6 +4593,13 @@ ngx-mask@^14.0.0:
   dependencies:
     tslib "^2.3.0"
 
+ngx-toastr@15.2.2:
+  version "15.2.2"
+  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-15.2.2.tgz#8df1e880e6b111ede424350add200d97bb2fa524"
+  integrity sha512-srdxKKf1+B/7z11M4Ty7bnkme2xjdUcnP/t7mNG/2gRM1h0P/7Lbz71FIQHuKZOCdnGdXjsT6OXU0dRvNyrkyg==
+  dependencies:
+    tslib "^2.3.0"
+
 "ngx-window-token@>=4.0.0 <6.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/ngx-window-token/-/ngx-window-token-5.0.0.tgz#ca63a25038c9fdd73159857276ff67ec7f5b730b"

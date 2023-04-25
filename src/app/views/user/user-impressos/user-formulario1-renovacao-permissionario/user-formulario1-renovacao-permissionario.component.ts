@@ -4,8 +4,7 @@ import { SearchData } from 'src/app/services/basic-crud.service';
 import { FormularioService } from 'src/app/services/formulario.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-formulario1-renovacao-permissionario',
   templateUrl: './user-formulario1-renovacao-permissionario.component.html',
@@ -21,7 +20,7 @@ export class UserFormulario1RenovacaoPermissionarioComponent implements OnInit {
   constructor(
     private permissionarioService: PermissionarioService,
     private formularioService: FormularioService,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +53,7 @@ export class UserFormulario1RenovacaoPermissionarioComponent implements OnInit {
       const url = window.URL.createObjectURL(formulario);
       window.open(url);
     } catch (e) {
-      this.snackbarService.openSnackBarError(SharedModule.handleError(e));
+      this.toastr.error(SharedModule.handleError(e));
     }
     this.loading = false;
   }

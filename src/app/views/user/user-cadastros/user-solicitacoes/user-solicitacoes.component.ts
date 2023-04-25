@@ -10,8 +10,7 @@ import { SearchData } from 'src/app/services/basic-crud.service';
 import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 import { VeiculoService } from 'src/app/services/veiculo.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-solicitacoes',
   templateUrl: './user-solicitacoes.component.html',
@@ -41,7 +40,7 @@ export class UserSolicitacoesComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private solicitacaoService: SolicitacaoService,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private arquivoService: ArquivoService,
     private modal: NgbModal,
     private sanitizer: DomSanitizer,
@@ -104,7 +103,7 @@ export class UserSolicitacoesComponent implements OnInit {
     try {
       if ((formInput.decisao == 'R' || formInput.decisao == 'C') &&
         (!formInput.motivo || formInput.motivo == '')) {
-        this.snackbarService.openSnackBarError("Nenhum motivo digitado!");
+        this.toastr.error("Nenhum motivo digitado!");
         this.loading = false;
         return;
       }
@@ -120,7 +119,7 @@ export class UserSolicitacoesComponent implements OnInit {
           status: formInput.decisao,
           motivo_recusado: formInput.motivo
         }).toPromise();
-      this.snackbarService.openSnackBarSucess('Solicitação finalizada!');
+      this.toastr.success('Solicitação finalizada!');
       this.closeModal(null);
       await this.loadList(1);
     } catch (e: any) {

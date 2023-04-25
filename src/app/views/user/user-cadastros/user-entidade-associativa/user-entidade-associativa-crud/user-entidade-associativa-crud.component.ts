@@ -7,8 +7,7 @@ import { debounceTime, first } from 'rxjs/operators';
 import { EntidadeAssociativa } from 'src/app/models/entidade-associativa';
 import { EntidadeAssociativaService } from 'src/app/services/entidade-associativa.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-entidade-associativa-crud',
   templateUrl: './user-entidade-associativa-crud.component.html',
@@ -27,7 +26,7 @@ export class UserEntidadeAssociativaCrudComponent implements OnInit {
     private entidadeAssociativaService: EntidadeAssociativaService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -70,7 +69,7 @@ export class UserEntidadeAssociativaCrudComponent implements OnInit {
       } else {
         await this.entidadeAssociativaService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Entidade Associativa salva!');
+      this.toastr.success('Entidade Associativa salva!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -84,7 +83,7 @@ export class UserEntidadeAssociativaCrudComponent implements OnInit {
     try {
       await this.entidadeAssociativaService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

@@ -12,8 +12,7 @@ import { MonitorService } from 'src/app/services/monitor.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-monitores-novo',
   templateUrl: './user-monitores-novo.component.html',
@@ -50,7 +49,7 @@ export class UserMonitoresNovoComponent implements OnInit, OnDestroy {
     private monitorService: MonitorService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -149,12 +148,12 @@ export class UserMonitoresNovoComponent implements OnInit, OnDestroy {
     this.errorMessage = "";
     try {
       if (!this.municipioSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Município selecionado!");
+        this.toastr.error("Nenhum Município selecionado!");
         this.loading = false;
         return;
       }
       if (!this.permissionarioSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Permissionário selecionado!");
+        this.toastr.error("Nenhum Permissionário selecionado!");
         this.loading = false;
         return;
       }
@@ -180,7 +179,7 @@ export class UserMonitoresNovoComponent implements OnInit, OnDestroy {
       formInput = SharedModule.convertAllFieldsTrueFalseToBoolean(formInput);
 
       const monitor = await this.monitorService.create(formInput).toPromise();
-      this.snackbarService.openSnackBarSucess('Monitor salvo!');
+      this.toastr.success('Monitor salvo!');
       this.router.navigate(['../alterar/' + monitor.id + '/dados'], {relativeTo:this.route});
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -224,7 +223,7 @@ export class UserMonitoresNovoComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 
@@ -264,7 +263,7 @@ export class UserMonitoresNovoComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

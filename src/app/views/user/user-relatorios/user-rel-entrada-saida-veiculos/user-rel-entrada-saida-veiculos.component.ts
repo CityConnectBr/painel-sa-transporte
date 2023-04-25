@@ -6,8 +6,7 @@ import { RelatorioService } from 'src/app/services/relatorio.service';
 import { VeiculoService } from 'src/app/services/veiculo.service';
 import { PrintPageComponent } from 'src/app/shared/print-page/print-page.component';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-rel-entrada-saida-veiculos',
   templateUrl: './user-rel-entrada-saida-veiculos.component.html',
@@ -30,7 +29,7 @@ export class UserRelEntradaSaidaVeiculosComponent implements OnInit {
   constructor(
     private relatorioService: RelatorioService,
     private formBuilder: FormBuilder,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -48,13 +47,13 @@ export class UserRelEntradaSaidaVeiculosComponent implements OnInit {
     this.errorMessage = "";
     try {
       if(!this.form.valid){
-        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.toastr.error("Existem campos inválidos!");
         this.loading = false;
         return;
       }
 
       if(!inputForm.referencia.match(SharedModule.datePattern)){
-        this.snackbarService.openSnackBarError("Valor inválido!");
+        this.toastr.error("Valor inválido!");
         this.loading = false;
         return;
       }

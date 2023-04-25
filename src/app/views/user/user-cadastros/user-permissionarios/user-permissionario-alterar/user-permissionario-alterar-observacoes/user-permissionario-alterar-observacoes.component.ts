@@ -8,8 +8,7 @@ import { Permissionario } from 'src/app/models/permissionario';
 import { ObservacaoDoPermissionarioService } from 'src/app/services/observacao-do-permissinario.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-permissionario-alterar-observacoes',
   templateUrl: './user-permissionario-alterar-observacoes.component.html',
@@ -32,7 +31,7 @@ export class UserPermissionarioAlterarObservacoesComponent implements OnInit {
     private permissionarioService: PermissionarioService,
     private observacaoDoPermissionarioService: ObservacaoDoPermissionarioService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -80,7 +79,7 @@ export class UserPermissionarioAlterarObservacoesComponent implements OnInit {
 
       this.loadCursos(this.permissionario);
 
-      this.snackbarService.openSnackBarSucess('Observação salvo!');
+      this.toastr.success('Observação salvo!');
       this.form.reset();
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -101,7 +100,7 @@ export class UserPermissionarioAlterarObservacoesComponent implements OnInit {
 
       this.loadCursos(this.permissionario);
 
-      this.snackbarService.openSnackBarSucess('Observação deletada!');
+      this.toastr.success('Observação deletada!');
       this.closeModal(null);
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);

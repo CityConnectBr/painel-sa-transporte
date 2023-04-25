@@ -4,8 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
 import { CondutorService } from 'src/app/services/condutor.service';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-condutores-alterar',
   templateUrl: './user-condutores-alterar.component.html',
@@ -18,7 +17,7 @@ export class UserCondutoresAlterarComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private condutorService: CondutorService,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private location: Location,
   ) { }
 
@@ -29,12 +28,12 @@ export class UserCondutoresAlterarComponent implements OnInit {
       try{
         const condutor = await this.condutorService.get(parseInt(idSelected)).pipe(first()).toPromise();
         if(!condutor){
-          this.snackbarService.openSnackBarError('Condutor não encontrado!');
+          this.toastr.error('Condutor não encontrado!');
           this.location.back()
         }
 
       } catch (e: any) {
-        this.snackbarService.openSnackBarError('Ocorreu um problema ao carregar o Condutor selecionado!');
+        this.toastr.error('Ocorreu um problema ao carregar o Condutor selecionado!');
         this.location.back()
       }
       this.loading = false;

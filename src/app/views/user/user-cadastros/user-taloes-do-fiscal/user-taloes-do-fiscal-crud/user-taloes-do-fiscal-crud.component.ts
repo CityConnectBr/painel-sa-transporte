@@ -10,8 +10,7 @@ import { TalaoDoFiscal } from 'src/app/models/talao-do-fiscal';
 import { FiscalService } from 'src/app/services/fiscal.service';
 import { TalaoDoFiscalService } from 'src/app/services/talao-do-fiscal.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-taloes-do-fiscal-crud',
   templateUrl: './user-taloes-do-fiscal-crud.component.html',
@@ -38,7 +37,7 @@ export class UserTaloesDoFiscalCrudComponent implements OnInit {
     private fiscalService: FiscalService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -115,7 +114,7 @@ export class UserTaloesDoFiscalCrudComponent implements OnInit {
     this.errorMessage = "";
     try {
       if (!this.fiscalSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Fiscal selecionado!");
+        this.toastr.error("Nenhum Fiscal selecionado!");
         this.loading = false;
         return;
       }
@@ -129,7 +128,7 @@ export class UserTaloesDoFiscalCrudComponent implements OnInit {
       } else {
         await this.talaoDoFiscalService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Talão salvo!');
+      this.toastr.success('Talão salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -143,7 +142,7 @@ export class UserTaloesDoFiscalCrudComponent implements OnInit {
     try {
       await this.talaoDoFiscalService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()
@@ -166,7 +165,7 @@ export class UserTaloesDoFiscalCrudComponent implements OnInit {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

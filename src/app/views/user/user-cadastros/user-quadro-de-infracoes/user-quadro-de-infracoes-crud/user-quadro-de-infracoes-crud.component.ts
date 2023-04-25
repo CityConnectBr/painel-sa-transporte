@@ -9,8 +9,7 @@ import { QuadroDeInfracoes } from 'src/app/models/quadro-de-infracoes';
 import { NaturezaDaInfracaoService } from 'src/app/services/natureza-da-infracao.service';
 import { QuadroDeInfracoesService } from 'src/app/services/quadro-de-infracoes.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-quadro-de-infracoes-crud',
   templateUrl: './user-quadro-de-infracoes-crud.component.html',
@@ -32,7 +31,7 @@ export class UserQuadroDeInfracoesCrudComponent implements OnInit {
     private quadroDeInfracoesService: QuadroDeInfracoesService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -101,7 +100,7 @@ export class UserQuadroDeInfracoesCrudComponent implements OnInit {
     this.errorMessage = "";
     try {
       if(!this.form.valid){
-        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.toastr.error("Existem campos inválidos!");
         this.loading = false;
         return;
       }
@@ -111,7 +110,7 @@ export class UserQuadroDeInfracoesCrudComponent implements OnInit {
       } else {
         await this.quadroDeInfracoesService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Quadro de Infrações salvo!');
+      this.toastr.success('Quadro de Infrações salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -125,7 +124,7 @@ export class UserQuadroDeInfracoesCrudComponent implements OnInit {
     try {
       await this.quadroDeInfracoesService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

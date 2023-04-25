@@ -11,8 +11,7 @@ import { MoedaService } from 'src/app/services/moeda.service';
 import { NaturezaDaInfracaoService } from 'src/app/services/natureza-da-infracao.service';
 import { ValoresDeInfracaoService } from 'src/app/services/valores-de-infracao.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-valores-de-infracao-crud',
   templateUrl: './user-valores-de-infracao-crud.component.html',
@@ -36,7 +35,7 @@ export class UserValoresDeInfracaoCrudComponent implements OnInit {
     private moedaService: MoedaService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -98,7 +97,7 @@ export class UserValoresDeInfracaoCrudComponent implements OnInit {
       } else {
         await this.valoresDaInfracaoService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Valor da Infrafração salvo!');
+      this.toastr.success('Valor da Infrafração salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -112,7 +111,7 @@ export class UserValoresDeInfracaoCrudComponent implements OnInit {
     try {
       await this.valoresDaInfracaoService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

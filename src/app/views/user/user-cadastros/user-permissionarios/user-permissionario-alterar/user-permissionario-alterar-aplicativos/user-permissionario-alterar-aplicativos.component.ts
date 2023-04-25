@@ -10,8 +10,7 @@ import { AplicativoDoPermissionarioService } from 'src/app/services/aplicativo-d
 import { AplicativoService } from 'src/app/services/aplicativo.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-permissionario-alterar-aplicativos',
   templateUrl: './user-permissionario-alterar-aplicativos.component.html',
@@ -38,7 +37,7 @@ export class UserPermissionarioAlterarAplicativosComponent implements OnInit {
     private aplicativoCursoService: AplicativoService,
     private aplicativoDoPermissionarioService: AplicativoDoPermissionarioService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -89,7 +88,7 @@ export class UserPermissionarioAlterarAplicativosComponent implements OnInit {
 
       this.load(this.permissionario);
 
-      this.snackbarService.openSnackBarSucess('Aplicativo salvo!');
+      this.toastr.success('Aplicativo salvo!');
       this.form.reset();
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -115,7 +114,7 @@ export class UserPermissionarioAlterarAplicativosComponent implements OnInit {
 
       this.load(this.permissionario);
 
-      this.snackbarService.openSnackBarSucess('Aplicativo deletado!');
+      this.toastr.success('Aplicativo deletado!');
       this.closeModal(null);
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);

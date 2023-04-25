@@ -6,8 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Moeda } from 'src/app/models/moeda';
 import { MoedaService } from 'src/app/services/moeda.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-moedas-crud',
   templateUrl: './user-moedas-crud.component.html',
@@ -26,7 +25,7 @@ export class UserMoedasCrudComponent implements OnInit {
     private moedaService: MoedaService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -69,7 +68,7 @@ export class UserMoedasCrudComponent implements OnInit {
       } else {
         await this.moedaService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Tipo de Moeda salvo!');
+      this.toastr.success('Tipo de Moeda salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -83,7 +82,7 @@ export class UserMoedasCrudComponent implements OnInit {
     try {
       await this.moedaService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

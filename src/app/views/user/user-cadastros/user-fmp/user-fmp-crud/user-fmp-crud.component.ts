@@ -9,8 +9,7 @@ import { Moeda } from 'src/app/models/moeda';
 import { FMPService } from 'src/app/services/fmp.service';
 import { MoedaService } from 'src/app/services/moeda.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-fmp-crud',
   templateUrl: './user-fmp-crud.component.html',
@@ -34,7 +33,7 @@ export class UserFmpCrudComponent implements OnInit {
     private moedaService: MoedaService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -99,7 +98,7 @@ export class UserFmpCrudComponent implements OnInit {
       } else {
         await this.fmpService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('FMP salvo!');
+      this.toastr.success('FMP salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -113,7 +112,7 @@ export class UserFmpCrudComponent implements OnInit {
     try {
       await this.fmpService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

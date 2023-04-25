@@ -12,8 +12,7 @@ import { EnderecoService } from 'src/app/services/endereco.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-permissionario-alterar-dados',
   templateUrl: './user-permissionario-alterar-dados.component.html',
@@ -49,7 +48,7 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
     private municipioService: MunicipioService,
     private permissionarioService: PermissionarioService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
     private sanitizer: DomSanitizer
   ) {
@@ -181,13 +180,13 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
     this.errorMessage = "";
     try {
       if(!this.form.valid){
-        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.toastr.error("Existem campos inválidos!");
         this.loading = false;
         return;
       }
 
       if (!this.municipioSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Município selecionado!");
+        this.toastr.error("Nenhum Município selecionado!");
         this.loading = false;
         return;
       }
@@ -207,7 +206,7 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
 
       await this.enderecoService.update(this.enderecoDoPermissionario.id, endereco).toPromise();
       await this.permissionarioService.update(this.permissionario.id, formInput).toPromise();
-      this.snackbarService.openSnackBarSucess('Permissionário salvo!');
+      this.toastr.success('Permissionário salvo!');
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
     }
@@ -225,10 +224,10 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
     this.errorMessage = "";
     try {
       if (!this.photoToUpload) {
-        this.snackbarService.openSnackBarError("Nenhuma foto foi selecionada");
+        this.toastr.error("Nenhuma foto foi selecionada");
       }
       await this.permissionarioService.updatePhoto(this.permissionario.id, this.photoToUpload).toPromise();
-      this.snackbarService.openSnackBarSucess('Foto salva!');
+      this.toastr.success('Foto salva!');
       this.closeModal("");
       await this.refreshPhoto(this.permissionario);
     } catch (e: any) {
@@ -273,7 +272,7 @@ export class UserPermissionarioAlterarDadosComponent implements OnInit, OnDestro
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

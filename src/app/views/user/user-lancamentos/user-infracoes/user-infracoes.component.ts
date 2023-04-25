@@ -6,8 +6,7 @@ import { QrCodePix } from 'qrcode-pix';
 import { SearchData } from 'src/app/services/basic-crud.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
 import { InfracaoService } from 'src/app/services/infracao.service';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-infracoes',
   templateUrl: './user-infracoes.component.html',
@@ -27,7 +26,7 @@ export class UserInfracoesComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private modal: NgbModal,
-    private snackbarService: SnackBarService
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -66,7 +65,7 @@ export class UserInfracoesComponent implements OnInit, AfterViewInit {
 
     const infracao: Infracao = await this.infracaoService.get(id).toPromise();
     if (!infracao) {
-      this.snackbarService.openSnackBarError(
+      this.toastr.error(
         'Não foi possível gerar o QR Code'
       );
       return;
@@ -98,14 +97,14 @@ export class UserInfracoesComponent implements OnInit, AfterViewInit {
 
   copyCode() {
     navigator.clipboard.writeText(this.qrCodePix.payload());
-    this.snackbarService.openSnackBarSucess('Código copiado com sucesso');
+    this.toastr.success('Código copiado com sucesso');
   }
 
   copyQrCode() {
     const canvas = document.querySelector('canvas');
     canvas.toBlob((blob) => {
       navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-      this.snackbarService.openSnackBarSucess('QR Code copiado com sucesso');
+      this.toastr.success('QR Code copiado com sucesso');
     });
   }
 

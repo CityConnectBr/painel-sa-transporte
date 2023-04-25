@@ -10,8 +10,7 @@ import { CursoDoPermissionarioService } from 'src/app/services/curso-do-permissi
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { TipoDeCursoService } from 'src/app/services/tipo-de-curso.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-permissionario-alterar-cursos',
   templateUrl: './user-permissionario-alterar-cursos.component.html',
@@ -38,7 +37,7 @@ export class UserPermissionarioAlterarCursosComponent implements OnInit {
     private tipodeCursoService: TipoDeCursoService,
     private cursoDoPermissionarioService: CursoDoPermissionarioService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -92,7 +91,7 @@ export class UserPermissionarioAlterarCursosComponent implements OnInit {
 
       this.loadCursos(this.permissionario);
 
-      this.snackbarService.openSnackBarSucess('Curso salvo!');
+      this.toastr.success('Curso salvo!');
       this.form.reset();
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -118,7 +117,7 @@ export class UserPermissionarioAlterarCursosComponent implements OnInit {
 
       this.loadCursos(this.permissionario);
 
-      this.snackbarService.openSnackBarSucess('Curso deletado!');
+      this.toastr.success('Curso deletado!');
       this.closeModal(null);
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);

@@ -7,8 +7,7 @@ import { debounceTime, first } from 'rxjs/operators';
 import { TipoDeCurso } from 'src/app/models/tipo-de-curso';
 import { TipoDeCursoService } from 'src/app/services/tipo-de-curso.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-tipos-de-curso-crud',
   templateUrl: './user-tipos-de-curso-crud.component.html',
@@ -27,7 +26,7 @@ export class UserTiposDeCursoCrudComponent implements OnInit {
     private tipoDeCursoService: TipoDeCursoService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -74,7 +73,7 @@ export class UserTiposDeCursoCrudComponent implements OnInit {
       } else {
         await this.tipoDeCursoService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Tipo de Curso salvo!');
+      this.toastr.success('Tipo de Curso salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -88,7 +87,7 @@ export class UserTiposDeCursoCrudComponent implements OnInit {
     try {
       await this.tipoDeCursoService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

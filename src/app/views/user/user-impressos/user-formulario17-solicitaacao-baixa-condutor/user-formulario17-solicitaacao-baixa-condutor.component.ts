@@ -7,8 +7,7 @@ import { CondutorService } from 'src/app/services/condutor.service';
 import { FormularioService } from 'src/app/services/formulario.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-formulario17-solicitaacao-baixa-condutor',
   templateUrl: './user-formulario17-solicitaacao-baixa-condutor.component.html',
@@ -28,7 +27,7 @@ export class UserFormulario17SolicitaacaoBaixaCondutorComponent implements OnIni
     private permissionarioService: PermissionarioService,
     private condutorService: CondutorService,
     private formularioService: FormularioService,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) { }
 
@@ -62,13 +61,13 @@ export class UserFormulario17SolicitaacaoBaixaCondutorComponent implements OnIni
       this.condutores = await this.condutorService.indexByPermissionario(permissionarioId).pipe(first()).toPromise();
 
       if(this.condutores.length == 0){
-        this.snackbarService.openSnackBarError("Não existem condutores cadastrados para este Permissionário.");
+        this.toastr.error("Não existem condutores cadastrados para este Permissionário.");
         return;
       }
 
       this.modal.open(modal);
     } catch (e) {
-      this.snackbarService.openSnackBarError(SharedModule.handleError(e));
+      this.toastr.error(SharedModule.handleError(e));
     }finally{
       this.loading = false;
     }
@@ -81,7 +80,7 @@ export class UserFormulario17SolicitaacaoBaixaCondutorComponent implements OnIni
       const url = window.URL.createObjectURL(formulario);
       window.open(url);
     } catch (e) {
-      this.snackbarService.openSnackBarError(SharedModule.handleError(e));
+      this.toastr.error(SharedModule.handleError(e));
     }
     this.loading = false;
   }

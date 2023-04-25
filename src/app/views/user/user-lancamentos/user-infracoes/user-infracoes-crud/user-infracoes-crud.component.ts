@@ -15,8 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Permissionario } from 'src/app/models/permissionario';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-import { debounceTime, first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';import { debounceTime, first } from 'rxjs/operators';
 import { SearchData } from 'src/app/services/basic-crud.service';
 import { Infracao } from 'src/app/models/infracao';
 import { InfracaoService } from 'src/app/services/infracao.service';
@@ -93,7 +92,7 @@ export class UserInfracoesCrudComponent implements OnInit {
     private arquivoService: ArquivoService,
     private route: ActivatedRoute,
     private router: Router,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
     private sanitizer: DomSanitizer
   ) {}
@@ -334,7 +333,7 @@ export class UserInfracoesCrudComponent implements OnInit {
       SharedModule.setAllFieldsFromFormAsTouched(this.form);
 
       if (!this.form.valid) {
-        this.snackbarService.openSnackBarError(
+        this.toastr.error(
           'Verifique se existem campos inválidos!'
         );
         this.loading = false;
@@ -342,7 +341,7 @@ export class UserInfracoesCrudComponent implements OnInit {
       }
 
       if (!this.permissionarioSelecionado) {
-        this.snackbarService.openSnackBarError(
+        this.toastr.error(
           'Nenhum Permissionário selecionado!'
         );
         this.loading = false;
@@ -350,7 +349,7 @@ export class UserInfracoesCrudComponent implements OnInit {
       }
 
       if (!this.quadroDeInfracoesSelecionado) {
-        this.snackbarService.openSnackBarError(
+        this.toastr.error(
           'Nenhum Quadro de Infração selecionado!'
         );
         this.loading = false;
@@ -361,7 +360,7 @@ export class UserInfracoesCrudComponent implements OnInit {
         this.form.controls['tipoPix'].value == '0' &&
         !this.form.controls['chave_pix'].value
       ) {
-        this.snackbarService.openSnackBarError('Informe a chave pix!');
+        this.toastr.error('Informe a chave pix!');
         this.loading = false;
         return;
       }
@@ -370,13 +369,13 @@ export class UserInfracoesCrudComponent implements OnInit {
         this.form.controls['tipoPix'].value == '1' &&
         !this.form.controls['codigo_pix'].value
       ) {
-        this.snackbarService.openSnackBarError('Informe o código pix!');
+        this.toastr.error('Informe o código pix!');
         this.loading = false;
         return;
       }
 
       if (!this.veiculoSelecionado) {
-        this.snackbarService.openSnackBarError('Nenhum veículo selecionado!');
+        this.toastr.error('Nenhum veículo selecionado!');
         this.loading = false;
         return;
       }
@@ -387,7 +386,7 @@ export class UserInfracoesCrudComponent implements OnInit {
         this.permissionarioSelecionado?.id !=
           this.veiculoSelecionado?.permissionario_id
       ) {
-        this.snackbarService.openSnackBarError(
+        this.toastr.error(
           'Veiculo selecionado não pertence ao permissionário!'
         );
         this.loading = false;
@@ -441,7 +440,7 @@ export class UserInfracoesCrudComponent implements OnInit {
 
         await this.infracaoService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Infração salva!');
+      this.toastr.success('Infração salva!');
       this.router.navigate(['/user/lancamentos/infracoes']);
     } catch (e: any) {
       console.error(e);
@@ -453,7 +452,7 @@ export class UserInfracoesCrudComponent implements OnInit {
   async loadFMP() {
     const fmps = await this.fmpService.indexValidos().toPromise();
     if (!fmps || fmps.length == 0) {
-      this.snackbarService.openSnackBarError('Nenhum FMP válido encontrado!');
+      this.toastr.error('Nenhum FMP válido encontrado!');
     }
     this.fmp = fmps[0];
     this.form.controls['valor_fmp'].setValue(
@@ -464,7 +463,7 @@ export class UserInfracoesCrudComponent implements OnInit {
   async loadEmpresa() {
     const empresas = await this.empresaService.index().toPromise();
     if (!empresas || empresas.length == 0) {
-      this.snackbarService.openSnackBarError('Nenhuma empresa encontrada!');
+      this.toastr.error('Nenhuma empresa encontrada!');
     }
 
     this.empresa = empresas[0];
@@ -476,7 +475,7 @@ export class UserInfracoesCrudComponent implements OnInit {
     try {
       await this.infracaoService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll();
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.router.navigate(['/user/lancamentos/infracoes']);
     } catch (e: any) {
       this.modal.dismissAll();
@@ -498,12 +497,12 @@ export class UserInfracoesCrudComponent implements OnInit {
     this.errorMessage = '';
     try {
       if (!this.imageFile) {
-        this.snackbarService.openSnackBarError('Nenhuma foto foi selecionada');
+        this.toastr.error('Nenhuma foto foi selecionada');
       }
       await this.permissionarioService
         .updatePhoto(this.crudObj.id, this.imageFile)
         .toPromise();
-      this.snackbarService.openSnackBarSucess('Foto salva!');
+      this.toastr.success('Foto salva!');
       this.closeModal('');
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -533,7 +532,7 @@ export class UserInfracoesCrudComponent implements OnInit {
       this.searchVeiculoText = text;
 
       if (!this.permissionarioService) {
-        this.snackbarService.openSnackBarError(
+        this.toastr.error(
           'É necessário selecionar um permissionário antes.'
         );
         return;
@@ -608,14 +607,14 @@ export class UserInfracoesCrudComponent implements OnInit {
     );
 
     if (!valores || valores.length == 0) {
-      this.snackbarService.openSnackBarError(
+      this.toastr.error(
         'Não foi encontrado valores para a modalidade do permissionário e natureza selecionada.'
       );
       return;
     }
 
     if (valores.length > 1) {
-      this.snackbarService.openSnackBarError(
+      this.toastr.error(
         'Mais de um valor foi encontrado para a modalidade do permissionário e natureza selecionada.'
       );
       return;
@@ -677,7 +676,7 @@ export class UserInfracoesCrudComponent implements OnInit {
         );
       });
     } catch (e: any) {
-      this.snackbarService.openSnackBarError('Ocorreu um erro ao pesquisar.');
+      this.toastr.error('Ocorreu um erro ao pesquisar.');
     }
   }
 

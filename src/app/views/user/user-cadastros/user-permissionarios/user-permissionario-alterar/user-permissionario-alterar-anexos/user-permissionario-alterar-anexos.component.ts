@@ -8,8 +8,7 @@ import { Permissionario } from 'src/app/models/permissionario';
 import { AnexoDoPermissionarioService } from 'src/app/services/anexo-do-permissionario.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-permissionario-alterar-anexos',
   templateUrl: './user-permissionario-alterar-anexos.component.html',
@@ -34,7 +33,7 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
     private permissionarioService: PermissionarioService,
     private anexoDoPermissionarioService: AnexoDoPermissionarioService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -82,7 +81,7 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
 
       this.load();
 
-      this.snackbarService.openSnackBarSucess('Anexo salvo!');
+      this.toastr.success('Anexo salvo!');
       this.form.reset();
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -110,7 +109,7 @@ export class UserPermissionarioAlterarAnexosComponent implements OnInit {
 
       this.load();
 
-      this.snackbarService.openSnackBarSucess('Anexo deletado!');
+      this.toastr.success('Anexo deletado!');
       this.closeModal(null);
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);

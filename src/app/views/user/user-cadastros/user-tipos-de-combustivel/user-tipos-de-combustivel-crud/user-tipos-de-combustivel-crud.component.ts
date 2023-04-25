@@ -7,8 +7,7 @@ import { debounceTime, first } from 'rxjs/operators';
 import { TipoDeCombustivel } from 'src/app/models/tipo-de-combustivel';
 import { TipoDeCombustivelService } from 'src/app/services/tipo-de-combustivel.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-tipos-de-combustivel-crud',
   templateUrl: './user-tipos-de-combustivel-crud.component.html',
@@ -27,7 +26,7 @@ export class UserTiposDeCombustivelCrudComponent implements OnInit {
     private tipoDeCombustivelService: TipoDeCombustivelService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -70,7 +69,7 @@ export class UserTiposDeCombustivelCrudComponent implements OnInit {
       } else {
         await this.tipoDeCombustivelService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Tipo de Combustivel salvo!');
+      this.toastr.success('Tipo de Combustivel salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -84,7 +83,7 @@ export class UserTiposDeCombustivelCrudComponent implements OnInit {
     try {
       await this.tipoDeCombustivelService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

@@ -5,8 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-import { debounceTime, first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';import { debounceTime, first } from 'rxjs/operators';
 import { Ponto } from 'src/app/models/ponto';
 import { VistoriaDePonto } from 'src/app/models/vistoria-de-ponto';
 import { VistoriaDePontoService } from 'src/app/services/vistoria-de-ponto.service';
@@ -45,7 +44,7 @@ export class UserVistoriadepontosCrudComponent implements OnInit {
     private pontoService: PontoService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -121,7 +120,7 @@ export class UserVistoriadepontosCrudComponent implements OnInit {
     try {
 
       if (!this.vistoriadorSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum vistoriador selecionado!");
+        this.toastr.error("Nenhum vistoriador selecionado!");
         this.loading = false;
         return;
       }
@@ -136,7 +135,7 @@ export class UserVistoriadepontosCrudComponent implements OnInit {
       } else {
         await this.vistoriaDePontoService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Vistoria salva!');
+      this.toastr.success('Vistoria salva!');
       this.location.back()
     } catch (e: any) {
       console.error(e);
@@ -151,7 +150,7 @@ export class UserVistoriadepontosCrudComponent implements OnInit {
     try {
       await this.vistoriadorService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluida com Sucesso!');
+      this.toastr.success('Excluida com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()
@@ -182,7 +181,7 @@ export class UserVistoriadepontosCrudComponent implements OnInit {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

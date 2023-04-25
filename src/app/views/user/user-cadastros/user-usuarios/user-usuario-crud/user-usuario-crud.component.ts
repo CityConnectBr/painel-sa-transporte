@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PerfilService } from 'src/app/services/perfil.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';import { Location } from '@angular/common';
 import { Perfil } from 'src/app/models/perfil';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/models/usuario';
@@ -31,7 +30,7 @@ export class UserUsuarioCrudComponent implements OnInit {
     private perfilService: PerfilService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -83,7 +82,7 @@ export class UserUsuarioCrudComponent implements OnInit {
       } else {
         await this.usuarioService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Usuário salvo!');
+      this.toastr.success('Usuário salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -97,7 +96,7 @@ export class UserUsuarioCrudComponent implements OnInit {
     try {
       await this.usuarioService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

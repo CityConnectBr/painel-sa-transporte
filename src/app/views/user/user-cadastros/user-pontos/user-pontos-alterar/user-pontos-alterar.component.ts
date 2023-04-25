@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { PontoService } from 'src/app/services/ponto.service';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-pontos-alterar',
   templateUrl: './user-pontos-alterar.component.html',
@@ -17,7 +16,7 @@ export class UserPontosAlterarComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private pontoService: PontoService,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private location: Location,
   ) { }
 
@@ -28,12 +27,12 @@ export class UserPontosAlterarComponent implements OnInit {
       try{
         const condutor = await this.pontoService.get(parseInt(idSelected)).pipe(first()).toPromise();
         if(!condutor){
-          this.snackbarService.openSnackBarError('Ponto não encontrado!');
+          this.toastr.error('Ponto não encontrado!');
           this.location.back()
         }
 
       } catch (e: any) {
-        this.snackbarService.openSnackBarError('Ocorreu um problema ao carregar o Ponto selecionado!');
+        this.toastr.error('Ocorreu um problema ao carregar o Ponto selecionado!');
         this.location.back()
       }
       this.loading = false;

@@ -8,8 +8,7 @@ import { Condutor } from 'src/app/models/condutores';
 import { AnexoDoCondutorService } from 'src/app/services/anexo-do-condutor.service';
 import { CondutorService } from 'src/app/services/condutor.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-condutores-alterar-anexos',
   templateUrl: './user-condutores-alterar-anexos.component.html',
@@ -34,7 +33,7 @@ export class UserCondutoresAlterarAnexosComponent implements OnInit {
     private condutorService: CondutorService,
     private anexoDoCondutorService: AnexoDoCondutorService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -81,7 +80,7 @@ export class UserCondutoresAlterarAnexosComponent implements OnInit {
 
       this.load();
 
-      this.snackbarService.openSnackBarSucess('Anexo salvo!');
+      this.toastr.success('Anexo salvo!');
       this.form.reset();
     } catch (e: any) {
       console.error(e);
@@ -110,7 +109,7 @@ export class UserCondutoresAlterarAnexosComponent implements OnInit {
 
       this.load();
 
-      this.snackbarService.openSnackBarSucess('Anexo deletado!');
+      this.toastr.success('Anexo deletado!');
       this.closeModal(null);
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);

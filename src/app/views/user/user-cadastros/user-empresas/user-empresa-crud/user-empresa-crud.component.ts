@@ -12,8 +12,7 @@ import { EmpresaService } from 'src/app/services/empresa.service';
 import { EnderecoService } from 'src/app/services/endereco.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-empresa-crud',
   templateUrl: './user-empresa-crud.component.html',
@@ -45,7 +44,7 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
     private municipioService: MunicipioService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -197,7 +196,7 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
     this.errorMessage = "";
     try {
       if(!this.form.valid){
-        this.snackbarService.openSnackBarError("Existem campos inválidos!");
+        this.toastr.error("Existem campos inválidos!");
         this.loading = false;
         return;
       }
@@ -228,7 +227,7 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
         formInput.endereco_id = id;
         await this.empresaService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Empresa salva!');
+      this.toastr.success('Empresa salva!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -243,7 +242,7 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
       await this.empresaService.delete(this.crudObj.id).toPromise();
       await this.enderecoService.delete(this.crudObj.endereco_id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()
@@ -266,7 +265,7 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

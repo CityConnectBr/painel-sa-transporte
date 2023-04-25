@@ -12,8 +12,7 @@ import { ModalidadeService } from 'src/app/services/modalidade.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
 import { PontoService } from 'src/app/services/ponto.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-pontos-novo',
   templateUrl: './user-pontos-novo.component.html',
@@ -47,7 +46,7 @@ export class UserPontosNovoComponent implements OnInit, OnDestroy {
     private modalidadeService: ModalidadeService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -133,7 +132,7 @@ export class UserPontosNovoComponent implements OnInit, OnDestroy {
     this.errorMessage = "";
     try {
       if (!this.municipioSelecionado) {
-        this.snackbarService.openSnackBarError("Nenhum Município selecionado!");
+        this.toastr.error("Nenhum Município selecionado!");
         this.loading = false;
         return;
       }
@@ -158,7 +157,7 @@ export class UserPontosNovoComponent implements OnInit, OnDestroy {
       formInput = SharedModule.convertAllFieldsTrueFalseToBoolean(formInput);
 
       const ponto = await this.pontoService.create(formInput).toPromise();
-      this.snackbarService.openSnackBarSucess('Ponto salvo!');
+      this.toastr.success('Ponto salvo!');
       this.router.navigate(['../alterar/' + ponto.id + '/dados'], {relativeTo:this.route});
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -206,7 +205,7 @@ export class UserPontosNovoComponent implements OnInit, OnDestroy {
       });
 
     } catch (e: any) {
-      this.snackbarService.openSnackBarError("Ocorreu um erro ao pesquisar.");
+      this.toastr.error("Ocorreu um erro ao pesquisar.");
     }
   }
 

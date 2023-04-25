@@ -7,8 +7,7 @@ import { debounceTime, first } from 'rxjs/operators';
 import { CorDoVeiculo } from 'src/app/models/cor-do-veiculo';
 import { CorDoVeiculoService } from 'src/app/services/cor-do-veiculo.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-cores-de-veiculo-crud',
   templateUrl: './user-cores-de-veiculo-crud.component.html',
@@ -27,7 +26,7 @@ export class UserCoresDeVeiculoCrudComponent implements OnInit {
     private corDoVeiculoService: CorDoVeiculoService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -70,7 +69,7 @@ export class UserCoresDeVeiculoCrudComponent implements OnInit {
       } else {
         await this.corDoVeiculoService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Cor salva!');
+      this.toastr.success('Cor salva!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -84,7 +83,7 @@ export class UserCoresDeVeiculoCrudComponent implements OnInit {
     try {
       await this.corDoVeiculoService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()

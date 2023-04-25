@@ -8,8 +8,7 @@ import { Permissionario } from 'src/app/models/permissionario';
 import { ModalidadeService } from 'src/app/services/modalidade.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-permissionario-alterar-falecimento',
   templateUrl: './user-permissionario-alterar-falecimento.component.html',
@@ -29,7 +28,7 @@ export class UserPermissionarioAlterarFalecimentoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private permissionarioService: PermissionarioService,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
   ) {
   }
 
@@ -78,7 +77,7 @@ export class UserPermissionarioAlterarFalecimentoComponent implements OnInit {
       formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
 
       await this.permissionarioService.updateFalecimento(this.permissionario.id, formInput).toPromise();
-      this.snackbarService.openSnackBarSucess('Permissionário salvo!');
+      this.toastr.success('Permissionário salvo!');
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
     }

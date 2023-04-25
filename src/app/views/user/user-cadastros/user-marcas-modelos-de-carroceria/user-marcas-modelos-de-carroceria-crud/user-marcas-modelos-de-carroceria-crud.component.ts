@@ -8,8 +8,7 @@ import { MarcaModeloDeChassi } from 'src/app/models/marca-modelo-de-chassi';
 import { MarcaModeloDeCarroceriaService } from 'src/app/services/marca-modelo-de-carroceria.service';
 import { MarcaModeloDeChassiService } from 'src/app/services/marca-modelo-de-chassi.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { SnackBarService } from 'src/app/shared/snackbar.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-marcas-modelos-de-carroceria-crud',
   templateUrl: './user-marcas-modelos-de-carroceria-crud.component.html',
@@ -28,7 +27,7 @@ export class UserMarcasModelosDeCarroceriaCrudComponent implements OnInit {
     private marcaModeloCarroceriaService: MarcaModeloDeCarroceriaService,
     private location: Location,
     private route: ActivatedRoute,
-    private snackbarService: SnackBarService,
+    private toastr: ToastrService,
     private modal: NgbModal,
   ) {
   }
@@ -75,7 +74,7 @@ export class UserMarcasModelosDeCarroceriaCrudComponent implements OnInit {
       } else {
         await this.marcaModeloCarroceriaService.create(formInput).toPromise();
       }
-      this.snackbarService.openSnackBarSucess('Marca/Modelo salvo!');
+      this.toastr.success('Marca/Modelo salvo!');
       this.location.back()
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -89,7 +88,7 @@ export class UserMarcasModelosDeCarroceriaCrudComponent implements OnInit {
     try {
       await this.marcaModeloCarroceriaService.delete(this.crudObj.id).toPromise();
       this.modal.dismissAll()
-      this.snackbarService.openSnackBarSucess('Excluido com Sucesso!');
+      this.toastr.success('Excluido com Sucesso!');
       this.location.back()
     } catch (e: any) {
       this.modal.dismissAll()
