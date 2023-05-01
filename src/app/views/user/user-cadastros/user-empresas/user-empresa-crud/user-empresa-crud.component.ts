@@ -129,6 +129,12 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
         uf: new FormControl("", {
           validators: [Validators.required],
         }),
+        tipo_chave_pix: new FormControl("", {
+          validators: [Validators.pattern(/^(cpf|telefone|email|aleatorio|cnpj)$/)],
+        }),
+        chave_pix: new FormControl("", {
+          validators: [Validators.maxLength(200)],
+        }),
       });
 
       ///////SET IN FORM
@@ -161,6 +167,8 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
         this.form.controls['endereco'].setValue(this.enderecoDaEmpresa?.endereco ?? "");
         this.form.controls['numero'].setValue(this.enderecoDaEmpresa?.numero ?? "");
         this.form.controls['uf'].setValue(this.enderecoDaEmpresa?.uf ?? "");
+        this.form.controls['tipo_chave_pix'].setValue(this.crudObj.tipo_chave_pix);
+        this.form.controls['chave_pix'].setValue(this.crudObj.chave_pix);
 
         //forçando verificação de erros
         SharedModule.setAllFieldsFromFormAsTouched(this.form);
