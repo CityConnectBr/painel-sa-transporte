@@ -20,6 +20,8 @@ export class UserInfracoesComponent implements OnInit, AfterViewInit {
 
   qrCodePix: any;
 
+  infracaoIdSelecionada: number;
+
   constructor(
     private infracaoService: InfracaoService,
     private empresaService: EmpresaService,
@@ -65,9 +67,7 @@ export class UserInfracoesComponent implements OnInit, AfterViewInit {
 
     const infracao: Infracao = await this.infracaoService.get(id).toPromise();
     if (!infracao) {
-      this.toastr.error(
-        'Não foi possível gerar o QR Code'
-      );
+      this.toastr.error('Não foi possível gerar o QR Code');
       return;
     }
 
@@ -89,7 +89,16 @@ export class UserInfracoesComponent implements OnInit, AfterViewInit {
     this.modal.open(modal);
   }
 
-  initLancamentoPagamento(id: number) {}
+  initLancamentoPagamento(modal: any, id: number) {
+    this.infracaoIdSelecionada = id;
+    this.modal
+      .open(modal)
+      .result.then((result) => {})
+      .catch()
+      .finally(() => {
+        this.loadList(1);
+      });
+  }
 
   closeModal(event: any) {
     return this.modal.dismissAll();

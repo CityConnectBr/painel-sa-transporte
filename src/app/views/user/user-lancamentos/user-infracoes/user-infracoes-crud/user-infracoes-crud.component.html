@@ -164,7 +164,7 @@
         <div class="alert alert-danger" *ngIf="errorMessage">
           <strong [innerHTML]="errorMessage"></strong>
         </div>
-        <button type="submit" class="btn pull-right" (click)="salvar(form.value)" *ngIf="isStatusPago() == false">Salvar</button>
+        <button type="submit" class="btn pull-right" (click)="salvar(form.value)" *ngIf="!isStatusPago()">Salvar</button>
       </div>
     </form>
   </div>

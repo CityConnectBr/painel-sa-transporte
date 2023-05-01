@@ -102,6 +102,7 @@ import { UserFormulario1RenovacaoPermissionarioComponent } from './user-impresso
 import { UserFormulario7DeclaracaoMonitorComponent } from './user-impressos/user-formulario7-declaracao-monitor/user-formulario7-declaracao-monitor.component';
 import { UserFormulario8CondutorAuxiliarComponent } from './user-impressos/user-formulario8-condutor-auxiliar/user-formulario8-condutor-auxiliar.component';
 import { UserFormulario17SolicitaacaoBaixaCondutorComponent } from './user-impressos/user-formulario17-solicitaacao-baixa-condutor/user-formulario17-solicitaacao-baixa-condutor.component';
+import { UserInfracoesInformarPagamentoComponent } from "./user-lancamentos/user-infracoes/user-infracoes-informar-pagamento/user-infracoes-informar-pagamento.component";
 
 const ROUTER: Routes = [
   {
@@ -372,6 +373,7 @@ const ROUTER: Routes = [
     UserFormulario7DeclaracaoMonitorComponent,
     UserFormulario8CondutorAuxiliarComponent,
     UserFormulario17SolicitaacaoBaixaCondutorComponent,
+    UserInfracoesInformarPagamentoComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),

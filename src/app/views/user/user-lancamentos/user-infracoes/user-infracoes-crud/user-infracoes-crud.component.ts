@@ -717,10 +717,9 @@ export class UserInfracoesCrudComponent implements OnInit {
   }
 
   public isStatusPago(): boolean {
-    if (!this.form || !this.form.controls['status']) {
-      return false;
+    if (this.crudObj && this.crudObj.status == 'pago') {
+      return true;
     }
-
-    return this.form.controls['status'].value == 'pago';
+    return false;
   }
 }

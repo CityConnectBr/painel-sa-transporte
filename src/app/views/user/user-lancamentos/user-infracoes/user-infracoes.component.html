@@ -30,8 +30,8 @@
           <td>{{obj?.data_infracao | date: 'dd/MM/yyyy'}}</td>
           <td>{{obj?.data_pagamento | date: 'dd/MM/yyyy'}}</td>
           <td class="text-right">
-            <a href="javascript: void(0);" (click)="initLancamentoPagamento(obj.id);" title="Lançar Pagamento"
-              class="mr-2">
+            <a href="javascript: void(0);" (click)="initLancamentoPagamento(informarPagamento, obj.id);" title="Lançar Pagamento"
+              class="mr-2" *ngIf="obj.status=='pendente'">
               <i class="fa fa-book" aria-hidden="true"></i>
             </a>
             <a href="javascript: void(0);" (click)="getQrCode(shareQRCodeModal, obj.id);"
@@ -80,6 +80,12 @@
           </div>
         </div>
       </div>
+    </app-modal>
+  </ng-template>
+
+  <ng-template #informarPagamento let-modal>
+    <app-modal modalID="informarPagamento" title="Informar Pagamento" (closeModalEmit)="closeModal($event)">
+      <app-user-infracoes-informar-pagamento [infracaoId]="infracaoIdSelecionada"></app-user-infracoes-informar-pagamento>
     </app-modal>
   </ng-template>
 
