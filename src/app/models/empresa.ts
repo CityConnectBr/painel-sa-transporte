@@ -18,4 +18,6 @@ export interface Empresa {
   decreto_municipal_taxi: string
   decreto_municipal_escolar: Date
   endereco_id: string
+  tipo_chave_pix: string
+  chave_pix: string
 }

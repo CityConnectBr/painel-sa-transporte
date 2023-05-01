@@ -17,107 +17,138 @@
     <form [formGroup]="form" autocomplete="off">
       <div class="form-inline">
 
-    <div class="subitem">
-      <h3>Dados da Empresa</h3>
+        <div class="subitem">
+          <h3>Dados da Empresa</h3>
 
-      <app-input label="Nome" [inline]="true" [require]="true">
-        <input type="text" class="form-control" formControlName="nome" autocomplete="off">
-      </app-input>
+          <app-input label="Nome" [inline]="true" [require]="true">
+            <input type="text" class="form-control" formControlName="nome" autocomplete="off">
+          </app-input>
 
-      <app-input label="Telefone" [inline]="true">
-        <input type="text" class="form-control" formControlName="telefone"  mask="(00) 00000-0000 || (00) 0000-0000" autocomplete="off">
-      </app-input>
+          <app-input label="Telefone" [inline]="true">
+            <input type="text" class="form-control" formControlName="telefone" mask="(00) 00000-0000 || (00) 0000-0000"
+              autocomplete="off">
+          </app-input>
 
-      <app-input label="Fax" [inline]="true">
-        <input type="text" class="form-control" formControlName="fax"  mask="(00) 00000-0000 || (00) 0000-0000" autocomplete="off">
-      </app-input>
+          <app-input label="Fax" [inline]="true">
+            <input type="text" class="form-control" formControlName="fax" mask="(00) 00000-0000 || (00) 0000-0000"
+              autocomplete="off">
+          </app-input>
 
-      <app-input label="Home Page" [inline]="true">
-        <input type="text" class="form-control" formControlName="home_page" autocomplete="off">
-      </app-input>
+          <app-input label="Home Page" [inline]="true">
+            <input type="text" class="form-control" formControlName="home_page" autocomplete="off">
+          </app-input>
 
-      <app-input label="E-mail" [inline]="true">
-        <input type="text" class="form-control" formControlName="email" autocomplete="off">
-      </app-input>
+          <app-input label="E-mail" [inline]="true">
+            <input type="text" class="form-control" formControlName="email" autocomplete="off">
+          </app-input>
 
-      <app-input label="CNPJ" [inline]="true" [require]="true">
-        <input type="text" class="form-control" formControlName="cnpj" mask="00.000.000/0000-00" autocomplete="off">
-      </app-input>
+          <app-input label="CNPJ" [inline]="true" [require]="true">
+            <input type="text" class="form-control" formControlName="cnpj" mask="00.000.000/0000-00" autocomplete="off">
+          </app-input>
 
-      <app-input label="Inscrição Estadual" [inline]="true">
-        <input type="text" class="form-control" formControlName="inscricao_estadual" autocomplete="off">
-      </app-input>
+          <app-input label="Inscrição Estadual" [inline]="true">
+            <input type="text" class="form-control" formControlName="inscricao_estadual" autocomplete="off">
+          </app-input>
 
-      <app-input label="Inscrição Municipal" [inline]="true">
-        <input type="text" class="form-control" formControlName="inscricao_municipal" autocomplete="off">
-      </app-input>
-    </div>
+          <app-input label="Inscrição Municipal" [inline]="true">
+            <input type="text" class="form-control" formControlName="inscricao_municipal" autocomplete="off">
+          </app-input>
+        </div>
 
-    <div class="subitem">
-      <h3>Endereço</h3>
-      <app-input label="CEP" [inline]="true" [require]="true">
-        <input type="text" class="form-control" formControlName="cep" mask="00000-000" [dropSpecialCharacters]="false" autocomplete="off">
-      </app-input>
+        <div class="subitem">
+          <h3>Endereço</h3>
+          <app-input label="CEP" [inline]="true" [require]="true">
+            <input type="text" class="form-control" formControlName="cep" mask="00000-000"
+              [dropSpecialCharacters]="false" autocomplete="off">
+          </app-input>
 
-      <app-input label="Endereço" [inline]="true" [require]="true">
-        <input type="text" class="form-control" formControlName="endereco" autocomplete="off">
-      </app-input>
+          <app-input label="Endereço" [inline]="true" [require]="true">
+            <input type="text" class="form-control" formControlName="endereco" autocomplete="off">
+          </app-input>
 
-      <app-input label="Número" [inline]="true" [require]="true">
-        <input type="text" class="form-control" formControlName="numero" autocomplete="off">
-      </app-input>
+          <app-input label="Número" [inline]="true" [require]="true">
+            <input type="text" class="form-control" formControlName="numero" autocomplete="off">
+          </app-input>
 
-      <app-input label="Complemento" [inline]="true">
-        <input type="text" class="form-control" formControlName="complemento" autocomplete="off">
-      </app-input>
+          <app-input label="Complemento" [inline]="true">
+            <input type="text" class="form-control" formControlName="complemento" autocomplete="off">
+          </app-input>
 
-      <app-input label="Bairro" [inline]="true" [require]="true">
-        <input type="text" class="form-control" formControlName="bairro" autocomplete="off">
-      </app-input>
+          <app-input label="Bairro" [inline]="true" [require]="true">
+            <input type="text" class="form-control" formControlName="bairro" autocomplete="off">
+          </app-input>
 
-      <app-input label="UF" [inline]="true" [require]="true">
-        <select formControlName="uf" class="form-control">
-          <option *ngFor="let uf of ufs;" value="{{uf}}">{{uf}}</option>
-        </select>
-      </app-input>
+          <app-input label="UF" [inline]="true" [require]="true">
+            <select formControlName="uf" class="form-control">
+              <option *ngFor="let uf of ufs;" value="{{uf}}">{{uf}}</option>
+            </select>
+          </app-input>
 
-      <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" [require]="true" (setObjectSelected)="setMunicipio($event)">
-        <input #municipioInput type="text" class="form-control" formControlName="municipio" autocomplete="off" (keyup)="keyUpMunicipio()" (focus)="setFocusMunicipioInput(true)">
-      </app-input>
+          <app-input label="Município" [inline]="true" [options]="municipiosPesquisados" [require]="true"
+            (setObjectSelected)="setMunicipio($event)">
+            <input #municipioInput type="text" class="form-control" formControlName="municipio" autocomplete="off"
+              (keyup)="keyUpMunicipio()" (focus)="setFocusMunicipioInput(true)">
+          </app-input>
 
-    </div>
+        </div>
 
-    <div class="subitem">
-      <h3>Dados da Organizacionais</h3>
+        <div class="subitem">
+          <h3>Dados da Organizacionais</h3>
 
-      <app-input label="Nome do Diretor" [inline]="true">
-        <input type="text" class="form-control" formControlName="nome_do_diretor" autocomplete="off">
-      </app-input>
+          <app-input label="Nome do Diretor" [inline]="true">
+            <input type="text" class="form-control" formControlName="nome_do_diretor" autocomplete="off">
+          </app-input>
 
-      <app-input label="Nome do Gerete" [inline]="true">
-        <input type="text" class="form-control" formControlName="nome_do_gerente" autocomplete="off">
-      </app-input>
+          <app-input label="Nome do Gerete" [inline]="true">
+            <input type="text" class="form-control" formControlName="nome_do_gerente" autocomplete="off">
+          </app-input>
 
-      <app-input label="Encarregado Vistoriador" [inline]="true">
-        <input type="text" class="form-control" formControlName="nome_do_encarregado_vistoriador" autocomplete="off">
-      </app-input>
+          <app-input label="Encarregado Vistoriador" [inline]="true">
+            <input type="text" class="form-control" formControlName="nome_do_encarregado_vistoriador"
+              autocomplete="off">
+          </app-input>
 
-      <app-input label="Portaria do Diretor" [inline]="true">
-        <input type="text" class="form-control" formControlName="portaria_diretor" autocomplete="off">
-      </app-input>
+          <app-input label="Portaria do Diretor" [inline]="true">
+            <input type="text" class="form-control" formControlName="portaria_diretor" autocomplete="off">
+          </app-input>
 
-      <app-input label="Data da Nomeção do Diretor" [inline]="true">
-        <input type="text" class="form-control" formControlName="data_nomeacao_diretor" autocomplete="off">
-      </app-input>
+          <app-input label="Data da Nomeção do Diretor" [inline]="true">
+            <input type="text" class="form-control" formControlName="data_nomeacao_diretor" autocomplete="off">
+          </app-input>
 
-      <app-input label="Decreto Municipal(Taxi)" [inline]="true">
-        <input type="text" class="form-control" formControlName="decreto_municipal_taxi" autocomplete="off">
-      </app-input>
+          <app-input label="Decreto Municipal(Taxi)" [inline]="true">
+            <input type="text" class="form-control" formControlName="decreto_municipal_taxi" autocomplete="off">
+          </app-input>
 
-      <app-input label="Decreto Municipal(Esscolar)" [inline]="true">
-        <input type="text" class="form-control" formControlName="decreto_municipal_escolar" autocomplete="off">
-      </app-input>
-    </div>
+          <app-input label="Decreto Municipal(Esscolar)" [inline]="true">
+            <input type="text" class="form-control" formControlName="decreto_municipal_escolar" autocomplete="off">
+          </app-input>
+        </div>
+
+        <div class="subitem">
+          <h3>PIX</h3>
+
+          <app-input label="Tipo de Chave" [require]="true">
+            <select class="form-control" formControlName="tipo_chave_pix">
+              <option value="celular">Celular</option>
+              <option value="email">Email</option>
+              <option value="cpf">CPF</option>
+              <option value="cnpj">CNPJ</option>
+              <option value="aleatorio">Aleatório</option>
+            </select>
+          </app-input>
+
+          <app-input label="Chave PIX" [require]="true">
+            <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off"
+              *ngIf="form.get('tipo_chave_pix').value == 'celular'" mask="(00) 00000-0000 || (00) 0000-0000">
+            <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off"
+              *ngIf="form.get('tipo_chave_pix').value == 'email' || form.get('tipo_chave_pix').value == 'aleatorio'">
+            <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off"
+              *ngIf="form.get('tipo_chave_pix').value == 'cpf'" mask="000.000.000-00">
+            <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off"
+              *ngIf="form.get('tipo_chave_pix').value == 'cnpj'" mask="00.000.000/0000-00">
+          </app-input>
+        </div>
 
       </div>
       <div class="clearfix">

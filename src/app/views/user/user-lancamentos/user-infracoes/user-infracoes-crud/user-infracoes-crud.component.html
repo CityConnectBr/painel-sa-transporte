@@ -124,6 +124,12 @@
             </select>
           </app-input>
 
+          <app-input label="Empresa" [inline]="true" [require]="true" *ngIf="form.get('tipoPix').value == 0">
+            <select formControlName="empresa_id" class="form-control" (change)="selecionarEmpresa($event)">
+              <option *ngFor="let empresa of empresas;" value="{{empresa.id}}">{{empresa.nome}}</option>
+            </select>
+          </app-input>
+
           <app-input label="Chave PIX" [require]="true" *ngIf="form.get('tipoPix').value == 0">
             <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 0" mask="(00) 00000-0000 || (00) 0000-0000">
             <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 1 || form.get('tipoDeChavePix').value == 4">
@@ -136,20 +142,20 @@
           </app-input>
         </div>
 
-        <div class="subitem mt-3">
+        <div class="subitem mt-3" *ngIf="imageFile || !isStatusPago()">
           <h3>Imagem da Infração</h3>
-          <a *ngIf="!imageFile" href="javascript: void(0)" (click)="openModal(uploadModal)">
+          <a *ngIf="!imageFile && !isStatusPago()" href="javascript: void(0)" (click)="openModal(uploadModal)">
             Enviar Imagem
           </a>
           <a *ngIf="imageFile" href="javascript: void(0)" (click)="visualizarImagem(visualizarArquivo)">
             Visualizar
           </a>
           <span *ngIf="imageFile"> | </span>
-          <a *ngIf="imageFile" href="javascript: void(0)" (click)="openModal(uploadModal)">
+          <a *ngIf="imageFile && !isStatusPago()" href="javascript: void(0)" (click)="openModal(uploadModal)">
             Alterar
           </a>
           <span *ngIf="imageFile"> | </span>
-          <a *ngIf="imageFile" href="javascript: void(0)" (click)="excluirImagem()">
+          <a *ngIf="imageFile && !isStatusPago()" href="javascript: void(0)" (click)="excluirImagem()">
             Excluir
           </a>
         </div>
@@ -158,7 +164,7 @@
         <div class="alert alert-danger" *ngIf="errorMessage">
           <strong [innerHTML]="errorMessage"></strong>
         </div>
-        <button type="submit" class="btn pull-right" (click)="salvar(form.value)" *ngIf="isStatusPago() == false">Salvar</button>
+        <button type="submit" class="btn pull-right" (click)="salvar(form.value)" *ngIf="!isStatusPago()">Salvar</button>
       </div>
     </form>
   </div>
