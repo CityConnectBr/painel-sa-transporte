@@ -142,20 +142,20 @@
           </app-input>
         </div>
 
-        <div class="subitem mt-3">
+        <div class="subitem mt-3" *ngIf="imageFile || !isStatusPago()">
           <h3>Imagem da Infração</h3>
-          <a *ngIf="!imageFile" href="javascript: void(0)" (click)="openModal(uploadModal)">
+          <a *ngIf="!imageFile && !isStatusPago()" href="javascript: void(0)" (click)="openModal(uploadModal)">
             Enviar Imagem
           </a>
           <a *ngIf="imageFile" href="javascript: void(0)" (click)="visualizarImagem(visualizarArquivo)">
             Visualizar
           </a>
           <span *ngIf="imageFile"> | </span>
-          <a *ngIf="imageFile" href="javascript: void(0)" (click)="openModal(uploadModal)">
+          <a *ngIf="imageFile && !isStatusPago()" href="javascript: void(0)" (click)="openModal(uploadModal)">
             Alterar
           </a>
           <span *ngIf="imageFile"> | </span>
-          <a *ngIf="imageFile" href="javascript: void(0)" (click)="excluirImagem()">
+          <a *ngIf="imageFile && !isStatusPago()" href="javascript: void(0)" (click)="excluirImagem()">
             Excluir
           </a>
         </div>
