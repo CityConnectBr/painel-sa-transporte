@@ -15,7 +15,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Permissionario } from 'src/app/models/permissionario';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
-import { ToastrService } from 'ngx-toastr';import { debounceTime, first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+import { debounceTime, first } from 'rxjs/operators';
 import { SearchData } from 'src/app/services/basic-crud.service';
 import { Infracao } from 'src/app/models/infracao';
 import { InfracaoService } from 'src/app/services/infracao.service';
@@ -50,6 +51,7 @@ export class UserInfracoesCrudComponent implements OnInit {
 
   moedas: Moeda[];
   naturezas: NaturezaDaInfracao[];
+  empresas: Empresa[];
   fmp: FMP;
   empresa: Empresa;
 
@@ -115,6 +117,10 @@ export class UserInfracoesCrudComponent implements OnInit {
         .index()
         .pipe(first())
         .toPromise();
+      this.empresas = await this.empresaService
+        .index()
+        .pipe(first())
+        .toPromise();
 
       ///////FORM
       this.form = this.formBuilder.group({
@@ -163,6 +169,9 @@ export class UserInfracoesCrudComponent implements OnInit {
         moeda_id: new FormControl('', {
           validators: [Validators.required],
         }),
+        empresa_id: new FormControl('', {
+          validators: [Validators.required],
+        }),
         natureza_infracao_id: new FormControl('', {
           validators: [Validators.required],
         }),
@@ -198,7 +207,6 @@ export class UserInfracoesCrudComponent implements OnInit {
       });
 
       await this.loadFMP();
-      await this.loadEmpresa();
 
       if (solicitacaoId) {
         this.solicitacao = await this.solicitacaoService
@@ -308,6 +316,7 @@ export class UserInfracoesCrudComponent implements OnInit {
         this.form.controls['permissionario'].setValue(
           this.permissionarioSelecionado.nome_razao_social
         );
+        this.form.controls['empresa_id'].setValue(this.crudObj.empresa_id);
         this.form.controls['chave_pix'].setValue(this.crudObj.chave_pix);
         this.form.controls['codigo_pix'].setValue(this.crudObj.codigo_pix);
 
@@ -333,25 +342,19 @@ export class UserInfracoesCrudComponent implements OnInit {
       SharedModule.setAllFieldsFromFormAsTouched(this.form);
 
       if (!this.form.valid) {
-        this.toastr.error(
-          'Verifique se existem campos inválidos!'
-        );
+        this.toastr.error('Verifique se existem campos inválidos!');
         this.loading = false;
         return;
       }
 
       if (!this.permissionarioSelecionado) {
-        this.toastr.error(
-          'Nenhum Permissionário selecionado!'
-        );
+        this.toastr.error('Nenhum Permissionário selecionado!');
         this.loading = false;
         return;
       }
 
       if (!this.quadroDeInfracoesSelecionado) {
-        this.toastr.error(
-          'Nenhum Quadro de Infração selecionado!'
-        );
+        this.toastr.error('Nenhum Quadro de Infração selecionado!');
         this.loading = false;
         return;
       }
@@ -425,7 +428,6 @@ export class UserInfracoesCrudComponent implements OnInit {
       );
       formInput.fmp_id = this.fmp.id;
       formInput.valor_fmp_atual = this.fmp.valor;
-      formInput.empresa_id = this.empresa.id;
 
       formInput = SharedModule.convertAllFieldsddMMyyyyToyyyyMMdd(formInput);
 
@@ -458,15 +460,6 @@ export class UserInfracoesCrudComponent implements OnInit {
     this.form.controls['valor_fmp'].setValue(
       this.fmp.valor.toFixed(2).replace('.', ',')
     );
-  }
-
-  async loadEmpresa() {
-    const empresas = await this.empresaService.index().toPromise();
-    if (!empresas || empresas.length == 0) {
-      this.toastr.error('Nenhuma empresa encontrada!');
-    }
-
-    this.empresa = empresas[0];
   }
 
   async excluir() {
@@ -532,9 +525,7 @@ export class UserInfracoesCrudComponent implements OnInit {
       this.searchVeiculoText = text;
 
       if (!this.permissionarioService) {
-        this.toastr.error(
-          'É necessário selecionar um permissionário antes.'
-        );
+        this.toastr.error('É necessário selecionar um permissionário antes.');
         return;
       }
 
@@ -592,6 +583,21 @@ export class UserInfracoesCrudComponent implements OnInit {
       this.closeModal(null);
     } catch (e) {}
     this.loading = false;
+  }
+
+  selecionarEmpresa(event: any) {
+    this.empresa = this.empresas.find(
+      (empresa) => empresa.id == event.target.value
+    );
+
+    if (this.empresa && this.empresa.tipo_chave_pix && this.empresa.chave_pix) {
+      this.form.controls['tipoDeChavePix'].setValue(
+        this.empresaService.TIPOS_CHAVE_PIX.find(
+          (tipo) => tipo.tipo == this.empresa.tipo_chave_pix
+        ).id
+      );
+      this.form.controls['chave_pix'].setValue(this.empresa.chave_pix);
+    }
   }
 
   private async loadValoresDaInfracao() {

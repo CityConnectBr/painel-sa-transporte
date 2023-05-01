@@ -124,6 +124,12 @@
             </select>
           </app-input>
 
+          <app-input label="Empresa" [inline]="true" [require]="true" *ngIf="form.get('tipoPix').value == 0">
+            <select formControlName="empresa_id" class="form-control" (change)="selecionarEmpresa($event)">
+              <option *ngFor="let empresa of empresas;" value="{{empresa.id}}">{{empresa.nome}}</option>
+            </select>
+          </app-input>
+
           <app-input label="Chave PIX" [require]="true" *ngIf="form.get('tipoPix').value == 0">
             <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 0" mask="(00) 00000-0000 || (00) 0000-0000">
             <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 1 || form.get('tipoDeChavePix').value == 4">
