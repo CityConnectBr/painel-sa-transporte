@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'https://api.santo-andre-transporte.cityconnect.com.br',
+  apiUrl: 'https://api-sa.cityconnect.com.br',
   production: true,
 };
