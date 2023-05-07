@@ -209,7 +209,7 @@ aside a i {
 
 .crud .table-striped > tbody > tr:nth-child(2n + 1) > td,
 .table-striped > tbody > tr:nth-child(2n + 1) > th {
-  background-color: #d1eeff;
+  background-color: #fff;
 }
 
 .crud .btn-new {
