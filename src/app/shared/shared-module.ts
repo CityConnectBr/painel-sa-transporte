@@ -17,6 +17,7 @@ import { SearchComponent } from './search/search.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { PrintPageComponent } from './print-page/print-page.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,13 @@ import { QRCodeModule } from 'angularx-qrcode';
     PaginationComponent,
     PrintPageComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, QRCodeModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    QRCodeModule,
+    NgbCollapseModule,
+  ],
   exports: [
     InputComponent,
     LoadingComponent,
@@ -42,7 +49,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     SearchComponent,
     PaginationComponent,
     PrintPageComponent,
-    QRCodeModule
+    QRCodeModule,
+    NgbCollapseModule,
   ],
 })
 export class SharedModule {

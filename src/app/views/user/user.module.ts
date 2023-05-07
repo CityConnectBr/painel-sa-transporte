@@ -1,10 +1,8 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { SharedModule } from "src/app/shared/shared-module";
-import { UserHomeComponent } from './user-home/user-home.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
 import { UserRootComponent } from './user-root/user-root.component';
-import { UserCadastrosComponent } from './user-cadastros/user-cadastros.component';
 import { UserUsuariosComponent } from './user-cadastros/user-usuarios/user-usuarios.component';
 import { UserPerfisComponent } from './user-cadastros/user-perfis/user-perfis.component';
 import { UserPermissionariosComponent } from './user-cadastros/user-permissionarios/user-permissionarios.component';
@@ -84,7 +82,6 @@ import { UserFmpComponent } from './user-cadastros/user-fmp/user-fmp.component';
 import { UserFmpCrudComponent } from './user-cadastros/user-fmp/user-fmp-crud/user-fmp-crud.component';
 import { NgxCurrencyModule } from "ngx-currency";
 import { UserSolicitacoesComponent } from './user-cadastros/user-solicitacoes/user-solicitacoes.component';
-import { UserLancamentosComponent } from './user-lancamentos/user-lancamentos.component';
 import { UserCertidoesComponent } from './user-lancamentos/user-certidoes/user-certidoes.component';
 import { UserInfracoesComponent } from './user-lancamentos/user-infracoes/user-infracoes.component';
 import { UserVistoriadepontosComponent } from './user-lancamentos/user-vistoriadepontos/user-vistoriadepontos.component';
@@ -95,7 +92,6 @@ import { UserMarcasModelosDeChassiComponent } from './user-cadastros/user-marcas
 import { UserMarcasModelosDeCarroceriaComponent } from './user-cadastros/user-marcas-modelos-de-carroceria/user-marcas-modelos-de-carroceria.component';
 import { UserMarcasModelosDeCarroceriaCrudComponent } from './user-cadastros/user-marcas-modelos-de-carroceria/user-marcas-modelos-de-carroceria-crud/user-marcas-modelos-de-carroceria-crud.component';
 import { UserMarcasModelosDeChassiCrudComponent } from './user-cadastros/user-marcas-modelos-de-chassi/user-marcas-modelos-de-chassi-crud/user-marcas-modelos-de-chassi-crud.component';
-import { UserRelatoriosComponent } from './user-relatorios/user-relatorios.component';
 import { UserRelEntradaSaidaVeiculosComponent } from './user-relatorios/user-rel-entrada-saida-veiculos/user-rel-entrada-saida-veiculos.component';
 import { UserImpressosComponent } from './user-impressos/user-impressos.component';
 import { UserFormulario1RenovacaoPermissionarioComponent } from './user-impressos/user-formulario1-renovacao-permissionario/user-formulario1-renovacao-permissionario.component';
@@ -103,14 +99,16 @@ import { UserFormulario7DeclaracaoMonitorComponent } from './user-impressos/user
 import { UserFormulario8CondutorAuxiliarComponent } from './user-impressos/user-formulario8-condutor-auxiliar/user-formulario8-condutor-auxiliar.component';
 import { UserFormulario17SolicitaacaoBaixaCondutorComponent } from './user-impressos/user-formulario17-solicitaacao-baixa-condutor/user-formulario17-solicitaacao-baixa-condutor.component';
 import { UserInfracoesInformarPagamentoComponent } from "./user-lancamentos/user-infracoes/user-infracoes-informar-pagamento/user-infracoes-informar-pagamento.component";
+import { UserSidebarComponent } from "./user-root/user-sidebar/user-sidebar.component";
+import { UserWelcomeComponent } from "./user-welcome/user-welcome.component";
 
 const ROUTER: Routes = [
   {
     path: '', component: UserRootComponent,
     children: [
-      { path: '', component: UserHomeComponent },
+      { path: '', component: UserWelcomeComponent },
       {
-        path: 'cadastros', component: UserCadastrosComponent,
+        path: 'cadastros',
         children: [
           { path: 'empresas', component: UserEmpresasComponent, },
           { path: 'empresas/novo', component: UserEmpresaCrudComponent },
@@ -239,7 +237,7 @@ const ROUTER: Routes = [
         ]
       },
       {
-        path: 'lancamentos', component: UserLancamentosComponent,
+        path: 'lancamentos',
         children: [
           { path: 'certidoes', component: UserCertidoesComponent, },
           { path: 'certidoes/novo', component: UserCertidoesCrudComponent },
@@ -262,7 +260,7 @@ const ROUTER: Routes = [
         ]
       },
       {
-        path: 'relatorios', component: UserRelatoriosComponent,
+        path: 'relatorios',
         children: [
           { path: 'entradasaidadeveiculos', component: UserRelEntradaSaidaVeiculosComponent, },
         ]
@@ -274,10 +272,8 @@ const ROUTER: Routes = [
 
 @NgModule({
   declarations: [
-    UserHomeComponent,
     UserHeaderComponent,
     UserRootComponent,
-    UserCadastrosComponent,
     UserUsuariosComponent,
     UserPerfisComponent,
     UserPermissionariosComponent,
@@ -355,7 +351,6 @@ const ROUTER: Routes = [
     UserFmpComponent,
     UserFmpCrudComponent,
     UserSolicitacoesComponent,
-    UserLancamentosComponent,
     UserCertidoesComponent,
     UserInfracoesComponent,
     UserVistoriadepontosComponent,
@@ -366,14 +361,15 @@ const ROUTER: Routes = [
     UserMarcasModelosDeCarroceriaComponent,
     UserMarcasModelosDeCarroceriaCrudComponent,
     UserMarcasModelosDeChassiCrudComponent,
-    UserRelatoriosComponent,
     UserRelEntradaSaidaVeiculosComponent,
     UserImpressosComponent,
     UserFormulario1RenovacaoPermissionarioComponent,
     UserFormulario7DeclaracaoMonitorComponent,
     UserFormulario8CondutorAuxiliarComponent,
     UserFormulario17SolicitaacaoBaixaCondutorComponent,
-    UserInfracoesInformarPagamentoComponent
+    UserInfracoesInformarPagamentoComponent,
+    UserSidebarComponent,
+    UserWelcomeComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),
