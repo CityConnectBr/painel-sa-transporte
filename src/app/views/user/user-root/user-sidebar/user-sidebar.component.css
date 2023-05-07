@@ -3,9 +3,13 @@
     text-align: center;
 }
 
+.navbar{
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
 .navbar .nav-first{
   width: 200px;
-
 }
 
 .navbar a{
