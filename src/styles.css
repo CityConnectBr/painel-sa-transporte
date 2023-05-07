@@ -1,5 +1,5 @@
 :root {
-  --lightBlue: #2d9cdb;
+  --lightBlue: #12407c;
   --grey: #828282;
   --charcoal: #444444;
   --lightGrey: #d5dde0;
@@ -13,7 +13,7 @@ body {
 }
 
 body {
-  background-color: var(--lightBlue);
+  background-color: #fafbff;
   margin: 0;
   padding: 0;
 }

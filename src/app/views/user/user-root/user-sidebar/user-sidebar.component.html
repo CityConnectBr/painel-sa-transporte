@@ -1,0 +1,42 @@
+<div class="logo">
+  <img src="assets/images/sa_logo.png" width="90" class="d-inline-block align-top" alt="">
+</div>
+<nav class="navbar navbar-expand-lg">
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav flex-column">
+      <li *ngFor="let item of menu" class="nav-item nav-first">
+        <a class="nav-link" [ngClass]="{ active: item.active }" href="javascript:;" (click)="collapseMenu(item.id)">
+          <em [ngClass]="item.classIcon"></em>
+          {{ item.title }}
+          <span *ngIf="item.subMenu" class="float-right arrow-icon">
+            <em class="fa fa-angle-down" [ngClass]="{ 'fa-rotate-180': !item.isCollapsed }"></em>
+          </span>
+        </a>
+        <div *ngIf="item.subMenu" [ngbCollapse]="item.isCollapsed" class="ml-3 submenu">
+          <ul class="nav flex-column">
+            <li *ngFor="let subItem of item.subMenu" class="nav-item nav-second">
+              <a class="nav-link" [ngClass]="{ active: subItem.active }"
+                routerLink="{{ subItem.routerLink??actualRoute }}" (click)="collapseMenu(subItem.id)">
+                <em [ngClass]="subItem.classIcon"></em>
+                {{ subItem.title }}
+              </a>
+              <div *ngIf="subItem.subMenu" [ngbCollapse]="subItem.isCollapsed" class="ml-3 sub-submenu">
+                <ul class="nav flex-column">
+                  <li *ngFor="let subSubItem of subItem.subMenu" class="nav-item">
+                    <a class="nav-link" [ngClass]="{ active: subSubItem.active }"
+                      routerLink="{{ subSubItem.routerLink??actualRoute }}" (click)="collapseMenu(subSubItem.id)">
+                      <em [ngClass]="subSubItem.classIcon"></em>
+                      {{ subSubItem.title }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
