@@ -3,12 +3,8 @@
   padding: 0 1rem;
 }
 
-#logoHeaderId {
-  width: 150px;
-}
-
 #linkSairId {
-  font-size: 1.1rem;
+  font-size: 1rem;
   float: right;
   color: #12407c;
   padding: 5px;
