@@ -92,45 +92,6 @@ a:hover {
   border-color: transparent !important;
 }
 
-/* ------------------------------- MENU-HORIZONTAL -------------------------------------*/
-
-.menu-horizontal .container {
-  /*margin-top: 10%;*/
-}
-
-.menu-horizontal .item-menu {
-  height: 100px;
-  line-height: 100px;
-  text-align: center;
-  margin: 10px;
-}
-
-.menu-horizontal .item-smaller {
-  height: 60px !important;
-  line-height: 60px !important;
-  margin: 5px !important;
-}
-
-.menu-horizontal .item-menu span {
-  margin-left: 10px;
-}
-
-.menu-horizontal i {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: normal;
-  font-size: 5rem;
-  color: #2d9cdb;
-}
-
-.menu-horizontal .i-smaller {
-  font-size: 2rem !important;
-}
-
-.menu-horizontal a {
-  margin-left: 10px;
-}
-
 /* ------------------------------- FORM -------------------------------------*/
 
 form {
@@ -144,7 +105,7 @@ form label {
 
 form input,
 form select {
-  background-color: #eeeeee !important;
+  background-color: #ffffff !important;
   border: none !important;
 }
 
@@ -183,12 +144,11 @@ aside a i {
 /* ------------------------------- CRUD -------------------------------------*/
 
 .crud {
+  height: 100vh;
   padding: 10px;
-  background: #fff;
+  background: #f5f5f5;
   border-radius: 15px;
-  margin: 10px 0 !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  margin: 10px !important;
 }
 
 .titulo {
