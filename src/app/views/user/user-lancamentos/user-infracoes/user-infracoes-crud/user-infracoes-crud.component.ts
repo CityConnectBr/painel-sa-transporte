@@ -1,11 +1,9 @@
 import { ValoresDeInfracaoService } from 'src/app/services/valores-de-infracao.service';
-import { Location } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
