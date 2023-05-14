@@ -7,26 +7,19 @@ import { BasicCrudService, SearchData } from './basic-crud.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AlvaraDoPermissionarioService extends BasicCrudService {
+export class LancamentoAlvaraDoPermissionarioService extends BasicCrudService {
   constructor(httpClient: HttpClient) {
-    super(httpClient, '/api/admin/alvaradopermissionario');
-  }
-
-  indexByPermissionario(permissionarioId: string): Observable<SearchData> {
-    return this.httpClient.get<SearchData>(
-      `${this.url}?search=${permissionarioId}`,
-      super.getHttpOptions
-    );
+    super(httpClient, '/api/admin/lancamentoalvaradopermissionario');
   }
 
   indexPendentes(page: number = 1): Observable<SearchData> {
     return this.httpClient.get<SearchData>(
-      `${this.url}/indexpendentes?page=${page ?? '1'}`,
+      `${this.url}?page=${page ?? '1'}`,
       super.getHttpOptions
     );
   }
 
-  informarPagamento(id: number, data: any): Observable<any> {
+  informarPagamento(id: string, data: any): Observable<any> {
     return this.httpClient
       .post(`${this.url}/${id}/lancarpagamento`, data, super.getHttpOptions)
       .pipe(retry(2));

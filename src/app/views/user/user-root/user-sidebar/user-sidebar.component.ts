@@ -236,6 +236,12 @@ export class UserSidebarComponent {
           routerLink: 'lancamentos/infracoes',
         },
         {
+          id: 'sub-menu-alvara-pagamento',
+          title: '- Pagamento de Alvará',
+          active: true,
+          routerLink: 'lancamentos/alvarapagamento',
+        },
+        {
           id: 'sub-menu-lancamentos-vistoriasdepontos',
           title: '- Vistoria de Pontos',
           active: true,

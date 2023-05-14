@@ -101,6 +101,8 @@ import { UserFormulario17SolicitaacaoBaixaCondutorComponent } from './user-impre
 import { UserInfracoesInformarPagamentoComponent } from "./user-lancamentos/user-infracoes/user-infracoes-informar-pagamento/user-infracoes-informar-pagamento.component";
 import { UserSidebarComponent } from "./user-root/user-sidebar/user-sidebar.component";
 import { UserWelcomeComponent } from "./user-welcome/user-welcome.component";
+import { UserAlvaraPagamentoComponent } from "./user-lancamentos/user-alvara-pagamento/user-alvara-pagamento.component";
+import { UserAlvaraPagamentoInformarPagamentoComponent } from "./user-lancamentos/user-alvara-pagamento/user-alvara-pagamento-informar-pagamento/user-alvara-pagamento-informar-pagamento.component";
 
 const ROUTER: Routes = [
   {
@@ -248,6 +250,7 @@ const ROUTER: Routes = [
           { path: 'vistoriasdepontos', component: UserVistoriadepontosComponent, },
           { path: 'vistoriasdepontos/novo', component: UserVistoriadepontosCrudComponent },
           { path: 'vistoriasdepontos/alterar/:id', component: UserVistoriadepontosCrudComponent },
+          { path: 'alvarapagamento', component: UserAlvaraPagamentoComponent, },
         ]
       },
       {
@@ -369,7 +372,9 @@ const ROUTER: Routes = [
     UserFormulario17SolicitaacaoBaixaCondutorComponent,
     UserInfracoesInformarPagamentoComponent,
     UserSidebarComponent,
-    UserWelcomeComponent
+    UserWelcomeComponent,
+    UserAlvaraPagamentoComponent,
+    UserAlvaraPagamentoInformarPagamentoComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),

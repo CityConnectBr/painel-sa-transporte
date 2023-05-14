@@ -1,0 +1,87 @@
+<div class="crud">
+
+  <h3 class="titulo">
+    <i class="fa fa-arrow-right"></i> Lançamento de Pagamentos de Alvará
+  </h3>
+
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading" class="clearfix">
+    <table *ngIf="dataSearch.data.length>0" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Permissionário</th>
+          <th>Data Emissão</th>
+          <th>Data Vencimento</th>
+          <th>Data Pagamento</th>
+          <th class="text-right"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of dataSearch.data">
+          <td>{{obj?.permissionario.nome_razao_social}}</td>
+          <td>{{obj?.data_emissao | date: 'dd/MM/yyyy'}}</td>
+          <td>{{obj?.data_vencimento | date: 'dd/MM/yyyy'}}</td>
+          <td>{{obj?.data_pagamento | date: 'dd/MM/yyyy'}}</td>
+          <td class="text-right">
+            <a href="javascript: void(0);" (click)="initLancamentoPagamento(informarPagamento, obj);"
+              title="Lançar Pagamento" class="mr-2" *ngIf="obj.status=='pendente'">
+              <i class="fa fa-book" aria-hidden="true"></i>
+            </a>
+            <a href="javascript: void(0);" (click)="getQrCode(shareQRCodeModal, obj);"
+              title="Compartilhar QRCode de Pagamento" class="mr-2">
+              <i class="fa fa-qrcode" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="dataSearch.data.length>0" class="float-right">
+      <app-pagination [backEnabled]="dataSearch.prev_page_url!=null" [nextEnabled]="dataSearch.next_page_url!=null"
+        [actualPage]="dataSearch.current_page" (changePos)="changePos($event)">
+      </app-pagination>
+    </div>
+
+    <div *ngIf="!dataSearch || dataSearch.data.length==0" class="alert alert-warning">
+      Nenhum registro encontrado!
+    </div>
+  </div>
+
+  <ng-template #shareQRCodeModal let-modal>
+    <app-modal modalID="uploadModal" title="Código para Pagamento do Alvará" (closeModalEmit)="closeModal($event)">
+      <div class="row">
+        <div class="col-md-4">
+          <qrcode #qrcodeChild id="qrcode" [qrdata]="qrCodePix.payload()" [width]="256" [errorCorrectionLevel]="'M'">
+          </qrcode>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="qrcode">Código PIX para Pagamento do Alvará</label>
+                <textarea class="form-control" id="qrcode" rows="3" [value]="qrCodePix.payload()"></textarea>
+              </div>
+            </div>
+            <div class="row w-100">
+              <div class="col-md-12 acoes-qrcode">
+                <button class="btn btn-primary m-2" (click)="copyCode()"><em class="fa fa-copy"></em> Copiar código
+                  PIX</button>
+                <button class="btn btn-primary m-2" (click)="copyQrCode()"><em class="fa fa-copy"></em> Copiar
+                  QRCode</button>
+                <button class="btn btn-primary m-2" (click)="saveQrCode()"><em class="fa fa-save"></em> Salvar
+                  QRCode</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-modal>
+  </ng-template>
+
+  <ng-template #informarPagamento let-modal>
+    <app-modal modalID="informarPagamento" title="Informar Pagamento" (closeModalEmit)="closeModal($event)">
+      <app-user-alvara-pagamento-informar-pagamento
+        [alvaraId]="alvaraSelecionado.id"></app-user-alvara-pagamento-informar-pagamento>
+    </app-modal>
+  </ng-template>
+
+</div>
