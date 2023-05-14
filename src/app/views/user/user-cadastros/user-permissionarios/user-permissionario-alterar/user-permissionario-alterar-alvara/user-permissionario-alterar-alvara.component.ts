@@ -185,6 +185,10 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
   }
 
   selecionarEmpresa(event: any | string) {
+    if (!event) {
+      return;
+    }
+
     this.empresa = this.empresas.find(
       (empresa) => empresa.id == (event.target ? event.target.value : event)
     );
