@@ -69,6 +69,15 @@
         <input type="text" class="form-control" formControlName="valor" autocomplete="off" [mask]="'0*,00'" [dropSpecialCharacters]="false">
       </app-input>
     </div>
+    <div class="subitem">
+      <app-input label="Status">
+        <input type="text" class="form-control" formControlName="status" readonly>
+      </app-input>
+      <app-input label="Data Pagamento">
+        <input type="text" class="form-control" formControlName="dataPagamento" readonly>
+      </app-input>
+      <!--TODO: Exibir: comprovante de pagamento-->
+    </div>
 
 
     <button type="submit" class="btn btn-success pull-right" (click)="salvar(form.value)"

@@ -131,6 +131,8 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
       }),
       tipoPix: new FormControl(0), ///nao é persistido
       tipoDeChavePix: new FormControl(0), ///nao é persistido
+      status: new FormControl(this.alvaraAtual?.status ?? ''),
+      dataPagamento: new FormControl(this.alvaraAtual?.data_pagamento ?? ''),
     });
 
     this.selecionarEmpresa(this.alvaraAtual?.empresa_id);
