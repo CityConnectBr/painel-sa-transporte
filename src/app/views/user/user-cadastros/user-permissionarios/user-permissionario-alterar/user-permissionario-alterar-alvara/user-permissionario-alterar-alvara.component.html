@@ -3,23 +3,23 @@
 
     <div class="subitem">
       <h3>Alvará
-        <button type="submit" class="btn btn-new pull-right" (click)="openModal(novoAlvaraModal)" [disabled]="!form.valid">Criar
+        <button type="submit" class="btn btn-new pull-right" (click)="openModal(novoAlvaraModal)">Criar
           Novo</button>
       </h3>
 
       <app-input label="Emissão">
-        <input type="text" class="form-control" formControlName="data_emissao" mask="00/00/0000" [dropSpecialCharacters]="false"
-          autocomplete="off">
+        <input type="text" class="form-control" formControlName="data_emissao" mask="00/00/0000"
+          [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
 
       <app-input label="Retorno">
-        <input type="text" class="form-control" formControlName="data_retorno" mask="00/00/0000" [dropSpecialCharacters]="false"
-          autocomplete="off">
+        <input type="text" class="form-control" formControlName="data_retorno" mask="00/00/0000"
+          [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
 
       <app-input label="Vencimento">
-        <input type="text" class="form-control" formControlName="data_vencimento" mask="00/00/0000" [dropSpecialCharacters]="false"
-          autocomplete="off">
+        <input type="text" class="form-control" formControlName="data_vencimento" mask="00/00/0000"
+          [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
 
       <app-input label="Observação">
@@ -27,10 +27,61 @@
       </app-input>
     </div>
 
+    <div class="subitem">
+      <h3>Sobre o Pagamento</h3>
+
+      <app-input label="Tipo de Pix" [require]="true">
+        <select class="form-control" formControlName="tipoPix">
+          <option value="0">Sistema Gerar</option>
+          <option value="1">Código já gerado</option>
+        </select>
+      </app-input>
+
+      <app-input label="Empresa" [inline]="true" [require]="true" *ngIf="form.get('tipoPix').value == 0">
+        <select formControlName="empresa_id" class="form-control" (change)="selecionarEmpresa($event)">
+          <option *ngFor="let empresa of empresas;" value="{{empresa.id}}">{{empresa.nome}}</option>
+        </select>
+      </app-input>
+
+      <app-input label="Tipo de Chave" [require]="true">
+        <select class="form-control" formControlName="tipoDeChavePix">
+          <option value="0">Celular</option>
+          <option value="1">Email</option>
+          <option value="2">CPF</option>
+          <option value="3">CNPJ</option>
+          <option value="4">Aleatório</option>
+        </select>
+      </app-input>
+
+      <app-input label="Chave PIX" [require]="true" *ngIf="form.get('tipoPix').value == 0">
+        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 0" mask="(00) 00000-0000 || (00) 0000-0000">
+        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 1 || form.get('tipoDeChavePix').value == 4">
+        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 2" mask="000.000.000-00">
+        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 3" mask="00.000.000/0000-00">
+        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == null" readonly>
+      </app-input>
+
+      <app-input label="Código PIX" [require]="true" *ngIf="form.get('tipoPix').value == 1">
+        <input type="text" class="form-control" formControlName="codigo_pix" autocomplete="off">
+      </app-input>
+
+      <app-input label="Valor" [require]="true">
+        <input type="text" class="form-control" formControlName="valor" autocomplete="off" [mask]="'0*,00'" [dropSpecialCharacters]="false">
+      </app-input>
+    </div>
+    <div class="subitem">
+      <app-input label="Status">
+        <input type="text" class="form-control" formControlName="status" readonly>
+      </app-input>
+      <app-input label="Data Pagamento">
+        <input type="text" class="form-control" formControlName="dataPagamento" readonly>
+      </app-input>
+      <!--TODO: Exibir: comprovante de pagamento-->
+    </div>
+
 
     <button type="submit" class="btn btn-success pull-right" (click)="salvar(form.value)"
-    [disabled]="!form.valid">Salvar</button>
-
+      [disabled]="!form.valid">Salvar</button>
 
     <div class="subitem">
       <h3>Alvarás Anteriores</h3>
@@ -68,8 +119,8 @@
     <div class="clearfix">
       <h6>Ao criar um novo alvará o atual está inválidado e mostrado no histórico.</h6><br>
       <h6>Deseja continuar?</h6>
-      <button (click)="novo()" class="btn btn-danger btn-sm pull-right ml-1">Sim</button>
-      <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right">Não</button>
+      <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right ml-1">Não</button>
+      <button (click)="novo()" class="btn btn-danger btn-sm pull-right">Sim</button>
     </div>
   </app-modal>
 </ng-template>
