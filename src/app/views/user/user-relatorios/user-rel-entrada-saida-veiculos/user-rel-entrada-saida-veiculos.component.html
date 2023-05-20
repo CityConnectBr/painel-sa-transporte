@@ -23,7 +23,7 @@
           <div class="form-inline">
 
             <app-input label="Referencia" [inline]="true" [require]="true">
-              <input type="text" class="form-control" formControlName="referencia" mask="00/0000" placeholder="mm/aaaa" autocomplete="off">
+              <input type="text" class="form-control" formControlName="referencia" mask="00/0000" placeholder="mm/aaaa" [dropSpecialCharacters]="false" autocomplete="off">
             </app-input>
 
           </div>
