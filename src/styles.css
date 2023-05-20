@@ -53,6 +53,26 @@ a:hover {
   color: white;
 }
 
+.btn.disabled,
+.btn:disabled {
+  color: #fff;
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+  cursor: not-allowed;
+}
+
+.btn-success {
+  color: #fff;
+  background-color: var(--lightBlue);
+  border-color: var(--lightBlue);
+}
+
+.btn-success:hover {
+  color: #fff;
+  background-color: #0c2e5d;
+  border-color: #0c2e5d;
+}
+
 /* ------------------------------- GENERAL -------------------------------------*/
 
 .rcorners1 {
