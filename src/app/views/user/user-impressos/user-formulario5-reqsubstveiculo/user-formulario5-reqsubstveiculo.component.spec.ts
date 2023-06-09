@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { UserFormulario3TransfpermtransptaxiComponent } from './user-formulario3-transfpermtransptaxi.component';
+import { UserFormulario5ReqsubstveiculoComponent } from './user-formulario5-reqsubstveiculo.component';
 
-describe('UserFormulario3TransfpermtransptaxiComponent', () => {
-  let component: UserFormulario3TransfpermtransptaxiComponent;
-  let fixture: ComponentFixture<UserFormulario3TransfpermtransptaxiComponent>;
+describe('UserFormulario5ReqsubstveiculoComponent', () => {
+  let component: UserFormulario5ReqsubstveiculoComponent;
+  let fixture: ComponentFixture<UserFormulario5ReqsubstveiculoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserFormulario3TransfpermtransptaxiComponent ]
+      declarations: [ UserFormulario5ReqsubstveiculoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserFormulario3TransfpermtransptaxiComponent);
+    fixture = TestBed.createComponent(UserFormulario5ReqsubstveiculoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

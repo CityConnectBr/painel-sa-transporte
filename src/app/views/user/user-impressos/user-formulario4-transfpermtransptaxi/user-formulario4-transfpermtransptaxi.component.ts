@@ -4,11 +4,11 @@ import { FormularioService } from 'src/app/services/formulario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 
 @Component({
-  selector: 'app-user-formulario3-transfpermtransptaxi',
-  templateUrl: './user-formulario3-transfpermtransptaxi.component.html',
-  styleUrls: ['./user-formulario3-transfpermtransptaxi.component.css']
+  selector: 'app-user-formulario4-transfpermtransptaxi',
+  templateUrl: './user-formulario4-transfpermtransptaxi.component.html',
+  styleUrls: ['./user-formulario4-transfpermtransptaxi.component.css']
 })
-export class UserFormulario3TransfpermtransptaxiComponent implements OnInit {
+export class UserFormulario4TransfpermtransptaxiComponent implements OnInit {
 
   loading: boolean = false;
 

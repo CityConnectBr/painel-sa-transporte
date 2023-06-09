@@ -281,6 +281,12 @@ export class UserSidebarComponent {
           routerLink: 'impressos/transferenciadepermissaodetaxi',
         },
         {
+          id: 'sub-menu-impressos-requerimentoparasubstituicaodeveiculo',
+          title: '- Anexo 05 - Requerimento para Substituição de Veículo',
+          active: true,
+          routerLink: 'impressos/requerimentoparasubstituicaodeveiculo',
+        },
+        {
           id: 'sub-menu-impressos-formulariodeclaracaomonitor',
           title: '- Anexo 07 - Declaração de Monitor',
           active: true,
