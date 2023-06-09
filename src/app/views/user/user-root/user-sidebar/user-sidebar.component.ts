@@ -275,6 +275,12 @@ export class UserSidebarComponent {
           routerLink: 'impressos/transferenciadepermissaodetransporte',
         },
         {
+          id: 'sub-menu-impressos-transferenciadepermissaodetaxi',
+          title: '- Anexo 04 - Transferência de Permissão de Táxi',
+          active: true,
+          routerLink: 'impressos/transferenciadepermissaodetaxi',
+        },
+        {
           id: 'sub-menu-impressos-formulariodeclaracaomonitor',
           title: '- Anexo 07 - Declaração de Monitor',
           active: true,

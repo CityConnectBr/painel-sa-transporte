@@ -105,6 +105,7 @@ import { UserAlvaraPagamentoComponent } from "./user-lancamentos/user-alvara-pag
 import { UserAlvaraPagamentoInformarPagamentoComponent } from "./user-lancamentos/user-alvara-pagamento/user-alvara-pagamento-informar-pagamento/user-alvara-pagamento-informar-pagamento.component";
 import { UserFormulario2ReqTransferenciaComponent } from "./user-impressos/user-formulario2-req-transferencia/user-formulario2-req-transferencia.component";
 import { UserFormulario3TransfpermtranspescolarComponent } from "./user-impressos/user-formulario3-transfpermtranspescolar/user-formulario3-transfpermtranspescolar.component";
+import { UserFormulario3TransfpermtransptaxiComponent } from "./user-impressos/user-formulario3-transfpermtransptaxi/user-formulario3-transfpermtransptaxi.component";
 
 const ROUTER: Routes = [
   {
@@ -264,7 +265,8 @@ const ROUTER: Routes = [
           { path: 'formulariotransferencia', component: UserFormulario2ReqTransferenciaComponent, },
           //formulario 3
           { path: 'transferenciadepermissaodetransporte', component: UserFormulario3TransfpermtranspescolarComponent, },
-
+          //formulario 4
+          { path: 'transferenciadepermissaodetaxi', component: UserFormulario3TransfpermtransptaxiComponent, },
 
           { path: 'formulariodeclaracaomonitor', component: UserFormulario7DeclaracaoMonitorComponent, },
           { path: 'condutorauxiliar', component: UserFormulario8CondutorAuxiliarComponent, },
@@ -385,7 +387,8 @@ const ROUTER: Routes = [
     UserAlvaraPagamentoComponent,
     UserAlvaraPagamentoInformarPagamentoComponent,
     UserFormulario2ReqTransferenciaComponent,
-    UserFormulario3TransfpermtranspescolarComponent
+    UserFormulario3TransfpermtranspescolarComponent,
+    UserFormulario3TransfpermtransptaxiComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),
