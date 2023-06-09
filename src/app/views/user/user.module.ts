@@ -107,6 +107,7 @@ import { UserFormulario2ReqTransferenciaComponent } from "./user-impressos/user-
 import { UserFormulario3TransfpermtranspescolarComponent } from "./user-impressos/user-formulario3-transfpermtranspescolar/user-formulario3-transfpermtranspescolar.component";
 import { UserFormulario4TransfpermtransptaxiComponent } from "./user-impressos/user-formulario4-transfpermtransptaxi/user-formulario4-transfpermtransptaxi.component";
 import { UserFormulario5ReqsubstveiculoComponent } from "./user-impressos/user-formulario5-reqsubstveiculo/user-formulario5-reqsubstveiculo.component";
+import { UserFormulario6ReqprosubveiculoComponent } from "./user-impressos/user-formulario6-reqprosubveiculo/user-formulario6-reqprosubveiculo.component";
 
 const ROUTER: Routes = [
   {
@@ -270,6 +271,8 @@ const ROUTER: Routes = [
           { path: 'transferenciadepermissaodetaxi', component: UserFormulario4TransfpermtransptaxiComponent, },
           //formulario 5
           { path: 'requerimentoparasubstituicaodeveiculo', component: UserFormulario5ReqsubstveiculoComponent, },
+          //formulario 6
+          { path: 'requerimentoparaprorrogacaodesubstituicaodeveiculo', component: UserFormulario6ReqprosubveiculoComponent, },
 
           { path: 'formulariodeclaracaomonitor', component: UserFormulario7DeclaracaoMonitorComponent, },
           { path: 'condutorauxiliar', component: UserFormulario8CondutorAuxiliarComponent, },
@@ -392,7 +395,8 @@ const ROUTER: Routes = [
     UserFormulario2ReqTransferenciaComponent,
     UserFormulario3TransfpermtranspescolarComponent,
     UserFormulario4TransfpermtransptaxiComponent,
-    UserFormulario5ReqsubstveiculoComponent
+    UserFormulario5ReqsubstveiculoComponent,
+    UserFormulario6ReqprosubveiculoComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),

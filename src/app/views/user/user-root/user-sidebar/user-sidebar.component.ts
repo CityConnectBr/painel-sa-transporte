@@ -287,6 +287,12 @@ export class UserSidebarComponent {
           routerLink: 'impressos/requerimentoparasubstituicaodeveiculo',
         },
         {
+          id: 'sub-menu-impressos-requerimentoparasubstituicaodeveiculo',
+          title: '- Anexo 06 - Requerimento para Prorrogação de Substituição de Veículo',
+          active: true,
+          routerLink: 'impressos/requerimentoparaprorrogacaodesubstituicaodeveiculo',
+        },
+        {
           id: 'sub-menu-impressos-formulariodeclaracaomonitor',
           title: '- Anexo 07 - Declaração de Monitor',
           active: true,
