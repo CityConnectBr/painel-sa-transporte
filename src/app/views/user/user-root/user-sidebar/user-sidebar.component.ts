@@ -262,6 +262,14 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/formulariorenovacaopermissao',
         },
+        // ANEXO 02 - REQUERIMENTO DE TRANSFERENCIA
+        {
+          id: 'sub-menu-impressos-formulariotransferencia',
+          title: '- Anexo 02 - Requerimento de Transferência',
+          active: true,
+          routerLink: 'impressos/formulariotransferencia',
+        },
+
         {
           id: 'sub-menu-impressos-formulariodeclaracaomonitor',
           title: '- Anexo 07 - Declaração de Monitor',

@@ -103,6 +103,7 @@ import { UserSidebarComponent } from "./user-root/user-sidebar/user-sidebar.comp
 import { UserWelcomeComponent } from "./user-welcome/user-welcome.component";
 import { UserAlvaraPagamentoComponent } from "./user-lancamentos/user-alvara-pagamento/user-alvara-pagamento.component";
 import { UserAlvaraPagamentoInformarPagamentoComponent } from "./user-lancamentos/user-alvara-pagamento/user-alvara-pagamento-informar-pagamento/user-alvara-pagamento-informar-pagamento.component";
+import { UserFormulario2ReqTransferenciaComponent } from "./user-impressos/user-formulario2-req-transferencia/user-formulario2-req-transferencia.component";
 
 const ROUTER: Routes = [
   {
@@ -257,6 +258,7 @@ const ROUTER: Routes = [
         path: 'impressos', component: UserImpressosComponent,
         children: [
           { path: 'formulariorenovacaopermissao', component: UserFormulario1RenovacaoPermissionarioComponent, },
+          { path: 'formulariotransferencia', component: UserFormulario2ReqTransferenciaComponent, },
           { path: 'formulariodeclaracaomonitor', component: UserFormulario7DeclaracaoMonitorComponent, },
           { path: 'condutorauxiliar', component: UserFormulario8CondutorAuxiliarComponent, },
           { path: 'solicitacaodebaixadecondutorauxiliar', component: UserFormulario17SolicitaacaoBaixaCondutorComponent, },
@@ -374,7 +376,8 @@ const ROUTER: Routes = [
     UserSidebarComponent,
     UserWelcomeComponent,
     UserAlvaraPagamentoComponent,
-    UserAlvaraPagamentoInformarPagamentoComponent
+    UserAlvaraPagamentoInformarPagamentoComponent,
+    UserFormulario2ReqTransferenciaComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),
