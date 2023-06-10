@@ -328,6 +328,13 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/solicitacaotransporteescolar',
         },
+        //119
+        {
+          id: 'sub-menu-impressos-autorizacaoadesivacaocusteada',
+          title: '- Autorização para Adesivação Custeada pelo Permissionário',
+          active: true,
+          routerLink: 'impressos/autorizacaoadesivacaocusteada',
+        },
       ],
     },
     {

@@ -5,66 +5,126 @@ import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FormularioService extends BasicCrudService {
-
-  constructor(
-    httpClient: HttpClient,
-  ) {
-    super(httpClient, "/api/admin/formularios");
+  constructor(httpClient: HttpClient) {
+    super(httpClient, '/api/admin/formularios');
   }
 
   getFormulario1(permissionarioId: number | String): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/formulariorenovacaopermissao?id=${permissionarioId}`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+    return this.httpClient.get(
+      `${this.url}/formulariorenovacaopermissao?id=${permissionarioId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
   }
 
   getFormulario2(): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/formulariorequerimentotransferencia`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+    return this.httpClient.get(
+      `${this.url}/formulariorequerimentotransferencia`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
   }
 
   getFormulario3(): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/formulariotransfpermissaotranspescolar`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+    return this.httpClient.get(
+      `${this.url}/formulariotransfpermissaotranspescolar`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
   }
 
   getFormulario4(): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/formulariotransfpermissaotransptaxi`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+    return this.httpClient.get(
+      `${this.url}/formulariotransfpermissaotransptaxi`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
   }
 
   getFormulario5(veiculoId: number | String): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/formularioreqsubsveiculo?id=${veiculoId}`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+    return this.httpClient.get(
+      `${this.url}/formularioreqsubsveiculo?id=${veiculoId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
   }
 
   getFormulario6(veiculoId: number | String): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/formularioreqprorrsubsveiculo?id=${veiculoId}`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+    return this.httpClient.get(
+      `${this.url}/formularioreqprorrsubsveiculo?id=${veiculoId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
   }
 
-  getFormulario7(permissionarioId: number | String, monitorId: number | String, solicitacaoId: number | String): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/formulariodeclaracaomonitor?id=${permissionarioId}&monitor_id=${monitorId}&solicitacao_id=${solicitacaoId}`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+  getFormulario7(
+    permissionarioId: number | String,
+    monitorId: number | String,
+    solicitacaoId: number | String
+  ): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/formulariodeclaracaomonitor?id=${permissionarioId}&monitor_id=${monitorId}&solicitacao_id=${solicitacaoId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
   }
 
-  getFormulario8ByCondutor(permissionarioId: number | String, condutorId: number | String): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/condutorauxiliar?id=${permissionarioId}&condutor_id=${condutorId}`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+  getFormulario8ByCondutor(
+    permissionarioId: number | String,
+    condutorId: number | String
+  ): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/condutorauxiliar?id=${permissionarioId}&condutor_id=${condutorId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
   }
 
-  getFormulario8BySolicitacao(permissionarioId: number | String, solicitacaoId: number | String): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/condutorauxiliar?id=${permissionarioId}&solicitacao_id=${solicitacaoId}`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+  getFormulario8BySolicitacao(
+    permissionarioId: number | String,
+    solicitacaoId: number | String
+  ): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/condutorauxiliar?id=${permissionarioId}&solicitacao_id=${solicitacaoId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
   }
 
   getFormulario9(): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/declaracaoatenddosposto`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+    return this.httpClient.get(`${this.url}/declaracaoatenddosposto`, {
+      headers: super.getHeaderWithAuthorization,
+      responseType: 'blob',
+    });
   }
 
   getFormulario16(): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/solicitacaoressarcimento`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+    return this.httpClient.get(`${this.url}/solicitacaoressarcimento`, {
+      headers: super.getHeaderWithAuthorization,
+      responseType: 'blob',
+    });
   }
 
-  getFormulario17(permissionarioId: number | String, condutorId: number | String): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/solicitacaodebaixadecondutorauxiliar?id=${permissionarioId}&condutor_id=${condutorId}`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+  getFormulario17(
+    permissionarioId: number | String,
+    condutorId: number | String
+  ): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/solicitacaodebaixadecondutorauxiliar?id=${permissionarioId}&condutor_id=${condutorId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
   }
 
   getFormulario18(): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/soltranspescestensino`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+    return this.httpClient.get(`${this.url}/soltranspescestensino`, {
+      headers: super.getHeaderWithAuthorization,
+      responseType: 'blob',
+    });
   }
 
+  getFormulario119(
+    vericuloId: number | String,
+    dataLimite: string,
+    empresa1Id: number | string,
+    empresa2Id: number | string = null
+  ): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/solicitacaoadesivacao?veiculo=${vericuloId}&data_limite=${dataLimite}&empresa1=${empresa1Id}${empresa2Id ? '&empresa2=' + empresa2Id : ''}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
+  }
 }
