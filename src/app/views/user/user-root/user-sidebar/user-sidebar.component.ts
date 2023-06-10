@@ -349,6 +349,13 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/solicitacaodeautorizacaoprovisoria',
         },
+        //122
+        {
+          id: 'sub-menu-impressos-solicitacaodeautorizacaoprovisoriaescolar',
+          title: '- Solicitação de Autorização Provisória Escolar',
+          active: true,
+          routerLink: 'impressos/solicitacaodeautorizacaoprovisoriaescolar',
+        },
       ],
     },
     {

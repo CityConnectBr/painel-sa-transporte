@@ -114,6 +114,7 @@ import { UserFormulario18soltranspensinoComponent } from "./user-impressos/user-
 import { UserFormulario119autorizacaoadesivacaocustpermissionarioComponent } from "./user-impressos/user-formulario119autorizacaoadesivacaocustpermissionario/user-formulario119autorizacaoadesivacaocustpermissionario.component";
 import { UserFormulario120solicitacaoafericaotaximetroComponent } from "./user-impressos/user-formulario120solicitacaoafericaotaximetro/user-formulario120solicitacaoafericaotaximetro.component";
 import { UserFormulario121solicitacaoafericaoautprovisoriaComponent } from "./user-impressos/user-formulario121solicitacaoafericaoautprovisoria/user-formulario121solicitacaoafericaoautprovisoria.component";
+import { UserFormulario122solicitacaoafericaoautprovisoriaescolarComponent } from "./user-impressos/user-formulario122solicitacaoafericaoautprovisoriaescolar/user-formulario122solicitacaoafericaoautprovisoriaescolar.component";
 
 const ROUTER: Routes = [
   {
@@ -297,7 +298,8 @@ const ROUTER: Routes = [
           { path: 'solicitacaoafericaotaximetro', component: UserFormulario120solicitacaoafericaotaximetroComponent, },
           //formulario 121
           { path: 'solicitacaodeautorizacaoprovisoria', component: UserFormulario121solicitacaoafericaoautprovisoriaComponent, },
-
+          //formulario 122
+          { path: 'solicitacaodeautorizacaoprovisoriaescolar', component: UserFormulario122solicitacaoafericaoautprovisoriaescolarComponent, },
 
         ]
       },
@@ -424,7 +426,8 @@ const ROUTER: Routes = [
     UserFormulario18soltranspensinoComponent,
     UserFormulario119autorizacaoadesivacaocustpermissionarioComponent,
     UserFormulario120solicitacaoafericaotaximetroComponent,
-    UserFormulario121solicitacaoafericaoautprovisoriaComponent
+    UserFormulario121solicitacaoafericaoautprovisoriaComponent,
+    UserFormulario122solicitacaoafericaoautprovisoriaescolarComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),

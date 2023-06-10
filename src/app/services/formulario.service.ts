@@ -146,4 +146,16 @@ export class FormularioService extends BasicCrudService {
       { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
     );
   }
+
+  getFormulario122(
+    veiculoId: number | String,
+    motivo: string,
+    dataLimite: string,
+    quandoDevera: string
+  ): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/solicitacaodeautorizacaoprovisoriaescolar?veiculo=${veiculoId}&motivo=${motivo}&dataLimite=${dataLimite}&quandoDevera=${quandoDevera}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
+  }
 }
