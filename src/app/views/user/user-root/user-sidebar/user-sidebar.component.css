@@ -37,3 +37,11 @@ color: #ffffff;
 padding: 0.1rem 1rem;
 }
 
+.truncateTitleLink{
+  display: block;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

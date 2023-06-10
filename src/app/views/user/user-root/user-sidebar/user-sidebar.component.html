@@ -16,9 +16,10 @@
           <ul class="nav flex-column">
             <li *ngFor="let subItem of item.subMenu" class="nav-item nav-second">
               <a class="nav-link" [ngClass]="{ active: subItem.active }"
-                routerLink="{{ subItem.routerLink??actualRoute }}" (click)="collapseMenu(subItem.id)">
+                routerLink="{{ subItem.routerLink??actualRoute }}" (click)="collapseMenu(subItem.id)"
+                title="{{ subItem.title }}">
                 <em [ngClass]="subItem.classIcon"></em>
-                {{ subItem.title }}
+                <span [class.truncateTitleLink]="!subItem.subMenu">{{ subItem.title }}</span>
               </a>
               <div *ngIf="subItem.subMenu" [ngbCollapse]="subItem.isCollapsed" class="ml-3 sub-submenu">
                 <ul class="nav flex-column">

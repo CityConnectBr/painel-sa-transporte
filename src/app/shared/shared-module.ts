@@ -74,6 +74,7 @@ export class SharedModule {
     /^\d{4}-(((0)[0-9])|((1)[0-2]))-([0-2][0-9]|(3)[0-1])$/;
   static datePattern =
     /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+  static monthYearPattern = /^(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
   static hourPattern = /^[0-2][0-9]\:[0-6][0-9]$/;
   static dateWithoutDivisorPattern =
     /^([0-2][0-9]|(3)[0-1])(((0)[0-9])|((1)[0-2]))\d{4}$/;

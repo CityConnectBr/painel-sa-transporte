@@ -263,6 +263,36 @@ export class UserSidebarComponent {
           routerLink: 'impressos/formulariorenovacaopermissao',
         },
         {
+          id: 'sub-menu-impressos-formulariotransferencia',
+          title: '- Anexo 02 - Requerimento de Transferência',
+          active: true,
+          routerLink: 'impressos/formulariotransferencia',
+        },
+        {
+          id: 'sub-menu-impressos-transferenciadepermissaodetransporte',
+          title: '- Anexo 03 - Transferência de Permissão de Transporte',
+          active: true,
+          routerLink: 'impressos/transferenciadepermissaodetransporte',
+        },
+        {
+          id: 'sub-menu-impressos-transferenciadepermissaodetaxi',
+          title: '- Anexo 04 - Transferência de Permissão de Táxi',
+          active: true,
+          routerLink: 'impressos/transferenciadepermissaodetaxi',
+        },
+        {
+          id: 'sub-menu-impressos-requerimentoparasubstituicaodeveiculo',
+          title: '- Anexo 05 - Requerimento para Substituição de Veículo',
+          active: true,
+          routerLink: 'impressos/requerimentoparasubstituicaodeveiculo',
+        },
+        {
+          id: 'sub-menu-impressos-requerimentoparasubstituicaodeveiculo',
+          title: '- Anexo 06 - Requerimento para Prorrogação de Substituição de Veículo',
+          active: true,
+          routerLink: 'impressos/requerimentoparaprorrogacaodesubstituicaodeveiculo',
+        },
+        {
           id: 'sub-menu-impressos-formulariodeclaracaomonitor',
           title: '- Anexo 07 - Declaração de Monitor',
           active: true,
@@ -275,10 +305,122 @@ export class UserSidebarComponent {
           routerLink: 'impressos/condutorauxiliar',
         },
         {
+          id: 'sub-menu-impressos-declaracaoatendimentodisposto',
+          title: '- Anexo 09 - Declaração de Atendimento ao Disposto',
+          active: true,
+          routerLink: 'impressos/declaracaoatendimentodisposto',
+        },
+        {
+          id: 'sub-menu-impressos-solicitacaoderessarcimento',
+          title: '- Anexo 16 - Solicitação de Ressarcimento',
+          active: true,
+          routerLink: 'impressos/solicitacaoderessarcimento',
+        },
+        {
           id: 'sub-menu-impressos-solicitacaodebaixadecondutorauxiliar',
           title: '- Anexo 17 - Solicitação de Baixa de Condutor',
           active: true,
           routerLink: 'impressos/solicitacaodebaixadecondutorauxiliar',
+        },
+        {
+          id: 'sub-menu-impressos-solicitacaotransporteescolar',
+          title: '- Anexo 18 - Solicitação de Transporte Escolar',
+          active: true,
+          routerLink: 'impressos/solicitacaotransporteescolar',
+        },
+        //119
+        {
+          id: 'sub-menu-impressos-autorizacaoadesivacaocusteada',
+          title: '- Autorização para Adesivação Custeada pelo Permissionário',
+          active: true,
+          routerLink: 'impressos/autorizacaoadesivacaocusteada',
+        },
+        //120
+        {
+          id: 'sub-menu-impressos-solicitacaoafericaotaximetro',
+          title: '- Solicitação de Aferição de Taxímetro',
+          active: true,
+          routerLink: 'impressos/solicitacaoafericaotaximetro',
+        },
+        //121
+        {
+          id: 'sub-menu-impressos-solicitacaodeautorizacaoprovisoria',
+          title: '- Solicitação de Autorização Provisória',
+          active: true,
+          routerLink: 'impressos/solicitacaodeautorizacaoprovisoria',
+        },
+        //122
+        {
+          id: 'sub-menu-impressos-solicitacaodeautorizacaoprovisoriaescolar',
+          title: '- Solicitação de Autorização Provisória Escolar',
+          active: true,
+          routerLink: 'impressos/solicitacaodeautorizacaoprovisoriaescolar',
+        },
+        //123
+        //124
+        //125
+        //126
+        {
+          id: 'sub-menu-impressos-declaracaoparataxista',
+          title: '- Declaração para Taxista',
+          active: true,
+          routerLink: 'impressos/declaracaoparataxista',
+        },
+        //127
+        {
+          id: 'sub-menu-impressos-declaracaoparatransporteescolar',
+          title: '- Declaração para Transporte Escolar',
+          active: true,
+          routerLink: 'impressos/declaracaoparatransporteescolar',
+        },
+        //128
+        {
+          id: 'sub-menu-impressos-formularioderequerimento',
+          title: '- Formulário de Requerimento',
+          active: true,
+          routerLink: 'impressos/formularioderequerimento',
+        },
+        //129
+        {
+          id: 'sub-menu-impressos-laudodevistoriatransportesespeciais',
+          title: '- Laudo de Vistoria Transportes Especiais',
+          active: true,
+          routerLink: 'impressos/laudodevistoriatransportesespeciais',
+        },
+        //130
+        {
+          id: 'sub-menu-impressos-notificacao',
+          title: '- Notificação',
+          active: true,
+          routerLink: 'impressos/notificacao',
+        },
+        //131
+        {
+          id: 'sub-menu-substituicaodeveiculo',
+          title: '- Substituição de Veículo',
+          active: true,
+          routerLink: 'impressos/substituicaodeveiculo',
+        },
+        //132
+        {
+          id: 'sub-menu-termodecredenciamento',
+          title: '- Termo de Credenciamento',
+          active: true,
+          routerLink: 'impressos/termodecredenciamento',
+        },
+        //133
+        {
+          id: 'sub-menu-termodecredenciamentotransporteescolar',
+          title: '- Termo de Credecenciamento - Transporte Escolar',
+          active: true,
+          routerLink: 'impressos/termodecredenciamentotransporteescolar',
+        },
+        //134
+        {
+          id: 'sub-menu-aip',
+          title: '- AIP - Auto de Imposição de Penalidade',
+          active: true,
+          routerLink: 'impressos/aip',
         },
       ],
     },

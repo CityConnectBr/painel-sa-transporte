@@ -52,7 +52,7 @@ export class UserRelEntradaSaidaVeiculosComponent implements OnInit {
         return;
       }
 
-      if(!inputForm.referencia.match(SharedModule.datePattern)){
+      if(!inputForm.referencia.match(SharedModule.monthYearPattern)){
         this.toastr.error("Valor inválido!");
         this.loading = false;
         return;
