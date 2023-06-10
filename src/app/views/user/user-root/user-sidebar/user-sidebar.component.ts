@@ -415,7 +415,13 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/termodecredenciamentotransporteescolar',
         },
-
+        //134
+        {
+          id: 'sub-menu-aip',
+          title: '- AIP - Auto de Imposição de Penalidade',
+          active: true,
+          routerLink: 'impressos/aip',
+        },
       ],
     },
     {

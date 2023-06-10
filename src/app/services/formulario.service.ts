@@ -215,5 +215,11 @@ export class FormularioService extends BasicCrudService {
     });
   }
 
+  getFormulario134(infracao: number | String): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/aip?infracao=${infracao}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
+  }
 
 }
