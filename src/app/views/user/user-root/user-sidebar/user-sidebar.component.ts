@@ -342,6 +342,13 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/solicitacaoafericaotaximetro',
         },
+        //121
+        {
+          id: 'sub-menu-impressos-solicitacaodeautorizacaoprovisoria',
+          title: '- Solicitação de Autorização Provisória',
+          active: true,
+          routerLink: 'impressos/solicitacaodeautorizacaoprovisoria',
+        },
       ],
     },
     {
