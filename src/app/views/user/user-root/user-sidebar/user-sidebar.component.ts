@@ -401,6 +401,14 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/substituicaodeveiculo',
         },
+        //132
+        {
+          id: 'sub-menu-termodecredenciamento',
+          title: '- Termo de Credenciamento',
+          active: true,
+          routerLink: 'impressos/termodecredenciamento',
+        },
+
 
       ],
     },
