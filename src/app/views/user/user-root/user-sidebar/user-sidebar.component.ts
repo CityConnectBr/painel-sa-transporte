@@ -366,6 +366,14 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/declaracaoparataxista',
         },
+        //127
+        {
+          id: 'sub-menu-impressos-declaracaoparatransporteescolar',
+          title: '- Declaração para Transporte Escolar',
+          active: true,
+          routerLink: 'impressos/declaracaoparatransporteescolar',
+        },
+
       ],
     },
     {

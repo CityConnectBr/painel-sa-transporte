@@ -166,4 +166,11 @@ export class FormularioService extends BasicCrudService {
     );
   }
 
+  getFormulario127(permissionarioId: number | String): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/declaracaoptransporteescular?permissionario=${permissionarioId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
+  }
+
 }
