@@ -356,6 +356,16 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/solicitacaodeautorizacaoprovisoriaescolar',
         },
+        //123
+        //124
+        //125
+        //126
+        {
+          id: 'sub-menu-impressos-declaracaoparataxista',
+          title: '- Declaração para Taxista',
+          active: true,
+          routerLink: 'impressos/declaracaoparataxista',
+        },
       ],
     },
     {

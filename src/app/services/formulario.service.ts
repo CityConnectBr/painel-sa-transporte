@@ -158,4 +158,12 @@ export class FormularioService extends BasicCrudService {
       { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
     );
   }
+
+  getFormulario126(permissionarioId: number | String): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/declaracaoptaxista?permissionario=${permissionarioId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
+  }
+
 }
