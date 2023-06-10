@@ -119,6 +119,7 @@ import { UserFormulario126declaracaoparataxistaComponent } from "./user-impresso
 import { UserFormulario127declaracaoparatransporteescolarComponent } from "./user-impressos/user-formulario127declaracaoparatransporteescolar/user-formulario127declaracaoparatransporteescolar.component";
 import { UserFormulario128formulariodedeclaracaoComponent } from "./user-impressos/user-formulario128formulariodedeclaracao/user-formulario128formulariodedeclaracao.component";
 import { UserFormulario129laudovistoriatransportesespeciaisComponent } from "./user-impressos/user-formulario129laudovistoriatransportesespeciais/user-formulario129laudovistoriatransportesespeciais.component";
+import { UserFormulario130notificacaoComponent } from "./user-impressos/user-formulario130notificacao/user-formulario130notificacao.component";
 
 const ROUTER: Routes = [
   {
@@ -315,6 +316,8 @@ const ROUTER: Routes = [
           { path: 'formularioderequerimento', component: UserFormulario128formulariodedeclaracaoComponent, },
           //formulario 129
           { path: 'laudodevistoriatransportesespeciais', component: UserFormulario129laudovistoriatransportesespeciaisComponent, },
+          //formulario 130
+          { path: 'notificacao', component: UserFormulario130notificacaoComponent, },
         ]
       },
       {
@@ -445,7 +448,8 @@ const ROUTER: Routes = [
     UserFormulario126declaracaoparataxistaComponent,
     UserFormulario127declaracaoparatransporteescolarComponent,
     UserFormulario128formulariodedeclaracaoComponent,
-    UserFormulario129laudovistoriatransportesespeciaisComponent
+    UserFormulario129laudovistoriatransportesespeciaisComponent,
+    UserFormulario130notificacaoComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),

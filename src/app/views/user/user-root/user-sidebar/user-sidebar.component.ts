@@ -387,7 +387,13 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/laudodevistoriatransportesespeciais',
         },
-
+        //130
+        {
+          id: 'sub-menu-impressos-notificacao',
+          title: '- Notificação',
+          active: true,
+          routerLink: 'impressos/notificacao',
+        },
 
       ],
     },

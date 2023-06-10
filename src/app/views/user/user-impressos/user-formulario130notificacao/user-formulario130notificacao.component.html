@@ -1,0 +1,90 @@
+<div class="crud">
+
+  <app-search (searchEmitter)="search($event)"></app-search>
+
+  <h3 class="titulo">
+    <i class="fa fa-arrow-right"></i> Notificação
+  </h3>
+
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading" class="clearfix">
+    <table *ngIf="dataSearch.data.length>0" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of dataSearch.data">
+          <td>{{obj?.nome_razao_social}}</td>
+          <td class="text-right">
+            <a href="javascript: void(0);" (click)="selecionar(visualizarVeiculos, obj.id);" title="Selecionar"><i
+                class="fa fa-arrow-right" aria-hidden="true"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="dataSearch.data.length>0" class="float-right">
+      <app-pagination [backEnabled]="dataSearch.prev_page_url!=null" [nextEnabled]="dataSearch.next_page_url!=null"
+        [actualPage]="dataSearch.current_page" (changePos)="changePos($event)">
+      </app-pagination>
+    </div>
+
+    <div *ngIf="!dataSearch || dataSearch.data.length==0" class="alert alert-warning">
+      Nenhum registro encontrado!
+    </div>
+  </div>
+
+  <ng-template #visualizarVeiculos let-modal>
+    <app-modal modalID="visualizarVeiculos" title="Veículos" (closeModalEmit)="closeModal($event)">
+      <div class="clearfix">
+        <h6>Veículos</h6>
+        <table *ngIf="dataSearchVeiculo.data.length>0" class="table table-striped">
+          <thead>
+            <tr>
+              <th>Placa</th>
+              <th>Marca/Modelo</th>
+              <th>Cor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let obj of dataSearchVeiculo.data">
+              <td>{{obj?.placa}}</td>
+              <td>{{obj?.marca_modelo_veiculo.descricao}}</td>,
+              <td>{{obj?.cor.descricao}}</td>
+              <td class="text-right">
+                <a href="javascript: void(0);" (click)="selecionarVeiculo(obj.id);" title="Selecionar"><i
+                    class="fa fa-arrow-right" aria-hidden="true"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right">Cancelar</button>
+      </div>
+    </app-modal>
+  </ng-template>
+
+  <ng-template #modalInfoAdicionais let-modal>
+    <app-modal modalID="modalInfoAdicionais" title="Informações Adicionais" (closeModalEmit)="closeModal($event)">
+      <div class="clearfix crud" style="height: auto;">
+        <form *ngIf="!loading" [formGroup]="form" autocomplete="off">
+          <div class="form-inline">
+            <app-input label="Prazo">
+              <input type="text" class="form-control" formControlName="prazo" mask="00/00/0000"
+                [dropSpecialCharacters]="false" autocomplete="off">
+            </app-input>
+
+            <app-input label="Notificado">
+              <input type="text" class="form-control" formControlName="notificado" autocomplete="off">
+            </app-input>
+          </div>
+        </form>
+
+        <button (click)="salvarForm()" class="btn btn-primary btn-sm pull-right mr-2">Avançar</button>
+        <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right mr-2">Cancelar</button>
+      </div>
+    </app-modal>
+  </ng-template>
+
+</div>

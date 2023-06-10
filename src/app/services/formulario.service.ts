@@ -187,4 +187,12 @@ export class FormularioService extends BasicCrudService {
     );
   }
 
+  getFormulario130(permissionarioId: number | String, prazo: string, notificado: string): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/notificacao?permissionario=${permissionarioId}&prazo=${prazo}&notificado=${notificado}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
+  }
+
+
 }
