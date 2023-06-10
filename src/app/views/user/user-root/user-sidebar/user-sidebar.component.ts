@@ -394,6 +394,13 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/notificacao',
         },
+        //131
+        {
+          id: 'sub-menu-substituicaodeveiculo',
+          title: '- Substituição de Veículo',
+          active: true,
+          routerLink: 'impressos/substituicaodeveiculo',
+        },
 
       ],
     },

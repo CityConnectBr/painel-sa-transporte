@@ -194,5 +194,10 @@ export class FormularioService extends BasicCrudService {
     );
   }
 
-
+  getFormulario131(veiculo1Id: number | String, veiculo2Id: number | String): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/substituicaodeveiculo?veiculo1=${veiculo1Id}&veiculo2=${veiculo2Id}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
+  }
 }
