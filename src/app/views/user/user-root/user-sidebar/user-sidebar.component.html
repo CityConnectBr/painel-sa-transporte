@@ -19,7 +19,7 @@
                 routerLink="{{ subItem.routerLink??actualRoute }}" (click)="collapseMenu(subItem.id)"
                 title="{{ subItem.title }}">
                 <em [ngClass]="subItem.classIcon"></em>
-                <span class="truncateTitleLink">{{ subItem.title }}</span>
+                <span [class.truncateTitleLink]="!subItem.subMenu">{{ subItem.title }}</span>
               </a>
               <div *ngIf="subItem.subMenu" [ngbCollapse]="subItem.isCollapsed" class="ml-3 sub-submenu">
                 <ul class="nav flex-column">
