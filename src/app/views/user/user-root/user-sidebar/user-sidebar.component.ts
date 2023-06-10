@@ -322,6 +322,12 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/solicitacaodebaixadecondutorauxiliar',
         },
+        {
+          id: 'sub-menu-impressos-solicitacaotransporteescolar',
+          title: '- Anexo 18 - Solicitação de Transporte Escolar',
+          active: true,
+          routerLink: 'impressos/solicitacaotransporteescolar',
+        },
       ],
     },
     {

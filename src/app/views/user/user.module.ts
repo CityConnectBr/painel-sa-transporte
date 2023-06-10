@@ -110,6 +110,7 @@ import { UserFormulario5ReqsubstveiculoComponent } from "./user-impressos/user-f
 import { UserFormulario6ReqprosubveiculoComponent } from "./user-impressos/user-formulario6-reqprosubveiculo/user-formulario6-reqprosubveiculo.component";
 import { UserFormulario9declaracaoatenddispostoComponent } from "./user-impressos/user-formulario9declaracaoatenddisposto/user-formulario9declaracaoatenddisposto.component";
 import { UserFormulario16solressarcimentoComponent } from "./user-impressos/user-formulario16solressarcimento/user-formulario16solressarcimento.component";
+import { UserFormulario18soltranspensinoComponent } from "./user-impressos/user-formulario18soltranspensino/user-formulario18soltranspensino.component";
 
 const ROUTER: Routes = [
   {
@@ -285,6 +286,9 @@ const ROUTER: Routes = [
           { path: 'solicitacaoderessarcimento', component: UserFormulario16solressarcimentoComponent, },
           //formulario 17
           { path: 'solicitacaodebaixadecondutorauxiliar', component: UserFormulario17SolicitaacaoBaixaCondutorComponent, },
+          //formulario 18
+          { path: 'solicitacaotransporteescolar', component: UserFormulario18soltranspensinoComponent, },
+
         ]
       },
       {
@@ -406,7 +410,8 @@ const ROUTER: Routes = [
     UserFormulario5ReqsubstveiculoComponent,
     UserFormulario6ReqprosubveiculoComponent,
     UserFormulario9declaracaoatenddispostoComponent,
-    UserFormulario16solressarcimentoComponent
+    UserFormulario16solressarcimentoComponent,
+    UserFormulario18soltranspensinoComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),
