@@ -122,6 +122,7 @@ import { UserFormulario129laudovistoriatransportesespeciaisComponent } from "./u
 import { UserFormulario130notificacaoComponent } from "./user-impressos/user-formulario130notificacao/user-formulario130notificacao.component";
 import { UserFormulario131substituicaodeveiculoComponent } from "./user-impressos/user-formulario131substituicaodeveiculo/user-formulario131substituicaodeveiculo.component";
 import { UserFormulario132termodecredenciamentoComponent } from "./user-impressos/user-formulario132termodecredenciamento/user-formulario132termodecredenciamento.component";
+import { UserFormulario133termodecredenciamentotransporteescolarComponent } from "./user-impressos/user-formulario133termodecredenciamentotransporteescolar/user-formulario133termodecredenciamentotransporteescolar.component";
 
 const ROUTER: Routes = [
   {
@@ -324,7 +325,8 @@ const ROUTER: Routes = [
           { path: 'substituicaodeveiculo', component: UserFormulario131substituicaodeveiculoComponent, },
           //formulario 132
           { path: 'termodecredenciamento', component: UserFormulario132termodecredenciamentoComponent, },
-
+          //formulario 133
+          { path: 'termodecredenciamentotransporteescolar', component: UserFormulario133termodecredenciamentotransporteescolarComponent, },
         ]
       },
       {
@@ -458,7 +460,8 @@ const ROUTER: Routes = [
     UserFormulario129laudovistoriatransportesespeciaisComponent,
     UserFormulario130notificacaoComponent,
     UserFormulario131substituicaodeveiculoComponent,
-    UserFormulario132termodecredenciamentoComponent
+    UserFormulario132termodecredenciamentoComponent,
+    UserFormulario133termodecredenciamentotransporteescolarComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),

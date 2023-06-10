@@ -208,5 +208,12 @@ export class FormularioService extends BasicCrudService {
     );
   }
 
+  getFormulario133(): Observable<Blob> {
+    return this.httpClient.get(`${this.url}/termocredenciamentotranspescolar`, {
+      headers: super.getHeaderWithAuthorization,
+      responseType: 'blob',
+    });
+  }
+
 
 }

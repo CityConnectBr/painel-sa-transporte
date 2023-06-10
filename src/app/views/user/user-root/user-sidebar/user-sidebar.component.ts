@@ -408,7 +408,13 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/termodecredenciamento',
         },
-
+        //133
+        {
+          id: 'sub-menu-termodecredenciamentotransporteescolar',
+          title: '- Termo de Credecenciamento - Transporte Escolar',
+          active: true,
+          routerLink: 'impressos/termodecredenciamentotransporteescolar',
+        },
 
       ],
     },
