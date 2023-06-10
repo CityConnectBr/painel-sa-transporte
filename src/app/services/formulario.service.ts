@@ -180,4 +180,11 @@ export class FormularioService extends BasicCrudService {
     );
   }
 
+  getFormulario129(veiculoId: number | String): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/laudovistoriatransportesespeciais?veiculo=${veiculoId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
+  }
+
 }

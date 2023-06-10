@@ -380,6 +380,13 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/formularioderequerimento',
         },
+        //129
+        {
+          id: 'sub-menu-impressos-laudodevistoriatransportesespeciais',
+          title: '- Laudo de Vistoria Transportes Especiais',
+          active: true,
+          routerLink: 'impressos/laudodevistoriatransportesespeciais',
+        },
 
 
       ],
