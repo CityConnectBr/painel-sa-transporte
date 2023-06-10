@@ -311,6 +311,12 @@ export class UserSidebarComponent {
           routerLink: 'impressos/declaracaoatendimentodisposto',
         },
         {
+          id: 'sub-menu-impressos-solicitacaoderessarcimento',
+          title: '- Anexo 16 - Solicitação de Ressarcimento',
+          active: true,
+          routerLink: 'impressos/solicitacaoderessarcimento',
+        },
+        {
           id: 'sub-menu-impressos-solicitacaodebaixadecondutorauxiliar',
           title: '- Anexo 17 - Solicitação de Baixa de Condutor',
           active: true,
