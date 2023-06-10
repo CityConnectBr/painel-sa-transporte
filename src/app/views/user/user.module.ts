@@ -108,6 +108,7 @@ import { UserFormulario3TransfpermtranspescolarComponent } from "./user-impresso
 import { UserFormulario4TransfpermtransptaxiComponent } from "./user-impressos/user-formulario4-transfpermtransptaxi/user-formulario4-transfpermtransptaxi.component";
 import { UserFormulario5ReqsubstveiculoComponent } from "./user-impressos/user-formulario5-reqsubstveiculo/user-formulario5-reqsubstveiculo.component";
 import { UserFormulario6ReqprosubveiculoComponent } from "./user-impressos/user-formulario6-reqprosubveiculo/user-formulario6-reqprosubveiculo.component";
+import { UserFormulario9declaracaoatenddispostoComponent } from "./user-impressos/user-formulario9declaracaoatenddisposto/user-formulario9declaracaoatenddisposto.component";
 
 const ROUTER: Routes = [
   {
@@ -273,9 +274,14 @@ const ROUTER: Routes = [
           { path: 'requerimentoparasubstituicaodeveiculo', component: UserFormulario5ReqsubstveiculoComponent, },
           //formulario 6
           { path: 'requerimentoparaprorrogacaodesubstituicaodeveiculo', component: UserFormulario6ReqprosubveiculoComponent, },
-
+          //formulario 7
           { path: 'formulariodeclaracaomonitor', component: UserFormulario7DeclaracaoMonitorComponent, },
+          //formulario 8
           { path: 'condutorauxiliar', component: UserFormulario8CondutorAuxiliarComponent, },
+          //formulario 9
+          { path: 'declaracaoatendimentodisposto', component: UserFormulario9declaracaoatenddispostoComponent, },
+
+          //formulario 17
           { path: 'solicitacaodebaixadecondutorauxiliar', component: UserFormulario17SolicitaacaoBaixaCondutorComponent, },
         ]
       },
@@ -396,7 +402,8 @@ const ROUTER: Routes = [
     UserFormulario3TransfpermtranspescolarComponent,
     UserFormulario4TransfpermtransptaxiComponent,
     UserFormulario5ReqsubstveiculoComponent,
-    UserFormulario6ReqprosubveiculoComponent
+    UserFormulario6ReqprosubveiculoComponent,
+    UserFormulario9declaracaoatenddispostoComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),

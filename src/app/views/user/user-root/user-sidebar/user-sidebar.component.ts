@@ -305,6 +305,12 @@ export class UserSidebarComponent {
           routerLink: 'impressos/condutorauxiliar',
         },
         {
+          id: 'sub-menu-impressos-declaracaoatendimentodisposto',
+          title: '- Anexo 09 - Declaração de Atendimento ao Disposto',
+          active: true,
+          routerLink: 'impressos/declaracaoatendimentodisposto',
+        },
+        {
           id: 'sub-menu-impressos-solicitacaodebaixadecondutorauxiliar',
           title: '- Anexo 17 - Solicitação de Baixa de Condutor',
           active: true,

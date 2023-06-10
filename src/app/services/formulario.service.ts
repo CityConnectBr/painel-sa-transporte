@@ -51,6 +51,10 @@ export class FormularioService extends BasicCrudService {
     return this.httpClient.get(`${this.url}/condutorauxiliar?id=${permissionarioId}&solicitacao_id=${solicitacaoId}`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
   }
 
+  getFormulario9(): Observable<Blob> {
+    return this.httpClient.get(`${this.url}/declaracaoatenddosposto`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
+  }
+
   getFormulario17(permissionarioId: number | String, condutorId: number | String): Observable<Blob> {
     return this.httpClient.get(`${this.url}/solicitacaodebaixadecondutorauxiliar?id=${permissionarioId}&condutor_id=${condutorId}`, { headers: super.getHeaderWithAuthorization, responseType: 'blob' },);
   }
