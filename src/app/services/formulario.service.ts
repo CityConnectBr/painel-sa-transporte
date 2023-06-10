@@ -127,4 +127,11 @@ export class FormularioService extends BasicCrudService {
       { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
     );
   }
+
+  getFormulario120(veiculoId: number | String): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/solicitacaoafericaotaximetro?veiculo=${veiculoId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
+  }
 }

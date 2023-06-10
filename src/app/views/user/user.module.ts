@@ -112,6 +112,7 @@ import { UserFormulario9declaracaoatenddispostoComponent } from "./user-impresso
 import { UserFormulario16solressarcimentoComponent } from "./user-impressos/user-formulario16solressarcimento/user-formulario16solressarcimento.component";
 import { UserFormulario18soltranspensinoComponent } from "./user-impressos/user-formulario18soltranspensino/user-formulario18soltranspensino.component";
 import { UserFormulario119autorizacaoadesivacaocustpermissionarioComponent } from "./user-impressos/user-formulario119autorizacaoadesivacaocustpermissionario/user-formulario119autorizacaoadesivacaocustpermissionario.component";
+import { UserFormulario120solicitacaoafericaotaximetroComponent } from "./user-impressos/user-formulario120solicitacaoafericaotaximetro/user-formulario120solicitacaoafericaotaximetro.component";
 
 const ROUTER: Routes = [
   {
@@ -291,6 +292,8 @@ const ROUTER: Routes = [
           { path: 'solicitacaotransporteescolar', component: UserFormulario18soltranspensinoComponent, },
           //formulario 119
           { path: 'autorizacaoadesivacaocusteada', component: UserFormulario119autorizacaoadesivacaocustpermissionarioComponent, },
+          //formulario 120
+          { path: 'solicitacaoafericaotaximetro', component: UserFormulario120solicitacaoafericaotaximetroComponent, },
         ]
       },
       {
@@ -414,7 +417,8 @@ const ROUTER: Routes = [
     UserFormulario9declaracaoatenddispostoComponent,
     UserFormulario16solressarcimentoComponent,
     UserFormulario18soltranspensinoComponent,
-    UserFormulario119autorizacaoadesivacaocustpermissionarioComponent
+    UserFormulario119autorizacaoadesivacaocustpermissionarioComponent,
+    UserFormulario120solicitacaoafericaotaximetroComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),

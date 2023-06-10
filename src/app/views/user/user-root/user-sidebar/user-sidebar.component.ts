@@ -335,6 +335,13 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/autorizacaoadesivacaocusteada',
         },
+        //120
+        {
+          id: 'sub-menu-impressos-solicitacaoafericaotaximetro',
+          title: '- Solicitação de Aferição de Taxímetro',
+          active: true,
+          routerLink: 'impressos/solicitacaoafericaotaximetro',
+        },
       ],
     },
     {
