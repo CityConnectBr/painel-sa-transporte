@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Infracao } from 'src/app/models/infracao';
 import { InfracaoService } from 'src/app/services/infracao.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 
@@ -17,6 +18,8 @@ export class UserInfracoesInformarPagamentoComponent implements OnInit {
 
   @Input() public infracaoId: number;
 
+  infracao: Infracao;
+
   constructor(
     private formBuilder: FormBuilder,
     private infracaoService: InfracaoService,
@@ -31,7 +34,14 @@ export class UserInfracoesInformarPagamentoComponent implements OnInit {
         SharedModule.formatDateddMMyyyy(today),
         [Validators.required],
       ],
+      acao: ['aprovar', [Validators.required]],
     });
+
+    this.loadInfracao();
+  }
+
+  private async loadInfracao(): Promise<void> {
+    this.infracao = await this.infracaoService.get(this.infracaoId).toPromise();
   }
 
   salvar() {
@@ -42,25 +52,32 @@ export class UserInfracoesInformarPagamentoComponent implements OnInit {
 
     this.loading = true;
     this.errorMessage = null;
-    this.infracaoService
-      .informarPagamento(this.infracaoId, {
+
+    let request = null;
+
+    if (this.form.value.acao === 'aprovar') {
+      request = this.infracaoService.aprovarPagamento(this.infracaoId, {
         data_pagamento: SharedModule.convertStringddMMyyyyToyyyyMMdd(
           this.form.value.data_pagamento
         ),
-      })
-      .subscribe(
-        (res) => {
-          this.loading = false;
-          this.errorMessage = null;
-          this.modal.dismissAll();
-        },
-        (err) => {
-          this.loading = false;
-          this.errorMessage = err.error.message;
-          this.toastr.error(
-            'Ocorreu um erro ao informar o pagamento da infração.'
-          );
-        }
-      );
+      });
+    } else {
+      request = this.infracaoService.reprovarPagamento(this.infracaoId);
+    }
+
+    request.subscribe(
+      (res) => {
+        this.loading = false;
+        this.errorMessage = null;
+        this.modal.dismissAll();
+      },
+      (err) => {
+        this.loading = false;
+        this.errorMessage = err.error.message;
+        this.toastr.error(
+          'Ocorreu um erro ao informar o pagamento da infração.'
+        );
+      }
+    );
   }
 }

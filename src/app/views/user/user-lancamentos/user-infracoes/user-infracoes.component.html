@@ -31,7 +31,7 @@
           <td>{{obj?.data_pagamento | date: 'dd/MM/yyyy'}}</td>
           <td class="text-right">
             <a href="javascript: void(0);" (click)="initLancamentoPagamento(informarPagamento, obj.id);" title="Lançar Pagamento"
-              class="mr-2" *ngIf="obj.status=='pendente'">
+              class="mr-2" *ngIf="obj.status=='pendente' || obj.status=='confirmacao_pendente'">
               <i class="fa fa-book" aria-hidden="true"></i>
             </a>
             <a href="javascript: void(0);" (click)="getQrCode(shareQRCodeModal, obj.id);"

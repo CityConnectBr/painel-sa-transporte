@@ -32,9 +32,16 @@ export class InfracaoService extends BasicCrudService {
     });
   }
 
-  informarPagamento(id: number, data: any): Observable<any> {
+  aprovarPagamento(id: number, data: any): Observable<any> {
     return this.httpClient
       .post(`${this.url}/${id}/lancarpagamento`, data, super.getHttpOptions)
       .pipe(retry(2));
   }
+
+  reprovarPagamento(id: number): Observable<any> {
+    return this.httpClient
+      .post(`${this.url}/${id}/reprovarpagamento`, {}, super.getHttpOptions)
+      .pipe(retry(2));
+  }
+
 }

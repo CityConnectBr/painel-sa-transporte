@@ -1,13 +1,20 @@
 <div class="m-3 pb-3">
-<form [formGroup]="form" autocomplete="off">
-  <div class="row">
-    <div class="col-md-3">
-      <app-input label="Data do Pagamento" [require]="true">
-        <input type="text" class="form-control" formControlName="data_pagamento" mask="00/00/0000"
-          [dropSpecialCharacters]="false" autocomplete="off">
-      </app-input>
+  <form [formGroup]="form" autocomplete="off">
+    <div class="row">
+      <div class="col-md-3">
+        <app-input label="Data do Pagamento" [require]="true" *ngIf="infracao?.status=='confirmacao_pendente'">
+          <select class="form-control input-grey" formControlName="acao">
+            <option value="aprovar">Aprovar</option>
+            <option value="reprovar">Reprovar</option>
+          </select>
+        </app-input>
+
+        <app-input label="Data do Pagamento" [require]="true" *ngIf="form.get('acao').value=='aprovar'">
+          <input type="text" class="form-control input-grey" formControlName="data_pagamento" mask="00/00/0000"
+            [dropSpecialCharacters]="false" autocomplete="off">
+        </app-input>
+      </div>
     </div>
-  </div>
-  <button type="submit" class="btn pull-right" (click)="salvar()">Informar Pagamento</button>
-</form>
+    <button type="submit" class="btn pull-right" (click)="salvar()">Concluir</button>
+  </form>
 </div>
