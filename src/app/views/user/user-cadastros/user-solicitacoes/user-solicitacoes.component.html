@@ -125,8 +125,8 @@
           </div>
 
           <div *ngIf="!solicitacao?.status">
-            <app-input label="Decisão">
-              <select formControlName="decisao" class="form-control" require="true">
+            <app-input label="Decisão" class="row p-0 m-2">
+              <select formControlName="decisao" class="form-control input-grey col-xs-4" require="true">
                 <option value="A">Aceitar</option>
                 <option value="R">Recusar</option>
                 <option value="C">Cancelar</option>
