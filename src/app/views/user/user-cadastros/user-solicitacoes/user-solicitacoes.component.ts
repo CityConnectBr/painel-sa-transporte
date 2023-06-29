@@ -8,7 +8,6 @@ import { SolicitacaoDeAlteracao } from 'src/app/models/solicitacao';
 import { ArquivoService } from 'src/app/services/arquivo.service';
 import { SearchData } from 'src/app/services/basic-crud.service';
 import { SolicitacaoService } from 'src/app/services/solicitacao.service';
-import { VeiculoService } from 'src/app/services/veiculo.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { ToastrService } from 'ngx-toastr';
 @Component({
@@ -108,7 +107,7 @@ export class UserSolicitacoesComponent implements OnInit {
         return;
       }
 
-      if (this.isSolicitacaoValidacao()) {
+      if (this.isSolicitacaoValidacao() && formInput.decisao == 'A') {
         this.router.navigate(["/user/lancamentos/infracoes/novo"], { queryParams: { solicitacaoId: this.solicitacao.id } });
         this.closeModal(null);
         return;

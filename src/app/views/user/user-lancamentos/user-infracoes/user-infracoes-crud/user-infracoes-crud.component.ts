@@ -144,6 +144,9 @@ export class UserInfracoesCrudComponent implements OnInit {
         obs_aip: new FormControl('', {
           validators: [Validators.maxLength(500)],
         }),
+        descricao: new FormControl('', {
+          validators: [Validators.maxLength(500)],
+        }),
         acao_tomada: new FormControl('', {
           validators: [
             Validators.required,
@@ -212,11 +215,13 @@ export class UserInfracoesCrudComponent implements OnInit {
           .pipe(first())
           .toPromise();
         if (this.solicitacao) {
+          console.log(this.solicitacao);
           this.form.controls['data_infracao'].setValue(
             SharedModule.formatDateddMMyyyy(this.solicitacao.campo1.toString())
           );
           this.form.controls['hora_infracao'].setValue(this.solicitacao.campo2);
-          this.form.controls['descricao'].setValue(this.solicitacao.campo3);
+
+          this.form.controls['descricao'].setValue(this.solicitacao.campo3??'');
           this.veiculoSelecionado = await this.veiculoService
             .get(this.solicitacao.referencia_veiculo_id)
             .pipe(first())
@@ -240,7 +245,8 @@ export class UserInfracoesCrudComponent implements OnInit {
             }
           }
 
-          if (this.solicitacao.arquivo1_uid) {
+          //TODO: CORRIGIR
+          /*if (this.solicitacao.arquivo1_uid) {
             this.imageFile = await this.arquivoService
               .get(this.solicitacao.arquivo1_uid)
               .pipe(first())
@@ -248,7 +254,7 @@ export class UserInfracoesCrudComponent implements OnInit {
             this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(
               URL.createObjectURL(this.imageFile)
             );
-          }
+          }*/
         }
       }
 

@@ -70,14 +70,19 @@
         </div>
 
         <div class="row">
-          <div class="col-md-6">
-            <app-input label="Observação">
-              <textarea class="form-control" formControlName="obs_aip" cols="50"></textarea>
+          <div class="col-md-4">
+            <app-input label="Descrição">
+              <textarea class="form-control" formControlName="descricao" cols="30"></textarea>
             </app-input>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
+            <app-input label="Observação">
+              <textarea class="form-control" formControlName="obs_aip" cols="30"></textarea>
+            </app-input>
+          </div>
+          <div class="col-md-4">
             <app-input label="Acao Tomada" [require]="true">
-              <textarea class="form-control" formControlName="acao_tomada" cols="50"></textarea>
+              <textarea class="form-control" formControlName="acao_tomada" cols="30"></textarea>
             </app-input>
           </div>
         </div>
