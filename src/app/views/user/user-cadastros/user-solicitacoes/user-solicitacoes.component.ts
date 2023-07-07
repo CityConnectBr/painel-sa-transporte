@@ -86,7 +86,7 @@ export class UserSolicitacoesComponent implements OnInit {
 
       if (this.solicitacao.tipo.nome.indexOf("foto") != -1) {
         this.alteracaoDeFoto = true;
-        const blob = await this.arquivoService.get(this.solicitacao.arquivo1_uid).pipe(first()).toPromise();
+        const blob = await this.arquivoService.getFile(this.solicitacao.arquivo1_uid).pipe(first()).toPromise();
         this.novaFoto = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
       }
 
@@ -129,10 +129,11 @@ export class UserSolicitacoesComponent implements OnInit {
 
   async visualizarComprovante(id: string, modal) {
     try {
-      const blob = await this.arquivoService.get(id).pipe(first()).toPromise();
+      const blob = await this.arquivoService.getFile(id).pipe(first()).toPromise();
       this.imageFile = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
       this.openModal(modal);
     } catch (e: any) {
+      console.error(e);
       this.imageFile = null;
       this.closeModal(null);
     }

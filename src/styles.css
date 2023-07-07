@@ -167,7 +167,7 @@ aside a i {
 /* ------------------------------- CRUD -------------------------------------*/
 
 .crud {
-  height: 100vh;
+  /*height: 100vh;*/
   padding: 10px;
   background: #f1f1f1;
   border-radius: 15px;
