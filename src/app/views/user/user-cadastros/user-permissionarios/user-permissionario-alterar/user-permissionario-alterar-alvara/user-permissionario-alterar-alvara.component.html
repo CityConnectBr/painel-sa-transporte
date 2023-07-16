@@ -7,7 +7,7 @@
           Novo</button>
       </h3>
 
-      <app-input label="Emissão">
+      <app-input label="Emissão" [require]="true">
         <input type="text" class="form-control" formControlName="data_emissao" mask="00/00/0000"
           [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
@@ -30,20 +30,20 @@
     <div class="subitem">
       <h3>Sobre o Pagamento</h3>
 
-      <app-input label="Tipo de Pix" [require]="true">
+      <app-input label="Tipo de Pix">
         <select class="form-control" formControlName="tipoPix">
           <option value="0">Sistema Gerar</option>
           <option value="1">Código já gerado</option>
         </select>
       </app-input>
 
-      <app-input label="Empresa" [inline]="true" [require]="true" *ngIf="form.get('tipoPix').value == 0">
+      <app-input label="Empresa" [inline]="true" *ngIf="form.get('tipoPix').value == 0">
         <select formControlName="empresa_id" class="form-control" (change)="selecionarEmpresa($event)">
           <option *ngFor="let empresa of empresas;" value="{{empresa.id}}">{{empresa.nome}}</option>
         </select>
       </app-input>
 
-      <app-input label="Tipo de Chave" [require]="true">
+      <app-input label="Tipo de Chave">
         <select class="form-control" formControlName="tipoDeChavePix">
           <option value="0">Celular</option>
           <option value="1">Email</option>
@@ -65,7 +65,7 @@
         <input type="text" class="form-control" formControlName="codigo_pix" autocomplete="off">
       </app-input>
 
-      <app-input label="Valor" [require]="true">
+      <app-input label="Valor" [require]="true" *ngIf="form.get('tipoPix').value!=null">
         <input type="text" class="form-control" formControlName="valor" autocomplete="off" [mask]="'0*,00'" [dropSpecialCharacters]="false">
       </app-input>
     </div>
