@@ -12,13 +12,23 @@
     <table *ngIf="dataSearch.data.length>0" class="table table-striped">
       <thead>
         <tr>
+          <th>Cadastro</th>
           <th>Nome</th>
+          <th>Tipo</th>
+          <th>CPF</th>
+          <th>RG</th>
+          <th>Situação</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let obj of dataSearch.data">
+          <td>{{obj?.id_integracao}}</td>
           <td>{{obj?.nome_razao_social}}</td>
+          <td>{{obj?.tipo=='F'?'Física':'Jurídica'}}</td>
+          <td>{{obj?.cpf_cnpj}}</td>
+          <td>{{obj?.rg}}</td>
+          <td>{{obj?.ativo==1?'Ativo':'Inativo'}}</td>
           <td class="text-right">
             <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
                 aria-hidden="true"></i></a>
