@@ -6,11 +6,13 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Dt. Inicio do Afastamento</th>
-          <th>Dt. Término do Afastamento</th>
+          <th>Inicio Afastamento</th>
+          <th>Término Afastamento</th>
           <th>Nome</th>
           <th>CPF</th>
-          <th></th>
+          <th>Telefone</th>
+          <th>Celular</th>
+          <th *ngIf="false"></th>
         </tr>
       </thead>
       <tbody>
@@ -19,7 +21,9 @@
           <td>{{obj.data_termino_afastamento}}</td>
           <td>{{obj.nome}}</td>
           <td>{{obj.cpf}}</td>
-          <td><a href="javascript: void(0)" (click)="showCondutor(veiculoModal, obj)"><i class="fa fa-eye"></i></a></td>
+          <td>{{obj.telefone}}</td>
+          <td>{{obj.celular}}</td>
+          <td *ngIf="false"><a href="javascript: void(0)" (click)="showCondutor(veiculoModal, obj)"><i class="fa fa-eye"></i></a></td>
         </tr>
       </tbody>
     </table>

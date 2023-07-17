@@ -83,13 +83,10 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
       );
     }
 
-    console.log(this.alvaraAtual);
-
     ///////FORM
     this.form = this.formBuilder.group({
       data_retorno: new FormControl(this.alvaraAtual?.data_retorno ?? '', {
         validators: [
-          Validators.required,
           Validators.pattern(SharedModule.datePattern),
         ],
       }),
@@ -103,7 +100,6 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
         this.alvaraAtual?.data_vencimento ?? '',
         {
           validators: [
-            Validators.required,
             Validators.pattern(SharedModule.datePattern),
           ],
         }
@@ -115,13 +111,12 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
         SharedModule.numberToCorrency(this.alvaraAtual?.valor) ?? '0,00',
         {
           validators: [
-            Validators.required,
             Validators.pattern(SharedModule.numberPaternWithDotAndComma),
           ],
         }
       ),
       empresa_id: new FormControl(this.alvaraAtual?.empresa_id ?? '', {
-        validators: [Validators.required],
+        validators: [],
       }),
       chave_pix: new FormControl(this.alvaraAtual?.chave_pix ?? '', {
         validators: [],

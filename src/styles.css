@@ -248,6 +248,14 @@ aside a i {
   color: var(--charcoal);
 }
 
+.crud .search-content .select-ativo{
+  width: 80px;
+  margin-right: 10px;
+  border-color: var(--lightBlue);
+  color: var(--charcoal);
+  padding: 5px;
+}
+
 .crud .search-content button {
   border-color: var(--lightBlue);
   color: white;

@@ -15,6 +15,7 @@ export class UserPermissionariosComponent implements OnInit {
   loading: boolean = false;
 
   searchText: string = "";
+  ativo: number = 1;
   dataSearch: SearchData;
 
   constructor(
@@ -27,18 +28,19 @@ export class UserPermissionariosComponent implements OnInit {
     this.loadList(1);
   }
 
-  public async loadList(page: number) {
+  private async loadList(page: number) {
     this.loading = true;
     try {
-      this.dataSearch = await this.permissionarioService.search(this.searchText, page).toPromise();
+      this.dataSearch = await this.permissionarioService.search(this.searchText, page, this.ativo).toPromise();
     } catch (e) {
       this.dataSearch = null;
     }
     this.loading = false;
   }
 
-  public search(text: string = ''){
-    this.searchText = text;
+  public search(search: any) {
+    this.searchText = search.text;
+    this.ativo = search.ativo;
     this.loadList(1);
   }
 
