@@ -10,9 +10,22 @@
         </select>
       </app-input>
 
-      <app-input label="Emissão">
-        <input type="text" class="form-control" formControlName="data_emissao" mask="00/00/0000" [dropSpecialCharacters]="false"
-          autocomplete="off">
+      <app-input label="Nome">
+        <input type="text" class="form-control" formControlName="nome" autocomplete="off">
+      </app-input>
+
+      <app-input label="Emissão" [require]="true">
+        <input type="text" class="form-control" formControlName="data_emissao" mask="00/00/0000"
+          [dropSpecialCharacters]="false" autocomplete="off">
+      </app-input>
+
+      <app-input label="Validade">
+        <input type="text" class="form-control" formControlName="data_validade" mask="00/00/0000"
+          [dropSpecialCharacters]="false" autocomplete="off">
+      </app-input>
+
+      <app-input label="Descrição">
+        <textarea class="form-control" formControlName="descricao" rows="3" cols="50"></textarea>
       </app-input>
 
       <div class="clearfix">
@@ -28,18 +41,22 @@
       <table *ngIf="cursosDoMonitor.length>0" class="table table-striped">
         <thead>
           <tr>
+            <th>Nome</th>
             <th>Tipo do Curso</th>
             <th>Emissão</th>
+            <th>Validade</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let obj of cursosDoMonitor">
-            <td>{{obj?.descricao}}</td>
+            <td>{{obj?.nome}}</td>
+            <td>{{obj?.tipo_de_curso?.descricao}}</td>
             <td>{{obj?.data_emissao | date: 'dd/MM/yyyy'}}</td>
+            <td>{{obj?.data_validade | date: 'dd/MM/yyyy'}}</td>
             <td class="text-right">
-              <a href="javascript: void(0);" (click)="setCursoParaDelecao(obj.id);openModal(contentExcluir)"  title="Excluir"><i class="fa fa-trash"
-                  aria-hidden="true"></i></a>
+              <a href="javascript: void(0);" (click)="setCursoParaDelecao(obj.id);openModal(contentExcluir)"
+                title="Excluir"><em class="fa fa-trash" aria-hidden="true"></em></a>
             </td>
           </tr>
         </tbody>

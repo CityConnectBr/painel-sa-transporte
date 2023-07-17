@@ -61,6 +61,15 @@ export class UserMonitoresAlterarCursosComponent implements OnInit {
         data_emissao: new FormControl("", {
           validators: [Validators.required],
         }),
+        data_validade: new FormControl('', {
+          validators: [],
+        }),
+        nome: new FormControl('', {
+          validators: [Validators.maxLength(100)],
+        }),
+        descricao: new FormControl('', {
+          validators: [Validators.maxLength(150)],
+        }),
       });
     } catch (e: any) {
       console.error(e);
