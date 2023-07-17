@@ -6,70 +6,64 @@ import { environment } from 'src/environments/environment';
 import { MainService } from './main.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BasicCrudService extends MainService {
-
-  constructor(
-    httpClient: HttpClient,
-    urlParth: String
-  ) {
+  constructor(httpClient: HttpClient, urlParth: String) {
     super(httpClient);
-    this.url = environment.apiUrl + urlParth
+    this.url = environment.apiUrl + urlParth;
   }
 
   url: string;
   //url = environment.apiUrl + '/api/admin/v1/perfis'
 
   index(): Observable<any[]> {
-    return this.httpClient.get<any>(this.url, super.getHttpOptions)
-      .pipe(
-        first(),
-        map(result => result['data'])
-      )
+    return this.httpClient.get<any>(this.url, super.getHttpOptions).pipe(
+      first(),
+      map((result) => result['data'])
+    );
   }
 
-  search(search: string, page: number = 1): Observable<SearchData> {
-    return this.httpClient.get<SearchData>(`${this.url}?search=${search ?? ""}&page=${page ?? '1'}`, super.getHttpOptions)
+  search(
+    search: string,
+    page: number = 1,
+    ativo: number = 1
+  ): Observable<SearchData> {
+    return this.httpClient.get<SearchData>(
+      `${this.url}?search=${search ?? ''}&page=${page ?? '1'}&ativo=${ativo}`,
+      super.getHttpOptions
+    ).pipe(first());
   }
 
   get(id: number | String): Observable<any> {
-    return this.httpClient.get<any>(`${this.url}/${id}`, super.getHttpOptions)
-      .pipe(
-        first(),
-      )
+    return this.httpClient
+      .get<any>(`${this.url}/${id}`, super.getHttpOptions)
+      .pipe(first());
   }
 
   create(obj: any): Observable<any> {
-    return this.httpClient.post(this.url,
-      JSON.stringify(obj), super.getHttpOptions)
-      .pipe(
-        first(),
-      )
+    return this.httpClient
+      .post(this.url, JSON.stringify(obj), super.getHttpOptions)
+      .pipe(first());
   }
 
   update(id: number | String, obj: any): Observable<any> {
-    return this.httpClient.put(`${this.url}/${id}`,
-      JSON.stringify(obj), super.getHttpOptions)
-      .pipe(
-        retry(2),
-      )
+    return this.httpClient
+      .put(`${this.url}/${id}`, JSON.stringify(obj), super.getHttpOptions)
+      .pipe(retry(2));
   }
 
   delete(id: number | String): Observable<any> {
-    return this.httpClient.delete(`${this.url}/${id}`,
-      super.getHttpOptions)
-      .pipe(
-        retry(2),
-      )
+    return this.httpClient
+      .delete(`${this.url}/${id}`, super.getHttpOptions)
+      .pipe(retry(2));
   }
-
 }
 
 export interface SearchData {
-  prev_page_url: string
-  next_page_url: string
-  current_page: number
-  ativo: boolean
-  data: any[]
+  prev_page_url: string;
+  next_page_url: string;
+  current_page: number;
+  ativo: boolean;
+  data: any[];
 }

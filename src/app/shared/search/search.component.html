@@ -1,8 +1,13 @@
 <div class="search-content input-group col-md-5 float-right">
-    <input [(ngModel)]="textInput" (keydown.enter)="search()" class="form-control py-2" type="search" placeholder="Pesquise aqui" value="" id="example-search-input">
-    <span class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button" (click)="search()">
-        <i class="fa fa-search"></i>
-      </button>
-    </span>
+  <select *ngIf="withAtivo" [(ngModel)]="ativo" class="select-ativo" (change)="search()">
+    <option value="1">ATIVO</option>
+    <option value="0">INATIVO</option>
+  </select>
+  <input [(ngModel)]="textInput" (keydown.enter)="search()" class="form-control py-2" type="search"
+    [placeholder]="placeholder" value="" id="example-search-input" [title]="placeholder">
+  <span class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button" (click)="search()">
+      <i class="fa fa-search"></i>
+    </button>
+  </span>
 </div>
