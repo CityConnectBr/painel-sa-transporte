@@ -62,6 +62,9 @@ export class UserPermissionarioAlterarFalecimentoComponent implements OnInit {
         parecer_do_juiz_sobre_inventario: new FormControl(this.permissionario.parecer_do_juiz_sobre_inventario, {
           validators: [Validators.maxLength(500)],
         }),
+        observacao_obito: new FormControl(this.permissionario.observacao_obito, {
+          validators: [Validators.maxLength(200)],
+        }),
       })
 
     } catch (e: any) {

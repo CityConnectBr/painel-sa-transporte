@@ -60,6 +60,7 @@ export interface Permissionario {
   endereco_id: string
   data_obito: Date
   certidao_de_obito: string
+  observacao_obito: string
   nome_inventariante: string
   grau_de_paretesco_inventariante: string
   numero_do_processo_do_inventario: string
