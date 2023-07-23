@@ -32,7 +32,9 @@ export interface Veiculo {
   marca_modelo_carroceria?: MarcaModeloDeCarroceria
   tipo_combustivel?: TipoDeCombustivel
   tipo_veiculo?: TipoDeVeiculo
+  gnv_numero?: string
+  gnv_selo_validade?: Date
+  gnv_ano_fabricacao?: string
   cor?: CorDoVeiculo
   ativo: boolean
-
 }

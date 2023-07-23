@@ -8,10 +8,12 @@
   <div *ngIf="!loading">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['dados']" routerLinkActive #rlaDados="routerLinkActive" [ngClass]="rlaDados.isActive ? 'active' : 'no-active'">Dados Pessoais</a>
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['dados']" routerLinkActive
+          #rlaDados="routerLinkActive" [ngClass]="rlaDados.isActive ? 'active' : 'no-active'">Dados Básicos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['anexos']" routerLinkActive #rlaAnexos="routerLinkActive" [ngClass]="rlaAnexos.isActive ? 'active' : 'no-active'">Anexos</a>
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['anexos']" routerLinkActive
+          #rlaAnexos="routerLinkActive" [ngClass]="rlaAnexos.isActive ? 'active' : 'no-active'">Anexos</a>
       </li>
     </ul>
 
