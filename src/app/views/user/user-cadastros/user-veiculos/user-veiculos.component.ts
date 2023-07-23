@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchData } from 'src/app/services/basic-crud.service';
-import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { VeiculoService } from 'src/app/services/veiculo.service';
 
 @Component({
@@ -14,6 +13,7 @@ export class UserVeiculosComponent implements OnInit {
   loading: boolean = false;
 
   searchText: string = "";
+  ativo: number = 1;
   dataSearch: SearchData;
 
   constructor(
@@ -29,15 +29,16 @@ export class UserVeiculosComponent implements OnInit {
   public async loadList(page: number) {
     this.loading = true;
     try {
-      this.dataSearch = await this.veiculosService.search(this.searchText, page).toPromise();
+      this.dataSearch = await this.veiculosService.search(this.searchText, page, this.ativo).toPromise();
     } catch (e) {
       this.dataSearch = null;
     }
     this.loading = false;
   }
 
-  public search(text: string = ''){
-    this.searchText = text;
+  public search(search: any) {
+    this.searchText = search.text;
+    this.ativo = search.ativo;
     this.loadList(1);
   }
 
@@ -47,6 +48,17 @@ export class UserVeiculosComponent implements OnInit {
 
   alterar(id: number) {
     this.router.navigate(['alterar/' + id + '/dados'], {relativeTo:this.route});
+  }
+
+  getNomeTipoVeiculo(tipo: number) {
+    switch (tipo) {
+      case 1:
+        return "Veículo";
+      case 2:
+        return "Ônibus";
+      default:
+        return "Não Informado";
+    }
   }
 
 }
