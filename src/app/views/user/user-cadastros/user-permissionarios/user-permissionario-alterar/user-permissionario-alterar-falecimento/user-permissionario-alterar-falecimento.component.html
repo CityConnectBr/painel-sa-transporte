@@ -4,11 +4,12 @@
     <div class="subitem">
       <h3>Falecimento</h3>
 
-      <app-input label="Data de Óbito">
-        <input type="text" class="form-control" formControlName="data_obito"  mask="00/00/0000" [dropSpecialCharacters]="false" autocomplete="off">
+      <app-input label="Data de Óbito" [require]="true">
+        <input type="text" class="form-control" formControlName="data_obito" mask="00/00/0000"
+          [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
 
-      <app-input label="N° da Certidão de Óbito">
+      <app-input label="N° da Certidão de Óbito" [require]="true">
         <input type="text" class="form-control" formControlName="certidao_de_obito" autocomplete="off">
       </app-input>
 
@@ -28,6 +29,9 @@
         <input type="text" class="form-control" formControlName="parecer_do_juiz_sobre_inventario" autocomplete="off">
       </app-input>
 
+      <app-input label="Observação">
+        <textarea class="form-control" formControlName="observacao_obito" rows="3" cols="50"></textarea>
+      </app-input>
     </div>
     <div class="clearfix">
       <div class="alert alert-danger" *ngIf="errorMessage">

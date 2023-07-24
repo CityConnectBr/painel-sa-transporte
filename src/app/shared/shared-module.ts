@@ -183,7 +183,6 @@ export class SharedModule {
     Object.keys(form.controls).forEach((field) => {
       const control = form.get(field);
       if (control instanceof FormControl) {
-        console.log('control', field, control.errors);
         control.markAsTouched({ onlySelf: true });
       }
     });

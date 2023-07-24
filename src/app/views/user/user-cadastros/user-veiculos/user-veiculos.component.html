@@ -1,6 +1,6 @@
 <div class="crud">
 
-  <app-search (searchEmitter)="search($event)"></app-search>
+  <app-search (searchEmitter)="search($event)" [withAtivo]="true"></app-search>
 
   <h3 class="titulo">
     <i class="fa fa-arrow-right"></i> Veículos |
@@ -14,13 +14,16 @@
         <tr>
           <th>Placa</th>
           <th>Renavam</th>
-          <th></th>
+          <th>Tipo Veículo</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let obj of dataSearch.data">
           <td>{{obj?.placa}}</td>
           <td>{{obj?.cod_renavam}}</td>
+          <td>{{getNomeTipoVeiculo(obj?.categoria_id)}}</td>
+          <td>{{obj?.ativo==1?'Ativo':'Inativo'}}</td>
           <td class="text-right">
             <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
                 aria-hidden="true"></i></a>
