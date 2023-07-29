@@ -441,9 +441,27 @@ export class UserSidebarComponent {
         },
         {
           id: 'sub-menu-relatorios-relatoriodealvarasexpirados',
-          title: '- Relatório de Alvarás Expirados',
+          title: '- Alvarás Vencidos',
           active: true,
           routerLink: 'relatorios/relatoriodealvarasexpirados',
+        },
+        {
+          id: 'sub-menu-relatorios-relatoriodecursosdepermissionariosvencidos',
+          title: '- Cursos de Permissionários Vencidos',
+          active: true,
+          routerLink: 'relatorios/relatoriodecursospermissionariovencidos',
+        },
+        {
+          id: 'sub-menu-relatorios-relatoriodecursosdecondutoresvencidos',
+          title: '- Cursos de Condutores Vencidos',
+          active: true,
+          routerLink: 'relatorios/relatoriodecursoscondutorvencidos',
+        },
+        {
+          id: 'sub-menu-relatorios-relatoriodecursosdemonitoresvencidos',
+          title: '- Cursos de Monitores Vencidos',
+          active: true,
+          routerLink: 'relatorios/relatoriodecursosmonitorvencidos',
         },
       ],
     },

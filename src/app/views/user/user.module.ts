@@ -125,6 +125,9 @@ import { UserFormulario132termodecredenciamentoComponent } from "./user-impresso
 import { UserFormulario133termodecredenciamentotransporteescolarComponent } from "./user-impressos/user-formulario133termodecredenciamentotransporteescolar/user-formulario133termodecredenciamentotransporteescolar.component";
 import { UserFormulario134aipComponent } from "./user-impressos/user-formulario134aip/user-formulario134aip.component";
 import { UserRelAlvarasExpiradosComponent } from "./user-relatorios/user-rel-alvaras-expirados/user-rel-alvaras-expirados.component";
+import { UserRelCursosPermissionarioVencidosComponent } from "./user-relatorios/user-rel-cursos-permissionario-vencidos/user-rel-cursos-permissionario-vencidos.component";
+import { UserRelCursosMonitorVencidosComponent } from "./user-relatorios/user-rel-cursos-monitor-vencidos/user-rel-cursos-monitor-vencidos.component";
+import { UserRelCursosCondutorVencidosComponent } from "./user-relatorios/user-rel-cursos-condutor-vencidos/user-rel-cursos-condutor-vencidos.component";
 
 const ROUTER: Routes = [
   {
@@ -338,6 +341,9 @@ const ROUTER: Routes = [
         children: [
           { path: 'entradasaidadeveiculos', component: UserRelEntradaSaidaVeiculosComponent, },
           { path: 'relatoriodealvarasexpirados', component: UserRelAlvarasExpiradosComponent, },
+          { path: 'relatoriodecursospermissionariovencidos', component: UserRelCursosPermissionarioVencidosComponent, },
+          { path: 'relatoriodecursosmonitorvencidos', component: UserRelCursosMonitorVencidosComponent, },
+          { path: 'relatoriodecursoscondutorvencidos', component: UserRelCursosCondutorVencidosComponent, },
         ]
       }
 
@@ -468,7 +474,10 @@ const ROUTER: Routes = [
     UserFormulario132termodecredenciamentoComponent,
     UserFormulario133termodecredenciamentotransporteescolarComponent,
     UserFormulario134aipComponent,
-    UserRelAlvarasExpiradosComponent
+    UserRelAlvarasExpiradosComponent,
+    UserRelCursosPermissionarioVencidosComponent,
+    UserRelCursosMonitorVencidosComponent,
+    UserRelCursosCondutorVencidosComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),

@@ -16,4 +16,25 @@ export class RelatorioService extends BasicCrudService {
       super.getHttpOptions
     );
   }
+
+  getCurosDePermissionarioExpirados() {
+    return this.httpClient.get<any[]>(
+      `${this.url}/cursospermissionariovencidos`,
+      super.getHttpOptions
+    );
+  }
+
+  getCurosDeCondutorExpirados() {
+    return this.httpClient.get<any[]>(
+      `${this.url}/cursoscondutorvencidos`,
+      super.getHttpOptions
+    );
+  }
+
+  getCurosDeMonitorExpirados() {
+    return this.httpClient.get<any[]>(
+      `${this.url}/cursosmonitorvencidos`,
+      super.getHttpOptions
+    );
+  }
 }

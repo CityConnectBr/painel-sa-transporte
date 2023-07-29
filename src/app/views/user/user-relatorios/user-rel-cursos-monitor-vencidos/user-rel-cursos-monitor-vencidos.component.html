@@ -1,0 +1,39 @@
+<div class="crud">
+  <div class="clearfix">
+
+    <h3 class="titulo">
+      <i class="fa fa-arrow-right"></i> Relatório de Cursos de Monitor Vencidos
+    </h3>
+
+    <app-loading *ngIf="loading"></app-loading>
+    <div *ngIf="!loading" class="clearfix">
+
+      <table *ngIf="list && list?.length>0" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Monitor</th>
+            <th>Curso</th>
+            <th>Tipo</th>
+            <th>Data de Vencimento</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of list">
+            <td>{{obj?.monitor?.nome}}</td>
+            <td>{{obj?.nome}}</td>
+            <td>{{obj?.tipo_de_curso?.descricao}}</td>
+            <td>{{obj?.data_validade | date:'dd/MM/yyyy'}}</td>
+            <td class="text-right">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="!list || list.length==0" class="alert alert-warning">
+        Nenhum registro encontrado!
+      </div>
+    </div>
+
+  </div>
+</div>
