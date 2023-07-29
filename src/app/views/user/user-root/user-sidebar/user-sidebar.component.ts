@@ -288,9 +288,11 @@ export class UserSidebarComponent {
         },
         {
           id: 'sub-menu-impressos-requerimentoparasubstituicaodeveiculo',
-          title: '- Anexo 06 - Requerimento para Prorrogação de Substituição de Veículo',
+          title:
+            '- Anexo 06 - Requerimento para Prorrogação de Substituição de Veículo',
           active: true,
-          routerLink: 'impressos/requerimentoparaprorrogacaodesubstituicaodeveiculo',
+          routerLink:
+            'impressos/requerimentoparaprorrogacaodesubstituicaodeveiculo',
         },
         {
           id: 'sub-menu-impressos-formulariodeclaracaomonitor',
@@ -436,6 +438,12 @@ export class UserSidebarComponent {
           title: '- Entrada e Saída de Veículos',
           active: true,
           routerLink: 'relatorios/entradasaidadeveiculos',
+        },
+        {
+          id: 'sub-menu-relatorios-relatoriodealvarasexpirados',
+          title: '- Relatório de Alvarás Expirados',
+          active: true,
+          routerLink: 'relatorios/relatoriodealvarasexpirados',
         },
       ],
     },

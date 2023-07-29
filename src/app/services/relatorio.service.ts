@@ -3,13 +3,17 @@ import { Injectable } from '@angular/core';
 import { BasicCrudService } from './basic-crud.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RelatorioService extends BasicCrudService {
+  constructor(httpClient: HttpClient) {
+    super(httpClient, '/api/admin/relatorios');
+  }
 
-  constructor(
-    httpClient: HttpClient,
-  ) {
-    super(httpClient, "/api/admin/relatorios");
-   }
+  getAlvarasExpirados() {
+    return this.httpClient.get<any[]>(
+      `${this.url}/alvaraexpirado`,
+      super.getHttpOptions
+    );
+  }
 }
