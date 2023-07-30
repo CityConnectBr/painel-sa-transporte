@@ -424,6 +424,13 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/aip',
         },
+        //135
+        {
+          id: 'sub-menu-alvara-permissao',
+          title: '- Alvará de Permissão',
+          active: true,
+          routerLink: 'impressos/alvarapermissao',
+        },
       ],
     },
     {
