@@ -1,0 +1,93 @@
+<form *ngIf="!loading" [formGroup]="form" autocomplete="off">
+  <div class="form-inline">
+
+    <div class="subitem">
+      <h3>Alunos</h3>
+
+      <app-input label="Ponto" [inline]="true">
+        <select formControlName="ponto_id" class="form-control">
+          <option *ngFor="let obj of pontos;" value="{{obj.id}}">{{obj.descricao}}</option>
+        </select>
+      </app-input>
+
+      <app-input label="Nome" [require]="true">
+        <input type="text" class="form-control" formControlName="nome" autocomplete="off">
+      </app-input>
+
+      <app-input label="Data de Nasc." [require]="true">
+        <input type="text" class="form-control" formControlName="data_nascimento" mask="00/00/0000"
+          [dropSpecialCharacters]="false" autocomplete="off">
+      </app-input>
+
+      <app-input label="Telefone" [inline]="true">
+        <input type="text" class="form-control" formControlName="telefone" mask="(00) 00000-0000 || (00) 0000-0000"
+          autocomplete="off">
+      </app-input>
+
+      <app-input label="Hora de Entrada" [inline]="true">
+        <input type="text" class="form-control" formControlName="hora_entrada" mask="00:00"
+          [dropSpecialCharacters]="false" autocomplete="off">
+      </app-input>
+
+      <app-input label="Hora de Saída" [inline]="true">
+        <input type="text" class="form-control" formControlName="hora_saida" mask="00:00"
+          [dropSpecialCharacters]="false" autocomplete="off">
+      </app-input>
+
+      <app-input label="E-mail">
+        <input type="text" class="form-control" formControlName="email" autocomplete="off">
+      </app-input>
+
+      <div class="clearfix">
+        <button type="submit" class="btn btn-success pull-right" (click)="salvar(form.value)"
+          [disabled]="!form.valid">Salvar</button>
+      </div>
+    </div>
+
+    <div class="subitem">
+      <h3>Alunos do Permissionário</h3>
+
+      <table *ngIf="alunosDoPermissionario && alunosDoPermissionario.length>0" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Data de Nasc.</th>
+            <th>Horário de Entrada</th>
+            <th>Horário de Saída</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of alunosDoPermissionario">
+            <td>{{obj?.nome}}</td>
+            <td>{{obj?.data_nascimento | date: 'dd/MM/yyyy'}}</td>
+            <td>{{obj?.hora_entrada}}</td>
+            <td>{{obj?.hora_saida}}</td>
+            <td class="text-right">
+              <a href="javascript: void(0);" (click)="setAlunoParaEdicao(obj.id);" class="mr-2"
+                title="Editar"><em class="fa fa-pencil" aria-hidden="true"></em></a>
+              <a href="javascript: void(0);" (click)="setAlunoParaDelecao(obj.id);openModal(contentExcluir)"
+                title="Excluir"><em class="fa fa-trash" aria-hidden="true"></em></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!alunosDoPermissionario || alunosDoPermissionario.length==0" class="alert alert-warning">
+        Nenhum registro encontrado!
+      </div>
+    </div>
+
+
+  </div>
+
+  <ng-template #contentExcluir let-modal>
+    <app-modal modalID="excluirModal" title="Excluir" (closeModalEmit)="closeModal($event)">
+      <div class="clearfix">
+        <h6>Deseja excluir este registro?</h6>
+        <button (click)="deletarAluno()" class="btn btn-danger btn-sm pull-right ml-1">Sim</button>
+        <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right">Não</button>
+      </div>
+    </app-modal>
+  </ng-template>
+
+</form>

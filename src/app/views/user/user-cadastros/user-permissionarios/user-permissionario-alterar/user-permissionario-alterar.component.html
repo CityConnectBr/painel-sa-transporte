@@ -20,6 +20,9 @@
         <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['alvara']" routerLinkActive #rlaAlvara="routerLinkActive" [ngClass]="rlaAlvara.isActive ? 'active' : 'no-active'">Alvará</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" *ngIf="isTransporteEscolar" data-toggle="tab" href="javascript: void(0)" [routerLink]="['alunos']" routerLinkActive #rlaCursos="routerLinkActive" [ngClass]="rlaCursos.isActive ? 'active' : 'no-active'">Alunos</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="javascript: void(0)" [routerLink]="['cursos']" routerLinkActive #rlaCursos="routerLinkActive" [ngClass]="rlaCursos.isActive ? 'active' : 'no-active'">Cursos</a>
       </li>
       <li class="nav-item">

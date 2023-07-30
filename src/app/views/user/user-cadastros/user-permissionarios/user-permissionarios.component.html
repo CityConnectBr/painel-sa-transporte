@@ -19,6 +19,7 @@
           <th>Tipo</th>
           <th>CPF</th>
           <th>RG</th>
+          <th>Modalidade</th>
           <th>Situação</th>
           <th></th>
         </tr>
@@ -30,6 +31,7 @@
           <td>{{obj?.tipo=='F'?'Física':'Jurídica'}}</td>
           <td>{{obj?.cpf_cnpj}}</td>
           <td>{{obj?.rg}}</td>
+          <td>{{obj?.modalidade?.descricao}}</td>
           <td>{{obj?.ativo==1?'Ativo':'Inativo'}}</td>
           <td class="text-right">
             <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
