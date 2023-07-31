@@ -1,6 +1,6 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { SharedModule } from "src/app/shared/shared-module";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { SharedModule } from 'src/app/shared/shared-module';
 import { UserHeaderComponent } from './user-header/user-header.component';
 import { UserRootComponent } from './user-root/user-root.component';
 import { UserUsuariosComponent } from './user-cadastros/user-usuarios/user-usuarios.component';
@@ -10,7 +10,7 @@ import { UserUsuarioCrudComponent } from './user-cadastros/user-usuarios/user-us
 import { UserPerfilCrudComponent } from './user-cadastros/user-perfis/user-perfil-crud/user-perfil-crud.component';
 import { UserPermissionarioNovoComponent } from './user-cadastros/user-permissionarios/user-permissionario-novo/user-permissionario-novo.component';
 import { UserPermissionarioAlterarComponent } from './user-cadastros/user-permissionarios/user-permissionario-alterar/user-permissionario-alterar.component';
-import { NgxMaskModule } from "ngx-mask";
+import { NgxMaskModule } from 'ngx-mask';
 import { UserPermissionarioAlterarDadosComponent } from './user-cadastros/user-permissionarios/user-permissionario-alterar/user-permissionario-alterar-dados/user-permissionario-alterar-dados.component';
 import { UserPermissionarioAlterarPontosComponent } from './user-cadastros/user-permissionarios/user-permissionario-alterar/user-permissionario-alterar-pontos/user-permissionario-alterar-pontos.component';
 import { UserPermissionarioAlterarDocumentosComponent } from './user-cadastros/user-permissionarios/user-permissionario-alterar/user-permissionario-alterar-documentos/user-permissionario-alterar-documentos.component';
@@ -80,7 +80,7 @@ import { UserTaloesDoFiscalComponent } from './user-cadastros/user-taloes-do-fis
 import { UserTaloesDoFiscalCrudComponent } from './user-cadastros/user-taloes-do-fiscal/user-taloes-do-fiscal-crud/user-taloes-do-fiscal-crud.component';
 import { UserFmpComponent } from './user-cadastros/user-fmp/user-fmp.component';
 import { UserFmpCrudComponent } from './user-cadastros/user-fmp/user-fmp-crud/user-fmp-crud.component';
-import { NgxCurrencyModule } from "ngx-currency";
+import { NgxCurrencyModule } from 'ngx-currency';
 import { UserSolicitacoesComponent } from './user-cadastros/user-solicitacoes/user-solicitacoes.component';
 import { UserCertidoesComponent } from './user-lancamentos/user-certidoes/user-certidoes.component';
 import { UserInfracoesComponent } from './user-lancamentos/user-infracoes/user-infracoes.component';
@@ -98,250 +98,554 @@ import { UserFormulario1RenovacaoPermissionarioComponent } from './user-impresso
 import { UserFormulario7DeclaracaoMonitorComponent } from './user-impressos/user-formulario7-declaracao-monitor/user-formulario7-declaracao-monitor.component';
 import { UserFormulario8CondutorAuxiliarComponent } from './user-impressos/user-formulario8-condutor-auxiliar/user-formulario8-condutor-auxiliar.component';
 import { UserFormulario17SolicitaacaoBaixaCondutorComponent } from './user-impressos/user-formulario17-solicitaacao-baixa-condutor/user-formulario17-solicitaacao-baixa-condutor.component';
-import { UserInfracoesInformarPagamentoComponent } from "./user-lancamentos/user-infracoes/user-infracoes-informar-pagamento/user-infracoes-informar-pagamento.component";
-import { UserSidebarComponent } from "./user-root/user-sidebar/user-sidebar.component";
-import { UserWelcomeComponent } from "./user-welcome/user-welcome.component";
-import { UserAlvaraPagamentoComponent } from "./user-lancamentos/user-alvara-pagamento/user-alvara-pagamento.component";
-import { UserAlvaraPagamentoInformarPagamentoComponent } from "./user-lancamentos/user-alvara-pagamento/user-alvara-pagamento-informar-pagamento/user-alvara-pagamento-informar-pagamento.component";
-import { UserFormulario2ReqTransferenciaComponent } from "./user-impressos/user-formulario2-req-transferencia/user-formulario2-req-transferencia.component";
-import { UserFormulario3TransfpermtranspescolarComponent } from "./user-impressos/user-formulario3-transfpermtranspescolar/user-formulario3-transfpermtranspescolar.component";
-import { UserFormulario4TransfpermtransptaxiComponent } from "./user-impressos/user-formulario4-transfpermtransptaxi/user-formulario4-transfpermtransptaxi.component";
-import { UserFormulario5ReqsubstveiculoComponent } from "./user-impressos/user-formulario5-reqsubstveiculo/user-formulario5-reqsubstveiculo.component";
-import { UserFormulario6ReqprosubveiculoComponent } from "./user-impressos/user-formulario6-reqprosubveiculo/user-formulario6-reqprosubveiculo.component";
-import { UserFormulario9declaracaoatenddispostoComponent } from "./user-impressos/user-formulario9declaracaoatenddisposto/user-formulario9declaracaoatenddisposto.component";
-import { UserFormulario16solressarcimentoComponent } from "./user-impressos/user-formulario16solressarcimento/user-formulario16solressarcimento.component";
-import { UserFormulario18soltranspensinoComponent } from "./user-impressos/user-formulario18soltranspensino/user-formulario18soltranspensino.component";
-import { UserFormulario119autorizacaoadesivacaocustpermissionarioComponent } from "./user-impressos/user-formulario119autorizacaoadesivacaocustpermissionario/user-formulario119autorizacaoadesivacaocustpermissionario.component";
-import { UserFormulario120solicitacaoafericaotaximetroComponent } from "./user-impressos/user-formulario120solicitacaoafericaotaximetro/user-formulario120solicitacaoafericaotaximetro.component";
-import { UserFormulario121solicitacaoafericaoautprovisoriaComponent } from "./user-impressos/user-formulario121solicitacaoafericaoautprovisoria/user-formulario121solicitacaoafericaoautprovisoria.component";
-import { UserFormulario122solicitacaoafericaoautprovisoriaescolarComponent } from "./user-impressos/user-formulario122solicitacaoafericaoautprovisoriaescolar/user-formulario122solicitacaoafericaoautprovisoriaescolar.component";
-import { UserFormulario126declaracaoparataxistaComponent } from "./user-impressos/user-formulario126declaracaoparataxista/user-formulario126declaracaoparataxista.component";
-import { UserFormulario127declaracaoparatransporteescolarComponent } from "./user-impressos/user-formulario127declaracaoparatransporteescolar/user-formulario127declaracaoparatransporteescolar.component";
-import { UserFormulario128formulariodedeclaracaoComponent } from "./user-impressos/user-formulario128formulariodedeclaracao/user-formulario128formulariodedeclaracao.component";
-import { UserFormulario129laudovistoriatransportesespeciaisComponent } from "./user-impressos/user-formulario129laudovistoriatransportesespeciais/user-formulario129laudovistoriatransportesespeciais.component";
-import { UserFormulario130notificacaoComponent } from "./user-impressos/user-formulario130notificacao/user-formulario130notificacao.component";
-import { UserFormulario131substituicaodeveiculoComponent } from "./user-impressos/user-formulario131substituicaodeveiculo/user-formulario131substituicaodeveiculo.component";
-import { UserFormulario132termodecredenciamentoComponent } from "./user-impressos/user-formulario132termodecredenciamento/user-formulario132termodecredenciamento.component";
-import { UserFormulario133termodecredenciamentotransporteescolarComponent } from "./user-impressos/user-formulario133termodecredenciamentotransporteescolar/user-formulario133termodecredenciamentotransporteescolar.component";
-import { UserFormulario134aipComponent } from "./user-impressos/user-formulario134aip/user-formulario134aip.component";
+import { UserInfracoesInformarPagamentoComponent } from './user-lancamentos/user-infracoes/user-infracoes-informar-pagamento/user-infracoes-informar-pagamento.component';
+import { UserSidebarComponent } from './user-root/user-sidebar/user-sidebar.component';
+import { UserWelcomeComponent } from './user-welcome/user-welcome.component';
+import { UserAlvaraPagamentoComponent } from './user-lancamentos/user-alvara-pagamento/user-alvara-pagamento.component';
+import { UserAlvaraPagamentoInformarPagamentoComponent } from './user-lancamentos/user-alvara-pagamento/user-alvara-pagamento-informar-pagamento/user-alvara-pagamento-informar-pagamento.component';
+import { UserFormulario2ReqTransferenciaComponent } from './user-impressos/user-formulario2-req-transferencia/user-formulario2-req-transferencia.component';
+import { UserFormulario3TransfpermtranspescolarComponent } from './user-impressos/user-formulario3-transfpermtranspescolar/user-formulario3-transfpermtranspescolar.component';
+import { UserFormulario4TransfpermtransptaxiComponent } from './user-impressos/user-formulario4-transfpermtransptaxi/user-formulario4-transfpermtransptaxi.component';
+import { UserFormulario5ReqsubstveiculoComponent } from './user-impressos/user-formulario5-reqsubstveiculo/user-formulario5-reqsubstveiculo.component';
+import { UserFormulario6ReqprosubveiculoComponent } from './user-impressos/user-formulario6-reqprosubveiculo/user-formulario6-reqprosubveiculo.component';
+import { UserFormulario9declaracaoatenddispostoComponent } from './user-impressos/user-formulario9declaracaoatenddisposto/user-formulario9declaracaoatenddisposto.component';
+import { UserFormulario16solressarcimentoComponent } from './user-impressos/user-formulario16solressarcimento/user-formulario16solressarcimento.component';
+import { UserFormulario18soltranspensinoComponent } from './user-impressos/user-formulario18soltranspensino/user-formulario18soltranspensino.component';
+import { UserFormulario119autorizacaoadesivacaocustpermissionarioComponent } from './user-impressos/user-formulario119autorizacaoadesivacaocustpermissionario/user-formulario119autorizacaoadesivacaocustpermissionario.component';
+import { UserFormulario120solicitacaoafericaotaximetroComponent } from './user-impressos/user-formulario120solicitacaoafericaotaximetro/user-formulario120solicitacaoafericaotaximetro.component';
+import { UserFormulario121solicitacaoafericaoautprovisoriaComponent } from './user-impressos/user-formulario121solicitacaoafericaoautprovisoria/user-formulario121solicitacaoafericaoautprovisoria.component';
+import { UserFormulario122solicitacaoafericaoautprovisoriaescolarComponent } from './user-impressos/user-formulario122solicitacaoafericaoautprovisoriaescolar/user-formulario122solicitacaoafericaoautprovisoriaescolar.component';
+import { UserFormulario126declaracaoparataxistaComponent } from './user-impressos/user-formulario126declaracaoparataxista/user-formulario126declaracaoparataxista.component';
+import { UserFormulario127declaracaoparatransporteescolarComponent } from './user-impressos/user-formulario127declaracaoparatransporteescolar/user-formulario127declaracaoparatransporteescolar.component';
+import { UserFormulario128formulariodedeclaracaoComponent } from './user-impressos/user-formulario128formulariodedeclaracao/user-formulario128formulariodedeclaracao.component';
+import { UserFormulario129laudovistoriatransportesespeciaisComponent } from './user-impressos/user-formulario129laudovistoriatransportesespeciais/user-formulario129laudovistoriatransportesespeciais.component';
+import { UserFormulario130notificacaoComponent } from './user-impressos/user-formulario130notificacao/user-formulario130notificacao.component';
+import { UserFormulario131substituicaodeveiculoComponent } from './user-impressos/user-formulario131substituicaodeveiculo/user-formulario131substituicaodeveiculo.component';
+import { UserFormulario132termodecredenciamentoComponent } from './user-impressos/user-formulario132termodecredenciamento/user-formulario132termodecredenciamento.component';
+import { UserFormulario133termodecredenciamentotransporteescolarComponent } from './user-impressos/user-formulario133termodecredenciamentotransporteescolar/user-formulario133termodecredenciamentotransporteescolar.component';
+import { UserFormulario134aipComponent } from './user-impressos/user-formulario134aip/user-formulario134aip.component';
+import { UserRelAlvarasExpiradosComponent } from './user-relatorios/user-rel-alvaras-expirados/user-rel-alvaras-expirados.component';
+import { UserRelCursosPermissionarioVencidosComponent } from './user-relatorios/user-rel-cursos-permissionario-vencidos/user-rel-cursos-permissionario-vencidos.component';
+import { UserRelCursosMonitorVencidosComponent } from './user-relatorios/user-rel-cursos-monitor-vencidos/user-rel-cursos-monitor-vencidos.component';
+import { UserRelCursosCondutorVencidosComponent } from './user-relatorios/user-rel-cursos-condutor-vencidos/user-rel-cursos-condutor-vencidos.component';
+import { UserFormulario135alvaraPermissaoComponent } from './user-impressos/user-formulario135alvara-permissao/user-formulario135alvara-permissao.component';
+import { UserPermissionarioAlterarAlunosComponent } from './user-cadastros/user-permissionarios/user-permissionario-alterar/user-permissionario-alterar-alunos/user-permissionario-alterar-alunos.component';
 
 const ROUTER: Routes = [
   {
-    path: '', component: UserRootComponent,
+    path: '',
+    component: UserRootComponent,
     children: [
       { path: '', component: UserWelcomeComponent },
       {
         path: 'cadastros',
         children: [
-          { path: 'empresas', component: UserEmpresasComponent, },
+          { path: 'empresas', component: UserEmpresasComponent },
           { path: 'empresas/novo', component: UserEmpresaCrudComponent },
           { path: 'empresas/alterar/:id', component: UserEmpresaCrudComponent },
-          { path: 'perfis', component: UserPerfisComponent, },
+          { path: 'perfis', component: UserPerfisComponent },
           { path: 'perfis/novo', component: UserPerfilCrudComponent },
           { path: 'perfis/alterar/:id', component: UserPerfilCrudComponent },
           { path: 'usuarios', component: UserUsuariosComponent },
           { path: 'usuarios/novo', component: UserUsuarioCrudComponent },
           { path: 'usuarios/alterar/:id', component: UserUsuarioCrudComponent },
           { path: 'permissionarios', component: UserPermissionariosComponent },
-          { path: 'permissionarios/novo', component: UserPermissionarioNovoComponent },
           {
-            path: 'permissionarios/alterar/:id', component: UserPermissionarioAlterarComponent,
+            path: 'permissionarios/novo',
+            component: UserPermissionarioNovoComponent,
+          },
+          {
+            path: 'permissionarios/alterar/:id',
+            component: UserPermissionarioAlterarComponent,
             children: [
               { path: '', component: UserPermissionarioAlterarDadosComponent },
-              { path: 'dados', component: UserPermissionarioAlterarDadosComponent },
-              { path: 'pontos', component: UserPermissionarioAlterarPontosComponent },
-              { path: 'documentos', component: UserPermissionarioAlterarDocumentosComponent },
-              { path: 'cursos', component: UserPermissionarioAlterarCursosComponent },
-              { path: 'alvara', component: UserPermissionarioAlterarAlvaraComponent },
-              { path: 'condutores', component: UserPermissionarioAlterarCondutoresComponent },
-              { path: 'aplicativos', component: UserPermissionarioAlterarAplicativosComponent },
-              { path: 'veiculos', component: UserPermissionarioAlterarVeiculosComponent },
-              { path: 'anexos', component: UserPermissionarioAlterarAnexosComponent },
-              { path: 'observacoes', component: UserPermissionarioAlterarObservacoesComponent },
-              { path: 'falecimento', component: UserPermissionarioAlterarFalecimentoComponent },
-            ]
+              {
+                path: 'dados',
+                component: UserPermissionarioAlterarDadosComponent,
+              },
+              {
+                path: 'pontos',
+                component: UserPermissionarioAlterarPontosComponent,
+              },
+              {
+                path: 'documentos',
+                component: UserPermissionarioAlterarDocumentosComponent,
+              },
+              {
+                path: 'cursos',
+                component: UserPermissionarioAlterarCursosComponent,
+              },
+              {
+                path: 'alunos',
+                component: UserPermissionarioAlterarAlunosComponent,
+              },
+              {
+                path: 'alvara',
+                component: UserPermissionarioAlterarAlvaraComponent,
+              },
+              {
+                path: 'condutores',
+                component: UserPermissionarioAlterarCondutoresComponent,
+              },
+              {
+                path: 'aplicativos',
+                component: UserPermissionarioAlterarAplicativosComponent,
+              },
+              {
+                path: 'veiculos',
+                component: UserPermissionarioAlterarVeiculosComponent,
+              },
+              {
+                path: 'anexos',
+                component: UserPermissionarioAlterarAnexosComponent,
+              },
+              {
+                path: 'observacoes',
+                component: UserPermissionarioAlterarObservacoesComponent,
+              },
+              {
+                path: 'falecimento',
+                component: UserPermissionarioAlterarFalecimentoComponent,
+              },
+            ],
           },
           { path: 'condutores', component: UserCondutoresComponent },
           { path: 'condutores/novo', component: UserCondutoresNovoComponent },
           {
-            path: 'condutores/alterar/:id', component: UserCondutoresAlterarComponent,
+            path: 'condutores/alterar/:id',
+            component: UserCondutoresAlterarComponent,
             children: [
               { path: 'dados', component: UserCondutoresAlterarDadosComponent },
-              { path: 'cursos', component: UserCondutoresAlterarCursosComponent },
-              { path: 'anexos', component: UserCondutoresAlterarAnexosComponent },
-            ]
+              {
+                path: 'cursos',
+                component: UserCondutoresAlterarCursosComponent,
+              },
+              {
+                path: 'anexos',
+                component: UserCondutoresAlterarAnexosComponent,
+              },
+            ],
           },
           { path: 'monitores', component: UserMonitoresComponent },
           { path: 'monitores/novo', component: UserMonitoresNovoComponent },
           {
-            path: 'monitores/alterar/:id', component: UserMonitoresAlterarComponent,
+            path: 'monitores/alterar/:id',
+            component: UserMonitoresAlterarComponent,
             children: [
               { path: 'dados', component: UserMonitoresAlterarDadosComponent },
-              { path: 'cursos', component: UserMonitoresAlterarCursosComponent },
-              { path: 'anexos', component: UserMonitoresAlterarAnexosComponent },
-            ]
+              {
+                path: 'cursos',
+                component: UserMonitoresAlterarCursosComponent,
+              },
+              {
+                path: 'anexos',
+                component: UserMonitoresAlterarAnexosComponent,
+              },
+            ],
           },
           { path: 'pontos', component: UserPontosComponent },
           { path: 'pontos/novo', component: UserPontosNovoComponent },
           {
-            path: 'pontos/alterar/:id', component: UserPontosAlterarComponent,
+            path: 'pontos/alterar/:id',
+            component: UserPontosAlterarComponent,
             children: [
               { path: 'dados', component: UserPontosAlterarDadosComponent },
-              { path: 'coordenadores', component: UserPontosAlterarCoordenadorComponent },
-            ]
+              {
+                path: 'coordenadores',
+                component: UserPontosAlterarCoordenadorComponent,
+              },
+            ],
           },
-          { path: 'coresdeveiculos', component: UserCoresDeVeiculoComponent, },
-          { path: 'coresdeveiculos/novo', component: UserCoresDeVeiculoCrudComponent },
-          { path: 'coresdeveiculos/alterar/:id', component: UserCoresDeVeiculoCrudComponent },
-          { path: 'entidadesassociativas', component: UserEntidadeAssociativaComponent, },
-          { path: 'entidadesassociativas/novo', component: UserEntidadeAssociativaCrudComponent },
-          { path: 'entidadesassociativas/alterar/:id', component: UserEntidadeAssociativaCrudComponent },
-          { path: 'marcasmodelosdeveiculos', component: UserMarcasModelosDeVeiculosComponent, },
-          { path: 'marcasmodelosdeveiculos/novo', component: UserMarcasModelosDeVeiculosCrudComponent },
-          { path: 'marcasmodelosdeveiculos/alterar/:id', component: UserMarcasModelosDeVeiculosCrudComponent },
-          { path: 'marcasmodelosdechassi', component: UserMarcasModelosDeChassiComponent, },
-          { path: 'marcasmodelosdechassi/novo', component: UserMarcasModelosDeChassiCrudComponent },
-          { path: 'marcasmodelosdechassi/alterar/:id', component: UserMarcasModelosDeChassiCrudComponent },
-          { path: 'marcasmodelosdecarroceria', component: UserMarcasModelosDeCarroceriaComponent, },
-          { path: 'marcasmodelosdecarroceria/novo', component: UserMarcasModelosDeCarroceriaCrudComponent },
-          { path: 'marcasmodelosdecarroceria/alterar/:id', component: UserMarcasModelosDeCarroceriaCrudComponent },
-          { path: 'tiposdecombustivel', component: UserTiposDeCombustivelComponent, },
-          { path: 'tiposdecombustivel/novo', component: UserTiposDeCombustivelCrudComponent },
-          { path: 'tiposdecombustivel/alterar/:id', component: UserTiposDeCombustivelCrudComponent },
-          { path: 'aplicativos', component: UserAplicativosComponent, },
+          { path: 'coresdeveiculos', component: UserCoresDeVeiculoComponent },
+          {
+            path: 'coresdeveiculos/novo',
+            component: UserCoresDeVeiculoCrudComponent,
+          },
+          {
+            path: 'coresdeveiculos/alterar/:id',
+            component: UserCoresDeVeiculoCrudComponent,
+          },
+          {
+            path: 'entidadesassociativas',
+            component: UserEntidadeAssociativaComponent,
+          },
+          {
+            path: 'entidadesassociativas/novo',
+            component: UserEntidadeAssociativaCrudComponent,
+          },
+          {
+            path: 'entidadesassociativas/alterar/:id',
+            component: UserEntidadeAssociativaCrudComponent,
+          },
+          {
+            path: 'marcasmodelosdeveiculos',
+            component: UserMarcasModelosDeVeiculosComponent,
+          },
+          {
+            path: 'marcasmodelosdeveiculos/novo',
+            component: UserMarcasModelosDeVeiculosCrudComponent,
+          },
+          {
+            path: 'marcasmodelosdeveiculos/alterar/:id',
+            component: UserMarcasModelosDeVeiculosCrudComponent,
+          },
+          {
+            path: 'marcasmodelosdechassi',
+            component: UserMarcasModelosDeChassiComponent,
+          },
+          {
+            path: 'marcasmodelosdechassi/novo',
+            component: UserMarcasModelosDeChassiCrudComponent,
+          },
+          {
+            path: 'marcasmodelosdechassi/alterar/:id',
+            component: UserMarcasModelosDeChassiCrudComponent,
+          },
+          {
+            path: 'marcasmodelosdecarroceria',
+            component: UserMarcasModelosDeCarroceriaComponent,
+          },
+          {
+            path: 'marcasmodelosdecarroceria/novo',
+            component: UserMarcasModelosDeCarroceriaCrudComponent,
+          },
+          {
+            path: 'marcasmodelosdecarroceria/alterar/:id',
+            component: UserMarcasModelosDeCarroceriaCrudComponent,
+          },
+          {
+            path: 'tiposdecombustivel',
+            component: UserTiposDeCombustivelComponent,
+          },
+          {
+            path: 'tiposdecombustivel/novo',
+            component: UserTiposDeCombustivelCrudComponent,
+          },
+          {
+            path: 'tiposdecombustivel/alterar/:id',
+            component: UserTiposDeCombustivelCrudComponent,
+          },
+          { path: 'aplicativos', component: UserAplicativosComponent },
           { path: 'aplicativos/novo', component: UserAplicativosCrudComponent },
-          { path: 'aplicativos/alterar/:id', component: UserAplicativosCrudComponent },
-          { path: 'empresasvistoriadoras', component: UserEmpresasVistoriadorasComponent, },
-          { path: 'empresasvistoriadoras/novo', component: UserEmpresasVistoriadorasCrudComponent },
-          { path: 'empresasvistoriadoras/alterar/:id', component: UserEmpresasVistoriadorasCrudComponent },
-          { path: 'vistoriadores', component: UserVistoriadoresComponent, },
-          { path: 'vistoriadores/novo', component: UserVistoriadoresCrudComponent },
-          { path: 'vistoriadores/alterar/:id', component: UserVistoriadoresCrudComponent },
-          { path: 'tiposdeveiculo', component: UserTiposDeVeiculoComponent, },
-          { path: 'tiposdeveiculo/novo', component: UserTiposDeVeiculoCrudComponent },
-          { path: 'tiposdeveiculo/alterar/:id', component: UserTiposDeVeiculoCrudComponent },
-          { path: 'tiposdecertidao', component: UserTiposDeCertidaoComponent, },
-          { path: 'tiposdecertidao/novo', component: UserTiposDeCertidaoCrudComponent },
-          { path: 'tiposdecertidao/alterar/:id', component: UserTiposDeCertidaoCrudComponent },
-          { path: 'entidadecurso', component: UserEntidadeCursoComponent, },
-          { path: 'entidadecurso/novo', component: UserEntidadeCursoCrudComponent },
-          { path: 'entidadecurso/alterar/:id', component: UserEntidadeCursoCrudComponent },
-          { path: 'tiposdecurso', component: UserTiposDeCursoComponent, },
-          { path: 'tiposdecurso/novo', component: UserTiposDeCursoCrudComponent },
-          { path: 'tiposdecurso/alterar/:id', component: UserTiposDeCursoCrudComponent },
-          { path: 'quadrodeinfracoes', component: UserQuadroDeInfracoesComponent, },
-          { path: 'quadrodeinfracoes/novo', component: UserQuadroDeInfracoesCrudComponent },
-          { path: 'quadrodeinfracoes/alterar/:id', component: UserQuadroDeInfracoesCrudComponent },
-          { path: 'valoresdainfracao', component: UserValoresDeInfracaoComponent, },
-          { path: 'valoresdainfracao/novo', component: UserValoresDeInfracaoCrudComponent },
-          { path: 'valoresdainfracao/alterar/:id', component: UserValoresDeInfracaoCrudComponent },
-          { path: 'tiposdemoeda', component: UserMoedasComponent, },
+          {
+            path: 'aplicativos/alterar/:id',
+            component: UserAplicativosCrudComponent,
+          },
+          {
+            path: 'empresasvistoriadoras',
+            component: UserEmpresasVistoriadorasComponent,
+          },
+          {
+            path: 'empresasvistoriadoras/novo',
+            component: UserEmpresasVistoriadorasCrudComponent,
+          },
+          {
+            path: 'empresasvistoriadoras/alterar/:id',
+            component: UserEmpresasVistoriadorasCrudComponent,
+          },
+          { path: 'vistoriadores', component: UserVistoriadoresComponent },
+          {
+            path: 'vistoriadores/novo',
+            component: UserVistoriadoresCrudComponent,
+          },
+          {
+            path: 'vistoriadores/alterar/:id',
+            component: UserVistoriadoresCrudComponent,
+          },
+          { path: 'tiposdeveiculo', component: UserTiposDeVeiculoComponent },
+          {
+            path: 'tiposdeveiculo/novo',
+            component: UserTiposDeVeiculoCrudComponent,
+          },
+          {
+            path: 'tiposdeveiculo/alterar/:id',
+            component: UserTiposDeVeiculoCrudComponent,
+          },
+          { path: 'tiposdecertidao', component: UserTiposDeCertidaoComponent },
+          {
+            path: 'tiposdecertidao/novo',
+            component: UserTiposDeCertidaoCrudComponent,
+          },
+          {
+            path: 'tiposdecertidao/alterar/:id',
+            component: UserTiposDeCertidaoCrudComponent,
+          },
+          { path: 'entidadecurso', component: UserEntidadeCursoComponent },
+          {
+            path: 'entidadecurso/novo',
+            component: UserEntidadeCursoCrudComponent,
+          },
+          {
+            path: 'entidadecurso/alterar/:id',
+            component: UserEntidadeCursoCrudComponent,
+          },
+          { path: 'tiposdecurso', component: UserTiposDeCursoComponent },
+          {
+            path: 'tiposdecurso/novo',
+            component: UserTiposDeCursoCrudComponent,
+          },
+          {
+            path: 'tiposdecurso/alterar/:id',
+            component: UserTiposDeCursoCrudComponent,
+          },
+          {
+            path: 'quadrodeinfracoes',
+            component: UserQuadroDeInfracoesComponent,
+          },
+          {
+            path: 'quadrodeinfracoes/novo',
+            component: UserQuadroDeInfracoesCrudComponent,
+          },
+          {
+            path: 'quadrodeinfracoes/alterar/:id',
+            component: UserQuadroDeInfracoesCrudComponent,
+          },
+          {
+            path: 'valoresdainfracao',
+            component: UserValoresDeInfracaoComponent,
+          },
+          {
+            path: 'valoresdainfracao/novo',
+            component: UserValoresDeInfracaoCrudComponent,
+          },
+          {
+            path: 'valoresdainfracao/alterar/:id',
+            component: UserValoresDeInfracaoCrudComponent,
+          },
+          { path: 'tiposdemoeda', component: UserMoedasComponent },
           { path: 'tiposdemoeda/novo', component: UserMoedasCrudComponent },
-          { path: 'tiposdemoeda/alterar/:id', component: UserMoedasCrudComponent },
-          { path: 'fiscais', component: UserFiscaisComponent, },
+          {
+            path: 'tiposdemoeda/alterar/:id',
+            component: UserMoedasCrudComponent,
+          },
+          { path: 'fiscais', component: UserFiscaisComponent },
           { path: 'fiscais/novo', component: UserFiscaisCrudComponent },
           { path: 'fiscais/alterar/:id', component: UserFiscaisCrudComponent },
-          { path: 'taloesdofiscal', component: UserTaloesDoFiscalComponent, },
-          { path: 'taloesdofiscal/novo', component: UserTaloesDoFiscalCrudComponent },
-          { path: 'taloesdofiscal/alterar/:id', component: UserTaloesDoFiscalCrudComponent },
-          { path: 'fmp', component: UserFmpComponent, },
+          { path: 'taloesdofiscal', component: UserTaloesDoFiscalComponent },
+          {
+            path: 'taloesdofiscal/novo',
+            component: UserTaloesDoFiscalCrudComponent,
+          },
+          {
+            path: 'taloesdofiscal/alterar/:id',
+            component: UserTaloesDoFiscalCrudComponent,
+          },
+          { path: 'fmp', component: UserFmpComponent },
           { path: 'fmp/novo', component: UserFmpCrudComponent },
           { path: 'fmp/alterar/:id', component: UserFmpCrudComponent },
           { path: 'veiculos', component: UserVeiculosComponent },
           { path: 'veiculos/novo', component: UserVeiculosNovoComponent },
           {
-            path: 'veiculos/alterar/:id', component: UserVeiculosAlterarComponent,
+            path: 'veiculos/alterar/:id',
+            component: UserVeiculosAlterarComponent,
             children: [
               { path: 'dados', component: UserVeiculosAlterarDadosComponent },
               { path: 'anexos', component: UserVeiculosAlterarAnexosComponent },
-            ]
+            ],
           },
           { path: 'solicitacoes', component: UserSolicitacoesComponent },
-        ]
+        ],
       },
       {
         path: 'lancamentos',
         children: [
-          { path: 'certidoes', component: UserCertidoesComponent, },
+          { path: 'certidoes', component: UserCertidoesComponent },
           { path: 'certidoes/novo', component: UserCertidoesCrudComponent },
-          { path: 'certidoes/alterar/:id', component: UserCertidoesCrudComponent },
-          { path: 'infracoes', component: UserInfracoesComponent, },
+          {
+            path: 'certidoes/alterar/:id',
+            component: UserCertidoesCrudComponent,
+          },
+          { path: 'infracoes', component: UserInfracoesComponent },
           { path: 'infracoes/novo', component: UserInfracoesCrudComponent },
-          { path: 'infracoes/alterar/:id', component: UserInfracoesCrudComponent },
-          { path: 'vistoriasdepontos', component: UserVistoriadepontosComponent, },
-          { path: 'vistoriasdepontos/novo', component: UserVistoriadepontosCrudComponent },
-          { path: 'vistoriasdepontos/alterar/:id', component: UserVistoriadepontosCrudComponent },
-          { path: 'alvarapagamento', component: UserAlvaraPagamentoComponent, },
-        ]
+          {
+            path: 'infracoes/alterar/:id',
+            component: UserInfracoesCrudComponent,
+          },
+          {
+            path: 'vistoriasdepontos',
+            component: UserVistoriadepontosComponent,
+          },
+          {
+            path: 'vistoriasdepontos/novo',
+            component: UserVistoriadepontosCrudComponent,
+          },
+          {
+            path: 'vistoriasdepontos/alterar/:id',
+            component: UserVistoriadepontosCrudComponent,
+          },
+          { path: 'alvarapagamento', component: UserAlvaraPagamentoComponent },
+        ],
       },
       {
-        path: 'impressos', component: UserImpressosComponent,
+        path: 'impressos',
+        component: UserImpressosComponent,
         children: [
           //formulario 1
-          { path: 'formulariorenovacaopermissao', component: UserFormulario1RenovacaoPermissionarioComponent, },
+          {
+            path: 'formulariorenovacaopermissao',
+            component: UserFormulario1RenovacaoPermissionarioComponent,
+          },
           //formulario 2
-          { path: 'formulariotransferencia', component: UserFormulario2ReqTransferenciaComponent, },
+          {
+            path: 'formulariotransferencia',
+            component: UserFormulario2ReqTransferenciaComponent,
+          },
           //formulario 3
-          { path: 'transferenciadepermissaodetransporte', component: UserFormulario3TransfpermtranspescolarComponent, },
+          {
+            path: 'transferenciadepermissaodetransporte',
+            component: UserFormulario3TransfpermtranspescolarComponent,
+          },
           //formulario 4
-          { path: 'transferenciadepermissaodetaxi', component: UserFormulario4TransfpermtransptaxiComponent, },
+          {
+            path: 'transferenciadepermissaodetaxi',
+            component: UserFormulario4TransfpermtransptaxiComponent,
+          },
           //formulario 5
-          { path: 'requerimentoparasubstituicaodeveiculo', component: UserFormulario5ReqsubstveiculoComponent, },
+          {
+            path: 'requerimentoparasubstituicaodeveiculo',
+            component: UserFormulario5ReqsubstveiculoComponent,
+          },
           //formulario 6
-          { path: 'requerimentoparaprorrogacaodesubstituicaodeveiculo', component: UserFormulario6ReqprosubveiculoComponent, },
+          {
+            path: 'requerimentoparaprorrogacaodesubstituicaodeveiculo',
+            component: UserFormulario6ReqprosubveiculoComponent,
+          },
           //formulario 7
-          { path: 'formulariodeclaracaomonitor', component: UserFormulario7DeclaracaoMonitorComponent, },
+          {
+            path: 'formulariodeclaracaomonitor',
+            component: UserFormulario7DeclaracaoMonitorComponent,
+          },
           //formulario 8
-          { path: 'condutorauxiliar', component: UserFormulario8CondutorAuxiliarComponent, },
+          {
+            path: 'condutorauxiliar',
+            component: UserFormulario8CondutorAuxiliarComponent,
+          },
           //formulario 9
-          { path: 'declaracaoatendimentodisposto', component: UserFormulario9declaracaoatenddispostoComponent, },
+          {
+            path: 'declaracaoatendimentodisposto',
+            component: UserFormulario9declaracaoatenddispostoComponent,
+          },
           //formulario 16
-          { path: 'solicitacaoderessarcimento', component: UserFormulario16solressarcimentoComponent, },
+          {
+            path: 'solicitacaoderessarcimento',
+            component: UserFormulario16solressarcimentoComponent,
+          },
           //formulario 17
-          { path: 'solicitacaodebaixadecondutorauxiliar', component: UserFormulario17SolicitaacaoBaixaCondutorComponent, },
+          {
+            path: 'solicitacaodebaixadecondutorauxiliar',
+            component: UserFormulario17SolicitaacaoBaixaCondutorComponent,
+          },
           //formulario 18
-          { path: 'solicitacaotransporteescolar', component: UserFormulario18soltranspensinoComponent, },
+          {
+            path: 'solicitacaotransporteescolar',
+            component: UserFormulario18soltranspensinoComponent,
+          },
           //formulario 119
-          { path: 'autorizacaoadesivacaocusteada', component: UserFormulario119autorizacaoadesivacaocustpermissionarioComponent, },
+          {
+            path: 'autorizacaoadesivacaocusteada',
+            component:
+              UserFormulario119autorizacaoadesivacaocustpermissionarioComponent,
+          },
           //formulario 120
-          { path: 'solicitacaoafericaotaximetro', component: UserFormulario120solicitacaoafericaotaximetroComponent, },
+          {
+            path: 'solicitacaoafericaotaximetro',
+            component: UserFormulario120solicitacaoafericaotaximetroComponent,
+          },
           //formulario 121
-          { path: 'solicitacaodeautorizacaoprovisoria', component: UserFormulario121solicitacaoafericaoautprovisoriaComponent, },
+          {
+            path: 'solicitacaodeautorizacaoprovisoria',
+            component:
+              UserFormulario121solicitacaoafericaoautprovisoriaComponent,
+          },
           //formulario 122
-          { path: 'solicitacaodeautorizacaoprovisoriaescolar', component: UserFormulario122solicitacaoafericaoautprovisoriaescolarComponent, },
+          {
+            path: 'solicitacaodeautorizacaoprovisoriaescolar',
+            component:
+              UserFormulario122solicitacaoafericaoautprovisoriaescolarComponent,
+          },
           //formulario 123
           //formulario 124
           //formulario 125
           //formulario 126
-          { path: 'declaracaoparataxista', component: UserFormulario126declaracaoparataxistaComponent, },
+          {
+            path: 'declaracaoparataxista',
+            component: UserFormulario126declaracaoparataxistaComponent,
+          },
           //formulario 127
-          { path: 'declaracaoparatransporteescolar', component: UserFormulario127declaracaoparatransporteescolarComponent, },
+          {
+            path: 'declaracaoparatransporteescolar',
+            component:
+              UserFormulario127declaracaoparatransporteescolarComponent,
+          },
           //formulario 128
-          { path: 'formularioderequerimento', component: UserFormulario128formulariodedeclaracaoComponent, },
+          {
+            path: 'formularioderequerimento',
+            component: UserFormulario128formulariodedeclaracaoComponent,
+          },
           //formulario 129
-          { path: 'laudodevistoriatransportesespeciais', component: UserFormulario129laudovistoriatransportesespeciaisComponent, },
+          {
+            path: 'laudodevistoriatransportesespeciais',
+            component:
+              UserFormulario129laudovistoriatransportesespeciaisComponent,
+          },
           //formulario 130
-          { path: 'notificacao', component: UserFormulario130notificacaoComponent, },
+          {
+            path: 'notificacao',
+            component: UserFormulario130notificacaoComponent,
+          },
           //formulario 131
-          { path: 'substituicaodeveiculo', component: UserFormulario131substituicaodeveiculoComponent, },
+          {
+            path: 'substituicaodeveiculo',
+            component: UserFormulario131substituicaodeveiculoComponent,
+          },
           //formulario 132
-          { path: 'termodecredenciamento', component: UserFormulario132termodecredenciamentoComponent, },
+          {
+            path: 'termodecredenciamento',
+            component: UserFormulario132termodecredenciamentoComponent,
+          },
           //formulario 133
-          { path: 'termodecredenciamentotransporteescolar', component: UserFormulario133termodecredenciamentotransporteescolarComponent, },
+          {
+            path: 'termodecredenciamentotransporteescolar',
+            component:
+              UserFormulario133termodecredenciamentotransporteescolarComponent,
+          },
           //formulario 134
-          { path: 'aip', component: UserFormulario134aipComponent, },
-        ]
+          { path: 'aip', component: UserFormulario134aipComponent },
+          //formulario 135
+          {
+            path: 'alvarapermissao',
+            component: UserFormulario135alvaraPermissaoComponent,
+          },
+        ],
       },
       {
         path: 'relatorios',
         children: [
-          { path: 'entradasaidadeveiculos', component: UserRelEntradaSaidaVeiculosComponent, },
-        ]
-      }
-
-    ]
+          {
+            path: 'entradasaidadeveiculos',
+            component: UserRelEntradaSaidaVeiculosComponent,
+          },
+          {
+            path: 'relatoriodealvarasexpirados',
+            component: UserRelAlvarasExpiradosComponent,
+          },
+          {
+            path: 'relatoriodecursospermissionariovencidos',
+            component: UserRelCursosPermissionarioVencidosComponent,
+          },
+          {
+            path: 'relatoriodecursosmonitorvencidos',
+            component: UserRelCursosMonitorVencidosComponent,
+          },
+          {
+            path: 'relatoriodecursoscondutorvencidos',
+            component: UserRelCursosCondutorVencidosComponent,
+          },
+        ],
+      },
+    ],
   },
-]
+];
 
 @NgModule({
   declarations: [
@@ -465,7 +769,13 @@ const ROUTER: Routes = [
     UserFormulario131substituicaodeveiculoComponent,
     UserFormulario132termodecredenciamentoComponent,
     UserFormulario133termodecredenciamentotransporteescolarComponent,
-    UserFormulario134aipComponent
+    UserFormulario134aipComponent,
+    UserRelAlvarasExpiradosComponent,
+    UserRelCursosPermissionarioVencidosComponent,
+    UserRelCursosMonitorVencidosComponent,
+    UserRelCursosCondutorVencidosComponent,
+    UserFormulario135alvaraPermissaoComponent,
+    UserPermissionarioAlterarAlunosComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),
@@ -473,7 +783,6 @@ const ROUTER: Routes = [
     NgxMaskModule.forChild(),
     NgxCurrencyModule,
   ],
-  exports: [
-  ]
+  exports: [],
 })
-export class UserModule { }
+export class UserModule {}

@@ -5,6 +5,8 @@
       <h3>Alvará
         <button type="submit" class="btn btn-new pull-right" (click)="openModal(novoAlvaraModal)">Criar
           Novo</button>
+        <button type="submit" class="btn btn-new pull-right mr-2"
+          (click)="openModal(impressaoDeAlvaraModal)">Imprimir</button>
       </h3>
 
       <app-input label="Emissão" [require]="true">
@@ -54,11 +56,16 @@
       </app-input>
 
       <app-input label="Chave PIX" [require]="true" *ngIf="form.get('tipoPix').value == 0">
-        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 0" mask="(00) 00000-0000 || (00) 0000-0000">
-        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 1 || form.get('tipoDeChavePix').value == 4">
-        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 2" mask="000.000.000-00">
-        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == 3" mask="00.000.000/0000-00">
-        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off" *ngIf="form.get('tipoDeChavePix').value == null" readonly>
+        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off"
+          *ngIf="form.get('tipoDeChavePix').value == 0" mask="(00) 00000-0000 || (00) 0000-0000">
+        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off"
+          *ngIf="form.get('tipoDeChavePix').value == 1 || form.get('tipoDeChavePix').value == 4">
+        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off"
+          *ngIf="form.get('tipoDeChavePix').value == 2" mask="000.000.000-00">
+        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off"
+          *ngIf="form.get('tipoDeChavePix').value == 3" mask="00.000.000/0000-00">
+        <input type="text" class="form-control" formControlName="chave_pix" autocomplete="off"
+          *ngIf="form.get('tipoDeChavePix').value == null" readonly>
       </app-input>
 
       <app-input label="Código PIX" [require]="true" *ngIf="form.get('tipoPix').value == 1">
@@ -66,7 +73,8 @@
       </app-input>
 
       <app-input label="Valor" [require]="true" *ngIf="form.get('tipoPix').value!=null">
-        <input type="text" class="form-control" formControlName="valor" autocomplete="off" [mask]="'0*,00'" [dropSpecialCharacters]="false">
+        <input type="text" class="form-control" formControlName="valor" autocomplete="off" [mask]="'0*,00'"
+          [dropSpecialCharacters]="false">
       </app-input>
     </div>
     <div class="subitem">
@@ -122,5 +130,12 @@
       <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right ml-1">Não</button>
       <button (click)="novo()" class="btn btn-danger btn-sm pull-right">Sim</button>
     </div>
+  </app-modal>
+</ng-template>
+
+<ng-template #impressaoDeAlvaraModal let-modal>
+  <app-modal modalID="novoAlvaraModal" title="Impressao de Alvará" (closeModalEmit)="closeModal($event)">
+    <app-user-formulario135alvara-permissao
+      [permissionarioId]="permissionario?.id"></app-user-formulario135alvara-permissao>
   </app-modal>
 </ng-template>

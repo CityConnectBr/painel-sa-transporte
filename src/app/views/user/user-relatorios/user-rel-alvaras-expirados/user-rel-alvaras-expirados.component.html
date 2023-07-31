@@ -1,0 +1,35 @@
+<div class="crud">
+  <div class="clearfix">
+
+    <h3 class="titulo">
+      <i class="fa fa-arrow-right"></i> Relatório de Alvarás Expirados
+    </h3>
+
+    <app-loading *ngIf="loading"></app-loading>
+    <div *ngIf="!loading" class="clearfix">
+
+      <table *ngIf="alvarasExpirados && alvarasExpirados?.length>0" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Permissionário</th>
+            <th>Data de Vencimento</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of alvarasExpirados">
+            <td>{{obj?.permissionario?.nome_razao_social}}</td>
+            <td>{{obj?.data_vencimento | date:'dd/MM/yyyy'}}</td>
+            <td class="text-right">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="!alvarasExpirados || alvarasExpirados.length==0" class="alert alert-warning">
+        Nenhum registro encontrado!
+      </div>
+    </div>
+
+  </div>
+</div>

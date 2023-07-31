@@ -288,9 +288,11 @@ export class UserSidebarComponent {
         },
         {
           id: 'sub-menu-impressos-requerimentoparasubstituicaodeveiculo',
-          title: '- Anexo 06 - Requerimento para Prorrogação de Substituição de Veículo',
+          title:
+            '- Anexo 06 - Requerimento para Prorrogação de Substituição de Veículo',
           active: true,
-          routerLink: 'impressos/requerimentoparaprorrogacaodesubstituicaodeveiculo',
+          routerLink:
+            'impressos/requerimentoparaprorrogacaodesubstituicaodeveiculo',
         },
         {
           id: 'sub-menu-impressos-formulariodeclaracaomonitor',
@@ -422,6 +424,13 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'impressos/aip',
         },
+        //135
+        {
+          id: 'sub-menu-alvara-permissao',
+          title: '- Alvará de Permissão',
+          active: true,
+          routerLink: 'impressos/alvarapermissao',
+        },
       ],
     },
     {
@@ -436,6 +445,30 @@ export class UserSidebarComponent {
           title: '- Entrada e Saída de Veículos',
           active: true,
           routerLink: 'relatorios/entradasaidadeveiculos',
+        },
+        {
+          id: 'sub-menu-relatorios-relatoriodealvarasexpirados',
+          title: '- Alvarás Vencidos',
+          active: true,
+          routerLink: 'relatorios/relatoriodealvarasexpirados',
+        },
+        {
+          id: 'sub-menu-relatorios-relatoriodecursosdepermissionariosvencidos',
+          title: '- Cursos de Permissionários Vencidos',
+          active: true,
+          routerLink: 'relatorios/relatoriodecursospermissionariovencidos',
+        },
+        {
+          id: 'sub-menu-relatorios-relatoriodecursosdecondutoresvencidos',
+          title: '- Cursos de Condutores Vencidos',
+          active: true,
+          routerLink: 'relatorios/relatoriodecursoscondutorvencidos',
+        },
+        {
+          id: 'sub-menu-relatorios-relatoriodecursosdemonitoresvencidos',
+          title: '- Cursos de Monitores Vencidos',
+          active: true,
+          routerLink: 'relatorios/relatoriodecursosmonitorvencidos',
         },
       ],
     },
