@@ -37,4 +37,11 @@ export class RelatorioService extends BasicCrudService {
       super.getHttpOptions
     );
   }
+
+  getDocumentosPermissionarioExpirados() {
+    return this.httpClient.get<any[]>(
+      `${this.url}/documentosexpirados`,
+      super.getHttpOptions
+    );
+  }
 }
