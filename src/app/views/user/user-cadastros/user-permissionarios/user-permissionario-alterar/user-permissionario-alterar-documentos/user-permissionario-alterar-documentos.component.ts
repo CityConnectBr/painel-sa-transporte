@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-import { debounceTime, first } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 import { Modalidade } from 'src/app/models/modalidade';
 import { Permissionario } from 'src/app/models/permissionario';
 import { ModalidadeService } from 'src/app/services/modalidade.service';
@@ -101,6 +100,22 @@ export class UserPermissionarioAlterarDocumentosComponent implements OnInit {
       this.errorMessage = SharedModule.handleError(e);
     }
     this.loading = false;
+  }
+
+  isExpired(field: string): boolean {
+    const valueField = this.form.get(field);
+
+    if (valueField.value == null || valueField.value == "") {
+      return false;
+    }
+
+    const dateField = SharedModule.convertStringddMMyyyyToDate(valueField.value);
+
+    if (dateField == null) {
+      return false;
+    }
+
+    return dateField < (new Date());
   }
 
 }

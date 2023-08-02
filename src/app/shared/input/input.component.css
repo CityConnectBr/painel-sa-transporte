@@ -10,3 +10,8 @@
 .autocomplete-options p{
   line-height: 10px;
 }
+
+.text-danger{
+  font-weight: bold;
+  color: rgb(255, 123, 0);
+}
