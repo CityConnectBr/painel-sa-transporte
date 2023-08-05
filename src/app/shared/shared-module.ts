@@ -19,6 +19,7 @@ import { PrintPageComponent } from './print-page/print-page.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchPermissionarioComponent } from './search-permissionario/search-permissionario.component';
+import { PermissionarioTableComponent } from './permissionario-table/permissionario-table.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SearchPermissionarioComponent } from './search-permissionario/search-pe
     SearchComponent,
     PaginationComponent,
     PrintPageComponent,
-    SearchPermissionarioComponent
+    SearchPermissionarioComponent,
+    PermissionarioTableComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +55,8 @@ import { SearchPermissionarioComponent } from './search-permissionario/search-pe
     PrintPageComponent,
     QRCodeModule,
     NgbCollapseModule,
-    SearchPermissionarioComponent
+    SearchPermissionarioComponent,
+    PermissionarioTableComponent
   ],
 })
 export class SharedModule {
