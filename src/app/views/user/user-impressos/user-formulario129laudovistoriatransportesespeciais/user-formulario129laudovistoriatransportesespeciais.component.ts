@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchData } from 'src/app/services/basic-crud.service';
 import { FormularioService } from 'src/app/services/formulario.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
@@ -15,12 +15,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class UserFormulario129laudovistoriatransportesespeciaisComponent implements OnInit {
   loading: boolean = false;
 
+  @ViewChild('visualizarVeiculos') modalVisualizarVeiculos: any;
+
   searchText: string = '';
   dataSearch: SearchData;
   dataSearchVeiculo: SearchData;
 
   constructor(
-    private permissionarioService: PermissionarioService,
     private veiculoService: VeiculoService,
     private formularioService: FormularioService,
     private toastr: ToastrService,
@@ -28,28 +29,10 @@ export class UserFormulario129laudovistoriatransportesespeciaisComponent impleme
   ) {}
 
   ngOnInit(): void {
-    this.loadList(1);
   }
 
-  public async loadList(page: number) {
-    this.loading = true;
-    try {
-      this.dataSearch = await this.permissionarioService
-        .search(this.searchText, page)
-        .toPromise();
-    } catch (e) {
-      this.dataSearch = null;
-    }
-    this.loading = false;
-  }
-
-  public search(text: string = '') {
-    this.searchText = text;
-    this.loadList(1);
-  }
-
-  public changePos(page: number) {
-    this.loadList(page && page > 0 ? page : 1);
+  async selecionarPermissionarioByEvent(event: any) {
+    this.selecionar(this.modalVisualizarVeiculos, event);
   }
 
   async selecionar(modal, id: number) {
