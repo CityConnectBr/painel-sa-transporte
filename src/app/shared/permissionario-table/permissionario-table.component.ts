@@ -12,6 +12,7 @@ export class PermissionarioTableComponent implements OnInit {
   @Input() permissionarioId: string | undefined | null;
   @Input() naoPermitirSelecionarInativos: boolean = true;
   @Input() naoPermitirSelecionarFalecidos: boolean = true;
+  @Input() selecionarSomenteModalidade: string = '';
   @Output() selecionarEvent = new EventEmitter<any>();
 
   loading: boolean = false;
@@ -84,6 +85,13 @@ export class PermissionarioTableComponent implements OnInit {
     }
 
     if (this.naoPermitirSelecionarFalecidos && permissionario.data_obito) {
+      return false;
+    }
+
+    if (
+      this.selecionarSomenteModalidade &&
+      this.selecionarSomenteModalidade != permissionario.modalidade.id
+    ) {
       return false;
     }
 
