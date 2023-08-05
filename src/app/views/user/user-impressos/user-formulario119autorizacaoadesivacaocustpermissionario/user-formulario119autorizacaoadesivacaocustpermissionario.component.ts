@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchData } from 'src/app/services/basic-crud.service';
 import { FormularioService } from 'src/app/services/formulario.service';
-import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { ToastrService } from 'ngx-toastr';
 import { VeiculoService } from 'src/app/services/veiculo.service';
@@ -34,7 +33,6 @@ export class UserFormulario119autorizacaoadesivacaocustpermissionarioComponent
   veiculoSelecionadoId: string;
 
   constructor(
-    private permissionarioService: PermissionarioService,
     private empresaService: EmpresaVistoriadoraService,
     private veiculoService: VeiculoService,
     private formularioService: FormularioService,
