@@ -1,39 +1,6 @@
 <div class="crud">
 
-  <app-search (searchEmitter)="search($event)"></app-search>
-
-  <h3 class="titulo">
-    <i class="fa fa-arrow-right"></i> Formulário de Requerimento
-  </h3>
-
-  <app-loading *ngIf="loading"></app-loading>
-  <div *ngIf="!loading" class="clearfix">
-    <table *ngIf="dataSearch.data.length>0" class="table table-striped">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let obj of dataSearch.data">
-          <td>{{obj?.nome_razao_social}}</td>
-          <td class="text-right">
-            <a href="javascript: void(0);" (click)="selecionar(obj.id);" title="Selecionar"><i class="fa fa-arrow-right"
-                aria-hidden="true"></i></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div *ngIf="dataSearch.data.length>0" class="float-right">
-      <app-pagination [backEnabled]="dataSearch.prev_page_url!=null" [nextEnabled]="dataSearch.next_page_url!=null"
-        [actualPage]="dataSearch.current_page" (changePos)="changePos($event)">
-      </app-pagination>
-    </div>
-
-    <div *ngIf="!dataSearch || dataSearch.data.length==0" class="alert alert-warning">
-      Nenhum registro encontrado!
-    </div>
-  </div>
+  <app-permissionario-table title="Formulário de Requerimento"
+  (selecionarEvent)="selecionarPermissionarioByEvent($event)"></app-permissionario-table>
 
 </div>
