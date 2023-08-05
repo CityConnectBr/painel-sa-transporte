@@ -23,6 +23,7 @@ export class UserFormulario119autorizacaoadesivacaocustpermissionarioComponent
 
   @ViewChild('modalDataLimite') modalDataLimite;
   @ViewChild('modalEmpresas') modalEmpresas;
+  @ViewChild('visualizarVeiculos') modalVisualizarVeiculos: any;
 
   searchText: string = '';
   dataSearch: SearchData;
@@ -42,20 +43,11 @@ export class UserFormulario119autorizacaoadesivacaocustpermissionarioComponent
   ) {}
 
   ngOnInit(): void {
-    this.loadList(1);
     this.loadEmpresas();
   }
 
-  public async loadList(page: number) {
-    this.loading = true;
-    try {
-      this.dataSearch = await this.permissionarioService
-        .search(this.searchText, page)
-        .toPromise();
-    } catch (e) {
-      this.dataSearch = null;
-    }
-    this.loading = false;
+  async selecionarPermissionarioByEvent(event: any) {
+    this.selecionar(this.modalVisualizarVeiculos, event);
   }
 
   private async loadEmpresas() {
@@ -68,15 +60,6 @@ export class UserFormulario119autorizacaoadesivacaocustpermissionarioComponent
       this.dataSearchEmpresas = null;
     }
     this.loading = false;
-  }
-
-  public search(text: string = '') {
-    this.searchText = text;
-    this.loadList(1);
-  }
-
-  public changePos(page: number) {
-    this.loadList(page && page > 0 ? page : 1);
   }
 
   async selecionar(modal, id: number) {
