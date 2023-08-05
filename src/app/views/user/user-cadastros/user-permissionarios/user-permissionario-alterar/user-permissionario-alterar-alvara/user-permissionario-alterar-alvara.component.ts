@@ -86,9 +86,7 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
     ///////FORM
     this.form = this.formBuilder.group({
       data_retorno: new FormControl(this.alvaraAtual?.data_retorno ?? '', {
-        validators: [
-          Validators.pattern(SharedModule.datePattern),
-        ],
+        validators: [Validators.pattern(SharedModule.datePattern)],
       }),
       data_emissao: new FormControl(this.alvaraAtual?.data_emissao ?? '', {
         validators: [
@@ -99,9 +97,7 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
       data_vencimento: new FormControl(
         this.alvaraAtual?.data_vencimento ?? '',
         {
-          validators: [
-            Validators.pattern(SharedModule.datePattern),
-          ],
+          validators: [Validators.pattern(SharedModule.datePattern)],
         }
       ),
       observacao_retorno: new FormControl(
@@ -211,5 +207,12 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
 
   openModal(content: any) {
     this.modal.open(content);
+  }
+
+  isPrintable(): boolean {
+    if (this.permissionario.ativo && !this.permissionario.data_obito) {
+      return true;
+    }
+    return false;
   }
 }

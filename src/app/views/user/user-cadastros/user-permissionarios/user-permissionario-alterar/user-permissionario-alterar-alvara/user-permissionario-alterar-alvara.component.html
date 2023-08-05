@@ -3,9 +3,9 @@
 
     <div class="subitem">
       <h3>Alvará
-        <button type="submit" class="btn btn-new pull-right" (click)="openModal(novoAlvaraModal)">Criar
+        <button *ngIf="isPrintable()" type="submit" class="btn btn-new pull-right" (click)="openModal(novoAlvaraModal)">Criar
           Novo</button>
-        <button type="submit" class="btn btn-new pull-right mr-2"
+        <button *ngIf="isPrintable()" type="submit" class="btn btn-new pull-right mr-2"
           (click)="openModal(impressaoDeAlvaraModal)">Imprimir</button>
       </h3>
 
