@@ -4,5 +4,6 @@ export interface Usuario {
   email: string
   perfil_web_id: number
   password: string | null | undefined
+  assinatura: boolean
   ativo: boolean
 }
