@@ -8,10 +8,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-formulario127declaracaoparatransporteescolar',
-  templateUrl: './user-formulario127declaracaoparatransporteescolar.component.html',
-  styleUrls: ['./user-formulario127declaracaoparatransporteescolar.component.css']
+  templateUrl:
+    './user-formulario127declaracaoparatransporteescolar.component.html',
+  styleUrls: [
+    './user-formulario127declaracaoparatransporteescolar.component.css',
+  ],
 })
-export class UserFormulario127declaracaoparatransporteescolarComponent implements OnInit {
+export class UserFormulario127declaracaoparatransporteescolarComponent
+  implements OnInit
+{
   loading: boolean = false;
 
   searchText: string = '';
@@ -24,29 +29,10 @@ export class UserFormulario127declaracaoparatransporteescolarComponent implement
     private modal: NgbModal
   ) {}
 
-  ngOnInit(): void {
-    this.loadList(1);
-  }
+  ngOnInit(): void {}
 
-  public async loadList(page: number) {
-    this.loading = true;
-    try {
-      this.dataSearch = await this.permissionarioService
-        .search(this.searchText, page)
-        .toPromise();
-    } catch (e) {
-      this.dataSearch = null;
-    }
-    this.loading = false;
-  }
-
-  public search(text: string = '') {
-    this.searchText = text;
-    this.loadList(1);
-  }
-
-  public changePos(page: number) {
-    this.loadList(page && page > 0 ? page : 1);
+  async selecionarPermissionarioByEvent(event: any) {
+    this.selecionar(event);
   }
 
   async selecionar(id: number) {

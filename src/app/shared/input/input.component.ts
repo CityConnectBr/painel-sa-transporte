@@ -10,6 +10,7 @@ export class InputComponent implements OnInit, AfterContentInit {
 
   input: any;
   @Input() label: string;
+  @Input() warning: string;
   @Input() errorMessage: string;
   @Input() description: string = "";
   @Input() require: boolean = false;

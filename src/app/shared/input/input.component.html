@@ -3,6 +3,7 @@
   <ng-content></ng-content>
   <br>
   <small class="text-danger" *ngIf="hasError()">{{getErrorMessage}}</small>
+  <small class="text-warning" *ngIf="warning">{{warning}}</small>
   <small class="form-text text-muted" *ngIf="description">{{description}}</small>
 
   <div *ngIf="options && this.options.size>0" class="autocomplete-options">

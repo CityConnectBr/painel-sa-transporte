@@ -18,35 +18,16 @@ export class UserFormulario128formulariodedeclaracaoComponent implements OnInit 
   dataSearch: SearchData;
 
   constructor(
-    private permissionarioService: PermissionarioService,
     private formularioService: FormularioService,
     private toastr: ToastrService,
     private modal: NgbModal
   ) {}
 
   ngOnInit(): void {
-    this.loadList(1);
   }
 
-  public async loadList(page: number) {
-    this.loading = true;
-    try {
-      this.dataSearch = await this.permissionarioService
-        .search(this.searchText, page)
-        .toPromise();
-    } catch (e) {
-      this.dataSearch = null;
-    }
-    this.loading = false;
-  }
-
-  public search(text: string = '') {
-    this.searchText = text;
-    this.loadList(1);
-  }
-
-  public changePos(page: number) {
-    this.loadList(page && page > 0 ? page : 1);
+  async selecionarPermissionarioByEvent(event: any) {
+    this.selecionar(event);
   }
 
   async selecionar(id: number) {

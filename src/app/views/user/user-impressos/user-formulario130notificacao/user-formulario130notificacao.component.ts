@@ -11,87 +11,46 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-user-formulario130notificacao',
   templateUrl: './user-formulario130notificacao.component.html',
-  styleUrls: ['./user-formulario130notificacao.component.css']
+  styleUrls: ['./user-formulario130notificacao.component.css'],
 })
-export class UserFormulario130notificacaoComponent
-  implements OnInit
-{
+export class UserFormulario130notificacaoComponent implements OnInit {
   loading: boolean = false;
 
   @ViewChild('modalInfoAdicionais') modalInfoAdicionais;
 
   searchText: string = '';
   dataSearch: SearchData;
-  dataSearchVeiculo: SearchData;
 
   form: FormGroup;
-  veiculoSelecionadoId: string;
 
   constructor(
-    private permissionarioService: PermissionarioService,
-    private veiculoService: VeiculoService,
     private formularioService: FormularioService,
     private toastr: ToastrService,
     private modal: NgbModal
   ) {}
 
   ngOnInit(): void {
-    this.loadList(1);
-
     this.form = new FormGroup({
+      permissionario: new FormControl('', Validators.required),
       prazo: new FormControl('', Validators.required),
       notificado: new FormControl('', Validators.required),
     });
   }
 
-  public async loadList(page: number) {
-    this.loading = true;
-    try {
-      this.dataSearch = await this.permissionarioService
-        .search(this.searchText, page)
-        .toPromise();
-    } catch (e) {
-      this.dataSearch = null;
-    }
-    this.loading = false;
-  }
-
-  public search(text: string = '') {
-    this.searchText = text;
-    this.loadList(1);
-  }
-
-  public changePos(page: number) {
-    this.loadList(page && page > 0 ? page : 1);
+  async selecionarPermissionarioByEvent(event: any) {
+    this.selecionar(this.modalInfoAdicionais, event);
   }
 
   async selecionar(modal, id: number) {
     this.loading = true;
     try {
-      this.dataSearchVeiculo = await this.veiculoService
-        .searchPorPermissionario(this.searchText, id.toString(), 1)
-        .toPromise();
-
-      if (this.dataSearchVeiculo.data.length == 0) {
-        this.toastr.error('Nenhum veículo encontrado para este permissionário');
-        return;
-      }
-
-      if (this.dataSearchVeiculo.data.length == 1) {
-        this.selecionarVeiculo(this.dataSearchVeiculo.data[0].id);
-      } else {
-        this.openModal(modal);
-      }
+      this.form.get('permissionario').setValue(id);
+      this.openModal(modal);
     } catch (e) {
       this.toastr.error(SharedModule.handleError(e));
     } finally {
       this.loading = false;
     }
-  }
-
-  async selecionarVeiculo(id: string) {
-    this.veiculoSelecionadoId = id;
-    this.openModal(this.modalInfoAdicionais);
   }
 
   async salvarForm() {
@@ -104,7 +63,7 @@ export class UserFormulario130notificacaoComponent
 
       const formulario = await this.formularioService
         .getFormulario130(
-          this.veiculoSelecionadoId,
+          this.form.value.permissionario,
           this.form.value.prazo,
           this.form.value.notificado
         )
@@ -113,7 +72,7 @@ export class UserFormulario130notificacaoComponent
       window.open(url);
     } catch (e) {
       this.toastr.error(SharedModule.handleError(e));
-    }finally {
+    } finally {
       this.loading = false;
     }
   }

@@ -15,16 +15,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class UserFormulario135alvaraPermissaoComponent implements OnInit {
   @Input() permissionarioId: string | undefined | null;
 
-  @ViewChild('modalVisualizarVeiculos') modalVisualizarVeiculos: any;
+  @ViewChild('visualizarVeiculos') modalVisualizarVeiculos: any;
 
   loading: boolean = false;
 
-  searchText: string = '';
-  dataSearch: SearchData;
   dataSearchVeiculo: SearchData;
 
   constructor(
-    private permissionarioService: PermissionarioService,
     private veiculoService: VeiculoService,
     private formularioService: FormularioService,
     private toastr: ToastrService,
@@ -32,60 +29,18 @@ export class UserFormulario135alvaraPermissaoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadList(1);
   }
 
-  public async loadList(page: number) {
+  async selecionarPermissionarioByEvent(event: any) {
+    this.selecionar(this.modalVisualizarVeiculos, event);
+  }
+
+  async selecionar(modal: any, idPermissionario: number) {
     this.loading = true;
     try {
-      if (this.permissionarioId) {
-        const permissionario = await this.permissionarioService
-          .get(this.permissionarioId)
-          .toPromise();
-
-        if (permissionario) {
-          this.dataSearch = {
-            data: [permissionario],
-            current_page: 1,
-            ativo: true,
-            next_page_url: '',
-            prev_page_url: '',
-          };
-          await this.selecionar(
-            this.modalVisualizarVeiculos,
-            permissionario.id
-          );
-
-          return;
-        }
-      }
-
-      this.dataSearch = await this.permissionarioService
-        .search(this.searchText, page)
-        .toPromise();
-    } catch (e) {
-      this.dataSearch = null;
-    }
-    this.loading = false;
-  }
-
-  public search(text: string = '') {
-    this.searchText = text;
-    this.loadList(1);
-  }
-
-  public changePos(page: number) {
-    this.loadList(page && page > 0 ? page : 1);
-  }
-
-  async selecionar(modal: any, id: number) {
-    this.loading = true;
-    try {
-      console.log('--------- 01', id);
       this.dataSearchVeiculo = await this.veiculoService
-        .searchPorPermissionario(this.searchText, id.toString(), 1)
+        .searchPorPermissionario('', idPermissionario.toString(), 1)
         .toPromise();
-      console.log('--------- 02', this.dataSearchVeiculo);
 
       if (this.dataSearchVeiculo.data.length == 0) {
         this.toastr.error('Nenhum veículo encontrado para este permissionário');
@@ -113,6 +68,7 @@ export class UserFormulario135alvaraPermissaoComponent implements OnInit {
       const url = window.URL.createObjectURL(formulario);
       window.open(url);
     } catch (e) {
+      console.log(e);
       this.toastr.error(SharedModule.handleError(e));
     }
     this.loading = false;

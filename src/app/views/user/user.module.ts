@@ -130,6 +130,7 @@ import { UserRelCursosMonitorVencidosComponent } from './user-relatorios/user-re
 import { UserRelCursosCondutorVencidosComponent } from './user-relatorios/user-rel-cursos-condutor-vencidos/user-rel-cursos-condutor-vencidos.component';
 import { UserFormulario135alvaraPermissaoComponent } from './user-impressos/user-formulario135alvara-permissao/user-formulario135alvara-permissao.component';
 import { UserPermissionarioAlterarAlunosComponent } from './user-cadastros/user-permissionarios/user-permissionario-alterar/user-permissionario-alterar-alunos/user-permissionario-alterar-alunos.component';
+import { UserRelDocumentosPermissionarioExpiradosComponent } from './user-relatorios/user-rel-documentos-permissionario-expirados/user-rel-documentos-permissionario-expirados.component';
 
 const ROUTER: Routes = [
   {
@@ -641,6 +642,10 @@ const ROUTER: Routes = [
             path: 'relatoriodecursoscondutorvencidos',
             component: UserRelCursosCondutorVencidosComponent,
           },
+          {
+            path: 'relatoriodocumentospermissionarioexpirados',
+            component: UserRelDocumentosPermissionarioExpiradosComponent,
+          },
         ],
       },
     ],
@@ -775,7 +780,8 @@ const ROUTER: Routes = [
     UserRelCursosMonitorVencidosComponent,
     UserRelCursosCondutorVencidosComponent,
     UserFormulario135alvaraPermissaoComponent,
-    UserPermissionarioAlterarAlunosComponent
+    UserPermissionarioAlterarAlunosComponent,
+    UserRelDocumentosPermissionarioExpiradosComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchData } from 'src/app/services/basic-crud.service';
 import { FormularioService } from 'src/app/services/formulario.service';
-import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { ToastrService } from 'ngx-toastr';
 import { VeiculoService } from 'src/app/services/veiculo.service';
@@ -10,46 +9,28 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-user-formulario132termodecredenciamento',
   templateUrl: './user-formulario132termodecredenciamento.component.html',
-  styleUrls: ['./user-formulario132termodecredenciamento.component.css']
+  styleUrls: ['./user-formulario132termodecredenciamento.component.css'],
 })
 export class UserFormulario132termodecredenciamentoComponent implements OnInit {
   loading: boolean = false;
+
+  @ViewChild('visualizarVeiculos') modalVisualizarVeiculos: any;
 
   searchText: string = '';
   dataSearch: SearchData;
   dataSearchVeiculo: SearchData;
 
   constructor(
-    private permissionarioService: PermissionarioService,
     private veiculoService: VeiculoService,
     private formularioService: FormularioService,
     private toastr: ToastrService,
     private modal: NgbModal
   ) {}
 
-  ngOnInit(): void {
-    this.loadList(1);
-  }
+  ngOnInit(): void {}
 
-  public async loadList(page: number) {
-    this.loading = true;
-    try {
-      this.dataSearch = await this.permissionarioService
-        .search(this.searchText, page)
-        .toPromise();
-    } catch (e) {
-      this.dataSearch = null;
-    }
-    this.loading = false;
-  }
-
-  public search(text: string = '') {
-    this.searchText = text;
-    this.loadList(1);
-  }
-
-  public changePos(page: number) {
-    this.loadList(page && page > 0 ? page : 1);
+  async selecionarPermissionarioByEvent(event: any) {
+    this.selecionar(this.modalVisualizarVeiculos, event);
   }
 
   async selecionar(modal, id: number) {

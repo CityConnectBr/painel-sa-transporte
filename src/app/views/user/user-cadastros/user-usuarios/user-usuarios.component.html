@@ -13,13 +13,18 @@
       <thead>
         <tr>
           <th>Nome</th>
-          <th></th>
+          <th>Assinatura</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let obj of dataSearch.data">
           <td>{{obj?.nome}}</td>
+          <td>{{obj?.assinatura==1?'Sim':'Não'}}</td>
           <td class="text-right">
+            <a *ngIf="obj?.assinatura==1" href="javascript: void(0);" (click)="visualizarAssinatura(visualizarAssinaturaModal, obj.id);" title="Visualizar"><i
+                class="fa fa-eye mr-2" aria-hidden="true"></i></a>
+            <a href="javascript: void(0);" (click)="iniAlterarAssinatura(saveAssinatura, obj.id);" title="Alterar"><i
+                class="fa fa-file mr-2" aria-hidden="true"></i></a>
             <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
                 aria-hidden="true"></i></a>
           </td>
@@ -27,11 +32,8 @@
       </tbody>
     </table>
     <div *ngIf="dataSearch.data.length>0" class="float-right">
-      <app-pagination
-        [backEnabled]="dataSearch.prev_page_url!=null"
-        [nextEnabled]="dataSearch.next_page_url!=null"
-        [actualPage]="dataSearch.current_page"
-        (changePos)="changePos($event)">
+      <app-pagination [backEnabled]="dataSearch.prev_page_url!=null" [nextEnabled]="dataSearch.next_page_url!=null"
+        [actualPage]="dataSearch.current_page" (changePos)="changePos($event)">
       </app-pagination>
     </div>
 
@@ -39,5 +41,28 @@
       Nenhum registro encontrado!
     </div>
   </div>
+
+  <ng-template #saveAssinatura let-modal>
+    <app-modal modalID="saveAssinatura" title="Assinatura" (closeModalEmit)="closeModal($event)">
+      <div class="clearfix">
+        <form [formGroup]="formAssinatura" autocomplete="off">
+          <app-input label="Assinatura">
+            <input type="file" class="form-control" autocomplete="off" formControlName="assinatura"
+              (change)="handleFileInput($event)">
+          </app-input>
+          <button (click)="salvarAssinatura()" class="btn btn-primary btn-sm pull-right ml-1">Salvar</button>
+          <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right">Cancelar</button>
+        </form>
+      </div>
+    </app-modal>
+  </ng-template>
+
+  <ng-template #visualizarAssinaturaModal let-modal>
+    <app-modal modalID="visualizarAssinatura" title="Assinatura" (closeModalEmit)="closeModal($event)">
+      <div class="clearfix">
+        <img [src]="assinatura" class="img-fluid">
+      </div>
+    </app-modal>
+  </ng-template>
 
 </div>

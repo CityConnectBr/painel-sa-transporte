@@ -1,0 +1,42 @@
+<div class="crud">
+  <div class="clearfix">
+
+    <h3 class="titulo">
+      <i class="fa fa-arrow-right"></i> Relatório de Documentos de Permissionário Expirados
+    </h3>
+
+    <app-loading *ngIf="loading"></app-loading>
+    <div *ngIf="!loading" class="clearfix">
+
+      <table *ngIf="list && list?.length>0" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Permissionario</th>
+            <th>Certidão Negativa</th>
+            <th>CNH</th>
+            <th>Contrato de Comodato</th>
+            <th>Selo GNV</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of list">
+            <td>{{obj?.nome_razao_social}}</td>
+            <td [class.text-danger]="isExpirado(obj?.validade_certidao_negativa)">{{obj?.validade_certidao_negativa |
+              date:'dd/MM/yyyy'}}</td>
+            <td [class.text-danger]="isExpirado(obj?.vencimento_cnh)">{{obj?.vencimento_cnh |
+              date:'dd/MM/yyyy'}}</td>
+            <td [class.text-danger]="isExpirado(obj?.contrato_comodato_validade)">{{obj?.contrato_comodato_validade |
+              date:'dd/MM/yyyy'}}</td>
+            <td [class.text-danger]="isExpirado(obj?.selo_gnv_validade)">{{obj?.selo_gnv_validade |
+              date:'dd/MM/yyyy'}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="!list || list.length==0" class="alert alert-warning">
+        Nenhum registro encontrado!
+      </div>
+    </div>
+
+  </div>
+</div>

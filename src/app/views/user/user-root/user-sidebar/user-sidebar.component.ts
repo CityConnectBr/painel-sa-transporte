@@ -470,6 +470,12 @@ export class UserSidebarComponent {
           active: true,
           routerLink: 'relatorios/relatoriodecursosmonitorvencidos',
         },
+        {
+          id: 'sub-menu-relatorios-relatoriodocumentospermissionarioexpirados',
+          title: '- Documentos de Permissionários Expirados',
+          active: true,
+          routerLink: 'relatorios/relatoriodocumentospermissionarioexpirados',
+        },
       ],
     },
   ];

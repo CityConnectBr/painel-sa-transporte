@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchData } from 'src/app/services/basic-crud.service';
 import { FormularioService } from 'src/app/services/formulario.service';
-import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { ToastrService } from 'ngx-toastr';
 import { VeiculoService } from 'src/app/services/veiculo.service';
@@ -23,6 +22,7 @@ export class UserFormulario119autorizacaoadesivacaocustpermissionarioComponent
 
   @ViewChild('modalDataLimite') modalDataLimite;
   @ViewChild('modalEmpresas') modalEmpresas;
+  @ViewChild('visualizarVeiculos') modalVisualizarVeiculos: any;
 
   searchText: string = '';
   dataSearch: SearchData;
@@ -33,7 +33,6 @@ export class UserFormulario119autorizacaoadesivacaocustpermissionarioComponent
   veiculoSelecionadoId: string;
 
   constructor(
-    private permissionarioService: PermissionarioService,
     private empresaService: EmpresaVistoriadoraService,
     private veiculoService: VeiculoService,
     private formularioService: FormularioService,
@@ -42,20 +41,11 @@ export class UserFormulario119autorizacaoadesivacaocustpermissionarioComponent
   ) {}
 
   ngOnInit(): void {
-    this.loadList(1);
     this.loadEmpresas();
   }
 
-  public async loadList(page: number) {
-    this.loading = true;
-    try {
-      this.dataSearch = await this.permissionarioService
-        .search(this.searchText, page)
-        .toPromise();
-    } catch (e) {
-      this.dataSearch = null;
-    }
-    this.loading = false;
+  async selecionarPermissionarioByEvent(event: any) {
+    this.selecionar(this.modalVisualizarVeiculos, event);
   }
 
   private async loadEmpresas() {
@@ -68,15 +58,6 @@ export class UserFormulario119autorizacaoadesivacaocustpermissionarioComponent
       this.dataSearchEmpresas = null;
     }
     this.loading = false;
-  }
-
-  public search(text: string = '') {
-    this.searchText = text;
-    this.loadList(1);
-  }
-
-  public changePos(page: number) {
-    this.loadList(page && page > 0 ? page : 1);
   }
 
   async selecionar(modal, id: number) {

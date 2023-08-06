@@ -22,6 +22,7 @@ export class UserFormulario121solicitacaoafericaoautprovisoriaComponent
   loading: boolean = false;
 
   @ViewChild('modalInfoAdicionais') modalInfoAdicionais;
+  @ViewChild('visualizarVeiculos') modalVisualizarVeiculos: any;
 
   searchText: string = '';
   dataSearch: SearchData;
@@ -39,8 +40,6 @@ export class UserFormulario121solicitacaoafericaoautprovisoriaComponent
   ) {}
 
   ngOnInit(): void {
-    this.loadList(1);
-
     this.form = new FormGroup({
       motivo: new FormControl('', Validators.required),
       dataLimite: new FormControl('', Validators.required),
@@ -48,25 +47,8 @@ export class UserFormulario121solicitacaoafericaoautprovisoriaComponent
     });
   }
 
-  public async loadList(page: number) {
-    this.loading = true;
-    try {
-      this.dataSearch = await this.permissionarioService
-        .search(this.searchText, page)
-        .toPromise();
-    } catch (e) {
-      this.dataSearch = null;
-    }
-    this.loading = false;
-  }
-
-  public search(text: string = '') {
-    this.searchText = text;
-    this.loadList(1);
-  }
-
-  public changePos(page: number) {
-    this.loadList(page && page > 0 ? page : 1);
+  async selecionarPermissionarioByEvent(event: any) {
+    this.selecionar(this.modalVisualizarVeiculos, event);
   }
 
   async selecionar(modal, id: number) {
