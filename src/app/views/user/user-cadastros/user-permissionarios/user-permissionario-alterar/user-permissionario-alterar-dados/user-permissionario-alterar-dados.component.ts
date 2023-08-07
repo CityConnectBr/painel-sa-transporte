@@ -215,6 +215,9 @@ export class UserPermissionarioAlterarDadosComponent
         estado_civil: new FormControl(this.permissionario.estado_civil ?? '', {
           validators: [Validators.required],
         }),
+        ativo: new FormControl(this.permissionario.ativo ?? '', {
+          validators: [Validators.required],
+        }),
       });
 
       //setando por problema na mascara quando salva
