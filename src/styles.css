@@ -25,6 +25,7 @@ h3 {
 
 .clearfix {
   overflow: auto;
+  overflow-x: hidden;
 }
 
 a {
@@ -282,6 +283,13 @@ aside a i {
 
 .crud form {
   margin: 20px;
+}
+
+.crud form .borda-subitem {
+  border: 1px solid var(--lightGrey);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .crud form .simple-subitem {
