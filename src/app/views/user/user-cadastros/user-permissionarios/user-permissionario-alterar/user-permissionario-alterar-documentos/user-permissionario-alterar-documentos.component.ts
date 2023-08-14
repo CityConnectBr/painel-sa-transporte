@@ -8,6 +8,8 @@ import { ModalidadeService } from 'src/app/services/modalidade.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { ToastrService } from 'ngx-toastr';
+import { AlvaraDoPermissionarioService } from 'src/app/services/alvaradopermissinario.service';
+import { AlvaraDoPermissionario } from 'src/app/models/alvara-do-permissionario';
 @Component({
   selector: 'app-user-permissionario-alterar-documentos',
   templateUrl: './user-permissionario-alterar-documentos.component.html',
@@ -20,6 +22,7 @@ export class UserPermissionarioAlterarDocumentosComponent implements OnInit {
   errorMessage: string
 
   permissionario: Permissionario;
+  alvaraAtual: AlvaraDoPermissionario;
 
   modalidades: Modalidade[];
 
@@ -28,6 +31,7 @@ export class UserPermissionarioAlterarDocumentosComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private permissionarioService: PermissionarioService,
+    private alvaraService: AlvaraDoPermissionarioService,
     private modalidadeService: ModalidadeService,
     private route: ActivatedRoute,
     private toastr: ToastrService,
@@ -40,6 +44,7 @@ export class UserPermissionarioAlterarDocumentosComponent implements OnInit {
     try {
       const idSelected: string = this.route.parent.snapshot.paramMap.get('id');
       this.permissionario = await this.permissionarioService.get(idSelected).pipe(first()).toPromise();
+      this.loadAlvara(this.permissionario);
 
       //convertendo de 1|0 para boolean
       this.permissionario = SharedModule.convertAllFields01ToBoolean(this.permissionario);
@@ -85,6 +90,21 @@ export class UserPermissionarioAlterarDocumentosComponent implements OnInit {
       this.errorMessage = "Ocorreu um erro ao montar a página";
     }
     this.loading = false;
+  }
+
+  private async loadAlvara(permissionario: Permissionario) {
+    const { data } = await this.alvaraService
+      .indexByPermissionario(permissionario.id.toString())
+      .pipe(first())
+      .toPromise();
+
+    if (data && data.length > 0) {
+      this.alvaraAtual = data[0];
+
+      this.alvaraAtual = SharedModule.formatAllFieldsDateToddMMyyyy(
+        this.alvaraAtual
+      );
+    }
   }
 
   async salvar(formInput: any) {

@@ -1,79 +1,107 @@
 <form *ngIf="!loading" [formGroup]="form" autocomplete="off">
   <div class="form-inline">
 
-    <div class="subitem">
-      <h3>Documentos</h3>
+    <div class="container">
+      <div class="row">
+        <div class="col-9">
+          <div class="subitem">
+            <h3>Documentos</h3>
 
-      <app-input label="Atestado de Saúde">
-        <select formControlName="atestado_de_saude" class="form-control">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
+            <app-input label="Atestado de Saúde">
+              <select formControlName="atestado_de_saude" class="form-control">
+                <option value="true">SIM</option>
+                <option value="false">NÃO</option>
+              </select>
+            </app-input>
 
-      <app-input label="Comprovante de Endereço">
-        <select formControlName="comprovante_de_endereco" class="form-control">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
+            <app-input label="Comprovante de Endereço">
+              <select formControlName="comprovante_de_endereco" class="form-control">
+                <option value="true">SIM</option>
+                <option value="false">NÃO</option>
+              </select>
+            </app-input>
 
-      <app-input label="C.R.L.V">
-        <select formControlName="crlv" class="form-control">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
+            <app-input label="C.R.L.V">
+              <select formControlName="crlv" class="form-control">
+                <option value="true">SIM</option>
+                <option value="false">NÃO</option>
+              </select>
+            </app-input>
 
-      <app-input label="IPVA">
-        <select formControlName="ipva" class="form-control">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
+            <app-input label="IPVA">
+              <select formControlName="ipva" class="form-control">
+                <option value="true">SIM</option>
+                <option value="false">NÃO</option>
+              </select>
+            </app-input>
 
-      <app-input label="DPVAT">
-        <select formControlName="dpvat" class="form-control">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
+            <app-input label="DPVAT">
+              <select formControlName="dpvat" class="form-control">
+                <option value="true">SIM</option>
+                <option value="false">NÃO</option>
+              </select>
+            </app-input>
 
-      <app-input label="Certificado de Pontuação do CNH">
-        <select formControlName="certificado_pontuacao_cnh" class="form-control">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
+            <app-input label="Certificado de Pontuação do CNH">
+              <select formControlName="certificado_pontuacao_cnh" class="form-control">
+                <option value="true">SIM</option>
+                <option value="false">NÃO</option>
+              </select>
+            </app-input>
 
-      <app-input label="Relação dos Alunos Transportados">
-        <select formControlName="relacao_dos_alunos_transportados" class="form-control">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
+            <app-input label="Relação dos Alunos Transportados">
+              <select formControlName="relacao_dos_alunos_transportados" class="form-control">
+                <option value="true">SIM</option>
+                <option value="false">NÃO</option>
+              </select>
+            </app-input>
 
-      <app-input label="Laudo de Vistoria Comprovada">
-        <select formControlName="laudo_vistoria_com_aprovacao_da_sa_trans" class="form-control">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
+            <app-input label="Laudo de Vistoria Comprovada">
+              <select formControlName="laudo_vistoria_com_aprovacao_da_sa_trans" class="form-control">
+                <option value="true">SIM</option>
+                <option value="false">NÃO</option>
+              </select>
+            </app-input>
 
-      <app-input label="Ciretran Vistoria">
-        <select formControlName="ciretran_vistoria" class="form-control">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
+            <app-input label="Ciretran Vistoria">
+              <select formControlName="ciretran_vistoria" class="form-control">
+                <option value="true">SIM</option>
+                <option value="false">NÃO</option>
+              </select>
+            </app-input>
 
-      <app-input label="Ciretran Autorização">
-        <select formControlName="ciretran_autorizacao" class="form-control">
-          <option value="true">SIM</option>
-          <option value="false">NÃO</option>
-        </select>
-      </app-input>
+            <app-input label="Ciretran Autorização">
+              <select formControlName="ciretran_autorizacao" class="form-control">
+                <option value="true">SIM</option>
+                <option value="false">NÃO</option>
+              </select>
+            </app-input>
 
+          </div>
+
+        </div>
+        <div class="col-3">
+          <div class="subitem borda-subitem">
+            <h3>Alvará</h3>
+            <div class="clearfix">
+              <div class="input-component">
+                <label>Emissão</label>
+                <input type="text" class="form-control" [value]="alvaraAtual?.data_emissao" disabled>
+              </div>
+
+              <div class="input-component">
+                <label>Retorno</label>
+                <input type="text" class="form-control" [value]="alvaraAtual?.data_retorno" disabled>
+              </div>
+
+              <div class="input-component">
+                <label>Vencimento</label>
+                <input type="text" class="form-control" [value]="alvaraAtual?.data_vencimento" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="subitem">
