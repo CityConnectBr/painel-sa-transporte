@@ -13,13 +13,15 @@
               <th>Placa</th>
               <th>Marca/Modelo</th>
               <th>Cor</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let obj of dataSearchVeiculo.data">
               <td>{{obj?.placa}}</td>
-              <td>{{obj?.marca_modelo_veiculo.descricao}}</td>,
+              <td>{{obj?.marca_modelo_veiculo.descricao}}</td>
               <td>{{obj?.cor.descricao}}</td>
+              <td>{{obj.ativo?'Ativo':'Inativo'}}</td>
               <td class="text-right">
                 <a *ngIf="!veiculoId" href="javascript: void(0);" (click)="selecionarVeiculo(obj.id);"
                   title="Selecionar"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>

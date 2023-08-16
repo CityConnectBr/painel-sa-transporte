@@ -23,7 +23,8 @@
           <div class="form-inline">
 
             <app-input label="Referencia" [inline]="true" [require]="true">
-              <input type="text" class="form-control" formControlName="referencia" mask="00/0000" placeholder="mm/aaaa" [dropSpecialCharacters]="false" autocomplete="off">
+              <input type="text" class="form-control" formControlName="referencia" mask="00/0000" placeholder="mm/aaaa"
+                [dropSpecialCharacters]="false" autocomplete="off">
             </app-input>
 
           </div>
@@ -42,6 +43,7 @@
             <tr>
               <th>Placa</th>
               <th>Renavam</th>
+              <th>Status</th>
               <th></th>
             </tr>
           </thead>
@@ -49,6 +51,7 @@
             <tr *ngFor="let obj of dataSearch?.data">
               <td>{{obj?.placa}}</td>
               <td>{{obj?.cod_renavam}}</td>
+              <td>{{obj?.ativo==1?'Ativo':'Inativo'}}</td>
               <td class="text-right">
               </td>
             </tr>

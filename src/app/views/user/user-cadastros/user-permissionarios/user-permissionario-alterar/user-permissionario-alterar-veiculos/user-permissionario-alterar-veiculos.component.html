@@ -12,6 +12,7 @@
           <th>Placa</th>
           <th>Ano Fab</th>
           <th>Cor</th>
+          <th>Status</th>
           <th></th>
         </tr>
       </thead>
@@ -23,6 +24,7 @@
           <td>{{obj.placa}}</td>
           <td>{{obj.ano_fabricacao}}</td>
           <td>{{obj.cor_id}}</td>
+          <td>{{obj.ativo?'Ativo':'Inativo'}}</td>
           <td><a href="javascript: void(0)" (click)="showVeiculo(veiculoModal, obj)"><i class="fa fa-eye"></i></a></td>
         </tr>
       </tbody>

@@ -249,6 +249,7 @@
               <tr>
                 <th>Placa</th>
                 <th>Renavan</th>
+                <th>Status</th>
                 <th></th>
               </tr>
             </thead>
@@ -256,6 +257,7 @@
               <tr *ngFor="let obj of veiculoPesquisado.data">
                 <td>{{obj?.placa?obj?.placa:"--"}}</td>
                 <td>{{obj?.cod_renavam}}</td>
+                <td>{{obj.ativo?'Ativo':'Inativo'}}</td>
                 <td class="text-right">
                   <a href="javascript: void(0);" (click)="selecionarVeiculo(obj.id);" title="Selecionar"><i
                       class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>

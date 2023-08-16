@@ -110,7 +110,7 @@
   <ng-template #pesquisaVeiculo let-modal>
     <app-modal modalID="pesquisaVeiculo" title="Pesquisar Veículo" (closeModalEmit)="closeModal($event)">
       <div class="crud">
-        <app-search (searchEmitter)="searchVeiculo($event)"></app-search>
+        <app-search (searchEmitter)="searchVeiculo($event)" [withAtivo]="true"></app-search>
 
         <h3 class="titulo">
           Veículos
@@ -122,6 +122,7 @@
               <tr>
                 <th>Placa</th>
                 <th>Renavan</th>
+                <th>Status</th>
                 <th></th>
               </tr>
             </thead>
@@ -129,6 +130,7 @@
               <tr *ngFor="let obj of veiculosPesquisados.data">
                 <td>{{obj?.placa}}</td>
                 <td>{{obj?.cod_renavam}}</td>
+                <td>{{obj.ativo?'Ativo':'Inativo'}}</td>
                 <td class="text-right">
                   <a href="javascript: void(0);" (click)="selecionarVeiculo(obj.id);" title="Selecionar"><i
                       class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
