@@ -13,12 +13,14 @@
       <thead>
         <tr>
           <th>Descrição</th>
+          <th>Código</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let obj of dataSearch.data">
           <td>{{obj?.descricao}}</td>
+          <td>{{obj?.codigo}}</td>
           <td class="text-right">
             <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
                 aria-hidden="true"></i></a>
