@@ -6,20 +6,20 @@ import { QuadroDeInfracoesService } from 'src/app/services/quadro-de-infracoes.s
 @Component({
   selector: 'app-user-quadro-de-infracoes',
   templateUrl: './user-quadro-de-infracoes.component.html',
-  styleUrls: ['./user-quadro-de-infracoes.component.css']
+  styleUrls: ['./user-quadro-de-infracoes.component.css'],
 })
 export class UserQuadroDeInfracoesComponent implements OnInit {
-
   loading: boolean = false;
 
-  searchText: string = "";
+  searchText: string = '';
+  modalidadeSearch: string = 't';
   dataSearch: SearchData;
 
   constructor(
     private quadroDeInfracoesService: QuadroDeInfracoesService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loadList(1);
@@ -28,24 +28,25 @@ export class UserQuadroDeInfracoesComponent implements OnInit {
   public async loadList(page: number) {
     this.loading = true;
     try {
-      this.dataSearch = await this.quadroDeInfracoesService.search(this.searchText, page).toPromise();
+      this.dataSearch = await this.quadroDeInfracoesService
+        .searchByModalidade(this.searchText, this.modalidadeSearch, page)
+        .toPromise();
     } catch (e) {
       this.dataSearch = null;
     }
     this.loading = false;
   }
 
-  public search(text: string = ''){
+  public search(text: string = '') {
     this.searchText = text;
     this.loadList(1);
   }
 
-  public changePos(page: number){
-    this.loadList(page && page>0?page:1);
+  public changePos(page: number) {
+    this.loadList(page && page > 0 ? page : 1);
   }
 
   alterar(id: number) {
-    this.router.navigate(['alterar/' + id], {relativeTo:this.route});
+    this.router.navigate(['alterar/' + id], { relativeTo: this.route });
   }
-
 }

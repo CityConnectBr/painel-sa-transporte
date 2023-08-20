@@ -1,6 +1,19 @@
 <div class="crud">
 
-  <app-search (searchEmitter)="search($event)"></app-search>
+  <div class="search-content input-group col-md-5 float-right">
+    <select [(ngModel)]="modalidadeSearch" class="select-ativo" (change)="search()">
+      <option value="t">Taxí</option>
+      <option value="e">Escolar</option>
+    </select>
+    <input [(ngModel)]="searchText" (keydown.enter)="search()" class="form-control py-2" type="search"
+      placeholder="Pesquisa" value="" id="example-search-input">
+    <span class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" (click)="search()">
+        <i class="fa fa-search"></i>
+      </button>
+    </span>
+  </div>
+
 
   <h3 class="titulo">
     <i class="fa fa-arrow-right"></i> Quadro de Infrações |
@@ -19,7 +32,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let obj of dataSearch.data">
-          <td>{{obj?.id}}</td>
+          <td>{{obj?.codigo}}</td>
           <td>{{obj?.descricao}}</td>
           <td class="text-right">
             <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
@@ -29,11 +42,8 @@
       </tbody>
     </table>
     <div *ngIf="dataSearch.data.length>0" class="float-right">
-      <app-pagination
-        [backEnabled]="dataSearch.prev_page_url!=null"
-        [nextEnabled]="dataSearch.next_page_url!=null"
-        [actualPage]="dataSearch.current_page"
-        (changePos)="changePos($event)">
+      <app-pagination [backEnabled]="dataSearch.prev_page_url!=null" [nextEnabled]="dataSearch.next_page_url!=null"
+        [actualPage]="dataSearch.current_page" (changePos)="changePos($event)">
       </app-pagination>
     </div>
 

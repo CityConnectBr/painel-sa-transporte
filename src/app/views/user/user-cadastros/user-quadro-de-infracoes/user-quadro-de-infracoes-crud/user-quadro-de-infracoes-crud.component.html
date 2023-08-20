@@ -21,11 +21,11 @@
           <h3>Dados</h3>
 
           <app-input label="Código" [inline]="true">
-            <input type="text" class="form-control" formControlName="id_integracao" autocomplete="off">
+            <input type="text" class="form-control" formControlName="codigo" autocomplete="off">
           </app-input>
 
           <app-input label="Descrição" [inline]="true" [require]="true">
-            <input type="text" class="form-control" formControlName="descricao" autocomplete="off">
+            <textarea class="form-control" formControlName="descricao" rows="3" cols="30"></textarea>
           </app-input>
 
           <app-input label="Natureza" [inline]="true" [require]="true">
@@ -35,13 +35,13 @@
           </app-input>
 
           <app-input label="Ação" [inline]="true" [require]="true">
-            <input type="text" class="form-control" formControlName="acao" autocomplete="off">
+            <textarea class="form-control" formControlName="acao" rows="3" cols="30"></textarea>
           </app-input>
 
           <app-input label="Modalidade">
-            <select class="form-control" formControlName="modalidade_transporte" require="true">
-              <option value="T">Taxí</option>
-              <option value="T">Escolar</option>
+            <select class="form-control" formControlName="modalidade" require="true">
+              <option value="t">Taxí</option>
+              <option value="e">Escolar</option>
             </select>
           </app-input>
 
