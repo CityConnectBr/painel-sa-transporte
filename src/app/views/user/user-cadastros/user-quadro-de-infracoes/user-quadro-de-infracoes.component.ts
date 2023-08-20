@@ -37,8 +37,9 @@ export class UserQuadroDeInfracoesComponent implements OnInit {
     this.loading = false;
   }
 
-  public search(text: string = '') {
-    this.searchText = text;
+  public search(search: any) {
+    this.searchText = search.text;
+    this.modalidadeSearch = search.modalidade;
     this.loadList(1);
   }
 

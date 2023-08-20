@@ -59,7 +59,7 @@
           <app-input label="Quadro de Infração" [require]="true">
             <input type="text" class="form-control" formControlName="quadro_infracao" autocomplete="off" [readOnly]="true">
             <button class="btn btn-search" type="button" title="Pesquisa Quadro"
-              (click)="searchQuadroDeInfracoes();openModal(pesquisaQuadro)">
+              (click)="searchQuadroDeInfracoes(null);openModal(pesquisaQuadro)">
               <i class="fa fa-search"></i>
             </button>
           </app-input>
@@ -187,7 +187,7 @@
   <ng-template #pesquisaQuadro let-modal>
     <app-modal modalID="pesquisaQuadro" title="Pesquisar Quadro de Infrações" (closeModalEmit)="closeModal($event)">
       <div class="crud">
-        <app-search (searchEmitter)="searchQuadroDeInfracoes($event)"></app-search>
+        <app-search-quadro-infracoes (searchEmitter)="searchQuadroDeInfracoes($event)"></app-search-quadro-infracoes>
 
         <h3 class="titulo">
           Quadro de Infrações

@@ -20,6 +20,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchPermissionarioComponent } from './search-permissionario/search-permissionario.component';
 import { PermissionarioTableComponent } from './permissionario-table/permissionario-table.component';
+import { SearchQuadroInfracoesComponent } from './search-quadro-infracoes/search-quadro-infracoes.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { PermissionarioTableComponent } from './permissionario-table/permissiona
     PaginationComponent,
     PrintPageComponent,
     SearchPermissionarioComponent,
-    PermissionarioTableComponent
+    PermissionarioTableComponent,
+    SearchQuadroInfracoesComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +58,8 @@ import { PermissionarioTableComponent } from './permissionario-table/permissiona
     QRCodeModule,
     NgbCollapseModule,
     SearchPermissionarioComponent,
-    PermissionarioTableComponent
+    PermissionarioTableComponent,
+    SearchQuadroInfracoesComponent
   ],
 })
 export class SharedModule {
