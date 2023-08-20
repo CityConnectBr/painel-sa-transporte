@@ -1,0 +1,13 @@
+<div class="search-content input-group col-md-5 float-right">
+  <select [(ngModel)]="modalidade" class="select-ativo" (change)="search()">
+    <option value="t">Taxí</option>
+    <option value="e">Escolar</option>
+  </select>
+  <input [(ngModel)]="textInput" (keydown.enter)="search()" class="form-control py-2" type="search"
+    placeholder="Pesquisa" value="" id="example-search-input">
+  <span class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button" (click)="search()">
+      <i class="fa fa-search"></i>
+    </button>
+  </span>
+</div>

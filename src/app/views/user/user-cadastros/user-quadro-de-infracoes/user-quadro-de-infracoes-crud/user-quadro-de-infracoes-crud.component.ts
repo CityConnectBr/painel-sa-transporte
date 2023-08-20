@@ -47,8 +47,8 @@ export class UserQuadroDeInfracoesCrudComponent implements OnInit {
 
       ///////FORM
       this.form = this.formBuilder.group({
-        id_integracao: new FormControl('', {
-          validators: [Validators.maxLength(20)],
+        codigo: new FormControl('', {
+          validators: [Validators.maxLength(10)],
         }),
         descricao: new FormControl('', {
           validators: [Validators.required, Validators.minLength(2), Validators.maxLength(500)],
@@ -59,7 +59,7 @@ export class UserQuadroDeInfracoesCrudComponent implements OnInit {
         reincidencia: new FormControl('', {
           validators: [Validators.minLength(2), Validators.maxLength(60)],
         }),
-        modalidade_transporte: new FormControl('',),
+        modalidade: new FormControl('',),
         qtd_reincidencia: new FormControl('', {
           validators: [Validators.pattern(SharedModule.numberPatern), Validators.maxLength(15)],
         }),
@@ -75,11 +75,11 @@ export class UserQuadroDeInfracoesCrudComponent implements OnInit {
       if (idSelected) {
         this.crudObj = await this.quadroDeInfracoesService.get(parseInt(idSelected)).toPromise();
 
-        this.form.controls['id_integracao'].setValue(this.crudObj.id_integracao);
+        this.form.controls['codigo'].setValue(this.crudObj.codigo);
         this.form.controls['descricao'].setValue(this.crudObj.descricao);
         this.form.controls['acao'].setValue(this.crudObj.acao);
-        this.form.controls['reincidencia'].setValue(this.crudObj.descricao);
-        this.form.controls['modalidade_transporte'].setValue(this.crudObj.modalidade_transporte);
+        this.form.controls['reincidencia'].setValue(this.crudObj.reincidencia);
+        this.form.controls['modalidade'].setValue(this.crudObj.modalidade);
         this.form.controls['qtd_reincidencia'].setValue(this.crudObj.qtd_reincidencia);
         this.form.controls['unidade_reincidencia'].setValue(this.crudObj.unidade_reincidencia);
         this.form.controls['natureza_infracao_id'].setValue(this.crudObj.natureza_infracao_id);

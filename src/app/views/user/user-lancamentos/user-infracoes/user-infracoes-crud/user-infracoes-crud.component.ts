@@ -61,6 +61,7 @@ export class UserInfracoesCrudComponent implements OnInit {
   @ViewChild('permissionarioInput') permissionarioInputElement: ElementRef;
 
   searchText: string = '';
+  searchModalidade: string = 't';
   searchVeiculoText: string = '';
   quadroDeInfracoesPesquisado: SearchData;
   veiculoPesquisado: SearchData;
@@ -511,14 +512,18 @@ export class UserInfracoesCrudComponent implements OnInit {
     this.loading = false;
   }
 
-  async searchQuadroDeInfracoes(text: string = '', page: number = 1) {
+  async searchQuadroDeInfracoes(search: any, page: number = 1) {
     this.loading = true;
     try {
-      page = this.searchText !== text ? 1 : page;
-      this.searchText = text;
+      page = this.searchText !== search ? 1 : page;
+
+      if (search) {
+        this.searchText = search.text;
+        this.searchModalidade = search.modalidade;
+      }
 
       this.quadroDeInfracoesPesquisado = await this.quadroDeInfracoesService
-        .search(this.searchText, page)
+        .searchByModalidade(this.searchText, this.searchModalidade, page)
         .toPromise();
     } catch (e) {
       this.quadroDeInfracoesPesquisado = null;
@@ -563,7 +568,10 @@ export class UserInfracoesCrudComponent implements OnInit {
   }
 
   public changePosQuadroPaginate(page: number) {
-    this.searchQuadroDeInfracoes(this.searchText, page);
+    this.searchQuadroDeInfracoes(
+      { text: this.searchText, modalidade: this.searchModalidade },
+      page
+    );
   }
 
   public changePosVeiculoPaginate(page: number) {

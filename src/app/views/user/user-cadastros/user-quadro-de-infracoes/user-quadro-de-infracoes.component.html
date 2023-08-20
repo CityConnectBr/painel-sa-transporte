@@ -1,6 +1,6 @@
 <div class="crud">
 
-  <app-search (searchEmitter)="search($event)"></app-search>
+  <app-search-quadro-infracoes (searchEmitter)="search($event)"></app-search-quadro-infracoes>
 
   <h3 class="titulo">
     <i class="fa fa-arrow-right"></i> Quadro de Infrações |
@@ -12,12 +12,14 @@
     <table *ngIf="dataSearch.data.length>0" class="table table-striped">
       <thead>
         <tr>
+          <th>Código</th>
           <th>Descrição</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let obj of dataSearch.data">
+          <td>{{obj?.codigo}}</td>
           <td>{{obj?.descricao}}</td>
           <td class="text-right">
             <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
@@ -27,11 +29,8 @@
       </tbody>
     </table>
     <div *ngIf="dataSearch.data.length>0" class="float-right">
-      <app-pagination
-        [backEnabled]="dataSearch.prev_page_url!=null"
-        [nextEnabled]="dataSearch.next_page_url!=null"
-        [actualPage]="dataSearch.current_page"
-        (changePos)="changePos($event)">
+      <app-pagination [backEnabled]="dataSearch.prev_page_url!=null" [nextEnabled]="dataSearch.next_page_url!=null"
+        [actualPage]="dataSearch.current_page" (changePos)="changePos($event)">
       </app-pagination>
     </div>
 
