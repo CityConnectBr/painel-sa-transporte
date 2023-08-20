@@ -12,12 +12,14 @@
     <table *ngIf="dataSearch.data.length>0" class="table table-striped">
       <thead>
         <tr>
+          <th>Código</th>
           <th>Descrição</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let obj of dataSearch.data">
+          <td>{{obj?.id}}</td>
           <td>{{obj?.descricao}}</td>
           <td class="text-right">
             <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
