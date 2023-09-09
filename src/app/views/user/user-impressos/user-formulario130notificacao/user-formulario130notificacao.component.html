@@ -9,8 +9,7 @@
         <form *ngIf="!loading" [formGroup]="form" autocomplete="off">
           <div class="form-inline">
             <app-input label="Prazo">
-              <input type="text" class="form-control" formControlName="prazo" mask="00/00/0000"
-                [dropSpecialCharacters]="false" autocomplete="off">
+              <input type="text" class="form-control" formControlName="prazo" autocomplete="off">
             </app-input>
 
             <app-input label="Notificado">
