@@ -4,7 +4,7 @@
     <option value="0">INATIVO</option>
   </select>
   <select *ngIf="modalidades" [(ngModel)]="modalidade" class="select-ativo" (change)="search()">
-    <option value="">Todos</option>
+    <option value="" *ngIf="!selecionarSomenteModalidadeExceto">Todos</option>
     <option *ngFor="let obj of modalidades" [value]="obj.id">{{obj.descricao}}</option>
   </select>
   <input [(ngModel)]="textInput" (keydown.enter)="search()" class="form-control py-2" type="search"

@@ -18,6 +18,7 @@ export class SearchPermissionarioComponent implements OnInit {
   @Output() searchEmitter = new EventEmitter();
   @Input() withAtivo: boolean = false;
   @Input() placeholder = 'Pesquise aqui';
+  @Input() selecionarSomenteModalidadeExceto: string = '';
 
   textInput: string = '';
   ativo: number = 1;
@@ -48,7 +49,19 @@ export class SearchPermissionarioComponent implements OnInit {
     const service = this.injector.get(ModalidadeServiceWithoutCrud);
 
     service.index().subscribe((data) => {
+      if (this.selecionarSomenteModalidadeExceto) {
+        data = data.filter(
+          (m) => m.id != this.selecionarSomenteModalidadeExceto
+        );
+      }
+
       this.modalidades = data;
+
+      if (this.selecionarSomenteModalidadeExceto) {
+        this.modalidade = this.modalidades[0].id;
+        this.search();
+      }
+
     });
   }
 }
