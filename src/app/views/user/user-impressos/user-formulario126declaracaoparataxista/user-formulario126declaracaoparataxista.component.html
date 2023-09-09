@@ -2,7 +2,7 @@
 
   <app-permissionario-table title="Declaração para Taxista"
     (selecionarEvent)="selecionarPermissionarioByEvent($event)"
-    selecionarSomenteModalidade="3"
+    selecionarSomenteModalidade="3" [naoPermitirSelecionarInativos]="true"
     ></app-permissionario-table>
 
 </div>
