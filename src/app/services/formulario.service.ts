@@ -122,7 +122,11 @@ export class FormularioService extends BasicCrudService {
     empresa2Id: number | string = null
   ): Observable<Blob> {
     return this.httpClient.get(
-      `${this.url}/solicitacaoadesivacao?veiculo=${vericuloId}&data_limite=${dataLimite}&empresa1=${empresa1Id}${empresa2Id ? '&empresa2=' + empresa2Id : ''}`,
+      `${
+        this.url
+      }/solicitacaoadesivacao?veiculo=${vericuloId}&data_limite=${dataLimite}&empresa1=${empresa1Id}${
+        empresa2Id ? '&empresa2=' + empresa2Id : ''
+      }`,
       { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
     );
   }
@@ -130,6 +134,24 @@ export class FormularioService extends BasicCrudService {
   getFormulario120(veiculoId: number | String): Observable<Blob> {
     return this.httpClient.get(
       `${this.url}/solicitacaoafericaotaximetro?veiculo=${veiculoId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
+  }
+
+  getFormulario120Manual(permissionarioId, data: any): Observable<Blob> {
+    let query = `permissionario=${permissionarioId}`;
+    if (data) {
+      const { placa, marca_modelo, cor, ano, taximetro } = data;
+
+      if (placa) query += `&placa=${placa}`;
+      if (marca_modelo) query += `&marca_modelo=${marca_modelo}`;
+      if (cor) query += `&cor=${cor}`;
+      if (ano) query += `&ano=${ano}`;
+      if (taximetro) query += `&taximetro=${taximetro}`;
+    }
+
+    return this.httpClient.get(
+      `${this.url}/solicitacaoafericaotaximetro?${query}`,
       { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
     );
   }
@@ -186,14 +208,21 @@ export class FormularioService extends BasicCrudService {
     );
   }
 
-  getFormulario130(permissionarioId: number | String, prazo: string, notificado: string): Observable<Blob> {
+  getFormulario130(
+    permissionarioId: number | String,
+    prazo: string,
+    notificado: string
+  ): Observable<Blob> {
     return this.httpClient.get(
       `${this.url}/notificacao?permissionario=${permissionarioId}&prazo=${prazo}&notificado=${notificado}`,
       { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
     );
   }
 
-  getFormulario131(veiculo1Id: number | String, veiculo2Id: number | String): Observable<Blob> {
+  getFormulario131(
+    veiculo1Id: number | String,
+    veiculo2Id: number | String
+  ): Observable<Blob> {
     return this.httpClient.get(
       `${this.url}/substituicaodeveiculo?veiculo1=${veiculo1Id}&veiculo2=${veiculo2Id}`,
       { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
@@ -215,10 +244,10 @@ export class FormularioService extends BasicCrudService {
   }
 
   getFormulario134(infracao: number | String): Observable<Blob> {
-    return this.httpClient.get(
-      `${this.url}/aip?infracao=${infracao}`,
-      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
-    );
+    return this.httpClient.get(`${this.url}/aip?infracao=${infracao}`, {
+      headers: super.getHeaderWithAuthorization,
+      responseType: 'blob',
+    });
   }
 
   getFormulario135(veiculoId: number | String): Observable<Blob> {
@@ -227,5 +256,4 @@ export class FormularioService extends BasicCrudService {
       { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
     );
   }
-
 }

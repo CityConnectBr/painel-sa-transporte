@@ -204,6 +204,10 @@ export class UserCertidoesCrudComponent implements OnInit {
           this.crudObj.tipo_combustivel_id
         );
         this.form.controls['cor_id'].setValue(this.crudObj.cor_id);
+        this.form.controls['tipo_de_certidao_id'].setValue(
+          this.crudObj.tipo_de_certidao_id
+        );
+        this.form.controls['ponto_id'].setValue(this.crudObj.ponto_id);
       }
     } catch (e: any) {
       this.errorMessage = 'Ocorreu um erro ao montar a página';

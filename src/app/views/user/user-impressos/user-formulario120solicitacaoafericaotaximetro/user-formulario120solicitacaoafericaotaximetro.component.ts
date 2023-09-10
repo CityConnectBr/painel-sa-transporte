@@ -6,13 +6,17 @@ import { SharedModule } from 'src/app/shared/shared-module';
 import { ToastrService } from 'ngx-toastr';
 import { VeiculoService } from 'src/app/services/veiculo.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-user-formulario120solicitacaoafericaotaximetro',
-  templateUrl: './user-formulario120solicitacaoafericaotaximetro.component.html',
-  styleUrls: ['./user-formulario120solicitacaoafericaotaximetro.component.css']
+  templateUrl:
+    './user-formulario120solicitacaoafericaotaximetro.component.html',
+  styleUrls: ['./user-formulario120solicitacaoafericaotaximetro.component.css'],
 })
-export class UserFormulario120solicitacaoafericaotaximetroComponent implements OnInit {
+export class UserFormulario120solicitacaoafericaotaximetroComponent
+  implements OnInit
+{
   loading: boolean = false;
 
   @ViewChild('visualizarVeiculos') modalVisualizarVeiculos: any;
@@ -21,18 +25,32 @@ export class UserFormulario120solicitacaoafericaotaximetroComponent implements O
   dataSearch: SearchData;
   dataSearchVeiculo: SearchData;
 
+  formDadosManual: FormGroup;
+
+  permissionarioSelecionadoId: string;
+  preencherManualmente: boolean = false;
+
   constructor(
     private permissionarioService: PermissionarioService,
     private veiculoService: VeiculoService,
     private formularioService: FormularioService,
+    private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private modal: NgbModal
   ) {}
 
   ngOnInit(): void {
+    this.formDadosManual = this.formBuilder.group({
+      placa: [''],
+      marca_modelo: [''],
+      cor: [''],
+      ano: [''],
+      taximetro: [''],
+    });
   }
 
   async selecionarPermissionarioByEvent(event: any) {
+    this.permissionarioSelecionadoId = event;
     this.selecionar(this.modalVisualizarVeiculos, event);
   }
 
@@ -48,11 +66,7 @@ export class UserFormulario120solicitacaoafericaotaximetroComponent implements O
         return;
       }
 
-      if (this.dataSearchVeiculo.data.length == 1) {
-        this.selecionarVeiculo(this.dataSearchVeiculo.data[0].id);
-      } else {
-        this.openModal(modal);
-      }
+      this.openModal(modal);
     } catch (e) {
       this.toastr.error(SharedModule.handleError(e));
     } finally {
@@ -72,6 +86,27 @@ export class UserFormulario120solicitacaoafericaotaximetroComponent implements O
       this.toastr.error(SharedModule.handleError(e));
     }
     this.loading = false;
+  }
+
+  async enviarComFormularioManual() {
+    this.loading = true;
+    try {
+      const formulario = await this.formularioService
+        .getFormulario120Manual(
+          this.permissionarioSelecionadoId,
+          this.formDadosManual.value
+        )
+        .toPromise();
+      const url = window.URL.createObjectURL(formulario);
+      window.open(url);
+    } catch (e) {
+      this.toastr.error(SharedModule.handleError(e));
+    }
+    this.loading = false;
+  }
+
+  setPreencherManualmente() {
+    this.preencherManualmente = true;
   }
 
   closeModal(event: any) {

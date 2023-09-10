@@ -23,6 +23,8 @@
           <td>{{obj?.placa}}</td>
           <td>{{obj?.renavam}}</td>
           <td class="text-right">
+            <a *ngIf="isMoreThan2Years(obj?.data)" href="javascript: void(0);" (click)="imprimir(obj.id);" title="Imprimir" class="m-2"><i class="fa fa-print"
+              aria-hidden="true"></i></a>
             <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
                 aria-hidden="true"></i></a>
           </td>

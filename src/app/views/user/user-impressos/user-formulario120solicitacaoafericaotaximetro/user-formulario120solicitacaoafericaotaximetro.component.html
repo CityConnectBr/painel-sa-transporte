@@ -5,7 +5,7 @@
 
   <ng-template #visualizarVeiculos let-modal>
     <app-modal modalID="visualizarVeiculos" title="Veículos" (closeModalEmit)="closeModal($event)">
-      <div class="clearfix">
+      <div class="clearfix" *ngIf="!preencherManualmente">
         <h6>Veículos</h6>
         <table *ngIf="dataSearchVeiculo.data.length>0" class="table table-striped">
           <thead>
@@ -23,13 +23,43 @@
               <td>{{obj?.cor.descricao}}</td>
               <td>{{obj.ativo?'Ativo':'Inativo'}}</td>
               <td class="text-right">
-                <a href="javascript: void(0);" (click)="selecionarVeiculo(obj.id);" title="Selecionar"><i
-                    class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                <a href="javascript: void(0);" *ngIf="obj.ativo" (click)="selecionarVeiculo(obj.id);"
+                  title="Selecionar"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
               </td>
             </tr>
           </tbody>
         </table>
         <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right">Cancelar</button>
+        <button (click)="setPreencherManualmente()" class="btn btn-secondary btn-sm pull-right mr-2">Preencher
+          Manualmente</button>
+      </div>
+
+      <div class="p-2 m-2 crud" *ngIf="preencherManualmente">
+
+        <form [formGroup]="formDadosManual" autocomplete="off">
+          <app-input label="Placa" [inline]="true">
+            <input type="text" class="form-control" formControlName="placa" autocomplete="off">
+          </app-input>
+
+          <app-input label="Marca/Modelo" [inline]="true">
+            <input type="text" class="form-control" formControlName="marca_modelo" autocomplete="off">
+          </app-input>
+
+          <app-input label="Cor" [inline]="true">
+            <input type="text" class="form-control" formControlName="cor" autocomplete="off">
+          </app-input>
+
+          <app-input label="Ano" [inline]="true">
+            <input type="text" class="form-control" formControlName="ano" autocomplete="off">
+          </app-input>
+
+          <app-input label="Taximetro" [inline]="true">
+            <input type="text" class="form-control" formControlName="taximetro" autocomplete="off">
+          </app-input>
+
+          <button (click)="enviarComFormularioManual()" class="btn btn-primary btn-sm m-2">Enviar</button>
+        </form>
+        <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right m-3">Cancelar</button>
       </div>
     </app-modal>
   </ng-template>

@@ -1,4 +1,4 @@
-<app-search-permissionario *ngIf="!permissionarioId" (searchEmitter)="search($event)"
+<app-search-permissionario *ngIf="!permissionarioId" (searchEmitter)="search($event)" [selecionarSomenteModalidadeExceto]="selecionarSomenteModalidadeExceto"
 placeholder="Pesquisa por CPF/CNPJ, nome, código ou prefixo" [withAtivo]="true"></app-search-permissionario>
 
 <h3 class="titulo">

@@ -42,19 +42,25 @@ export class UserPerfilCrudComponent implements OnInit {
         nome: new FormControl('', {
           validators: [Validators.required, Validators.minLength(4), Validators.maxLength(60)],
         }),
-        incluir: new FormControl('0', {
+        cadastro_usuario: new FormControl(false, {
           validators: [Validators.required],
         }),
-        alterar: new FormControl('0', {
+        cadastro_perfil: new FormControl(false, {
           validators: [Validators.required],
         }),
-        excluir: new FormControl('0', {
+        cadastro_principais: new FormControl(false, {
           validators: [Validators.required],
         }),
-        consultar: new FormControl('0', {
+        cadastro_tabelas_base: new FormControl(false, {
           validators: [Validators.required],
         }),
-        imprimir: new FormControl('0', {
+        lancamentos: new FormControl(false, {
+          validators: [Validators.required],
+        }),
+        impressos: new FormControl(false, {
+          validators: [Validators.required],
+        }),
+        relatorios: new FormControl(false, {
           validators: [Validators.required],
         }),
       })
@@ -63,11 +69,13 @@ export class UserPerfilCrudComponent implements OnInit {
       if (idSelected) {
         this.crudObj = await this.perfilService.get(parseInt(idSelected)).toPromise();
         this.form.controls['nome'].setValue(this.crudObj.nome);
-        this.form.controls['incluir'].setValue(this.crudObj.incluir);
-        this.form.controls['alterar'].setValue(this.crudObj.alterar);
-        this.form.controls['excluir'].setValue(this.crudObj.excluir);
-        this.form.controls['consultar'].setValue(this.crudObj.consultar);
-        this.form.controls['imprimir'].setValue(this.crudObj.imprimir);
+        this.form.controls['cadastro_usuario'].setValue(this.crudObj.cadastro_usuario);
+        this.form.controls['cadastro_perfil'].setValue(this.crudObj.cadastro_perfil);
+        this.form.controls['cadastro_principais'].setValue(this.crudObj.cadastro_principais);
+        this.form.controls['cadastro_tabelas_base'].setValue(this.crudObj.cadastro_tabelas_base);
+        this.form.controls['lancamentos'].setValue(this.crudObj.lancamentos);
+        this.form.controls['impressos'].setValue(this.crudObj.impressos);
+        this.form.controls['relatorios'].setValue(this.crudObj.relatorios);
       }
 
     } catch (e: any) {

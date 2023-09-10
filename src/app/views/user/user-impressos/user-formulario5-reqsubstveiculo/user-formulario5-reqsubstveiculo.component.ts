@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/shared/shared-module';
 import { ToastrService } from 'ngx-toastr';
 import { VeiculoService } from 'src/app/services/veiculo.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-user-formulario5-reqsubstveiculo',
@@ -21,18 +22,30 @@ export class UserFormulario5ReqsubstveiculoComponent implements OnInit {
   dataSearch: SearchData;
   dataSearchVeiculo: SearchData;
 
+  formDadosManual: FormGroup;
+
+  permissionarioSelecionadoId: string;
+  preencherManualmente: boolean = false;
+
   constructor(
     private permissionarioService: PermissionarioService,
     private veiculoService: VeiculoService,
     private formularioService: FormularioService,
+    private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private modal: NgbModal
   ) {}
 
   ngOnInit(): void {
+    this.formDadosManual = this.formBuilder.group({
+      placa: [''],
+      marca_modelo: [''],
+      ano: [''],
+    });
   }
 
   async selecionarPermissionarioByEvent(event: any) {
+    this.permissionarioSelecionadoId = event;
     this.selecionar(this.modalVisualizarVeiculos, event);
   }
 
@@ -72,6 +85,27 @@ export class UserFormulario5ReqsubstveiculoComponent implements OnInit {
       this.toastr.error(SharedModule.handleError(e));
     }
     this.loading = false;
+  }
+
+  async enviarComFormularioManual() {
+    this.loading = true;
+    try {
+      const formulario = await this.formularioService
+        .getFormulario120Manual(
+          this.permissionarioSelecionadoId,
+          this.formDadosManual.value
+        )
+        .toPromise();
+      const url = window.URL.createObjectURL(formulario);
+      window.open(url);
+    } catch (e) {
+      this.toastr.error(SharedModule.handleError(e));
+    }
+    this.loading = false;
+  }
+
+  setPreencherManualmente() {
+    this.preencherManualmente = true;
   }
 
   closeModal(event: any) {
