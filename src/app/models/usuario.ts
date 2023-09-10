@@ -1,3 +1,5 @@
+import { Perfil } from "./perfil"
+
 export interface Usuario {
   id: string
   nome: string
@@ -6,4 +8,5 @@ export interface Usuario {
   password: string | null | undefined
   assinatura: boolean
   ativo: boolean
+  perfil: Perfil
 }
