@@ -9,6 +9,7 @@ import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-user-formulario7-declaracao-monitor',
   templateUrl: './user-formulario7-declaracao-monitor.component.html',
@@ -33,17 +34,34 @@ export class UserFormulario7DeclaracaoMonitorComponent implements OnInit {
 
   step = 1;
 
+  formDadosManual: FormGroup;
+
+  preencherManualmente: boolean = false;
+
   constructor(
     private permissionarioService: PermissionarioService,
     private formularioService: FormularioService,
     private solicitadaoService: SolicitacaoService,
     private monitorService: MonitorService,
+    private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private modal: NgbModal,
   ) { }
 
   ngOnInit(): void {
     this.loadList(1);
+
+    this.formDadosManual = this.formBuilder.group({
+      nomeMonitorInclusao: [''],
+      rgMonitorInclusao: [''],
+      cpfMonitorInclusao: [''],
+      enderecoMonitorInclusao: [''],
+      emailMonitorInclusao: [''],
+      telefoneMonitorInclusao: [''],
+      nomeMonitorExclusao: [''],
+      rgMonitorExclusao: [''],
+      cpfMonitorExclusao: [''],
+    });
   }
 
   public async loadList(page: number) {
@@ -147,6 +165,27 @@ export class UserFormulario7DeclaracaoMonitorComponent implements OnInit {
 
   getStatus(status: string): string {
     return SharedModule.getStatusSolicitacao(status);
+  }
+
+  async enviarComFormularioManual() {
+    this.loading = true;
+    try {
+      const formulario = await this.formularioService
+        .getFormulario7Manual(
+          this.permissionarioSelecionadoId,
+          this.formDadosManual.value
+        )
+        .toPromise();
+      const url = window.URL.createObjectURL(formulario);
+      window.open(url);
+    } catch (e) {
+      this.toastr.error(SharedModule.handleError(e));
+    }
+    this.loading = false;
+  }
+
+  setPreencherManualmente() {
+    this.preencherManualmente = true;
   }
 
   closeModal(event: any) {

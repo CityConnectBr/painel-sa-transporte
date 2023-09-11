@@ -39,122 +39,180 @@
   <ng-template #monitorSolicitacaoModal let-modal>
     <app-modal modalID="monitorSolicitacaoModal" title="Seleção de Monitor/Solicitação"
       (closeModalEmit)="closeModal($event)">
-      <div class="stepper-wrapper">
-        <div class="stepper-item" [class.completed]="step>1" [class.active]="step==1">
-          <div class="step-counter">1</div>
-          <div class="step-name">Monitor</div>
+      <div *ngIf="!preencherManualmente">
+
+        <div class="stepper-wrapper">
+          <div class="stepper-item" [class.completed]="step>1" [class.active]="step==1">
+            <div class="step-counter">1</div>
+            <div class="step-name">Monitor</div>
+          </div>
+          <div class="stepper-item" [class.completed]="step>2" [class.active]="step==2">
+            <div class="step-counter">2</div>
+            <div class="step-name">Solicitação</div>
+          </div>
+          <div class="stepper-item" [class.active]="step==3">
+            <div class="step-counter">3</div>
+            <div class="step-name">Formulário</div>
+          </div>
         </div>
-        <div class="stepper-item" [class.completed]="step>2" [class.active]="step==2">
-          <div class="step-counter">2</div>
-          <div class="step-name">Solicitação</div>
-        </div>
-        <div class="stepper-item" [class.active]="step==3">
-          <div class="step-counter">3</div>
-          <div class="step-name">Formulário</div>
-        </div>
-      </div>
 
-      <a *ngIf="step>1" (click)="backStep()" href="javascript:void(0)"><i class="fa fa-arrow-left"></i> Voltar</a>
+        <a *ngIf="step>1" (click)="backStep()" href="javascript:void(0)"><i class="fa fa-arrow-left"></i> Voltar</a>
 
-      <div class="crud" *ngIf="step==1">
-        <app-search (searchEmitter)="searchMonitor($event)"></app-search>
+        <div class="crud" *ngIf="step==1">
+          <app-search (searchEmitter)="searchMonitor($event)"></app-search>
 
-        <div class="clearfix w-100">
-          <br>
-          <app-loading *ngIf="subloading"></app-loading>
-          <div *ngIf="!subloading" class="clearfix">
-            <table *ngIf="dataSearchMonitor.data.length>0" class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let obj of dataSearchMonitor.data">
-                  <td>{{obj?.nome}}</td>
-                  <td class="text-right">
-                    <a href="javascript: void(0);" (click)="selecionarMonitor(obj.id);"
-                      title="Selecionar"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="clearfix w-100">
+            <br>
+            <app-loading *ngIf="subloading"></app-loading>
+            <div *ngIf="!subloading" class="clearfix">
+              <table *ngIf="dataSearchMonitor.data.length>0" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let obj of dataSearchMonitor.data">
+                    <td>{{obj?.nome}}</td>
+                    <td class="text-right">
+                      <a href="javascript: void(0);" (click)="selecionarMonitor(obj.id);" title="Selecionar"><i
+                          class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
-            <div *ngIf="!dataSearchMonitor || dataSearchMonitor?.data.length==0" class="alert alert-warning">
-              Nenhum registro encontrado para o permissionário selecionado!
+              <div *ngIf="!dataSearchMonitor || dataSearchMonitor?.data.length==0" class="alert alert-warning">
+                Nenhum registro encontrado para o permissionário selecionado!
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="crud" *ngIf="step==2">
-        <div class="clearfix w-100">
-          <br>
-          <app-loading *ngIf="subloading"></app-loading>
-          <div *ngIf="!subloading" class="clearfix">
-            <table *ngIf="dataSearchSolicitacao.length>0" class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Tipo</th>
-                  <th>Status</th>
-                  <th>Data</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let obj of dataSearchSolicitacao">
-                  <td></td>
-                  <td>monitor_cadastro</td>
-                  <td>{{obj?.created_at | date: 'dd/MM/yyyy HH:mm'}}</td>
-                  <td class="text-right">
-                    <a href="javascript: void(0);" (click)="selecionarSolicitacao(obj.id);"
-                    title="Selecionar"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div *ngIf="!dataSearchSolicitacao || dataSearchSolicitacao.length==0" class="alert alert-warning">
-              Nenhum registro encontrado para o permissionário selecionado!
+        <div class="crud" *ngIf="step==2">
+          <div class="clearfix w-100">
+            <br>
+            <app-loading *ngIf="subloading"></app-loading>
+            <div *ngIf="!subloading" class="clearfix">
+              <table *ngIf="dataSearchSolicitacao.length>0" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Tipo</th>
+                    <th>Status</th>
+                    <th>Data</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let obj of dataSearchSolicitacao">
+                    <td></td>
+                    <td>monitor_cadastro</td>
+                    <td>{{obj?.created_at | date: 'dd/MM/yyyy HH:mm'}}</td>
+                    <td class="text-right">
+                      <a href="javascript: void(0);" (click)="selecionarSolicitacao(obj.id);" title="Selecionar"><i
+                          class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div *ngIf="!dataSearchSolicitacao || dataSearchSolicitacao.length==0" class="alert alert-warning">
+                Nenhum registro encontrado para o permissionário selecionado!
+              </div>
+              <button type="submit" class="btn btn-success pull-right"
+                (click)="selecionarSolicitacao(null)">Pular</button>
             </div>
-            <button type="submit" class="btn btn-success pull-right" (click)="selecionarSolicitacao(null)">Pular</button>
           </div>
+        </div>
+
+        <div class="crud" *ngIf="step==3">
+
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Permissionário
+              <span class="badge badge-pill" [class.badge-success]="permissionarioSelecionadoId"
+                [class.badge-danger]="!permissionarioSelecionadoId">
+                <i *ngIf="permissionarioSelecionadoId" class="fa fa-check"></i>
+                <i *ngIf="!permissionarioSelecionadoId" class="fa fa-times-circle"></i>
+              </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Monitor
+              <span class="badge badge-pill" [class.badge-success]="monitorSelecionadoId"
+                [class.badge-danger]="!monitorSelecionadoId">
+                <i *ngIf="monitorSelecionadoId" class="fa fa-check"></i>
+                <i *ngIf="!monitorSelecionadoId" class="fa fa-times-circle"></i>
+              </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Solicitação
+              <span class="badge badge-success badge-pill" [class.badge-success]="solicitacaoSelecionadaId"
+                [class.badge-danger]="!solicitacaoSelecionadaId">
+                <i *ngIf="solicitacaoSelecionadaId" class="fa fa-check"></i>
+                <i *ngIf="!solicitacaoSelecionadaId" class="fa fa-times-circle"></i>
+              </span>
+            </li>
+          </ul>
+
+          <button type="submit" class="btn btn-success pull-right m-3" (click)="gerarFormulario()">Gerar
+            Formulário</button>
+        </div>
+
+        <div class="p-2 m-3">
+          <button (click)="setPreencherManualmente()" class="btn btn-secondary btn-sm pull-right mr-2">Preencher
+            Manualmente</button>
         </div>
       </div>
 
-      <div class="crud" *ngIf="step==3">
 
-        <ul class="list-group">
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Permissionário
-            <span class="badge badge-pill"
-              [class.badge-success]="permissionarioSelecionadoId"
-              [class.badge-danger]="!permissionarioSelecionadoId">
-              <i *ngIf="permissionarioSelecionadoId" class="fa fa-check"></i>
-              <i *ngIf="!permissionarioSelecionadoId" class="fa fa-times-circle"></i>
-            </span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Monitor
-            <span class="badge badge-pill"
-            [class.badge-success]="monitorSelecionadoId"
-            [class.badge-danger]="!monitorSelecionadoId">
-              <i *ngIf="monitorSelecionadoId" class="fa fa-check"></i>
-              <i *ngIf="!monitorSelecionadoId" class="fa fa-times-circle"></i>
-            </span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Solicitação
-            <span class="badge badge-success badge-pill"
-            [class.badge-success]="solicitacaoSelecionadaId"
-            [class.badge-danger]="!solicitacaoSelecionadaId">
-              <i *ngIf="solicitacaoSelecionadaId" class="fa fa-check"></i>
-              <i *ngIf="!solicitacaoSelecionadaId" class="fa fa-times-circle"></i>
-            </span>
-          </li>
-        </ul>
+      <div class="p-2 m-2 crud" *ngIf="preencherManualmente">
+        <form [formGroup]="formDadosManual" autocomplete="off">
 
-        <button type="submit" class="btn btn-success pull-right m-3" (click)="gerarFormulario()">Gerar Formulário</button>
+          <div class="simple-subitem">
+            <h3>Monitor para Inclusão</h3>
+            <app-input label="Nome" [inline]="true">
+              <input type="text" class="form-control" formControlName="nomeMonitorInclusao" autocomplete="off">
+            </app-input>
+
+            <app-input label="RG" [inline]="true">
+              <input type="text" class="form-control" formControlName="rgMonitorInclusao" autocomplete="off">
+            </app-input>
+
+            <app-input label="CPF" [inline]="true">
+              <input type="text" class="form-control" formControlName="cpfMonitorInclusao" autocomplete="off">
+            </app-input>
+
+            <app-input label="Endereço" [inline]="true">
+              <input type="text" class="form-control" formControlName="enderecoMonitorInclusao" autocomplete="off">
+            </app-input>
+
+            <app-input label="E-mail" [inline]="true">
+              <input type="text" class="form-control" formControlName="emailMonitorInclusao" autocomplete="off">
+            </app-input>
+
+            <app-input label="Telefone" [inline]="true">
+              <input type="text" class="form-control" formControlName="telefoneMonitorInclusao" autocomplete="off">
+            </app-input>
+          </div>
+
+          <div class="simple-subitem">
+            <h3>Monitor para Exclusão</h3>
+            <app-input label="Nome" [inline]="true">
+              <input type="text" class="form-control" formControlName="nomeMonitorExclusao" autocomplete="off">
+            </app-input>
+
+            <app-input label="RG" [inline]="true">
+              <input type="text" class="form-control" formControlName="rgMonitorExclusao" autocomplete="off">
+            </app-input>
+
+            <app-input label="CPF" [inline]="true">
+              <input type="text" class="form-control" formControlName="cpfMonitorExclusao" autocomplete="off">
+            </app-input>
+          </div>
+
+          <button (click)="enviarComFormularioManual()" class="btn btn-primary btn-sm m-2">Enviar</button>
+        </form>
+        <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right m-3">Cancelar</button>
       </div>
     </app-modal>
   </ng-template>
