@@ -103,8 +103,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let obj of alvarasAnteriores">
-            <td>{{obj?.data_emissao}}</td>
-            <td>{{obj?.data_retorno}}</td>
+            <td>{{obj?.data_emissao | date:'dd/MM/yyyy'}}</td>
+            <td>{{obj?.data_retorno | date:'dd/MM/yyyy'}}</td>
             <td>{{obj?.data_vencimento}}</td>
           </tr>
         </tbody>
