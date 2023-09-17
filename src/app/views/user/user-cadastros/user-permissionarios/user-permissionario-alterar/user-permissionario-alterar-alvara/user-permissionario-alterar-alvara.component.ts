@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -26,6 +26,8 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
   form: FormGroup;
   errorMessage: string;
 
+  @ViewChild('novoAlvaraModal') novoAlvaraModal: any;
+
   permissionario: Permissionario;
   empresa: Empresa;
 
@@ -36,6 +38,8 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
   alvaraAtual: AlvaraDoPermissionario;
 
   maskDate = SharedModule.textMaskDate;
+
+  solicitacaoId: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -62,11 +66,20 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
         .toPromise();
 
       await this.loadAlvara(this.permissionario);
+
+      await this.loadSolicitacao();
     } catch (e: any) {
       console.error(e);
       this.errorMessage = 'Ocorreu um erro ao montar a página';
     }
     this.loading = false;
+  }
+
+  private async loadSolicitacao() {
+    this.solicitacaoId = this.route.snapshot.queryParamMap.get('solicitacaoId');
+    if (this.solicitacaoId) {
+      this.modal.open(this.novoAlvaraModal);
+    }
   }
 
   private async loadAlvara(permissionario: Permissionario) {
@@ -156,6 +169,10 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
         formInput.permissionario_id = this.permissionario.id;
         formInput.tipo_pagamento = 'pix'; //somente pix por hora
         formInput.valor = SharedModule.correncyToNumber(formInput.valor);
+
+        if (this.solicitacaoId) {
+          formInput.solicitacao_id = this.solicitacaoId;
+        }
 
         await this.alvaraService.create(formInput).pipe(first()).toPromise();
       }

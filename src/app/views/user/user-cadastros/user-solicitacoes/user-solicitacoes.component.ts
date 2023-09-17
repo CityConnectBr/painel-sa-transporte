@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -13,13 +18,12 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-solicitacoes',
   templateUrl: './user-solicitacoes.component.html',
-  styleUrls: ['./user-solicitacoes.component.css']
+  styleUrls: ['./user-solicitacoes.component.css'],
 })
 export class UserSolicitacoesComponent implements OnInit {
-
   loading: boolean = false;
-  form: FormGroup
-  errorMessage: string
+  form: FormGroup;
+  errorMessage: string;
 
   dataSearch: SearchData;
 
@@ -34,7 +38,7 @@ export class UserSolicitacoesComponent implements OnInit {
 
   modals: NgbModalRef[] = [];
 
-  statusSelecionado: string = "";//somente abertos
+  statusSelecionado: string = ''; //somente abertos
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,7 +48,7 @@ export class UserSolicitacoesComponent implements OnInit {
     private modal: NgbModal,
     private sanitizer: DomSanitizer,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loadList(1);
@@ -53,15 +57,17 @@ export class UserSolicitacoesComponent implements OnInit {
   public async loadList(page: number) {
     this.loading = true;
     try {
-      this.dataSearch = await this.solicitacaoService.search(this.statusSelecionado, page).toPromise();
+      this.dataSearch = await this.solicitacaoService
+        .search(this.statusSelecionado, page)
+        .toPromise();
 
       ///////FORM
       this.form = this.formBuilder.group({
-        decisao: new FormControl("", {
+        decisao: new FormControl('', {
           validators: [Validators.required],
         }),
-        motivo: new FormControl(""),
-      })
+        motivo: new FormControl(''),
+      });
     } catch (e) {
       this.dataSearch = null;
     }
@@ -84,40 +90,61 @@ export class UserSolicitacoesComponent implements OnInit {
 
       this.isCadastro = this.solicitacao.referencia_id ? true : false;
 
-      if (this.solicitacao.tipo.nome.indexOf("foto") != -1) {
+      if (this.solicitacao.tipo.nome.indexOf('foto') != -1) {
         this.alteracaoDeFoto = true;
-        const blob = await this.arquivoService.getFile(this.solicitacao.arquivo1_uid).pipe(first()).toPromise();
-        this.novaFoto = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
+        const blob = await this.arquivoService
+          .getFile(this.solicitacao.arquivo1_uid)
+          .pipe(first())
+          .toPromise();
+        this.novaFoto = this.sanitizer.bypassSecurityTrustUrl(
+          URL.createObjectURL(blob)
+        );
       }
 
       this.openModal(modal);
-    } catch (e) {
-    }
+    } catch (e) {}
     this.loading = false;
   }
 
   async finalizar(formInput) {
     this.loading = true;
-    this.errorMessage = "";
+    this.errorMessage = '';
     try {
-      if ((formInput.decisao == 'R' || formInput.decisao == 'C') &&
-        (!formInput.motivo || formInput.motivo == '')) {
-        this.toastr.error("Nenhum motivo digitado!");
+      if (
+        (formInput.decisao == 'R' || formInput.decisao == 'C') &&
+        (!formInput.motivo || formInput.motivo == '')
+      ) {
+        this.toastr.error('Nenhum motivo digitado!');
         this.loading = false;
         return;
       }
 
-      if (this.isSolicitacaoValidacao() && formInput.decisao == 'A') {
-        this.router.navigate(["/user/lancamentos/infracoes/novo"], { queryParams: { solicitacaoId: this.solicitacao.id } });
+      if (formInput.decisao == 'A' && this.isSolicitacaoValidacao()) {
+        this.router.navigate(['/user/lancamentos/infracoes/novo'], {
+          queryParams: { solicitacaoId: this.solicitacao.id },
+        });
         this.closeModal(null);
         return;
       }
 
-      await this.solicitacaoService.finish(this.solicitacao.id,
-        {
+      if (formInput.decisao == 'A' && this.isRenovacaoAlvara()) {
+        const permissionario: any = this.getAlvoObj(this.solicitacao);
+        this.router.navigate(
+          [`/user/cadastros/permissionarios/alterar/${permissionario?.id}/alvara`],
+          {
+            queryParams: { solicitacaoId: this.solicitacao.id },
+          }
+        );
+        this.closeModal(null);
+        return;
+      }
+
+      await this.solicitacaoService
+        .finish(this.solicitacao.id, {
           status: formInput.decisao,
-          motivo_recusado: formInput.motivo
-        }).toPromise();
+          motivo_recusado: formInput.motivo,
+        })
+        .toPromise();
       this.toastr.success('Solicitação finalizada!');
       this.closeModal(null);
       await this.loadList(1);
@@ -129,8 +156,13 @@ export class UserSolicitacoesComponent implements OnInit {
 
   async visualizarComprovante(id: string, modal) {
     try {
-      const blob = await this.arquivoService.getFile(id).pipe(first()).toPromise();
-      this.imageFile = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
+      const blob = await this.arquivoService
+        .getFile(id)
+        .pipe(first())
+        .toPromise();
+      this.imageFile = this.sanitizer.bypassSecurityTrustUrl(
+        URL.createObjectURL(blob)
+      );
       this.openModal(modal);
     } catch (e: any) {
       console.error(e);
@@ -147,7 +179,7 @@ export class UserSolicitacoesComponent implements OnInit {
     } else if (solicitacao && solicitacao.fiscal) {
       return solicitacao.fiscal.nome;
     } else {
-      return "--"
+      return '--';
     }
   }
 
@@ -166,7 +198,7 @@ export class UserSolicitacoesComponent implements OnInit {
       else if (solicitacao.veiculo_referencia.cod_renavam)
         return `Renavan: ${solicitacao.veiculo_referencia.cod_renavam}`;
     } else {
-      return "--"
+      return '--';
     }
   }
 
@@ -180,7 +212,7 @@ export class UserSolicitacoesComponent implements OnInit {
     } else if (solicitacao && solicitacao.fiscal_referencia) {
       return solicitacao.fiscal_referencia;
     } else {
-      return "--"
+      return '--';
     }
   }
 
@@ -189,7 +221,8 @@ export class UserSolicitacoesComponent implements OnInit {
   }
 
   getCampos(solicitacao: SolicitacaoDeAlteracao) {
-    const campos: { nome: string, valorOriginal: string, novoValor: string }[] = [];
+    const campos: { nome: string; valorOriginal: string; novoValor: string }[] =
+      [];
 
     for (let i = 1; i < 26; i++) {
       const desc = solicitacao.tipo[`desc_campo${i}`];
@@ -216,16 +249,19 @@ export class UserSolicitacoesComponent implements OnInit {
       }
 
       if (campo) {
-        campos.push({ nome: desc, valorOriginal: valorDoCampo ?? "", novoValor: solicitacao[`campo${i}`] });
+        campos.push({
+          nome: desc,
+          valorOriginal: valorDoCampo ?? '',
+          novoValor: solicitacao[`campo${i}`],
+        });
       }
     }
-
 
     return campos;
   }
 
   getComprovantes(solicitacao: SolicitacaoDeAlteracao) {
-    const comprovantes: { nome: string, arquivo: string }[] = [];
+    const comprovantes: { nome: string; arquivo: string }[] = [];
 
     for (let i = 1; i < 5; i++) {
       const arquivo = solicitacao[`arquivo${i}_uid`];
@@ -240,7 +276,6 @@ export class UserSolicitacoesComponent implements OnInit {
   }
 
   formatValue(value: string): string {
-
     try {
       if (value) {
         if (SharedModule.dateFromAPIPattern.exec(value.toString())) {
@@ -251,7 +286,7 @@ export class UserSolicitacoesComponent implements OnInit {
           //TODO!
         }
       }
-    } catch (e) { }
+    } catch (e) {}
 
     return value;
   }
@@ -261,7 +296,16 @@ export class UserSolicitacoesComponent implements OnInit {
       if (this.solicitacao && this.solicitacao.tipo_solicitacao_id == '60') {
         return true;
       }
-    } catch (e: any) { }
+    } catch (e: any) {}
+    return false;
+  }
+
+  isRenovacaoAlvara(): boolean {
+    try {
+      if (this.solicitacao && this.solicitacao.tipo_solicitacao_id == '70') {
+        return true;
+      }
+    } catch (e: any) {}
     return false;
   }
 
@@ -277,5 +321,4 @@ export class UserSolicitacoesComponent implements OnInit {
   openModal(content: any) {
     this.modals.push(this.modal.open(content));
   }
-
 }

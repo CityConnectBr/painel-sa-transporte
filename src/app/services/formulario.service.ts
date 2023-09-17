@@ -64,6 +64,47 @@ export class FormularioService extends BasicCrudService {
     );
   }
 
+  getFormulario7Manual(permissionarioId, data: any): Observable<Blob> {
+    let query = `permissionario=${permissionarioId}`;
+    if (data) {
+      const {
+        nomeMonitorInclusao,
+        rgMonitorInclusao,
+        cpfMonitorInclusao,
+        enderecoMonitorInclusao,
+        emailMonitorInclusao,
+        telefoneMonitorInclusao,
+        nomeMonitorExclusao,
+        rgMonitorExclusao,
+        cpfMonitorExclusao,
+      } = data;
+
+      if (nomeMonitorInclusao)
+        query += `&nome_monitor_inclusao=${nomeMonitorInclusao}`;
+      if (rgMonitorInclusao)
+        query += `&rg_monitor_inclusao=${rgMonitorInclusao}`;
+      if (cpfMonitorInclusao)
+        query += `&cpf_monitor_inclusao=${cpfMonitorInclusao}`;
+      if (enderecoMonitorInclusao)
+        query += `&endereco_monitor_inclusao=${enderecoMonitorInclusao}`;
+      if (emailMonitorInclusao)
+        query += `&email_monitor_inclusao=${emailMonitorInclusao}`;
+      if (telefoneMonitorInclusao)
+        query += `&telefone_monitor_inclusao=${telefoneMonitorInclusao}`;
+      if (nomeMonitorExclusao)
+        query += `&nome_monitor_exclusao=${nomeMonitorExclusao}`;
+      if (rgMonitorExclusao)
+        query += `&rg_monitor_exclusao=${rgMonitorExclusao}`;
+      if (cpfMonitorExclusao)
+        query += `&cpf_monitor_exclusao=${cpfMonitorExclusao}`;
+    }
+
+    return this.httpClient.get(
+      `${this.url}/formulariodeclaracaomonitor?${query}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
+  }
+
   getFormulario8ByCondutor(
     permissionarioId: number | String,
     condutorId: number | String

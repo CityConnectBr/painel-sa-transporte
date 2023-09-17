@@ -328,7 +328,8 @@ aside a i {
 }
 
 .crud form .subitem h3,
-.crud .subitem h3 {
+.crud .subitem h3,
+.crud .simple-subitem h3 {
   color: var(--lightBlue);
   font-size: 1.2rem;
 }

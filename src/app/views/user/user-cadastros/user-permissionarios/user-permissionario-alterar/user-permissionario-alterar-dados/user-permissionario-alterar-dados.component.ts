@@ -188,7 +188,7 @@ export class UserPermissionarioAlterarDadosComponent
         email: new FormControl(this.permissionario.email ?? '', {
           validators: [
             Validators.pattern(SharedModule.emailPatern),
-            Validators.maxLength(15),
+            Validators.maxLength(200),
           ],
         }),
         naturalidade: new FormControl(this.permissionario.nacionalidade ?? '', {
