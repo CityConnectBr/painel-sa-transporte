@@ -8,4 +8,5 @@ export interface Perfil {
   lancamentos: boolean;
   impressos: boolean;
   relatorios: boolean;
+  mensagens: boolean;
 }
