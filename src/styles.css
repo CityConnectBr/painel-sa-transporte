@@ -74,6 +74,10 @@ a:hover {
   border-color: #0c2e5d;
 }
 
+.row{
+  margin: 0px !important;
+}
+
 /* ------------------------------- GENERAL -------------------------------------*/
 
 .rcorners1 {

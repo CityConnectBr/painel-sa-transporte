@@ -1,3 +1,5 @@
+import { Usuario } from "./usuario"
+
 export interface Condutor {
   id: string
   id_integracao: number
@@ -25,4 +27,5 @@ export interface Condutor {
   endereco_id: string
   permissionario_id: string
   foto_uid: string
+  usuario?: Usuario
 }

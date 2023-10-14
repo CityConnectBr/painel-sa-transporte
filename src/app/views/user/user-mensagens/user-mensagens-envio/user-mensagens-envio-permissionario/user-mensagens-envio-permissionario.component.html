@@ -1,0 +1,39 @@
+<div class="cleanfix m-2" style="height: 55px;">
+  <app-search-permissionario (searchEmitter)="search($event)" [col5]="false"
+    placeholder="Pesquisa por CPF/CNPJ, nome, código ou prefixo" [withAtivo]="true"></app-search-permissionario>
+</div>
+<app-loading *ngIf="loading"></app-loading>
+<div *ngIf="!loading" class="clearfix">
+  <table *ngIf="dataSearch && dataSearch.data.length>0" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Modalidade</th>
+        <th>Situação</th>
+        <th>
+          <input type="checkbox" name="permissionario" (change)="selecionarTodos();"  [(ngModel)]="selectAll" />
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let obj of dataSearch.data">
+        <td>{{obj?.nome_razao_social}}</td>
+        <td>{{obj?.modalidade?.descricao}}</td>
+        <td>{{obj?.ativo==1?'Ativo':'Inativo'}}</td>
+        <td class="text-right">
+          <input type="checkbox" name="permissionario" value="{{obj.id}}" (click)="selecionar(obj);"
+            [checked]="select(obj.id) ? 'checked' : ''" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="dataSearch && dataSearch.data.length>0" class="float-right">
+    <app-pagination [backEnabled]="dataSearch.prev_page_url!=null" [nextEnabled]="dataSearch.next_page_url!=null"
+      [actualPage]="dataSearch.current_page" (changePos)="changePos($event)">
+    </app-pagination>
+  </div>
+
+  <div *ngIf="!dataSearch || dataSearch.data.length==0" class="alert alert-warning">
+    Nenhum registro encontrado!
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<div class="search-content input-group col-md-5 float-right">
+<div class="search-content input-group float-right" [class.col-md-5]="col5">
   <select *ngIf="withAtivo" [(ngModel)]="ativo" class="select-ativo" (change)="search()">
     <option value="1">ATIVO</option>
     <option value="0">INATIVO</option>

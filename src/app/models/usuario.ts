@@ -9,4 +9,5 @@ export interface Usuario {
   assinatura: boolean
   ativo: boolean
   perfil: Perfil
+  token_fcm: string
 }

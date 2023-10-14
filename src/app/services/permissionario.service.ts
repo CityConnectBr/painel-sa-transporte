@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { first, map, retry } from 'rxjs/operators';
 import { Condutor } from '../models/condutores';
 import { Veiculo } from '../models/veiculo';
+import { Permissionario } from '../models/permissionario';
 
 @Injectable({
   providedIn: 'root',
@@ -64,22 +65,6 @@ export class PermissionarioService extends BasicCrudService {
     });
   }
 
-  searchPermissionario(
-    search: string,
-    page: number = 1,
-    ativo: number = 1,
-    modalidade: string = ''
-  ): Observable<SearchData> {
-    return this.httpClient
-      .get<SearchData>(
-        `${this.url}?search=${search ?? ''}&page=${
-          page ?? '1'
-        }&ativo=${ativo}&modalidade=${modalidade}`,
-        super.getHttpOptions
-      )
-      .pipe(first());
-  }
-
   indexVeiculos(permissionarioId: any): Observable<Veiculo[]> {
     return this.httpClient
       .get<any>(
@@ -102,5 +87,41 @@ export class PermissionarioService extends BasicCrudService {
         first(),
         map((result) => result['data'])
       );
+  }
+
+  searchPermissionario(
+    search: string,
+    page: number = 1,
+    ativo: number = 1,
+    modalidade: string = '',
+    usuario: boolean = false,
+    emailOrFCMValid: boolean = false
+  ): Observable<SearchData> {
+    return this.httpClient
+      .get<SearchData>(
+        `${this.url}?search=${search ?? ''}&page=${
+          page ?? '1'
+        }&ativo=${ativo}&modalidade=${modalidade}&usuario=${usuario}&email_push_validos=${emailOrFCMValid}`,
+        this.getHttpOptions
+      )
+      .pipe(first());
+  }
+
+  searchAllPermissionario(
+    search: string,
+    page: number = 1,
+    ativo: number = 1,
+    modalidade: string = '',
+    usuario: boolean = false,
+    emailOrFCMValid: boolean = false
+  ): Observable<Permissionario[]> {
+    return this.httpClient
+      .get<Permissionario[]>(
+        `${this.url}?search=${search ?? ''}&page=${
+          page ?? '1'
+        }&ativo=${ativo}&modalidade=${modalidade}&todos=true&usuario=${usuario}&email_push_validos=${emailOrFCMValid}`,
+        this.getHttpOptions
+      )
+      .pipe(first());
   }
 }

@@ -19,6 +19,7 @@ export class SearchPermissionarioComponent implements OnInit {
   @Input() withAtivo: boolean = false;
   @Input() placeholder = 'Pesquise aqui';
   @Input() selecionarSomenteModalidadeExceto: string = '';
+  @Input() col5 = true;
 
   textInput: string = '';
   ativo: number = 1;
