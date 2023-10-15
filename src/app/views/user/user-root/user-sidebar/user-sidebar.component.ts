@@ -601,7 +601,7 @@ export class UserSidebarComponent {
               id: 'sub-menu-mensagens-enviadas',
               title: '- Mensagens Enviadas',
               active: true,
-              routerLink: 'mensagens/mensagensenviadas',
+              routerLink: 'mensagens/enviadas',
             },
           ]
         },
