@@ -1,0 +1,40 @@
+<div class="crud">
+
+  <app-search (searchEmitter)="search($event)"></app-search>
+
+  <h3 class="titulo">
+    <i class="fa fa-arrow-right"></i> Mensagens Enviadas
+  </h3>
+
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading" class="clearfix">
+    <table *ngIf="dataSearch.data.length>0" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Assunto</th>
+          <th>Enviada em</th>
+          <th>E-mail</th>
+          <th>Push</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of dataSearch.data">
+          <td>{{obj?.assunto}}</td>
+          <td>{{obj?.created_at | date:'dd/MM/yyyy HH:mm'}}</td>
+          <td>{{obj?.email?'Sim':'Não'}}</td>
+          <td>{{obj?.push?'Sim':'Não'}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="dataSearch.data.length>0" class="float-right">
+      <app-pagination [backEnabled]="dataSearch.prev_page_url!=null" [nextEnabled]="dataSearch.next_page_url!=null"
+        [actualPage]="dataSearch.current_page" (changePos)="changePos($event)">
+      </app-pagination>
+    </div>
+
+    <div *ngIf="!dataSearch || dataSearch.data.length==0" class="alert alert-warning">
+      Nenhum registro encontrado!
+    </div>
+  </div>
+
+</div>

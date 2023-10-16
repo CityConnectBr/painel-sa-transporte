@@ -1,0 +1,122 @@
+<div class="row w-100">
+  <div class="col-8">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" (click)="setTab(0)"
+          [ngClass]="tabs[0] ? 'active' : 'no-active'">Permissionário</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" (click)="setTab(1)"
+          [ngClass]="tabs[1] ? 'active' : 'no-active'">Condutor</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" (click)="setTab(2)"
+          [ngClass]="tabs[2] ? 'active' : 'no-active'">Monitor</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="javascript: void(0)" (click)="setTab(3)"
+          [ngClass]="tabs[3] ? 'active' : 'no-active'">Fiscal</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane" [ngClass]="tabs[0] ? 'active' : 'no-active'">
+        <app-user-mensagens-envio-permissionario
+          [(selecionados)]="destinatarios"></app-user-mensagens-envio-permissionario>
+      </div>
+      <div class="tab-pane" [ngClass]="tabs[1] ? 'active' : 'no-active'">
+        <app-user-mensagens-envio-condutor [(selecionados)]="destinatarios"></app-user-mensagens-envio-condutor>
+      </div>
+      <div class="tab-pane" [ngClass]="tabs[2] ? 'active' : 'no-active'">
+        <app-user-mensagens-envio-monitor [(selecionados)]="destinatarios"></app-user-mensagens-envio-monitor>
+      </div>
+      <div class="tab-pane" [ngClass]="tabs[3] ? 'active' : 'no-active'">
+        <app-user-mensagens-envio-fiscal [(selecionados)]="destinatarios"></app-user-mensagens-envio-fiscal>
+      </div>
+    </div>
+  </div>
+  <div class="col-4 pt-5">
+
+    <h3 class="title-selected">
+      Selecionados
+    </h3>
+
+    <div *ngIf="!destinatarios || destinatarios.length==0" class="alert alert-warning">
+      Nenhum item selecionado!
+    </div>
+
+    <div class="m-2" *ngIf="destinatarios && destinatarios.length>0">
+      <button class="btn btn-success btn-sm pull-right m-2" (click)="enviarIni(enviarMensagemModal)">Enviar</button>
+      <button class="btn btn-secondary btn-sm pull-right m-2" (click)="limpar()">Limpar</button>
+    </div>
+
+    <div class="div-scroll">
+      <table *ngIf="destinatarios && destinatarios.length>0" class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of destinatarios, let i = index">
+            <td>{{obj?.nome}}</td>
+            <td class="text-uppercase" title="{{obj.tipo}}">{{obj?.tipo.substring(0,1)}}</td>
+            <td title="{{obj?.email?.length>0 ? 'E-mail cadastrado' : 'E-mail não cadastrado'}}">
+              <i class="fa fa-envelope-o" aria-hidden="true" [class.text-success]="obj.email"
+                [class.text-danger]="!obj.email"></i>
+            </td>
+            <td title="{{obj?.fmc_token?.length>0 ? 'App cadastrado' : 'App não cadastrado'}}">
+              <i class="fa fa-mobile" aria-hidden="true" [class.text-success]="obj.fmc_token"
+                [class.text-danger]="!obj.fmc_token"></i>
+            </td>
+            <td class="text-right">
+              <button class="btn btn-danger btn-sm" (click)="remover(i)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #enviarMensagemModal let-modal>
+  <app-modal modalID="enviarMensagemModal" title="Enviar Mensagem" (closeModalEmit)="closeModal()">
+    <div class="crud">
+      <form [formGroup]="formMensagem" autocomplete="off">
+        <app-input label="Assunto">
+          <input type="text" class="form-control" formControlName="assunto" autocomplete="off">
+        </app-input>
+
+        <app-input label="Com E-mail">
+          <select formControlName="email" class="form-control">
+            <option value="true">SIM</option>
+            <option value="false">NÃO</option>
+          </select>
+        </app-input>
+
+        <app-input label="Com Push">
+          <select formControlName="push" class="form-control">
+            <option value="true">SIM</option>
+            <option value="false">NÃO</option>
+          </select>
+        </app-input>
+
+        <app-input label="Mensagem">
+          <textarea class="form-control" formControlName="conteudo" rows="5" cols="40"></textarea>
+        </app-input>
+
+        <div class="m-2">
+          Destinatários selecionados: {{destinatarios?.length}}
+
+          <button type="submit" class="btn btn-success pull-right" (click)="enviar()">Enviar</button>
+        </div>
+
+      </form>
+    </div>
+  </app-modal>
+</ng-template>
