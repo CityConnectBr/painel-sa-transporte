@@ -59,7 +59,7 @@
       </app-input>
 
       <app-input label="Ativo" [inline]="true" [require]="true">
-        <select formControlName="ativo" class="form-control">
+        <select formControlName="ativo" class="form-control" (change)="changeAtivo()">
           <option value="1">ATIVO</option>
           <option value="0">INATIVO</option>
         </select>
@@ -158,8 +158,7 @@
         <input type="text" class="form-control" formControlName="categoria" autocomplete="off">
       </app-input>
 
-      <app-input label="Validade" [inline]="true"
-        [warning]="isExpired('cnh_validade')? 'A CNH está vencida' : null">
+      <app-input label="Validade" [inline]="true" [warning]="isExpired('cnh_validade')? 'A CNH está vencida' : null">
         <input type="text" class="form-control" formControlName="cnh_validade" mask="00/00/0000"
           [dropSpecialCharacters]="false" autocomplete="off">
       </app-input>
@@ -181,5 +180,36 @@
 
       <button type="submit" class="btn btn-success pull-right" (click)="salvarFoto()">Salvar</button>
     </form>
+  </app-modal>
+</ng-template>
+
+<ng-template #formConfirmacaoDesativacaoModal let-modal>
+  <app-modal modalID="formConfirmacaoDesativacaoModal" title="Confirmação Desativação"
+    (closeModalEmit)="closeModal($event)">
+    <div class="crud">
+      <form *ngIf="!loading" [formGroup]="formConfirmacaoDesativacao" autocomplete="off">
+        <app-input label="Término da Atividade">
+          <input type="text" class="form-control" formControlName="termino_atividades" mask="00/00/0000"
+            [dropSpecialCharacters]="false" autocomplete="off">
+        </app-input>
+
+        <app-input label="Motivo">
+          <input type="text" class="form-control" formControlName="termino_atividades_motivo" autocomplete="off">
+        </app-input>
+
+        <app-input label="Tranferência">
+          <input type="text" class="form-control" formControlName="data_transferencia" mask="00/00/0000"
+            [dropSpecialCharacters]="false" autocomplete="off">
+        </app-input>
+
+        <div class="clearfix">
+          <div class="alert alert-danger" *ngIf="errorMessage">
+            <strong [innerHTML]="errorMessage"></strong>
+          </div>
+          <button type="submit" class="btn btn-success pull-right" (click)="desativarPermissionario(formConfirmacaoDesativacao.value)"
+            [disabled]="!formConfirmacaoDesativacao.valid">Salvar</button>
+        </div>
+      </form>
+    </div>
   </app-modal>
 </ng-template>

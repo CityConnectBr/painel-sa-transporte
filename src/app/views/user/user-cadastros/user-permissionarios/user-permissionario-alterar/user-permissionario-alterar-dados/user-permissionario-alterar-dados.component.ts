@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -47,6 +47,11 @@ export class UserPermissionarioAlterarDadosComponent
 
   photoToUpload: File | null = null;
   photo: any | null = null;
+
+  @ViewChild('formConfirmacaoDesativacaoModal')
+  formConfirmacaoDesativacaoModal: any;
+
+  formConfirmacaoDesativacao: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -407,5 +412,67 @@ export class UserPermissionarioAlterarDadosComponent
     }
 
     return dateField < new Date();
+  }
+
+  changeAtivo() {
+    if (this.form.controls['ativo'].value == false) {
+      if (
+        (this.permissionario.termino_atividades &&
+          this.permissionario.termino_atividades_motivo &&
+          this.permissionario.termino_atividades_motivo != '') ||
+        this.permissionario.data_transferencia
+      ) {
+        this.form.controls['ativo'].setValue(0);
+        return;
+      }
+
+      this.formConfirmacaoDesativacao = this.formBuilder.group({
+        termino_atividades: new FormControl(
+          this.permissionario.termino_atividades,
+          [Validators.required]
+        ),
+        termino_atividades_motivo: new FormControl(
+          this.permissionario.termino_atividades_motivo,
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(200),
+          ]
+        ),
+        data_transferencia: new FormControl(
+          this.permissionario.data_transferencia,
+          [Validators.required]
+        ),
+      });
+
+      this.form.controls['ativo'].setValue(1);
+      this.openModal(this.formConfirmacaoDesativacaoModal);
+    }
+  }
+
+  desativarPermissionario(form: any) {
+    try {
+      if (!this.formConfirmacaoDesativacao.valid) {
+        this.toastr.error('Existem campos inválidos!');
+        return;
+      }
+
+      form.termino_atividades = SharedModule.convertStringddMMyyyyToyyyyMMdd(
+        form.termino_atividades
+      );
+
+      form.data_transferencia = SharedModule.convertStringddMMyyyyToyyyyMMdd(
+        form.data_transferencia
+      );
+
+      this.permissionarioService
+        .desativar(this.permissionario.id, form)
+        .toPromise();
+      this.toastr.success('Permissionário desativado!');
+      this.closeModal(this.formConfirmacaoDesativacaoModal);
+      this.form.controls['ativo'].setValue(0);
+    } catch (e: any) {
+      this.errorMessage = SharedModule.handleError(e);
+    }
   }
 }

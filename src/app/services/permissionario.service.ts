@@ -25,6 +25,16 @@ export class PermissionarioService extends BasicCrudService {
       .pipe(retry(2));
   }
 
+  desativar(id: number | String, obj: any): Observable<any> {
+    return this.httpClient
+      .put(
+        `${this.url}/${id}/desativar`,
+        JSON.stringify(obj),
+        super.getHttpOptions
+      )
+      .pipe(retry(2));
+  }
+
   updateDocumentos(id: number | String, obj: any): Observable<any> {
     return this.httpClient
       .put(
