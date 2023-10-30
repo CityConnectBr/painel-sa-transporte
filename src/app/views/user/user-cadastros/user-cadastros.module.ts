@@ -86,6 +86,7 @@ import { UserVeiculosComponent } from './user-veiculos/user-veiculos.component';
 import { UserVistoriadoresCrudComponent } from './user-vistoriadores/user-vistoriadores-crud/user-vistoriadores-crud.component';
 import { UserVistoriadoresComponent } from './user-vistoriadores/user-vistoriadores.component';
 import { UserImpressosModule } from '../user-impressos/user-impressos.module';
+import { UserPermissionarioFichaComponent } from './user-permissionarios/user-permissionario-alterar/user-permissionario-ficha/user-permissionario-ficha.component';
 
 const ROUTER: Routes = [
   {
@@ -483,6 +484,7 @@ const ROUTER: Routes = [
     UserVeiculosAlterarDadosComponent,
     UserVeiculosAlterarAnexosComponent,
     UserSolicitacoesComponent,
+    UserPermissionarioFichaComponent
   ],
   imports: [
     RouterModule.forChild(ROUTER),

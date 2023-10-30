@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
@@ -16,6 +16,10 @@ export class UserPermissionarioAlterarComponent implements OnInit {
 
   isTransporteEscolar: boolean = false;
 
+  @ViewChild('fichaPermissionario') fichaPermissionario: any;
+
+  permissionarioId: string;
+
   constructor(
     private route: ActivatedRoute,
     private permissionarioService: PermissionarioService,
@@ -27,10 +31,10 @@ export class UserPermissionarioAlterarComponent implements OnInit {
   ngOnInit(): void {
     (async () => {
       this.loading = true;
-      const idSelected: string = this.route.snapshot.paramMap.get('id');
+      this.permissionarioId = this.route.snapshot.paramMap.get('id');
       try {
         const permissionario = await this.permissionarioService
-          .get(parseInt(idSelected))
+          .get(parseInt(this.permissionarioId))
           .pipe(first())
           .toPromise();
         if (!permissionario) {
@@ -55,5 +59,9 @@ export class UserPermissionarioAlterarComponent implements OnInit {
       }
       this.loading = false;
     })();
+  }
+
+  imprimirFicha() {
+    this.fichaPermissionario.gerarFicha();
   }
 }
