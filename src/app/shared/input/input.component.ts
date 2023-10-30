@@ -41,6 +41,10 @@ export class InputComponent implements OnInit, AfterContentInit {
   get getErrorMessage() {
     if (this.hasError()) {
       let errors: any = this.control.errors;
+
+      //Bug, reconhece mask como erro
+      if(errors.mask) return;
+
       if (this.errorMessage)
         return this.errorMessage
       if (errors.required)
