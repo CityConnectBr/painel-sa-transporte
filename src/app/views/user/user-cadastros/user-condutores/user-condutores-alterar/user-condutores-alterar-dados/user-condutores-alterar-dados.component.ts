@@ -116,7 +116,7 @@ export class UserCondutoresAlterarDadosComponent implements OnInit, OnDestroy {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
         email: new FormControl(this.condutor.email ?? "", {
-          validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(15)],
+          validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(200)],
         }),
         cep: new FormControl(this.enderecoDoCondutor?.cep ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.cepPattern)],

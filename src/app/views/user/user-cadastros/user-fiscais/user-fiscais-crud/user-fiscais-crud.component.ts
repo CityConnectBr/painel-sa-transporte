@@ -80,7 +80,7 @@ export class UserFiscaisCrudComponent implements OnInit {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
         email: new FormControl('', {
-          validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(15)],
+          validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(200)],
         }),
         cargo: new FormControl('', {
           validators: [Validators.maxLength(40)],

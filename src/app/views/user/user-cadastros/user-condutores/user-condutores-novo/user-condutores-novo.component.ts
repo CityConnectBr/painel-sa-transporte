@@ -94,7 +94,7 @@ export class UserCondutoresNovoComponent implements OnInit, OnDestroy {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
         email: new FormControl('', {
-          validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(15)],
+          validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(200)],
         }),
         cep: new FormControl('', {
           validators: [Validators.required, Validators.pattern(SharedModule.cepPattern)],
