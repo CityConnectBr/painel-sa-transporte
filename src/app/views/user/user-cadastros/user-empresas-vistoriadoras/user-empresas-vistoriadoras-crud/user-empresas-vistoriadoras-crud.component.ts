@@ -73,7 +73,7 @@ export class UserEmpresasVistoriadorasCrudComponent implements OnInit, OnDestroy
           validators: [Validators.required],
         }),
         telefone: new FormControl('', {
-          validators: [Validators.maxLength(15)],
+          validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
         email: new FormControl('', {
           validators: [Validators.maxLength(200)],

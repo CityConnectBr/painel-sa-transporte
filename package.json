@@ -28,7 +28,7 @@
     "ngb-modal": "^2.0.3",
     "ngx-clipboard": "^14.0.1",
     "ngx-currency": "^3.0.0",
-    "ngx-mask": "^14.0.0",
+    "ngx-mask": "^14.3.1",
     "ngx-toastr": "15.2.2",
     "qrcode-pix": "^5.0.0",
     "rxjs": "~7.5.0",

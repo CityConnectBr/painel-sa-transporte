@@ -1,6 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
@@ -16,13 +21,12 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-empresa-crud',
   templateUrl: './user-empresa-crud.component.html',
-  styleUrls: ['./user-empresa-crud.component.css']
+  styleUrls: ['./user-empresa-crud.component.css'],
 })
 export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
-
   loading: boolean = false;
-  form: FormGroup
-  errorMessage: string
+  form: FormGroup;
+  errorMessage: string;
 
   crudObj: Empresa;
   enderecoDaEmpresa: Endereco;
@@ -45,32 +49,32 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
     private location: Location,
     private route: ActivatedRoute,
     private toastr: ToastrService,
-    private modal: NgbModal,
-  ) {
-  }
+    private modal: NgbModal
+  ) {}
 
   async ngOnInit() {
     this.loading = true;
-    this.errorMessage = "";
+    this.errorMessage = '';
 
     try {
       //pesquisa municipio
-      this.subjectMunicipio
-        .pipe(debounceTime(500))
-        .subscribe(() => {
-          this.searchMunicipios();
-        }
-        );
+      this.subjectMunicipio.pipe(debounceTime(500)).subscribe(() => {
+        this.searchMunicipios();
+      });
 
       const idSelected: string = this.route.snapshot.paramMap.get('id');
 
       ///////FORM
       this.form = this.formBuilder.group({
         nome: new FormControl('', {
-          validators: [Validators.required, Validators.minLength(2), Validators.maxLength(40)],
+          validators: [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(40),
+          ],
         }),
         telefone: new FormControl('', {
-          validators: [Validators.maxLength(15)],
+          validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
         fax: new FormControl('', {
           validators: [Validators.maxLength(15)],
@@ -102,47 +106,59 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
         portaria_diretor: new FormControl('', {
           validators: [Validators.maxLength(10)],
         }),
-        data_nomeacao_diretor: new FormControl('', {
-        }),
+        data_nomeacao_diretor: new FormControl('', {}),
         decreto_municipal_taxi: new FormControl('', {
           validators: [Validators.maxLength(60)],
         }),
         decreto_municipal_escolar: new FormControl('', {
           validators: [Validators.maxLength(60)],
         }),
-        cep: new FormControl("", {
-          validators: [Validators.required, Validators.pattern(SharedModule.cepPattern)],
+        cep: new FormControl('', {
+          validators: [
+            Validators.required,
+            Validators.pattern(SharedModule.cepPattern),
+          ],
         }),
-        endereco: new FormControl("", {
+        endereco: new FormControl('', {
           validators: [Validators.required],
         }),
-        numero: new FormControl("", {
+        numero: new FormControl('', {
           validators: [Validators.required],
         }),
-        complemento: new FormControl("", {
+        complemento: new FormControl('', {
           validators: [],
         }),
-        bairro: new FormControl("", {
+        bairro: new FormControl('', {
           validators: [Validators.required],
         }),
-        municipio: new FormControl(""),
-        uf: new FormControl("", {
+        municipio: new FormControl(''),
+        uf: new FormControl('', {
           validators: [Validators.required],
         }),
-        tipo_chave_pix: new FormControl("", {
-          validators: [Validators.pattern(/^(cpf|telefone|email|aleatorio|cnpj)$/)],
+        tipo_chave_pix: new FormControl('', {
+          validators: [
+            Validators.pattern(/^(cpf|telefone|email|aleatorio|cnpj)$/),
+          ],
         }),
-        chave_pix: new FormControl("", {
+        chave_pix: new FormControl('', {
           validators: [Validators.maxLength(200)],
         }),
       });
 
       ///////SET IN FORM
       if (idSelected) {
-        this.crudObj = await this.empresaService.get(parseInt(idSelected)).toPromise();
-        this.enderecoDaEmpresa = await this.enderecoService.get(this.crudObj.endereco_id).pipe(first()).toPromise();
+        this.crudObj = await this.empresaService
+          .get(parseInt(idSelected))
+          .toPromise();
+        this.enderecoDaEmpresa = await this.enderecoService
+          .get(this.crudObj.endereco_id)
+          .pipe(first())
+          .toPromise();
         if (this.enderecoDaEmpresa.municipio_id) {
-          this.municipioSelecionado = await this.municipioService.get(this.enderecoDaEmpresa.municipio_id).pipe(first()).toPromise();
+          this.municipioSelecionado = await this.municipioService
+            .get(this.enderecoDaEmpresa.municipio_id)
+            .pipe(first())
+            .toPromise();
           this.setMunicipio(this.municipioSelecionado.id);
         }
 
@@ -152,31 +168,58 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
         this.form.controls['home_page'].setValue(this.crudObj.home_page);
         this.form.controls['email'].setValue(this.crudObj.email);
         this.form.controls['cnpj'].setValue(this.crudObj.cnpj);
-        this.form.controls['inscricao_estadual'].setValue(this.crudObj.inscricao_estadual);
-        this.form.controls['inscricao_municipal'].setValue(this.crudObj.inscricao_municipal);
-        this.form.controls['nome_do_diretor'].setValue(this.crudObj.nome_do_diretor);
-        this.form.controls['nome_do_gerente'].setValue(this.crudObj.nome_do_gerente);
-        this.form.controls['nome_do_encarregado_vistoriador'].setValue(this.crudObj.nome_do_encarregado_vistoriador);
-        this.form.controls['portaria_diretor'].setValue(this.crudObj.portaria_diretor);
-        this.form.controls['data_nomeacao_diretor'].setValue(SharedModule.formatDateddMMyyyy(this.crudObj.data_nomeacao_diretor));
-        this.form.controls['decreto_municipal_taxi'].setValue(this.crudObj.decreto_municipal_taxi);
-        this.form.controls['decreto_municipal_escolar'].setValue(this.crudObj.decreto_municipal_escolar);
-        this.form.controls['cep'].setValue(this.enderecoDaEmpresa?.cep ?? "");
-        this.form.controls['bairro'].setValue(this.enderecoDaEmpresa?.bairro ?? "");
-        this.form.controls['complemento'].setValue(this.enderecoDaEmpresa?.complemento ?? "");
-        this.form.controls['endereco'].setValue(this.enderecoDaEmpresa?.endereco ?? "");
-        this.form.controls['numero'].setValue(this.enderecoDaEmpresa?.numero ?? "");
-        this.form.controls['uf'].setValue(this.enderecoDaEmpresa?.uf ?? "");
-        this.form.controls['tipo_chave_pix'].setValue(this.crudObj.tipo_chave_pix);
+        this.form.controls['inscricao_estadual'].setValue(
+          this.crudObj.inscricao_estadual
+        );
+        this.form.controls['inscricao_municipal'].setValue(
+          this.crudObj.inscricao_municipal
+        );
+        this.form.controls['nome_do_diretor'].setValue(
+          this.crudObj.nome_do_diretor
+        );
+        this.form.controls['nome_do_gerente'].setValue(
+          this.crudObj.nome_do_gerente
+        );
+        this.form.controls['nome_do_encarregado_vistoriador'].setValue(
+          this.crudObj.nome_do_encarregado_vistoriador
+        );
+        this.form.controls['portaria_diretor'].setValue(
+          this.crudObj.portaria_diretor
+        );
+        this.form.controls['data_nomeacao_diretor'].setValue(
+          SharedModule.formatDateddMMyyyy(this.crudObj.data_nomeacao_diretor)
+        );
+        this.form.controls['decreto_municipal_taxi'].setValue(
+          this.crudObj.decreto_municipal_taxi
+        );
+        this.form.controls['decreto_municipal_escolar'].setValue(
+          this.crudObj.decreto_municipal_escolar
+        );
+        this.form.controls['cep'].setValue(this.enderecoDaEmpresa?.cep ?? '');
+        this.form.controls['bairro'].setValue(
+          this.enderecoDaEmpresa?.bairro ?? ''
+        );
+        this.form.controls['complemento'].setValue(
+          this.enderecoDaEmpresa?.complemento ?? ''
+        );
+        this.form.controls['endereco'].setValue(
+          this.enderecoDaEmpresa?.endereco ?? ''
+        );
+        this.form.controls['numero'].setValue(
+          this.enderecoDaEmpresa?.numero ?? ''
+        );
+        this.form.controls['uf'].setValue(this.enderecoDaEmpresa?.uf ?? '');
+        this.form.controls['tipo_chave_pix'].setValue(
+          this.crudObj.tipo_chave_pix
+        );
         this.form.controls['chave_pix'].setValue(this.crudObj.chave_pix);
 
         //forçando verificação de erros
         SharedModule.setAllFieldsFromFormAsTouched(this.form);
       }
-
     } catch (e: any) {
       console.error(e);
-      this.errorMessage = "Ocorreu um erro ao montar a página";
+      this.errorMessage = 'Ocorreu um erro ao montar a página';
     }
     this.loading = false;
   }
@@ -193,18 +236,18 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
       numberLength = numbers.join('').length;
     }
     if (numberLength <= 10) {
-      return SharedModule.textMaskPhone8Dattern
+      return SharedModule.textMaskPhone8Dattern;
     } else {
-      return SharedModule.textMaskPhone9Dattern
+      return SharedModule.textMaskPhone9Dattern;
     }
-  }
+  };
 
   async salvar(formInput: any) {
     this.loading = true;
-    this.errorMessage = "";
+    this.errorMessage = '';
     try {
-      if(!this.form.valid){
-        this.toastr.error("Existem campos inválidos!");
+      if (!this.form.valid) {
+        this.toastr.error('Existem campos inválidos!');
         this.loading = false;
         return;
       }
@@ -220,15 +263,25 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
       };
 
       //convertendoDataNasc
-      if (formInput.data_nomeacao_diretor && formInput.data_nomeacao_diretor != '') {
-        formInput.data_nomeacao_diretor = SharedModule.convertStringddMMyyyyToyyyyMMdd(formInput.data_nomeacao_diretor);
+      if (
+        formInput.data_nomeacao_diretor &&
+        formInput.data_nomeacao_diretor != ''
+      ) {
+        formInput.data_nomeacao_diretor =
+          SharedModule.convertStringddMMyyyyToyyyyMMdd(
+            formInput.data_nomeacao_diretor
+          );
       }
 
       if (this.crudObj) {
-        await this.enderecoService.update(this.enderecoDaEmpresa.id, endereco).toPromise();
+        await this.enderecoService
+          .update(this.enderecoDaEmpresa.id, endereco)
+          .toPromise();
 
         formInput.endereco_id = this.enderecoDaEmpresa.id;
-        await this.empresaService.update(this.crudObj.id, formInput).toPromise();
+        await this.empresaService
+          .update(this.crudObj.id, formInput)
+          .toPromise();
       } else {
         const { id } = await this.enderecoService.create(endereco).toPromise();
 
@@ -236,7 +289,7 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
         await this.empresaService.create(formInput).toPromise();
       }
       this.toastr.success('Empresa salva!');
-      this.location.back()
+      this.location.back();
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
     }
@@ -245,16 +298,16 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
 
   async excluir() {
     this.loading = true;
-    this.errorMessage = "";
+    this.errorMessage = '';
     try {
       await this.empresaService.delete(this.crudObj.id).toPromise();
       await this.enderecoService.delete(this.crudObj.endereco_id).toPromise();
-      this.modal.dismissAll()
+      this.modal.dismissAll();
       this.toastr.success('Excluido com Sucesso!');
-      this.location.back()
+      this.location.back();
     } catch (e: any) {
-      this.modal.dismissAll()
-      this.errorMessage = "Este não pode ser excluido!";
+      this.modal.dismissAll();
+      this.errorMessage = 'Este não pode ser excluido!';
     }
     this.loading = false;
   }
@@ -263,7 +316,10 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
     try {
       this.municipioSelecionado = null;
       const result = await this.municipioService
-        .searchByUF(this.form.controls['uf'].value, this.form.controls['municipio'].value)
+        .searchByUF(
+          this.form.controls['uf'].value,
+          this.form.controls['municipio'].value
+        )
         .pipe(first())
         .toPromise();
 
@@ -271,9 +327,8 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
       result.data.forEach((municipio: Municipio) => {
         this.municipiosPesquisados.set(`${municipio.id}`, municipio.nome);
       });
-
     } catch (e: any) {
-      this.toastr.error("Ocorreu um erro ao pesquisar.");
+      this.toastr.error('Ocorreu um erro ao pesquisar.');
     }
   }
 
@@ -284,9 +339,14 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
   public async setMunicipio(event) {
     try {
       if (event) {
-        this.form.controls['municipio'].setValue("Carregando...");
-        this.municipioSelecionado = await this.municipioService.get(event).pipe(first()).toPromise();
-        this.form.controls['municipio'].setValue(this.municipioSelecionado.nome);
+        this.form.controls['municipio'].setValue('Carregando...');
+        this.municipioSelecionado = await this.municipioService
+          .get(event)
+          .pipe(first())
+          .toPromise();
+        this.form.controls['municipio'].setValue(
+          this.municipioSelecionado.nome
+        );
       }
     } catch (e: any) {
       this.errorMessage = SharedModule.handleError(e);
@@ -300,11 +360,10 @@ export class UserEmpresaCrudComponent implements OnInit, OnDestroy {
   }
 
   closeModal(event: any) {
-    return this.modal.dismissAll()
+    return this.modal.dismissAll();
   }
 
   openModal(content: any) {
-    this.modal.open(content)
+    this.modal.open(content);
   }
-
 }

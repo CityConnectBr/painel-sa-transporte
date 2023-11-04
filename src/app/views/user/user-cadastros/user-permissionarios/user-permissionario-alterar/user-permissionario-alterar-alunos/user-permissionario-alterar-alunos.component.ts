@@ -72,7 +72,7 @@ export class UserPermissionarioAlterarAlunosComponent implements OnInit {
           validators: [],
         }),
         telefone: new FormControl('', {
-          validators: [Validators.maxLength(20)],
+          validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
         hora_entrada: new FormControl('', {
           validators: [],
