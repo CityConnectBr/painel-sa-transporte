@@ -136,12 +136,9 @@ export class UserPermissionarioAlterarDadosComponent
             ],
           }
         ),
-        alvara_de_funcionamento: new FormControl(
-          this.permissionario.alvara_de_funcionamento ?? '',
-          {
-            validators: [Validators.required, Validators.maxLength(15)],
-          }
-        ),
+        prefixo: new FormControl(this.permissionario.prefixo, {
+          validators: [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
+        }),
         reponsavel: new FormControl(this.permissionario.responsavel ?? '', {
           validators: [Validators.maxLength(40)],
         }),

@@ -77,9 +77,6 @@ export class UserPermissionarioAlterarPontosComponent implements OnInit {
         modalidade_id: new FormControl(this.permissionario.modalidade_id, {
           validators: [Validators.required],
         }),
-        prefixo: new FormControl(this.permissionario.prefixo, {
-          validators: [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
-        }),
         inss: new FormControl(this.permissionario.inss, {
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(10)],
         }),
