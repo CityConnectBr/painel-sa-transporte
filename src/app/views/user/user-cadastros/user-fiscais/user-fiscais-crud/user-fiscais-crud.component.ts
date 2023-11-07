@@ -80,7 +80,7 @@ export class UserFiscaisCrudComponent implements OnInit {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
         email: new FormControl('', {
-          validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(15)],
+          validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(200)],
         }),
         cargo: new FormControl('', {
           validators: [Validators.maxLength(40)],
@@ -169,8 +169,6 @@ export class UserFiscaisCrudComponent implements OnInit {
         municipio_id: this.municipioSelecionado.id,
       };
 
-      formInput = SharedModule.clearAllTlefonePattern(formInput);
-
       if (this.crudObj) {
         await this.enderecoService.update(this.enderecoDoPermissionario.id, endereco).toPromise();
         await this.fiscalService.update(this.crudObj.id, formInput).toPromise();
@@ -236,8 +234,9 @@ export class UserFiscaisCrudComponent implements OnInit {
     this.errorMessage = "";
     try {
       if (!this.photoToUpload) {
-        this.toastr.error("Nenhuma foto foi selecionada");
+        return;
       }
+
       await this.fiscalService.updatePhoto(this.crudObj.id, this.photoToUpload).toPromise();
       this.toastr.success('Foto salva!');
       this.closeModal("");

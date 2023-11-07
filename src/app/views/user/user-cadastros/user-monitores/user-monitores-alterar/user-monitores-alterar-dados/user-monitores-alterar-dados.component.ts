@@ -114,7 +114,7 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
         email: new FormControl(this.monitor.email ?? "", {
-          validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(15)],
+          validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(200)],
         }),
         data_nascimento: new FormControl(this.monitor.data_nascimento ?? "", {
           validators: [Validators.required, Validators.pattern(SharedModule.datePattern)],

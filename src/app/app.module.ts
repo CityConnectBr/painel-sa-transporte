@@ -21,6 +21,12 @@ import { ToastrModule } from 'ngx-toastr';
 
 registerLocaleData(localePt, 'pt');
 
+const maskConfigFunction: () => Partial<IConfig> = () => {
+  return {
+    validation: false,
+  };
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +36,7 @@ registerLocaleData(localePt, 'pt');
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxMaskModule.forRoot(),
+    NgxMaskModule.forRoot(maskConfigFunction),
     SharedModule.forRoot(),
     ToastrModule.forRoot(),
     HttpClientModule,

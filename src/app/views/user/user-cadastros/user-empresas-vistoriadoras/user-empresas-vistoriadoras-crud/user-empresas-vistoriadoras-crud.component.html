@@ -32,7 +32,7 @@
           </app-input>
 
           <app-input label="Telefone" [inline]="true">
-            <input type="text" class="form-control" formControlName="telefone"  mask="(00) 00000-0000 || (00) 0000-0000"
+            <input type="text" class="form-control" formControlName="telefone"  mask="(00) 00000-0000 || (00) 0000-0000" [dropSpecialCharacters]="false"
               autocomplete="off">
           </app-input>
 

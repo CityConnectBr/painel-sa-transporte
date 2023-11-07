@@ -76,7 +76,7 @@ export class SharedModule {
   static passPatern =
     /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
   static telefonePattern =
-    /^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/;
+    /\(\d{2}\)\s?\d{4,5}-\d{4}/;
   static dateHourFromAPIPattern =
     /^\d{4}-(((0)[0-9])|((1)[0-2]))-([0-2][0-9]|(3)[0-1])T(.*)$/;
   static dateFromAPIPattern =
@@ -387,19 +387,6 @@ export class SharedModule {
         obj[key].toString().match(SharedModule.datePattern)
       ) {
         obj[key] = SharedModule.convertStringddMMyyyyToyyyyMMdd(obj[key]);
-      }
-    });
-
-    return obj;
-  }
-
-  static clearAllTlefonePattern(obj: any): any {
-    Object.getOwnPropertyNames(obj).forEach((key) => {
-      if (
-        obj[key] != null &&
-        obj[key].toString().match(SharedModule.telefonePattern)
-      ) {
-        obj[key] = SharedModule.cleanString(obj[key]);
       }
     });
 

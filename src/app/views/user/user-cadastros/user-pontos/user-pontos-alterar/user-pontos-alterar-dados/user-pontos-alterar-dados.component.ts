@@ -139,7 +139,7 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
     this.errorMessage = "";
     try {
       if (!this.municipioSelecionado) {
-        this.toastr.error("Nenhum Ponto selecionado!");
+        this.toastr.error("Nenhum município selecionado!");
         this.loading = false;
         return;
       }
