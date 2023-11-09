@@ -83,8 +83,8 @@ export class UserPermissionarioNovoComponent implements OnInit, OnDestroy {
         inscricao_municipal: new FormControl('', {
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
         }),
-        alvara_de_funcionamento: new FormControl('', {
-          validators: [Validators.required, Validators.maxLength(15)],
+        prefixo: new FormControl('', {
+          validators: [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
         }),
         reponsavel: new FormControl('', {
           validators: [Validators.maxLength(40)],
