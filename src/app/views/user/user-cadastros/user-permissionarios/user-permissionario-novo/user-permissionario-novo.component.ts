@@ -65,25 +65,25 @@ export class UserPermissionarioNovoComponent implements OnInit, OnDestroy {
       ///////FORM
       this.form = this.formBuilder.group({
         numero_de_cadastro_antigo: new FormControl('',),
-        tipo: new FormControl('F', {
+        tipo: new FormControl('', {
           validators: [Validators.required],
         }),
-        nome_razao_social: new FormControl('Teste', {
+        nome_razao_social: new FormControl('', {
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(40)],
         }),
-        cpf_cnpj: new FormControl('87273117080', {
+        cpf_cnpj: new FormControl('', {
           validators: [Validators.required, Validators.pattern(SharedModule.CPFCNPJPatern)],
         }),
         rg: new FormControl('', {
           validators: [Validators.maxLength(9)],
         }),
-        data_nascimento: new FormControl('01/01/2000', {
+        data_nascimento: new FormControl('', {
           validators: [Validators.required, Validators.pattern(SharedModule.datePattern)],
         }),
-        inscricao_municipal: new FormControl('1234', {
+        inscricao_municipal: new FormControl('', {
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
         }),
-        alvara_de_funcionamento: new FormControl('2134', {
+        alvara_de_funcionamento: new FormControl('', {
           validators: [Validators.required, Validators.maxLength(15)],
         }),
         reponsavel: new FormControl('', {
@@ -92,25 +92,25 @@ export class UserPermissionarioNovoComponent implements OnInit, OnDestroy {
         procurador_responsavel: new FormControl('', {
           validators: [Validators.maxLength(40)],
         }),
-        cep: new FormControl('27113-090', {
+        cep: new FormControl('', {
           validators: [Validators.required, Validators.pattern(SharedModule.cepPattern)],
         }),
-        endereco: new FormControl('Endereco', {
+        endereco: new FormControl('', {
           validators: [Validators.required],
         }),
-        numero: new FormControl('123', {
+        numero: new FormControl('', {
           validators: [Validators.required],
         }),
         complemento: new FormControl('', {
           validators: [],
         }),
-        bairro: new FormControl('Bairro', {
+        bairro: new FormControl('', {
           validators: [Validators.required],
         }),
-        municipio: new FormControl('Municipio', {
+        municipio: new FormControl('', {
           validators: [Validators.required],
         }),
-        uf: new FormControl('RJ', {
+        uf: new FormControl('', {
           validators: [Validators.required],
         }),
         telefone: new FormControl('', {
@@ -123,7 +123,7 @@ export class UserPermissionarioNovoComponent implements OnInit, OnDestroy {
           validators: [Validators.pattern(SharedModule.telefonePattern)],
         }),
         email: new FormControl('', {
-          validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(15)],
+          validators: [Validators.pattern(SharedModule.emailPatern), Validators.maxLength(200)],
         }),
         naturalidade: new FormControl('', {
           validators: [Validators.maxLength(15)],
@@ -140,7 +140,7 @@ export class UserPermissionarioNovoComponent implements OnInit, OnDestroy {
         cnh_validade: new FormControl('', {
           validators: [Validators.pattern(SharedModule.datePattern)],
         }),
-        estado_civil: new FormControl('C', {
+        estado_civil: new FormControl('', {
           validators: [Validators.required],
         }),
       })
