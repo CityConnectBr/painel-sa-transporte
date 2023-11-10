@@ -42,14 +42,16 @@ export class UserPermissionarioAlterarComponent implements OnInit {
           this.location.back();
         }
 
-        const modalidade = await this.modalidadeService
-          .get(permissionario.modalidade_id)
-          .pipe(first())
-          .toPromise();
-        if (modalidade) {
-          this.isTransporteEscolar =
-            modalidade.identificador === 'e' ||
-            modalidade.identificador === 'g';
+        if (permissionario.modalidade_id) {
+          const modalidade = await this.modalidadeService
+            .get(permissionario.modalidade_id)
+            .pipe(first())
+            .toPromise();
+          if (modalidade) {
+            this.isTransporteEscolar =
+              modalidade.identificador === 'e' ||
+              modalidade.identificador === 'g';
+          }
         }
       } catch (e: any) {
         this.toastr.error(
