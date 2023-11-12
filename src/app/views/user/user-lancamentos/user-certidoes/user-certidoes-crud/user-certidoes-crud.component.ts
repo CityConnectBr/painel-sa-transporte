@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
+import { Subject, firstValueFrom } from 'rxjs';
 import { Veiculo } from 'src/app/models/veiculo';
 import { Certidao } from 'src/app/models/certidao';
 import { CorDoVeiculo } from 'src/app/models/cor-do-veiculo';
@@ -65,6 +65,8 @@ export class UserCertidoesCrudComponent implements OnInit {
 
   maskDate = SharedModule.textMaskDate;
 
+  emissaoAnterior: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private certidaoService: CertidaoService,
@@ -109,7 +111,7 @@ export class UserCertidoesCrudComponent implements OnInit {
 
       ///////FORM
       this.form = this.formBuilder.group({
-        data: new FormControl('', {
+        data: new FormControl(SharedModule.formatDateddMMyyyy(new Date()), {
           validators: [
             Validators.required,
             Validators.pattern(SharedModule.datePattern),
@@ -238,6 +240,10 @@ export class UserCertidoesCrudComponent implements OnInit {
         formInput.data
       );
 
+      if (this.emissaoAnterior) {
+        formInput.certidao_anterior_id = this.emissaoAnterior;
+      }
+
       if (this.crudObj) {
         await this.certidaoService
           .update(this.crudObj.id, formInput)
@@ -318,6 +324,19 @@ export class UserCertidoesCrudComponent implements OnInit {
         veiculo.tipo_combustivel_id
       );
       this.form.controls['cor_id'].setValue(veiculo.cor_id);
+
+      //pesquisar ultima certidão e preencher os campos
+      const certidoesSearch = await firstValueFrom(
+        this.certidaoService.search(veiculo.placa)
+      );
+
+      if (certidoesSearch.data.length > 0) {
+        const certidao: Certidao = certidoesSearch.data[0];
+        this.form.controls['observacao'].setValue(certidao.observacao);
+        this.form.controls['prefixo'].setValue(certidao.prefixo);
+        this.form.controls['ponto_id'].setValue(certidao.ponto_id);
+        this.emissaoAnterior = certidao.id;
+      }
 
       this.closeModal(null);
     } catch (e) {}
