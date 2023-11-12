@@ -14,6 +14,7 @@ import { FiscalService } from 'src/app/services/fiscal.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { ToastrService } from 'ngx-toastr';
+import { ViaCEPServiceService } from 'src/app/shared/services/viaCEPService.service';
 @Component({
   selector: 'app-user-fiscais-crud',
   templateUrl: './user-fiscais-crud.component.html',
@@ -49,7 +50,8 @@ export class UserFiscaisCrudComponent implements OnInit {
     private route: ActivatedRoute,
     private toastr: ToastrService,
     private modal: NgbModal,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private viaCEPService: ViaCEPServiceService
   ) {
   }
 
@@ -138,6 +140,32 @@ export class UserFiscaisCrudComponent implements OnInit {
         SharedModule.setAllFieldsFromFormAsTouched(this.form);
       }
 
+      //DEVE SER DEPOIS DE SETAR OS VALORES DO FORM
+      this.form.controls['cep'].valueChanges.subscribe((value) => {
+        const cep = value;
+        if (cep && cep.length > 0 && cep.length == 9) {
+          this.viaCEPService.getCEP(cep.replace('-', '')).then(async(data) => {
+            this.form.controls['endereco'].setValue(data.logradouro);
+            this.form.controls['bairro'].setValue(data.bairro);
+            this.form.controls['uf'].setValue(data.uf);
+            this.form.controls['municipio'].setValue(data.localidade);
+            this.form.controls['numero'].setValue('');
+            this.form.controls['complemento'].setValue('');
+
+            //setando municipio
+            const municipio = data.localidade;
+            if (municipio) {
+              await this.searchMunicipios();
+              if(this.municipiosPesquisados.size == 1){
+                this.setMunicipio(this.municipiosPesquisados.keys().next().value);
+              }else{
+                this.form.controls['municipio'].setValue("");
+                this.searchMunicipios();
+              }
+            }
+          });
+        }
+      });
     } catch (e: any) {
       console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";
