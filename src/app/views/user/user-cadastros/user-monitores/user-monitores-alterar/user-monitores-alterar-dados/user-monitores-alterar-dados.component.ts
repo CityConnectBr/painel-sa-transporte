@@ -15,6 +15,7 @@ import { MunicipioService } from 'src/app/services/municipio.service';
 import { PermissionarioService } from 'src/app/services/permissionario.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { ToastrService } from 'ngx-toastr';
+import { ViaCEPServiceService } from 'src/app/shared/services/viaCEPService.service';
 @Component({
   selector: 'app-user-monitores-alterar-dados',
   templateUrl: './user-monitores-alterar-dados.component.html',
@@ -56,7 +57,8 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private toastr: ToastrService,
     private modal: NgbModal,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private viaCEPService: ViaCEPServiceService
   ) {
   }
 
@@ -159,6 +161,32 @@ export class UserMonitoresAlterarDadosComponent implements OnInit, OnDestroy {
       //forçando verificação de erros
       SharedModule.setAllFieldsFromFormAsTouched(this.form);
 
+      //DEVE SER DEPOIS DE SETAR OS VALORES DO FORM
+      this.form.controls['cep'].valueChanges.subscribe((value) => {
+        const cep = value;
+        if (cep && cep.length > 0 && cep.length == 9) {
+          this.viaCEPService.getCEP(cep.replace('-', '')).then(async(data) => {
+            this.form.controls['endereco'].setValue(data.logradouro);
+            this.form.controls['bairro'].setValue(data.bairro);
+            this.form.controls['uf'].setValue(data.uf);
+            this.form.controls['municipio'].setValue(data.localidade);
+            this.form.controls['numero'].setValue('');
+            this.form.controls['complemento'].setValue('');
+
+            //setando municipio
+            const municipio = data.localidade;
+            if (municipio) {
+              await this.searchMunicipios();
+              if(this.municipiosPesquisados.size == 1){
+                this.setMunicipio(this.municipiosPesquisados.keys().next().value);
+              }else{
+                this.form.controls['municipio'].setValue("");
+                this.searchMunicipios();
+              }
+            }
+          });
+        }
+      });
     } catch (e: any) {
       console.error(e);
       this.errorMessage = "Ocorreu um erro ao montar a página";

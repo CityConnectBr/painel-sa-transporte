@@ -11,6 +11,7 @@ import { MunicipioService } from 'src/app/services/municipio.service';
 import { PontoService } from 'src/app/services/ponto.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { ToastrService } from 'ngx-toastr';
+import { ViaCEPServiceService } from 'src/app/shared/services/viaCEPService.service';
 @Component({
   selector: 'app-user-pontos-alterar-dados',
   templateUrl: './user-pontos-alterar-dados.component.html',
@@ -44,6 +45,7 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
     private pontoService: PontoService,
     private route: ActivatedRoute,
     private toastr: ToastrService,
+    private viaCEPService: ViaCEPServiceService
   ) {
   }
 
@@ -122,6 +124,33 @@ export class UserPontosAlterarDadosComponent implements OnInit, OnDestroy {
       if(this.endereco){
         this.form.controls['cep'].setValue(this.endereco?.cep ?? "");
       }
+
+      //DEVE SER DEPOIS DE SETAR OS VALORES DO FORM
+      this.form.controls['cep'].valueChanges.subscribe((value) => {
+        const cep = value;
+        if (cep && cep.length > 0 && cep.length == 9) {
+          this.viaCEPService.getCEP(cep.replace('-', '')).then(async(data) => {
+            this.form.controls['endereco'].setValue(data.logradouro);
+            this.form.controls['bairro'].setValue(data.bairro);
+            this.form.controls['uf'].setValue(data.uf);
+            this.form.controls['municipio'].setValue(data.localidade);
+            this.form.controls['numero'].setValue('');
+            this.form.controls['complemento'].setValue('');
+
+            //setando municipio
+            const municipio = data.localidade;
+            if (municipio) {
+              await this.searchMunicipios();
+              if(this.municipiosPesquisados.size == 1){
+                this.setMunicipio(this.municipiosPesquisados.keys().next().value);
+              }else{
+                this.form.controls['municipio'].setValue("");
+                this.searchMunicipios();
+              }
+            }
+          });
+        }
+      });
 
     } catch (e: any) {
       console.error(e);
