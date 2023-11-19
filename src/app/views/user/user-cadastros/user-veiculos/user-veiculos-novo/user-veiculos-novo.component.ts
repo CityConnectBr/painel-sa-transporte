@@ -33,6 +33,8 @@ import { TipoDeVeiculoService } from 'src/app/services/tipo-de-veiculo.service';
 import { VeiculoService } from 'src/app/services/veiculo.service';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { ToastrService } from 'ngx-toastr';
+import { SolicitacaoDeAlteracao } from 'src/app/models/solicitacao';
+import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 @Component({
   selector: 'app-user-veiculos-novo',
   templateUrl: './user-veiculos-novo.component.html',
@@ -52,6 +54,8 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
   cores: CorDoVeiculo[];
   tiposDeVeiculo: TipoDeVeiculo[];
 
+  solicitacao: SolicitacaoDeAlteracao;
+
   permissionariosPesquisados: Map<String, String> = new Map();
   permissionarioSelecionado: Permissionario;
 
@@ -67,6 +71,8 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
   @ViewChild('permissionarioInput') permissionarioInputElement: ElementRef;
   @ViewChild('marcaModeloInput') marcaModeloInputElement: ElementRef;
 
+  veiculoSubstituido: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private permissionarioService: PermissionarioService,
@@ -77,6 +83,7 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
     private corDoVeiculoService: CorDoVeiculoService,
     private tipoDeVeiculoService: TipoDeVeiculoService,
     private tipoDeCombustivelService: TipoDeCombustivelService,
+    private solicitacaoService: SolicitacaoService,
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService,
@@ -86,6 +93,11 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.loading = true;
     this.errorMessage = '';
+
+    const solicitacaoId: string =
+      this.route.snapshot.queryParamMap.get('solicitacaoId');
+    this.veiculoSubstituido =
+      this.route.snapshot.queryParamMap.get('veiculoSubstituido');
 
     try {
       this.subjectPermissionario.pipe(debounceTime(500)).subscribe(() => {
@@ -197,6 +209,25 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
         permissionario: new FormControl(''),
         categoria_id: new FormControl('1', Validators.required), //1-veiculo,2-onibus
       });
+
+      if (solicitacaoId) {
+        this.solicitacao = await this.solicitacaoService
+          .get(solicitacaoId)
+          .pipe(first())
+          .toPromise();
+        if (this.solicitacao) {
+            this.permissionarioSelecionado = await this.permissionarioService
+              .get(this.solicitacao?.permissionario_id)
+              .pipe(first())
+              .toPromise();
+
+            if (this.permissionarioSelecionado) {
+              this.form.controls['permissionario'].setValue(
+                this.permissionarioSelecionado.nome_razao_social
+              );
+            }
+          }
+        }
     } catch (e: any) {
       console.error(e);
       this.errorMessage = 'Ocorreu um erro ao montar a página';
@@ -254,6 +285,11 @@ export class UserVeiculosNovoComponent implements OnInit, OnDestroy {
           SharedModule.convertStringddMMyyyyToyyyyMMdd(
             formInput.gnv_selo_validade
           );
+      }
+
+      if(this.solicitacao){
+        formInput.solicitacao_substituicao_id = this.solicitacao.id;
+        formInput.veiculo_substituido_id = this.veiculoSubstituido;
       }
 
       const veiculo = await this.veiculoService.create(formInput).toPromise();
