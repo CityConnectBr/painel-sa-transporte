@@ -119,24 +119,40 @@ export class UserSolicitacoesComponent implements OnInit {
         return;
       }
 
-      if (formInput.decisao == 'A' && this.isSolicitacaoValidacao()) {
-        this.router.navigate(['/user/lancamentos/infracoes/novo'], {
-          queryParams: { solicitacaoId: this.solicitacao.id },
-        });
-        this.closeModal(null);
-        return;
-      }
-
-      if (formInput.decisao == 'A' && this.isRenovacaoAlvara()) {
-        const permissionario: any = this.getAlvoObj(this.solicitacao);
-        this.router.navigate(
-          [`/user/cadastros/permissionarios/alterar/${permissionario?.id}/alvara`],
-          {
+      if (formInput.decisao == 'A') {
+        if (this.isSolicitacaoValidacao()) {
+          this.router.navigate(['/user/lancamentos/infracoes/novo'], {
             queryParams: { solicitacaoId: this.solicitacao.id },
-          }
-        );
-        this.closeModal(null);
-        return;
+          });
+          this.closeModal(null);
+          return;
+        }
+
+        if (this.isRenovacaoAlvara()) {
+          const permissionario: any = this.getAlvoObj(this.solicitacao);
+          this.router.navigate(
+            [
+              `/user/cadastros/permissionarios/alterar/${permissionario?.id}/alvara`,
+            ],
+            {
+              queryParams: { solicitacaoId: this.solicitacao.id },
+            }
+          );
+          this.closeModal(null);
+          return;
+        }
+
+        if (this.isSubstituicaoVeiculo()) {
+          const veiculo: any = this.getAlvoObj(this.solicitacao);
+          this.router.navigate([`/user/cadastros/veiculos/novo`], {
+            queryParams: {
+              veiculoSubstituido: veiculo?.id,
+              solicitacaoId: this.solicitacao.id,
+            },
+          });
+          this.closeModal(null);
+          return;
+        }
       }
 
       await this.solicitacaoService
@@ -211,6 +227,8 @@ export class UserSolicitacoesComponent implements OnInit {
       return solicitacao.monitor_referencia;
     } else if (solicitacao && solicitacao.fiscal_referencia) {
       return solicitacao.fiscal_referencia;
+    }else if (solicitacao && solicitacao.veiculo_referencia) {
+      return solicitacao.veiculo_referencia;
     } else {
       return '--';
     }
@@ -303,6 +321,19 @@ export class UserSolicitacoesComponent implements OnInit {
   isRenovacaoAlvara(): boolean {
     try {
       if (this.solicitacao && this.solicitacao.tipo_solicitacao_id == '70') {
+        return true;
+      }
+    } catch (e: any) {}
+    return false;
+  }
+
+  isSubstituicaoVeiculo(): boolean {
+    try {
+      if (
+        this.solicitacao &&
+        (this.solicitacao.tipo_solicitacao_id == '80' ||
+          this.solicitacao.tipo_solicitacao_id == '90')
+      ) {
         return true;
       }
     } catch (e: any) {}
