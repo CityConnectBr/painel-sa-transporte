@@ -51,7 +51,7 @@
   </div>
 
   <ng-template #visualizarSolicitacaoModal let-modal>
-    <app-modal modalID="visualizarSolicitacaoModal" title="Visualiização da Solicitação"
+    <app-modal modalID="visualizarSolicitacaoModal" title="Visualização da Solicitação"
       (closeModalEmit)="closeModal($event)">
       <form *ngIf="!loading" [formGroup]="form" autocomplete="off">
 
