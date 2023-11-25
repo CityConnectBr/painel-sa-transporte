@@ -281,7 +281,7 @@ export class UserSolicitacoesComponent implements OnInit {
   getComprovantes(solicitacao: SolicitacaoDeAlteracao) {
     const comprovantes: { nome: string; arquivo: string }[] = [];
 
-    for (let i = 1; i < 5; i++) {
+    for (let i = 1; i < 10; i++) {
       const arquivo = solicitacao[`arquivo${i}_uid`];
       const nomeDoComprovante = solicitacao.tipo[`desc_arquivo${i}`];
 

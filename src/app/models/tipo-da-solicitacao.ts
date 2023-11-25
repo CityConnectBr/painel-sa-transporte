@@ -55,4 +55,10 @@ export interface TipoDaSolicitacao {
   desc_arquivo2: string
   desc_arquivo3: string
   desc_arquivo4: string
+  desc_arquivo5: string
+  desc_arquivo6: string
+  desc_arquivo7: string
+  desc_arquivo8: string
+  desc_arquivo9: string
+  desc_arquivo10: string
 }
