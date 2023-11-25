@@ -75,6 +75,12 @@ export interface SolicitacaoDeAlteracao {
   arquivo2_uid: string
   arquivo3_uid: string
   arquivo4_uid: string
+  arquivo5_uid: string
+  arquivo6_uid: string
+  arquivo7_uid: string
+  arquivo8_uid: string
+  arquivo9_uid: string
+  arquivo10_uid: string
   tipo: TipoDaSolicitacao
   permissionario: Permissionario
   condutor: Condutor
