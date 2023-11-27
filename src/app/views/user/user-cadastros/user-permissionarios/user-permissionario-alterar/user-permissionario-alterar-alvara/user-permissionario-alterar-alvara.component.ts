@@ -1,3 +1,4 @@
+import { VeiculoService } from './../../../../../../services/veiculo.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
@@ -16,6 +17,8 @@ import { SharedModule } from 'src/app/shared/shared-module';
 import { ToastrService } from 'ngx-toastr';
 import { Empresa } from 'src/app/models/empresa';
 import { EmpresaService } from 'src/app/services/empresa.service';
+import { firstValueFrom } from 'rxjs';
+import { Veiculo } from 'src/app/models/veiculo';
 @Component({
   selector: 'app-user-permissionario-alterar-alvara',
   templateUrl: './user-permissionario-alterar-alvara.component.html',
@@ -46,6 +49,7 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
     private permissionarioService: PermissionarioService,
     private alvaraService: AlvaraDoPermissionarioService,
     private empresaService: EmpresaService,
+    private veiculoService: VeiculoService,
     private route: ActivatedRoute,
     private toastr: ToastrService,
     private modal: NgbModal
@@ -190,6 +194,53 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
     this.alvaraAtual = null;
     this.form.reset();
     this.modal.dismissAll();
+    this.calcDataVencimento();
+  }
+
+  private async calcDataVencimento() {
+    let dataVencimento = new Date();
+    dataVencimento.setFullYear(dataVencimento.getFullYear() + 1);
+
+    if (this.permissionario.validade_certidao_negativa < dataVencimento) {
+      dataVencimento = this.permissionario.validade_certidao_negativa;
+    }
+
+    if (this.permissionario.vencimento_cnh < dataVencimento) {
+      dataVencimento = this.permissionario.vencimento_cnh;
+    }
+
+    let veiculosDoPermissionario = (
+      await firstValueFrom(
+        this.veiculoService.searchPorPermissionario(
+          '',
+          this.permissionario.id.toString(),
+          1
+        )
+      )
+    ).data;
+
+    if (veiculosDoPermissionario && veiculosDoPermissionario.length > 0) {
+      veiculosDoPermissionario = veiculosDoPermissionario.filter(
+        (veiculo: Veiculo) => {
+          return veiculo.ativo;
+        }
+      );
+
+      for (const veiculo of veiculosDoPermissionario) {
+        const mesVencimentoPlaca = SharedModule.getVencimentoPorPlaca(
+          veiculo.placa
+        );
+        const dataVencimentoPlaca = new Date();
+        dataVencimentoPlaca.setMonth(mesVencimentoPlaca);
+        if (dataVencimentoPlaca < dataVencimento) {
+          dataVencimento = dataVencimentoPlaca;
+        }
+      }
+    }
+
+    this.form.controls['data_vencimento'].setValue(
+      SharedModule.formatDateddMMyyyy(dataVencimento)
+    );
   }
 
   selecionarEmpresa(event: any | string) {

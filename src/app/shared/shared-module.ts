@@ -34,7 +34,7 @@ import { SearchQuadroInfracoesComponent } from './search-quadro-infracoes/search
     PrintPageComponent,
     SearchPermissionarioComponent,
     PermissionarioTableComponent,
-    SearchQuadroInfracoesComponent
+    SearchQuadroInfracoesComponent,
   ],
   imports: [
     CommonModule,
@@ -59,7 +59,7 @@ import { SearchQuadroInfracoesComponent } from './search-quadro-infracoes/search
     NgbCollapseModule,
     SearchPermissionarioComponent,
     PermissionarioTableComponent,
-    SearchQuadroInfracoesComponent
+    SearchQuadroInfracoesComponent,
   ],
 })
 export class SharedModule {
@@ -75,8 +75,7 @@ export class SharedModule {
     /^([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})$/;
   static passPatern =
     /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-  static telefonePattern =
-    /\(\d{2}\)\s?\d{4,5}-\d{4}/;
+  static telefonePattern = /\(\d{2}\)\s?\d{4,5}-\d{4}/;
   static dateHourFromAPIPattern =
     /^\d{4}-(((0)[0-9])|((1)[0-2]))-([0-2][0-9]|(3)[0-1])T(.*)$/;
   static dateFromAPIPattern =
@@ -559,6 +558,24 @@ export class SharedModule {
       return 3;
     } else {
       return 4;
+    }
+  }
+
+  static getVencimentoPorPlaca(plate: string): number {
+    const lastChar = plate.substr(plate.length - 1);
+
+    if (lastChar == '1' || lastChar == '2') {
+      return 7;
+    } else if (lastChar == '3' || lastChar == '4') {
+      return 8;
+    } else if (lastChar == '5' || lastChar == '6') {
+      return 9;
+    } else if (lastChar == '7' || lastChar == '8') {
+      return 10;
+    } else if (lastChar == '9') {
+      return 11;
+    } else if (lastChar == '0') {
+      return 12;
     }
   }
 }
