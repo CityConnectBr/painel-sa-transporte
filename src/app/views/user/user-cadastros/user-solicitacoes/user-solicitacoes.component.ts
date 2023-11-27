@@ -129,10 +129,9 @@ export class UserSolicitacoesComponent implements OnInit {
         }
 
         if (this.isRenovacaoAlvara()) {
-          const permissionario: any = this.getAlvoObj(this.solicitacao);
           this.router.navigate(
             [
-              `/user/cadastros/permissionarios/alterar/${permissionario?.id}/alvara`,
+              `/user/cadastros/permissionarios/alterar/${this.solicitacao.permissionario_id}/alvara`,
             ],
             {
               queryParams: { solicitacaoId: this.solicitacao.id },
@@ -227,7 +226,7 @@ export class UserSolicitacoesComponent implements OnInit {
       return solicitacao.monitor_referencia;
     } else if (solicitacao && solicitacao.fiscal_referencia) {
       return solicitacao.fiscal_referencia;
-    }else if (solicitacao && solicitacao.veiculo_referencia) {
+    } else if (solicitacao && solicitacao.veiculo_referencia) {
       return solicitacao.veiculo_referencia;
     } else {
       return '--';
@@ -296,11 +295,18 @@ export class UserSolicitacoesComponent implements OnInit {
   formatValue(value: string): string {
     try {
       if (value) {
+        if (value == 'S') return 'Sim';
+        if (value == 'N') return 'Não';
+
         if (SharedModule.dateFromAPIPattern.exec(value.toString())) {
           return SharedModule.formatDateddMMyyyy(value.toString());
-        } else if (SharedModule.CPFCNPJPatern.exec(value.toString())) {
+        }
+
+        if (SharedModule.CPFCNPJPatern.exec(value.toString())) {
           //TODO!
-        } else if (SharedModule.telefonePattern.exec(value.toString())) {
+        }
+
+        if (SharedModule.telefonePattern.exec(value.toString())) {
           //TODO!
         }
       }
