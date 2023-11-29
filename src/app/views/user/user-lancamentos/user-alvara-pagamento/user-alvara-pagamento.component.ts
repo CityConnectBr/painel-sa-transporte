@@ -7,6 +7,7 @@ import { EmpresaService } from 'src/app/services/empresa.service';
 import { ToastrService } from 'ngx-toastr';
 import { LancamentoAlvaraDoPermissionarioService } from 'src/app/services/lancamentoalvaradopermissinario.service';
 import { AlvaraDoPermissionario } from 'src/app/models/alvara-do-permissionario';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-user-alvara-pagamento',
@@ -22,6 +23,8 @@ export class UserAlvaraPagamentoComponent implements OnInit, AfterViewInit {
 
   alvaraSelecionado: AlvaraDoPermissionario;
 
+  @ViewChild('informarPagamento') informarPagamentoModal: any;
+
   constructor(
     private alvaraDoPermissionarioService: LancamentoAlvaraDoPermissionarioService,
     private empresaService: EmpresaService,
@@ -33,6 +36,18 @@ export class UserAlvaraPagamentoComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.loadList(1);
+
+    //TODO: Verificar modal
+    /*this.route.queryParams.subscribe(async (params) => {
+      if (params['alvaraId']) {
+        this.initLancamentoPagamento(
+          this.informarPagamentoModal,
+          await firstValueFrom(
+            this.alvaraDoPermissionarioService.get(params['alvaraId'])
+          )
+        );
+      }
+    });*/
   }
 
   ngAfterViewInit() {}
