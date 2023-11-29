@@ -4,13 +4,13 @@
     <i class="fa fa-arrow-right"></i> Solicitações
 
     <div class="float-right">
-        <select class="form-control" require="true" [(ngModel)]="statusSelecionado" (ngModelChange)="search()">
-          <option value="">Aberto</option>
-          <option value="A">Aceito</option>
-          <option value="R">Recusado</option>
-          <option value="C">Cancelado</option>
-          <option value="T">Todos</option>
-        </select>
+      <select class="form-control" require="true" [(ngModel)]="statusSelecionado" (ngModelChange)="search()">
+        <option value="">Aberto</option>
+        <option value="A">Aceito</option>
+        <option value="R">Recusado</option>
+        <option value="C">Cancelado</option>
+        <option value="T">Todos</option>
+      </select>
     </div>
   </h3>
 
@@ -74,10 +74,12 @@
                 <th scope="row" class="titulo-simple2">Solicitante</th>
                 <td>{{getSolicitante(solicitacao)}}</td>
               </tr>
-              <tr>
-                <th scope="row" class="titulo-simple2">Alvo</th>
-                <td>{{getAlvo(solicitacao)}}</td>
-              </tr>
+              <ng-container *ngIf="getAlvo(solicitacao) as alvo">
+                <tr>
+                  <th scope="row" class="titulo-simple2">Alvo</th>
+                  <td>{{alvo}}</td>
+                </tr>
+              </ng-container>
             </tbody>
           </table>
           <table class="table table-striped" *ngIf="!alteracaoDeFoto">

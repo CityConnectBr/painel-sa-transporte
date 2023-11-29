@@ -212,8 +212,6 @@ export class UserSolicitacoesComponent implements OnInit {
         return `Placa: ${solicitacao.veiculo_referencia.placa}`;
       else if (solicitacao.veiculo_referencia.cod_renavam)
         return `Renavan: ${solicitacao.veiculo_referencia.cod_renavam}`;
-    } else {
-      return '--';
     }
   }
 
