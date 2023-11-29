@@ -116,11 +116,13 @@
             <table class="table table-sm">
               <tbody>
                 <tr *ngFor="let item of getComprovantes(solicitacao)">
-                  <th scope="row" class="titulo-simple2">{{item!=null ? item.nome.toUpperCase() : ''}}</th>
-                  <td><a href="javascript: void(0)" (click)="visualizarComprovante(item.arquivo, visualizarArquivo)">
-                      Visualizar
-                    </a>
-                  </td>
+                  <ng-container *ngIf="item.arquivo">
+                    <th scope="row" class="titulo-simple2">{{item!=null ? item.nome.toUpperCase() : ''}}</th>
+                    <td><a href="javascript: void(0)" (click)="visualizarComprovante(item.arquivo, visualizarArquivo)">
+                        Visualizar
+                      </a>
+                    </td>
+                  </ng-container>
                 </tr>
               </tbody>
             </table>
