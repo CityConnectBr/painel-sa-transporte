@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
 import { AlvaraDoPermissionario } from 'src/app/models/alvara-do-permissionario';
@@ -51,6 +51,7 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
     private empresaService: EmpresaService,
     private veiculoService: VeiculoService,
     private route: ActivatedRoute,
+    private router: Router,
     private toastr: ToastrService,
     private modal: NgbModal
   ) {}
@@ -157,7 +158,7 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
       if (this.alvaraAtual && this.alvaraAtual.id) {
         this.alvaraAtual.data_emissao = formInput.data_emissao;
         this.alvaraAtual.data_retorno = formInput.data_retorno;
-        this.alvaraAtual.data_vencimento = formInput.data_emissao;
+        this.alvaraAtual.data_vencimento = formInput.data_vencimento;
         this.alvaraAtual.observacao_retorno = formInput.observacao_retorno;
         this.alvaraAtual.valor = SharedModule.correncyToNumber(formInput.valor);
         this.alvaraAtual.empresa_id = formInput.empresa_id;
@@ -194,6 +195,9 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
     this.alvaraAtual = null;
     this.form.reset();
     this.modal.dismissAll();
+    this.form.controls['data_emissao'].setValue(
+      SharedModule.formatDateddMMyyyy(new Date())
+    );
     this.calcDataVencimento();
   }
 
@@ -267,6 +271,12 @@ export class UserPermissionarioAlterarAlvaraComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  public confirmarPagamento(){
+    this.router.navigate(['/user/lancamentos/alvarapagamento'], {
+      queryParams: { alvaraId: this.alvaraAtual.id },
+    });
   }
 
   closeModal(event: any) {

@@ -2,12 +2,22 @@
   <div class="form-inline">
 
     <div class="subitem">
-      <h3>Alvará
-        <button *ngIf="isPrintable()" type="submit" class="btn btn-new pull-right" (click)="openModal(novoAlvaraModal)">Criar
+      <div class="header-right">
+        <button *ngIf="isPrintable()" type="submit" class="btn btn-new pull-right"
+          (click)="openModal(novoAlvaraModal)">Criar
           Novo</button>
         <button *ngIf="isPrintable()" type="submit" class="btn btn-new pull-right mr-2"
           (click)="openModal(impressaoDeAlvaraModal)">Imprimir</button>
-      </h3>
+
+          <span class="btn btn-new pull-right mr-2 bg-danger text-white" *ngIf="alvaraAtual?.status == 'pendente'">
+            Pagamento Pendente
+          </span>
+          <button (click)="confirmarPagamento()" class="btn btn-new pull-right mr-2 bg-warning text-white" *ngIf="alvaraAtual?.status == 'confirmacao_pendente'">
+            Confirmação Pendente
+          </button>
+      </div>
+
+      <h3>Alvará </h3>
 
       <app-input label="Emissão" [require]="true">
         <input type="text" class="form-control" formControlName="data_emissao" mask="00/00/0000"
