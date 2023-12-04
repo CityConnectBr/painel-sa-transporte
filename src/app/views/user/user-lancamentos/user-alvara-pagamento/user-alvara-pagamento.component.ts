@@ -7,7 +7,9 @@ import { EmpresaService } from 'src/app/services/empresa.service';
 import { ToastrService } from 'ngx-toastr';
 import { LancamentoAlvaraDoPermissionarioService } from 'src/app/services/lancamentoalvaradopermissinario.service';
 import { AlvaraDoPermissionario } from 'src/app/models/alvara-do-permissionario';
-import { firstValueFrom } from 'rxjs';
+import { first, firstValueFrom } from 'rxjs';
+import { ArquivoService } from 'src/app/services/arquivo.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-alvara-pagamento',
@@ -25,11 +27,14 @@ export class UserAlvaraPagamentoComponent implements OnInit, AfterViewInit {
 
   @ViewChild('informarPagamento') informarPagamentoModal: any;
 
+  statusSearchSelected: string = 'pendente';
+  imageFile: any | null = null;
+
   constructor(
     private alvaraDoPermissionarioService: LancamentoAlvaraDoPermissionarioService,
     private empresaService: EmpresaService,
-    private router: Router,
-    private route: ActivatedRoute,
+    private arquivoService: ArquivoService,
+    private sanitizer: DomSanitizer,
     private modal: NgbModal,
     private toastr: ToastrService
   ) {}
@@ -56,7 +61,7 @@ export class UserAlvaraPagamentoComponent implements OnInit, AfterViewInit {
     this.loading = true;
     try {
       this.dataSearch = await this.alvaraDoPermissionarioService
-        .indexPendentes(page)
+        .indexByStatus(page, this.statusSearchSelected)
         .toPromise();
     } catch (e) {
       this.dataSearch = null;
@@ -105,6 +110,28 @@ export class UserAlvaraPagamentoComponent implements OnInit, AfterViewInit {
       });
   }
 
+  async visualizarComprovante(obj: any, modal) {
+    if (!obj.arquivo_comprovante_uid) {
+      this.toastr.error('Não foi possível visualizar o comprovante');
+      return;
+    }
+
+    try {
+      const blob = await this.arquivoService
+        .getFile(obj.arquivo_comprovante_uid)
+        .pipe(first())
+        .toPromise();
+      this.imageFile = this.sanitizer.bypassSecurityTrustUrl(
+        URL.createObjectURL(blob)
+      );
+      this.openModal(modal);
+    } catch (e: any) {
+      console.error(e);
+      this.imageFile = null;
+      this.closeModal(null);
+    }
+  }
+
   closeModal(event: any) {
     return this.modal.dismissAll();
   }
@@ -131,5 +158,9 @@ export class UserAlvaraPagamentoComponent implements OnInit, AfterViewInit {
     link.download = 'qrcode.png';
     link.href = image;
     link.click();
+  }
+
+  openModal(content: any) {
+    this.modal.open(content);
   }
 }
