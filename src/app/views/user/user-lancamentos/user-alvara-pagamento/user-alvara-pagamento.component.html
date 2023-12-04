@@ -1,5 +1,14 @@
 <div class="crud">
 
+  <div class="search-content input-group float-right w-25">
+    <select [(ngModel)]="statusSearchSelected" class="select-ativo" (change)="loadList(1)">
+      <option value="pendente">Pendente</option>
+      <option value="pago">Pago</option>
+      <option value="cancelado">Cancelado</option>
+      <option value="confirmacao_pendente">Confirmação Pendente</option>
+    </select>
+  </div>
+
   <h3 class="titulo">
     <i class="fa fa-arrow-right"></i> Lançamento de Pagamentos de Alvará
   </h3>
@@ -24,12 +33,18 @@
           <td>{{obj?.data_pagamento | date: 'dd/MM/yyyy'}}</td>
           <td class="text-right">
             <a href="javascript: void(0);" (click)="initLancamentoPagamento(informarPagamento, obj);"
-              title="Lançar Pagamento" class="mr-2" *ngIf="obj.status=='pendente' || obj.status=='confirmacao_pendente'">
+              title="Lançar Pagamento" class="mr-2"
+              *ngIf="obj.status=='pendente' || obj.status=='confirmacao_pendente'">
               <i class="fa fa-book" aria-hidden="true"></i>
             </a>
-            <a href="javascript: void(0);" (click)="getQrCode(shareQRCodeModal, obj);"
+            <a *ngIf="obj.status=='pendente'" href="javascript: void(0);" (click)="getQrCode(shareQRCodeModal, obj);"
               title="Compartilhar QRCode de Pagamento" class="mr-2">
               <i class="fa fa-qrcode" aria-hidden="true"></i>
+            </a>
+            <a href="javascript: void(0);" (click)="visualizarComprovante(obj, visualizarArquivo);" title="Comprovante"
+              class="mr-2"
+              *ngIf="obj.arquivo_comprovante_uid && (obj.status=='pago' || obj.status=='confirmacao_pendente')">
+              <i class="fa fa-eye" aria-hidden="true"></i>
             </a>
           </td>
         </tr>
@@ -81,6 +96,12 @@
     <app-modal modalID="informarPagamento" title="Informar Pagamento" (closeModalEmit)="closeModal($event)">
       <app-user-alvara-pagamento-informar-pagamento
         [alvaraId]="alvaraSelecionado.id"></app-user-alvara-pagamento-informar-pagamento>
+    </app-modal>
+  </ng-template>
+
+  <ng-template #visualizarArquivo let-modal>
+    <app-modal modalID="visualizarArquivo" title="Visualizar Solicitação" (closeModalEmit)="closeModal(true)">
+      <img [src]=imageFile style="max-width:100%;" class="mr-3">
     </app-modal>
   </ng-template>
 

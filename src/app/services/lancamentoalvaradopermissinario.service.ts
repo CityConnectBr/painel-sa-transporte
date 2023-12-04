@@ -12,9 +12,9 @@ export class LancamentoAlvaraDoPermissionarioService extends BasicCrudService {
     super(httpClient, '/api/admin/lancamentoalvaradopermissionario');
   }
 
-  indexPendentes(page: number = 1): Observable<SearchData> {
+  indexByStatus(page: number = 1, status: string): Observable<SearchData> {
     return this.httpClient.get<SearchData>(
-      `${this.url}?page=${page ?? '1'}`,
+      `${this.url}?page=${page ?? '1'}&status=${status}`,
       super.getHttpOptions
     );
   }
