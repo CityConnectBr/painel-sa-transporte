@@ -17,4 +17,18 @@ export class ImpressoesService extends BasicCrudService {
       responseType: 'blob',
     });
   }
+
+  getImpressao2CertificadoLista(
+    permissionarioId: number | String,
+    dataInicial: string,
+    dataFinal: string
+  ): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/lancamentolistacertidoes?permissionario=${permissionarioId}&data_inicial=${dataInicial}&data_final=${dataFinal}`,
+      {
+        headers: super.getHeaderWithAuthorization,
+        responseType: 'blob',
+      }
+    );
+  }
 }
