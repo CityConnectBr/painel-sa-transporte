@@ -1,3 +1,4 @@
+import { FormularioService } from 'src/app/services/formulario.service';
 import { firstValueFrom } from 'rxjs';
 import { SharedModule } from 'src/app/shared/shared-module';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -23,7 +24,7 @@ import { ToastrService } from 'ngx-toastr';
 export class UserCertidoesComponent implements OnInit {
   loading: boolean = false;
 
-  modalidadePermitida = "3";
+  modalidadePermitida = '3';
 
   searchText: string = '';
   dataSearch: SearchData;
@@ -37,6 +38,7 @@ export class UserCertidoesComponent implements OnInit {
   constructor(
     private certidaoService: CertidaoService,
     private permissionarioService: PermissionarioService,
+    private formularioService: FormularioService,
     private impressoesService: ImpressoesService,
     private router: Router,
     private route: ActivatedRoute,
@@ -84,13 +86,24 @@ export class UserCertidoesComponent implements OnInit {
     this.router.navigate(['alterar/' + id], { relativeTo: this.route });
   }
 
-  async imprimir(id: number) {
+  async imprimir(id: number, tipo: string) {
+    //1	IPI
+    //2	ICMS
+    //3	PADRÃO
     this.loading = true;
-    const impressao = await this.impressoesService
-      .getImpressao1Certificado(id)
-      .toPromise();
 
-    const url = window.URL.createObjectURL(impressao);
+    let rel;
+    if (tipo == '1') {
+      rel = await this.formularioService.getFormulario137(id).toPromise();
+    } else if (tipo == '2') {
+      rel = await this.formularioService.getFormulario138(id).toPromise();
+    } else {
+      rel = await this.impressoesService
+        .getImpressao1Certificado(id)
+        .toPromise();
+    }
+
+    const url = window.URL.createObjectURL(rel);
     window.open(url);
   }
 
