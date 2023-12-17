@@ -139,9 +139,13 @@ export class UserPermissionarioAlterarDadosComponent
           }
         ),
         prefixo: new FormControl(this.permissionario.prefixo, {
-          validators: [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
+          validators: [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(15),
+          ],
         }),
-        reponsavel: new FormControl(this.permissionario.responsavel ?? '', {
+        responsavel: new FormControl(this.permissionario.responsavel ?? '', {
           validators: [Validators.maxLength(40)],
         }),
         procurador_responsavel: new FormControl(
@@ -238,7 +242,7 @@ export class UserPermissionarioAlterarDadosComponent
       this.form.controls['cep'].valueChanges.subscribe((value) => {
         const cep = value;
         if (cep && cep.length > 0 && cep.length == 9) {
-          this.viaCEPService.getCEP(cep.replace('-', '')).then(async(data) => {
+          this.viaCEPService.getCEP(cep.replace('-', '')).then(async (data) => {
             this.form.controls['endereco'].setValue(data.logradouro);
             this.form.controls['bairro'].setValue(data.bairro);
             this.form.controls['uf'].setValue(data.uf);
@@ -250,10 +254,12 @@ export class UserPermissionarioAlterarDadosComponent
             const municipio = data.localidade;
             if (municipio) {
               await this.searchMunicipios();
-              if(this.municipiosPesquisados.size == 1){
-                this.setMunicipio(this.municipiosPesquisados.keys().next().value);
-              }else{
-                this.form.controls['municipio'].setValue("");
+              if (this.municipiosPesquisados.size == 1) {
+                this.setMunicipio(
+                  this.municipiosPesquisados.keys().next().value
+                );
+              } else {
+                this.form.controls['municipio'].setValue('');
                 this.searchMunicipios();
               }
             }

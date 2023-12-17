@@ -304,4 +304,18 @@ export class FormularioService extends BasicCrudService {
       { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
     );
   }
+
+  getFormulario137(certidaoId: number | String): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/certidaoipi?id=${certidaoId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
+  }
+
+  getFormulario138(certidaoId: number | String): Observable<Blob> {
+    return this.httpClient.get(
+      `${this.url}/certidaoicms?id=${certidaoId}`,
+      { headers: super.getHeaderWithAuthorization, responseType: 'blob' }
+    );
+  }
 }

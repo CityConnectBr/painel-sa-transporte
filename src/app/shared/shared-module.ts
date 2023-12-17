@@ -21,6 +21,7 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchPermissionarioComponent } from './search-permissionario/search-permissionario.component';
 import { PermissionarioTableComponent } from './permissionario-table/permissionario-table.component';
 import { SearchQuadroInfracoesComponent } from './search-quadro-infracoes/search-quadro-infracoes.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { SearchQuadroInfracoesComponent } from './search-quadro-infracoes/search
     ReactiveFormsModule,
     QRCodeModule,
     NgbCollapseModule,
+    NgxMaskModule.forChild(),
   ],
   exports: [
     InputComponent,
@@ -185,6 +187,14 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [],
     };
+  }
+
+  static isDateddMMyyyy(value: string): boolean {
+    const datePattern =
+      /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+    if (!value) return false;
+
+    return value.match(datePattern) ? true : false;
   }
 
   static setAllFieldsFromFormAsTouched(form: FormGroup) {

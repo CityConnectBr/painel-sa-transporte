@@ -4,7 +4,9 @@
 
   <h3 class="titulo">
     <i class="fa fa-arrow-right"></i> Certidões |
-    <a [routerLink]="['novo']" title="Novo">Novo <i class="fa fa-plus"></i></a>
+    <a [routerLink]="['novo']" title="Novo">Novo <i class="fa fa-plus"></i></a> |
+    <a href="javascript:void(0);" (click)="initLista(permissionariosModal)" title="Imprimir Lista">Lista <i
+        class="fa fa-print"></i></a>
   </h3>
 
   <app-loading *ngIf="loading"></app-loading>
@@ -23,8 +25,9 @@
           <td>{{obj?.placa}}</td>
           <td>{{obj?.renavam}}</td>
           <td class="text-right">
-            <a *ngIf="isMoreThan2Years(obj?.data)" href="javascript: void(0);" (click)="imprimir(obj.id);" title="Imprimir" class="m-2"><i class="fa fa-print"
-              aria-hidden="true"></i></a>
+            <a *ngIf="isMoreThan2Years(obj?.data)" href="javascript: void(0);"
+              (click)="imprimir(obj.id, obj.tipo_de_certidao_id)" title="Imprimir" class="m-2"><i class="fa fa-print"
+                aria-hidden="true"></i></a>
             <a href="javascript: void(0);" (click)="alterar(obj.id);" title="Alterar"><i class="fa fa-pencil"
                 aria-hidden="true"></i></a>
           </td>
@@ -32,11 +35,8 @@
       </tbody>
     </table>
     <div *ngIf="dataSearch.data.length>0" class="float-right">
-      <app-pagination
-        [backEnabled]="dataSearch.prev_page_url!=null"
-        [nextEnabled]="dataSearch.next_page_url!=null"
-        [actualPage]="dataSearch.current_page"
-        (changePos)="changePos($event)">
+      <app-pagination [backEnabled]="dataSearch.prev_page_url!=null" [nextEnabled]="dataSearch.next_page_url!=null"
+        [actualPage]="dataSearch.current_page" (changePos)="changePos($event)">
       </app-pagination>
     </div>
 
@@ -44,5 +44,35 @@
       Nenhum registro encontrado!
     </div>
   </div>
+
+  <ng-template #permissionariosModal let-modal>
+    <app-modal modalID="permissionariosModal" title="Permissionarios" (closeModalEmit)="closeModal($event)">
+      <app-permissionario-table [selecionarSomenteModalidade]="modalidadePermitida"
+        (selecionarEvent)="selecionarPermissionarioByEvent($event)"></app-permissionario-table>
+    </app-modal>
+  </ng-template>
+
+  <ng-template #modalDataLimite let-modal>
+    <app-modal modalID="modalDataLimite" title="Datas" (closeModalEmit)="closeModal($event)">
+      <div class="subitem">
+        <form *ngIf="!loading" [formGroup]="formFiltroData" autocomplete="off">
+          <app-input label="Data Inicial" [require]="true">
+            <input type="text" class="form-control" formControlName="data_inicial" mask="00/00/0000"
+              [dropSpecialCharacters]="false" autocomplete="off">
+          </app-input>
+          <app-input label="Data Final" [require]="true">
+            <input type="text" class="form-control" formControlName="data_final" mask="00/00/0000"
+              [dropSpecialCharacters]="false" autocomplete="off">
+          </app-input>
+        </form>
+
+        <div class="clearfix m-2">
+          <button (click)="gerarRelatorio()" class="btn btn-success btn-sm pull-right">Gerar
+            Relatório</button>
+          <button (click)="closeModal($event)" class="btn btn-secondary btn-sm pull-right mr-2">Cancelar</button>
+        </div>
+      </div>
+    </app-modal>
+  </ng-template>
 
 </div>
