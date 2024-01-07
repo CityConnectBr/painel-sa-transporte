@@ -29,7 +29,7 @@
         </app-input>
 
         <app-input label="Placa" [require]="true">
-          <input type="text" class="form-control" formControlName="placa" mask="SSS0000" autocomplete="off">
+          <input type="text" class="form-control" formControlName="placa" placeholder="Ex: EKA0236 ou XYZ9A87" autocomplete="off">
           <button class="btn btn-search" type="button" title="Pesquisa Veículo" (click)="searchVeiculo();openModal(pesquisaVeiculo)">
             <i class="fa fa-search"></i>
           </button>
