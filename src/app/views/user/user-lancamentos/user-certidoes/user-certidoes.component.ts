@@ -107,12 +107,13 @@ export class UserCertidoesComponent implements OnInit {
     window.open(url);
   }
 
-  isMoreThan2Years(date: string) {
+  //regra desabilitada em 25/03/2024
+  /*isMoreThan2Years(date: string) {
     const dateToCompare = SharedModule.convertAPITimeToDate(date);
     const date2Years = new Date();
     date2Years.setFullYear(date2Years.getFullYear() - 2);
     return dateToCompare < date2Years;
-  }
+  }*/
 
   async initLista(modal) {
     console.log('initLista');
